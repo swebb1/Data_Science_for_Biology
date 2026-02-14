@@ -10,11 +10,7 @@ These courses are run annually by the Bioinformatics Core but are also available
 
 <br>
 
-![](images/R_logo.png){fig-align="center" width="220"}
-
-<br>
-
-![](images/DRP_banner_transparent2.png){fig-align="center"}
+![](images/DSB_banner.png){fig-align="center" width="2200"}
 
 <br>
 
