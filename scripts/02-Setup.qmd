@@ -1,0 +1,26 @@
+---
+title: "Setup"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+### Project Setup
+
+1. Create a new project in RStudio called **Introduction to R**.
+2. Install the following packages:
+
+```{r,eval=FALSE}
+install.packages("read_excel")
+```
+
+

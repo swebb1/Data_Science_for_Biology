@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "!drafts/"
+    - "*.qmd"
+
+website:
+  title: "Data Science for Biology"
+  navbar:
+    logo: "images/DRP_Logo_only_square_transparent.png"
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: 01-start.qmd
+        text: Getting Started
+      - text: R an RStudio
+        menu:
+          - text: Course setup
+            href: 02-Setup.qmd
+          - text: Introduction to R
+            href: 02-IntroR.qmd
+          - text: Programming in R
+            href: 02-Programming.qmd
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    css: styles.css
+    toc: true
+    link-external-newwindow: true
+
+editor: visual

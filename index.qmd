@@ -1,0 +1,23 @@
+---
+title: "Data Science for Biology"
+---
+
+------------------------------------------------------------------------
+
+This is the homepage for Data Science for Biology hosted by the DRP-HCB Bioinformatics Core at the University of Edinburgh.
+
+These courses are run annually by the Bioinformatics Core but are also available upon request.
+
+<br>
+
+![](images/R_logo.png){fig-align="center" width="220"}
+
+<br>
+
+![](images/DRP_banner_transparent2.png){fig-align="center"}
+
+<br>
+
+------------------------------------------------------------------------
+
+For more information contact [Shaun Webb](mailto:shaun.webb@ed.ac.uk).

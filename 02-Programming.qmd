@@ -1,0 +1,711 @@
+---
+title: "Programming in R"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   Understand the power of R as a programming language
+-   Learn to use control flow statements in R 
+-   Learn how to write your own functions
+-   Write and run reproducible R scripts
+:::
+
+<br>
+
+## Programming in R
+
+R is a powerful programming language that allows you to perform complex data analysis tasks.
+
+One of the key advantages of using a programming language like R is that it allows you to automate repetitive tasks and publish code that is fully reproducible.
+
+- Code can be shared with others, allowing them to reproduce your results
+- Code can be reused for different datasets or analyses
+- Code can be run in batch mode, allowing you to process large datasets or run multiple analyses at once
+
+## Nested functions
+
+R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the `log` function inside the `mean` function to calculate the log of the mean of a set of numbers: 
+
+```{r}
+log( mean(c(3,2,4,6,7)) )
+```
+R will perform the innermost function first, which is the `mean` function, and then pass the result to the `log` function.
+
+We can also use nested functions to perform more complex operations. For example, we can use the `subset` function to filter the cars dataset for rows where the speed is greater than 10, and then use the `head` function to display the first 3 rows of the filtered dataset:
+
+```{r}
+head( subset(cars, speed > 10), n = 3)
+```
+
+Nested functions are very powerful but can make your code difficult to understand if you nest many functions together. Later on we will learn how to use the R pipe operator `|>` to combine functions in a more naturual way.
+
+## Control flow statements
+
+Let's begin by looking at some of the basic programming concepts in R. Control flow statements allow you to control the flow of your code based on certain conditions. These are essential for writing complex and dynamic code and common to most programming languages.
+
+### If statements
+
+If statements allow you to execute a block of code only if a certain condition is true. For example:
+
+```{r}
+x <- 5
+if (x > 3) {
+  print("x is greater than 3")
+}
+```
+
+If statements can also include an **else** clause, which allows you to execute a block of code if the condition is false:
+
+```{r}
+x <- 2
+if (x > 3) {
+  print("x is greater than 3")
+} else {
+  print("x is not greater than 3")
+}
+```
+
+If statements can also be nested, allowing you to check multiple conditions:
+
+```{r}
+x <- 5
+if (x > 3) {
+  print("x is greater than 3")
+  if (x < 10) { ## This if statement only runs if the first condition is true
+    print("x is also less than 10")
+  }
+} else {
+  print("x is not greater than 3")
+}
+```
+If statements can also be combined with logical operators to check multiple conditions at once:
+
+```{r}
+x <- 5
+if (x > 3 && x < 10) {
+  print("x is greater than 3 and less than 10")
+}
+```
+#### Other logical operators in R
+
+-  `&&` - and
+-  `||` - or
+-  `!` - not
+-  `==` - equal to
+-  `!=` - not equal to
+-  `>` - greater than
+-  `<` - less than
+-  `>=` - greater than or equal to
+-  `<=` - less than or equal to
+
+```{r}
+x <- 5
+y <- 10
+if (x >= 5 && y != 15) {
+  print("x is greater than or equal to 5 and y is not equal to 15")
+}
+```
+
+If statements and logic operators can be used with character strings.
+
+```{r}
+x <- "banana"
+if (x == "apple") {
+  print("x is an apple")
+} else {
+  print(paste(x, "is not an apple"))
+}
+```
+
+You can use `else if` to check multiple conditions in sequence.
+
+```{r}
+x <- "pear"
+if (x == "apple") {
+  print("x is an apple")
+} else if (x == "banana") {
+  print("x is a banana")
+} else {
+  print(paste(x, "is not an apple or a banana"))
+}
+```
+The next example has a logical value called `draw_plot` that is set to FALSE by default. The if statement checks if there are at least 5 data points in the `cars` dataset after filtering for rows with a speed less than `limit`. If there are, it sets `draw_plot` to TRUE and plots the data.
+
+```{r}
+## Only plot data if there are at least 5 data points
+limit = 20
+draw_plot = FALSE # Set plot to FALSE by default
+cars_filtered <- subset(cars,cars$speed < limit)
+
+if (nrow(cars_filtered) >= 5) {
+  draw_plot <- TRUE
+}
+
+if (draw_plot == TRUE) {
+  plot(cars)
+}
+```
+
+Try setting limit to 7 and rerun the code. What happens? 
+
+If statements can also be used on vectors or data frames. For example, you can use an if statement to check if a certain value is present in a vector:
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+if (3 %in% x) {
+  print("3 is in the vector x")
+}
+```
+
+The `%in%` is a special operator in R that is used to check if a value is present in a vector or data frame. It returns a logical value indicating if there is a match or not.
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Write an if statement to determine if a treatment has a significant effect on gene expression based on a t-test result. 
+
+Use the following code to perform the t-test:
+
+```{r}
+# Sample data frame of gene expression values
+qpcr_example <- data.frame(
+  Condition = c(rep("Control", 5), rep("Treatment", 5)),
+  delta_ct = c(2, 3, 1, 4, 2, 1, 2, 0, 3, 3)
+)
+
+# Perform t-test
+qpcr_result <- t.test(delta_ct ~ Condition, data = qpcr_example, var.equal=TRUE)
+```
+
+Plot a boxplot of the delta_ct values for the control and treatment groups. Add a title to the plot indicating whether the treatment has a significant effect on gene expression based on the t-test result.
+
+See if you can add the p-value as a subtitle.
+
+**HINTS**
+
+- A title can be added with the `main` argument in the `boxplot` function.
+- You can use an if statement to determine the title based on the p-value from the t-test result.
+- Store the title text in an object and use that object in the `main` argument of the `boxplot` function.
+- The p-value can be accessed from the t-test result object with `qpcr_result$p.value`.
+- The subtitle can be added with the `sub` argument in the `boxplot` function.
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+```{r}
+# Check the p-value from the t-test result
+if (qpcr_result$p.value <= 0.05) {
+  title <- "The treatment has a significant effect on gene expression."
+} else {
+  title <- "The treatment does not have a significant effect on gene expression."
+}
+# Plot the boxplot
+boxplot(delta_ct ~ Condition, data = qpcr_example, main = title, sub = paste("p-value:", round(qpcr_result$p.value, 4)))
+```
+
+:::
+
+</details>
+::::
+
+<br>
+
+### For loops
+
+For loops allow you to repeat a block of code a certain number of times. For example, you can use a for loop to iterate over a vector of values:
+
+```{r}
+## Every time the loop runs, the variable i takes on the next value in the sequence from 1 to 5
+for (i in 1:5) {
+  print(i+1)
+}
+```
+
+For loops can also be used to iterate over the rows of a data frame:
+
+```{r}
+# Create a data frame of human patients and their ages
+
+df <- data.frame(
+  patient = c("Eve", "Arnold", "Fred"),
+  age = c(10, 30, 35)
+)
+df
+```
+
+We can use a for loop to iterate over the rows of the data frame and print out a message for each patient:
+
+```{r}
+# Use a for loop to iterate over the rows of the data frame
+for (i in 1:nrow(df)) {
+  
+  # Use an if statement to classify patients as "Child" or "Adult" based on their age
+  if (df$age[i] < 18) {
+     classification <- "Child"
+  } else{
+     classification <- "Adult"
+  }
+  
+  ## Print a statement for each patient
+  print(paste(df$patient[i], "is visiting the doctor and is classified as", classification))
+
+}
+```
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Write code with control flow that takes a data frame of gene expression values and creates a new column **expression** classified as "low", "medium", or "high" based on the following criteria:
+
+-   **low** if the expression value is less than 10
+-   **medium** if the expression value is between 10 and 100
+-   **high** if the expression value is greater than 100
+
+```{r}
+# Create a sample data frame of gene expression values
+gene_expression <- data.frame(
+  gene = c("gene1", "gene2", "gene3", "gene4", "gene5"),
+  expression_value = c(5, 15, 50, 150, 200)
+)
+
+# Create a new column to store the classifications, set to NA by default
+gene_expression$expression <- NA
+```
+
+
+**HINTS**
+
+- You can use a `for` loop to iterate over the rows of the data frame
+- Use `if` `else if` and `else` statements to classify the expression values based on the criteria provided.
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+```{r}
+
+## loop through the rows
+for (i in 1:nrow(gene_expression)) {
+  
+  ## Check the expression level and assign with if statements
+  if (gene_expression$expression_value[i] < 10) {
+    gene_expression$expression[i] <- "low"
+  } else if (gene_expression$expression_value[i] >= 10 && gene_expression$expression_value[i] <= 100) {
+    gene_expression$expression[i] <- "medium"
+  } else {
+    gene_expression$expression[i] <- "high"
+  }
+
+}
+
+# View the resulting data frame
+print(gene_expression)
+```
+
+
+:::
+
+</details>
+::::
+
+<br>
+
+**For loops** and **if statements** are used in almost every programming language. They allow you to write code that can adapt to different situations and perform complex tasks. 
+
+However, they can be slow to run on large datasets and there are more efficient ways to manipulate data frames in R. We will cover some of these in later modules.
+
+## Writing functions
+
+Functions are reusable blocks of code that perform a specific task. They allow you to break down complex problems into smaller, more manageable pieces.
+
+You have already used many functions in R, such as `plot()`, `read.table()`, and `t.test()`. All of these functions have underlying code that performs a specific task when you call the function. In fact, you can print the code for any function in R by simply typing the name of the function without parentheses. 
+
+Try this with the `read.table` function:
+
+```{r}
+read.table
+```
+
+To start with, the code is quite long. This should really highlight the power of functions in R. Instead of having to write all of this code every time you want to read in a table, you can simply call the `read.table` function and it will execute all of that code for you.
+
+If you scroll to the beginning, you can see that the code begins with a call of `function`, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses `()`. In this case, the `read.table` function takes several arguments, such as `file`, `header`, and `sep`. 
+
+The code inside the curly braces `{}` is the body of the function, which contains the code and control flow statements that will be executed when the function is called.
+
+### Custom functions
+
+R allows you to create your own custom functions using the same syntax. To create a function in R, you use the `function` keyword. For example, here is a simple function that takes two numbers as input, calculates the sum and outputs a log transformation:
+
+```{r}
+log_sum <- function(x, y) {
+  sum <- sum(x,y)
+  logsum <- log(sum)
+  return(logsum)
+}
+```
+
+In this example, we define a function called `log_sum` that takes two arguments, `x` and `y`. The body of the function calculates the `sum` of `x` and `y` and then transforms it using the `log` function. 
+
+The `return()` function is used to return the value of `logsum` when the function is called. If a return statement is not included, the function will just return the value of the last expression.
+
+You can call this function by passing two numbers as arguments:
+
+```{r}
+log_sum(3, 5)
+```
+If we need to perform this calculation multiple times with different numbers, we can simply call the `log_sum` function with different arguments instead of writing the same code over and over again.
+
+We can add default values to the function arguments. This allows us to call the function without providing values for those arguments, and the default values will be used instead. For example:
+
+```{r}
+log_sum <- function(x, y, base = exp(1)) {
+  sum <- sum(x,y)
+  logsum <- log(sum, base = base)
+  return(logsum)
+}
+```
+
+In this example, we added a new argument called `base` with a default value of `exp(1)`, which is the natural logarithm base. If we call the function without providing a value for `base`, it will use the default value:
+
+```{r}
+log_sum(3, 5)
+```
+
+If we want to use a different base for the logarithm, we can provide a value for the `base` argument when calling the function:
+
+```{r}
+log_sum(3, 5, base = 10)
+```
+Another useful feature of functions in R is that they can return multiple values as a list. For example:
+
+```{r}
+log_sum <- function(x, y, base = exp(1)) {
+  sum <- x + y
+  logsum <- log(sum, base = base)
+  return(list(sum = sum, logsum = logsum))
+}
+```
+
+In this example, the `log_sum` function returns a list containing both the sum and the log of the sum. You can access these values using the `$` operator:
+
+```{r}
+result <- log_sum(3, 5)
+result$sum
+result$logsum
+```
+
+Functions are a fundamental part of programming in R. They allow you to write reusable code that can be easily maintained and shared with others. They also help to make your code more organised and easier to read.
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+Write a function called `qPCR_analysis` that performs all of the steps we used in the first session.
+
+1. Load the data from "data/qpcr_results.xlsx" into a data frame.
+2. Calculate the delta_ct values for each sample.
+3. Perform a t-test to compare the delta_ct values between the two conditions.
+4. Calculate the fold change in gene expression between the treatment and control groups.
+5. Plot a boxplot of the delta_ct values for the control and treatment groups.
+
+The function should take a data frame as an argument and return a list containing the t-test result and the fold change. It should also plot a  boxplot of delta_ct values per condition.
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+```{r}
+qPCR_analysis <- function(qpcr_table) {
+  
+  # Calculate delta_ct values
+  qpcr_table$delta_ct <- qpcr_table$ct_gene - qpcr_table$ct_ref
+  
+  # Plot boxplot in base R
+  boxplot(delta_ct ~ Condition, data = qpcr_table, main = "Delta Ct values by condition", ylab = "Delta Ct")
+  
+  # Perform t-test
+  t_test_result <- t.test(delta_ct ~ Condition, data = qpcr_table, var.equal=TRUE)
+  
+  # Calculate fold change
+  mean_control <- mean(qpcr_table$delta_ct[qpcr_table$Condition == "Control"])
+  mean_treatment <- mean(qpcr_table$delta_ct[qpcr_table$Condition == "Treatment"])
+  delta_delta_ct <- mean_treatment - mean_control
+  fold_change <- 2^(-delta_delta_ct)
+  
+  return(list(t_test_result = t_test_result, fold_change = fold_change, boxplot = boxplot))
+}
+
+```
+
+:::
+
+</details>
+::::
+
+<br>
+
+You can call this function by passing a data frame containing the qPCR results:
+
+```{r}
+# Load the data
+library(readxl)
+qpcr_result <- read_excel("data/qpcr_data.xlsx")
+
+# Call the qPCR_analysis function
+results <- qPCR_analysis(qpcr_result)
+
+# Access the p-value and fold change
+paste("The p-value is ", results$t_test_result$p.value, " and the fold change is ", results$fold_change)
+```
+We have now written a function that performs all of the steps of our qPCR analysis. This function can be reused for different datasets by simply passing a different data frame as an argument.
+
+Let's load a second qPCR dataset to test our function:
+
+```{r}
+# Download the second dataset
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx", destfile = "data/qpcr_data2.xlsx")
+
+library(readxl)
+qpcr_table2 <- read_excel("data/qpcr_data2.xlsx")
+
+# Call the qPCR_analysis function
+results2 <- qPCR_analysis(qpcr_table2)
+paste("The p-value is ", results2$t_test_result$p.value, " and the fold change is ", results2$fold_change)
+
+```
+How easy was that! This is the power of functions in R.
+
+## Reproducible R scripts
+
+R scripts are plain text files that contain R code. They can be created and edited in any text editor, but using an environment like RStudio makes it easier to write and run your code.
+
+Saving your code in an R script allows you to keep a record of your analysis and makes it easier to reproduce your results. You can also share your R scripts with others, allowing them to run the same code on different data.
+
+### Running R scripts
+
+R scripts can be run interactively in RStudio by clicking the "Source" button or by using the `source()` function in the console. For example, if you have an R script called *analysis.R* in your working directory, you can run it with the following command:
+
+```{r, eval=FALSE}
+## Example, don't run this
+source("analysis.R")
+```
+
+R scripts can also be run from the Windows, Mac or Linux command line. This is useful for several reasons:
+
+- Run R scripts without opening RStudio
+- Run R scripts with arguments (see below)
+- Include R scripts in larger workflows or pipelines
+- Run R scripts on a remote server or cluster
+- Run multiple R analyses at once
+
+To run an R script from the command line, you need to open a Terminal window. Most computers have a Terminal app installed. RStudio has an inbuilt Terminal, you can find it next to the Console tab.
+
+- **Console** is where you can run R commands interactively.
+- **Terminal** is where you can run command line commands on your computer or server.
+
+To run an R script on the command line, use the `Rscript` command:
+
+```{bash, eval=FALSE}
+## Example, don't run this 
+Rscript analysis.R
+```
+
+### Example R Script
+
+Download the R script below and open it in RStudio for reading.
+
+```{r}
+dir.create("scripts")
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/scripts/qPCR_analysis.R", destfile = "scripts/qpcr_analysis.R")
+```
+
+:::: discussion
+<h2><i class="fas fa-comments"></i> Discussion:</h2>
+
+1. What does the script do?
+2. What are the inputs and outputs of the script?
+3. Where are the output files saved?
+4. What are the advantages of using an R script instead of running code interactively in the console?
+::::
+
+<br>
+
+Try running this script in RStudio and from the command line. Make sure you are in your working directory.
+
+```{bash, eval=FALSE}
+Rscript scripts/qpcr_analysis.R
+```
+
+- What happens when you run the R Script? 
+- Where does the output appear?
+
+### Arguments
+
+At the moment our script is not very flexible. It is hard coded to read in a specific file and save the output to a specific location.
+
+We can make our script more flexible by using **arguments**. Arguments allow us to specify the input and output files on the command line instead of in the script. This way, we can change them easily without ever having to edit the code e.g.
+
+```{bash, eval=FALSE}
+## These are just examples, don't run them yet.
+Rscript qPCR_analysis.R data/qpcr_results.xlsx qpcr_plot_exp1.png
+
+OR
+
+Rscript qPCR_analysis.R data/qpcr_results2.xlsx qpcr_plot_exp2.png
+```
+
+R interprets everything after the script name as an argument to the script. In the example above, `data/qpcr_results.xlsx` is the input file containing the qPCR results and `qpcr_plot.png` is the name of the output file where the plot will be saved.
+
+We need to make a few changes to our script for R to accept these argument. We can use the built-in function `commandArgs()` to access the arguments passed to the script from the command line. You can use this function to read in the input and output file paths as arguments. For example:
+
+```{r, eval=FALSE}
+
+args <- commandArgs(trailingOnly = TRUE) ## trailingOnly = TRUE means that only the arguments after the script name will be returned
+input_file <- args[1] # The first argument will be the input file path
+output_file <- args[2] # The second argument will be the output file path
+
+```
+
+This code will read in the first and second arguments passed to the script and store them in the `input_file` and `output_file` variables, respectively. You can then use these variables in your code to read in the data and save the plot.
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+Modify the `qPCR_analysis.R` script to use the input and output file paths as arguments.
+
+**HINTS**
+
+- Use the `commandArgs()` function to read in the arguments from the command line.
+- Replace the hardcoded input file name with the `input_file` variable.
+- Replace the hardcoded output file name with the `output_file` variable to save the plot.
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+```{r, eval=FALSE}
+library(readxl)
+
+args <- commandArgs(trailingOnly = TRUE) ## trailingOnly = TRUE means that only the arguments after the script name will be returned
+input_file <- args[1]
+output_file <- args[2]
+
+# Read in the data
+qpcr_data <- read_excel(input_file)
+
+# Function to perform qPCR analysis
+qPCR_analysis <- function(qpcr_table,plot_file) {
+  
+  # Calculate delta_ct values
+  qpcr_table$delta_ct <- qpcr_table$ct_gene - qpcr_table$ct_ref
+  
+  # Perform t-test
+  t_test_result <- t.test(delta_ct ~ Condition, data = qpcr_table, var.equal=TRUE)
+  
+  # Calculate fold change
+  mean_control <- mean(qpcr_table$delta_ct[qpcr_table$Condition == "Control"])
+  mean_treatment <- mean(qpcr_table$delta_ct[qpcr_table$Condition == "Treatment"])
+  delta_delta_ct <- mean_treatment - mean_control
+  fold_change <- 2^(-delta_delta_ct)
+  
+  # Save boxplot as a PDF
+  png(plot_file)
+  boxplot(delta_ct ~ Condition, 
+          data = qpcr_table, 
+          main = "Delta Ct values by condition", 
+          ylab = "Delta Ct",
+          sub = paste("Fold change:", round(fold_change, 2), 
+                      "p-value:", round(t_test_result$p.value, 4))
+          )
+  dev.off()
+}
+
+qPCR_analysis(qpcr_data, output_file)
+```
+
+:::
+
+</details>
+::::
+
+<br>
+
+Try running the modified script from the *terminal* window specifying the input and output file names:
+
+```{bash, eval=FALSE}
+Rscript scripts/qPCR_analysis.R data/qpcr_data.xlsx qPCR_plot_exp1.png
+```
+
+Now run the script on our second qPCR dataset:
+
+```{bash, eval=FALSE}
+Rscript scripts/qPCR_analysis.R data/qpcr_data2.xlsx qPCR_plot_exp2.png
+```
+
+### Commenting and formatting
+
+When writing R scripts, it's important to use good commenting and formatting practices. This makes your code easier to read and understand, both for yourself and for others who may be reading your code in the future.
+
+Some quick tips:
+
+- Use **comments** to explain what your code is doing and why. This is especially important for complex code or code that may not be immediately obvious.
+- Use **consistent indentation and spacing** to make your code more readable. This can help to visually separate different blocks of code and make it easier to follow the flow of the script.
+- Use **meaningful variable names** that describe the purpose of the variable.
+- **Break up long lines of code** into multiple lines to improve readability. This can help to prevent horizontal scrolling and make it easier to read the code.
+- Use **functions** to break up your code into smaller, more manageable pieces.
+
+Later on we will cover some tools that can help with formatting your code, such as the `styler` package and the `formatR` package.
+
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+See if you can add more customisable arguments to the `qPCR_analysis.R` script. Be sure to comment your edits and use good formatting practices.
+
+**SOME IDEAS**
+
+- Allow the user to specify the title of the plot as an argument.
+- Allow the user to specify the plot file format to be either png or pdf as an argument (hint: use an if statement).
+
+::::
+
+<br>
+
+::: key-points
+<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+
+- R is a powerful programming language that allows you to automate tasks and write reproducible code.
+- Control flow functions like if statements and for loops allow you to write code that can adapt to different situations and perform complex tasks.
+- Functions are reusable blocks of code that perform a specific task.
+- R scripts allow you to save and share your code, making analyses reproducible and customisable.
+:::
