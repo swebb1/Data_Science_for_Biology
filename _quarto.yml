@@ -8,7 +8,7 @@ project:
 website:
   title: "Data Science for Biology"
   navbar:
-    logo: "images/DRP_Logo_only_square_transparent.png"
+    #logo: "images/DRP_Logo_only_square_transparent.png"
     pinned: true
     left:
       - href: index.qmd
@@ -27,6 +27,7 @@ format:
   html:
     theme: 
       - cosmo
+      - custom.scss
     css: styles.css
     toc: true
     link-external-newwindow: true
