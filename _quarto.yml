@@ -8,7 +8,7 @@ project:
 website:
   title: "Data Science for Biology"
   navbar:
-    #logo: "images/DRP_Logo_only_square_transparent.png"
+    logo: "images/DRP_Logo_only_square_transparent.png"
     pinned: true
     left:
       - href: index.qmd
@@ -23,6 +23,8 @@ website:
             href: 02-IntroR.qmd
           - text: Programming in R
             href: 02-Programming.qmd
+          - text: Homework task
+            href: 02-HW.qmd
 format:
   html:
     theme: 

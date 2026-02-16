@@ -9,7 +9,7 @@
   background: #587e76;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .objectives {
@@ -17,7 +17,7 @@
   background: #5b9aa0;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .discussion {
@@ -25,7 +25,7 @@
   background: #c8553d;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .resources {
@@ -33,15 +33,15 @@
   background: #a79e84;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
-.dependencies {
+.hints {
   padding: 1em;
-  background: #87bdd8;
+  background: #4699C3;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .challenge {
@@ -49,7 +49,7 @@
   background: #667292;
   color: white;
   border: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .solution {
@@ -57,7 +57,7 @@
   background: white;
   color: black;
   border: 2px solid #87bdd8;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 details > summary {

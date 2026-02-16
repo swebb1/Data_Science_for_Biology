@@ -1,0 +1,159 @@
+---
+title: "Homework Task"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   Write an R script to perform a data analysis task
+:::
+
+<br>
+
+## Task
+
+Write an R script to perform a data analysis task. Your script should do the following:
+
+1.  Import a dataset as a data frame
+2.  Perform exploratory data analysis
+    -   Summarise the dataset
+    -   Calculate summary statistics of variables (e.g. mean)
+3.  Plot the data (e.g. scatter plot, histogram, boxplot)
+4.  Save the plot to a PNG file
+
+Additionally, you could try to:
+
+1.  Run a statistical test on the data
+2.  Write a custom function to use in your script e.g.
+    -   To calculate a specific statistic
+    -   To perform a specific data manipulation task
+    -   To create a specific type of plot
+3.  Parameterise your script by adding command line arguments
+
+## Data
+
+You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.
+
+If you don't have your own data, you can use the case study below, find a dataset online or even simulate your own dataset.
+
+### Published data
+
+You could use a dataset from a published paper. This is a great way to practice analysing real data interpreting scientific results. You can usually find datasets in the supplementary materials of papers.
+
+Alternatively, you can use a dataset related to a specfic hobby or interest you might have. Choose something that motivates you!
+
+**Kaggle** has an abundance of public datasets that you can use for this task at <https://www.kaggle.com/datasets> e.g.
+
+-   Premier league football
+-   COVID-19 case outcomes
+-   Movie ratings and revenues
+-   Census data
+
+### Simulated data
+
+The code below shows how to simulate a fairly generic dataset in R. You could modify the conditions and values to look like a more familiar dataset for your research e.g
+
+-   Gene expression levels across different conditions
+-   Cell counts across different time points
+-   Fluorescence intensity measurements across different samples
+
+```{r}
+
+set.seed(123) # for reproducibility
+n <- 100
+
+sim_data <- data.frame(
+  Condition = c(rep("Control",n/2), rep("Treatment",n/2)),
+  Value = c(rnorm(n/2, mean = 50, sd = 10),rnorm(n/2, mean = 60, sd = 10))
+)
+```
+
+
+## Case Study: Enhancing Memory with Neurotrophic Factors
+
+In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like "fertilizer" for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.
+
+Researchers are investigating whether a synthetic mimetic of BDNF (called "NeuroBoost") increases the density of dendritic spines.
+
+### Experimental setup:
+
+-   16 samples (primary neuronal cultures)
+    -   8 Control
+    -   8 Treated with NeuroBoost
+
+Using a confocal microscope, a researcher selects a dendrite and counts the number of spines per 10 micrometers ($\mu m$) of length. There are 16 independent batches of neurons derived from different embryos. For each batch, the researcher images 3 different neurons to account for the fact that some neurons in a dish are naturally more "branchy" than others.
+
+```{r,echo=FALSE}
+# Set seed for reproducibility
+set.seed(123)
+
+# 1. Setup metadata
+Group <- c(rep("Control", 8), rep("NeuroBoost", 8))
+Batch_ID <- paste0("Batch_", 1:16)
+
+# 2. Simulate the 'True' Biological effect
+# Control neurons usually have ~4-6 spines per 10um.
+# NeuroBoost treated neurons should show an increase to ~7-9 spines.
+true_densities <- c(rnorm(8, mean = 5.2, sd = 0.8),  # Control
+                    rnorm(8, mean = 8.1, sd = 1.1))  # Treated
+
+# 3. Create 3 Technical Replicates (3 neurons per batch)
+# We use rpois (Poisson distribution) because counts of objects are usually 
+# modeled this way, making the data look very authentic.
+Neuron_1 <- rpois(16, lambda = true_densities)
+Neuron_2 <- rpois(16, lambda = true_densities)
+Neuron_3 <- rpois(16, lambda = true_densities)
+
+# 4. Assemble the Data Frame
+spine_data <- data.frame(
+  Batch_ID = Batch_ID,
+  Treatment = Group,
+  Neuron_1 = Neuron_1,
+  Neuron_2 = Neuron_2,
+  Neuron_3 = Neuron_3,
+  stringsAsFactors = FALSE
+)
+```
+
+The dataset can be downloaded from here: [https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv](https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv)
+
+```{r,echo=TRUE}
+head(spine_data)
+```
+
+There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.
+
+::: hints
+<h2><i class="far fa-flag"></i> Hints</h2>
+
+-   What file format is the data in? Which function will you use to import the data?
+-   Look into the `rowMeans()` function to calculate the average spine density for each batch.
+-   Use a t-test to compare the mean spine density between the Control and NeuroBoost groups.
+-   Create a boxplot to visualize the distribution of spine densities for each treatment group.
+
+:::
+
+```{r, echo=FALSE,eval=FALSE}
+## Base R only
+spine_data$Mean_Spine_Density <- rowMeans(spine_data[, c("Neuron_1", "Neuron_2", "Neuron_3")])
+
+t.test(Mean_Spine_Density ~ Treatment, data = spine_data, var.equal = T)
+
+boxplot(spine_data$Mean_Spine_Density ~ spine_data$Treatment, 
+        main = "Mean Spine Density by Treatment", 
+        xlab = "Treatment", 
+        ylab = "Mean Spine Density (spines/10um)")
+
+```
