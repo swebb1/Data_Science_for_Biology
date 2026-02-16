@@ -42,6 +42,13 @@ Additionally, you could try to:
     -   To create a specific type of plot
 3.  Parameterise your script by adding command line arguments
 
+If you need help with this task:
+
+-   Email the Bioinformatics Core team, we're happy to help!
+-   Come to a drop in session. We run these monthly.
+-   Search online, there is an abundance of R forums, guides and videos
+-   Use AI. It's pretty good at coding and can be a great way to learn. Just make sure you understand the code it generates and don't just copy and paste without thinking about it!
+
 ## Data
 
 You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.

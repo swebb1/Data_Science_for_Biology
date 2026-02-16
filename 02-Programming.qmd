@@ -704,6 +704,18 @@ See if you can add more customisable arguments to the `qPCR_analysis.R` script. 
 
 <br>
 
+## Summary
+
+Using scripts and programmable functions is a really powerful way to perform your data analysis. Programming languages provide automation, flexibility and reproducibility.
+
+::: resources
+<h2><i class="fas fa-book"></i> Resources</h2>
+
+-   The [Discdown R Programming book](https://discdown.org/rprogramming/reporting.html) is a comprehensive resource introducing R datatypes, syntax and programming concepts. It is available online for free.
+:::
+
+<br>
+
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
