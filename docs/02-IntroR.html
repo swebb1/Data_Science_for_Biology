@@ -229,7 +229,11 @@ window.Quarto = {
   <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
   <li><a href="#scatter-plots" id="toc-scatter-plots" class="nav-link" data-scroll-target="#scatter-plots">Scatter plots</a></li>
   </ul></li>
-  <li><a href="#saving-images" id="toc-saving-images" class="nav-link" data-scroll-target="#saving-images">Saving images</a></li>
+  <li><a href="#saving-images" id="toc-saving-images" class="nav-link" data-scroll-target="#saving-images">Saving images</a>
+  <ul class="collapse">
+  <li><a href="#use-the-export-button-in-the-plots-pane-in-rstudio." id="toc-use-the-export-button-in-the-plots-pane-in-rstudio." class="nav-link" data-scroll-target="#use-the-export-button-in-the-plots-pane-in-rstudio.">Use the <strong>export</strong> button in the Plots pane in Rstudio.</a></li>
+  <li><a href="#use-a-graphics-device-function-in-your-r-code." id="toc-use-a-graphics-device-function-in-your-r-code." class="nav-link" data-scroll-target="#use-a-graphics-device-function-in-your-r-code.">Use a <strong>graphics device</strong> function in your R code.</a></li>
+  </ul></li>
   <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical testing</a>
   <ul class="collapse">
   <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">T-test</a></li>
@@ -1152,16 +1156,16 @@ $gene_names
 <section id="saving-images" class="level2">
 <h2 class="anchored" data-anchor-id="saving-images">Saving images</h2>
 <p>There are a few ways to save images in RStudio:</p>
-<section id="use-the-export-button-in-the-plots-pane-in-rstudio." class="level4">
-<h4 class="anchored" data-anchor-id="use-the-export-button-in-the-plots-pane-in-rstudio.">Use the <strong>export</strong> button in the Plots pane in Rstudio.</h4>
+<section id="use-the-export-button-in-the-plots-pane-in-rstudio." class="level3">
+<h3 class="anchored" data-anchor-id="use-the-export-button-in-the-plots-pane-in-rstudio.">Use the <strong>export</strong> button in the Plots pane in Rstudio.</h3>
 <ul>
 <li>Easy to perform.</li>
 <li>Doesn’t work well for automated scripts.</li>
 <li>No reproducible code to show how the image was generated.</li>
 </ul>
 </section>
-<section id="use-a-graphics-device-function-in-your-r-code." class="level4">
-<h4 class="anchored" data-anchor-id="use-a-graphics-device-function-in-your-r-code.">Use a graphics <em>device</em> function in your R code.</h4>
+<section id="use-a-graphics-device-function-in-your-r-code." class="level3">
+<h3 class="anchored" data-anchor-id="use-a-graphics-device-function-in-your-r-code.">Use a <strong>graphics device</strong> function in your R code.</h3>
 <p>Use the <code>png</code> function to save a png file (easy to load into web applications and presentations).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"filename.png"</span>) </span>
