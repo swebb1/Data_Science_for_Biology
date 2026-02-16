@@ -520,10 +520,10 @@ The `ChickWeight` data set is another data frame built into R. It is a larger da
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-1.   What type of data is stored in the `weight` column?
-2.   What is the mean weight of all the chicks?
-3.   What type of data is stored in the `Diet` column?
-4.   How many rows are in this table (try the `dim` or `nrow` functions)?
+1.  What type of data is stored in the `weight` column?
+2.  What is the mean weight of all the chicks?
+3.  What type of data is stored in the `Diet` column?
+4.  How many rows are in this table (try the `dim` or `nrow` functions)?
 
 <details>
 
@@ -534,30 +534,29 @@ The `ChickWeight` data set is another data frame built into R. It is a larger da
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-1.   What type of data is stored in the `weight` column?
+1.  What type of data is stored in the `weight` column?
 
 ```{r}
 class(ChickWeight$weight)
 ```
 
-2.   What is the mean weight of all the chicks?
+2.  What is the mean weight of all the chicks?
 
 ```{r}
 mean(ChickWeight$weight)
 ```
 
-3.   What type of data is stored in the `Diet` column?
+3.  What type of data is stored in the `Diet` column?
 
 ```{r}
 class(ChickWeight$Diet)
 ```
 
-4.   How many rows are in this table (try the `dim` or `nrow` functions)?
+4.  How many rows are in this table (try the `dim` or `nrow` functions)?
 
 ```{r}
 nrow(ChickWeight)
 ```
-
 :::
 
 </details>
@@ -585,10 +584,7 @@ boxplot(mydata)
 boxplot(mydata$A, mydata$B, names=c("Value A", "Value B") , ylab="Count of Something")
 ```
 
-
-
 ### Scatter plots
-
 
 ```{r, wd}
 plot(x = mydata$A, y = mydata$B)
@@ -618,13 +614,13 @@ plot(mydata)
 
 There are a few ways to save images in RStudio:
 
-#### Use the **export** button in the Plots pane in Rstudio.
+### Use the **export** button in the Plots pane in Rstudio.
 
 -   Easy to perform.
 -   Doesn't work well for automated scripts.
 -   No reproducible code to show how the image was generated.
 
-#### Use a graphics *device* function in your R code.
+### Use a **graphics device** function in your R code.
 
 Use the `png` function to save a png file (easy to load into web applications and presentations).
 
@@ -652,9 +648,9 @@ R has many functions for statistical testing. We will cover a couple of examples
 
 The `t.test` function can be used to compare the **numerical** means of two groups. The t-test should only be used under the following assumptions.
 
--  Each group is approximately normally distributed
--  The variance of the two groups is approximately equal
--  The two groups are independent of each other
+-   Each group is approximately normally distributed
+-   The variance of the two groups is approximately equal
+-   The two groups are independent of each other
 
 We can use R to simulate a data frame of values for two groups, WT and KO, with 10 values in each group (this could be any sort of experimental measurement).
 
@@ -679,7 +675,6 @@ What is a normal distribution? How does `rnorm` work?
 What does `set.seed` do?
 
 What do the `paste` and `rep` functions do?
-
 :::
 
 <br>
@@ -696,7 +691,6 @@ t.test(Value ~ Group, data = df, var.equal = TRUE)
 How do we interpret the output of the t-test?
 
 Are the mean values of the WT and KO groups significantly different?
-
 :::
 
 <br>
@@ -706,20 +700,21 @@ Are the mean values of the WT and KO groups significantly different?
 The `fisher.test` function can be used to test for association between two **categorical** variables.
 
 #### Example
+
 Researchers are testing a new anti-cancer drug in a mouse model. Tumour-bearing mice are randomly assigned to one of two **treatment** groups:
 
-- Control (vehicle only)
-- Drug-treated
+-   Control (vehicle only)
+-   Drug-treated
 
 After 4 weeks of treatment, tumours are assessed for **response**. Each mouse is classified as:
 
-- Responder (tumour size reduced ≥ 30%)
-- Non-responder (tumour did not shrink sufficiently)
+-   Responder (tumour size reduced ≥ 30%)
+-   Non-responder (tumour did not shrink sufficiently)
 
 Both variables are categorical:
 
-- Treatment: Control / Drug
-- Response: Responder / Non-responder
+-   Treatment: Control / Drug
+-   Response: Responder / Non-responder
 
 Let's create a contingency table of the two categorical variables, `Treatment` and `Response`, and use the `fisher.test` function to test for an association between them.
 
@@ -749,7 +744,6 @@ fisher.test(ct)
 <h2><i class="far fa-bell"></i> Discussion</h2>
 
 Is there a significant association between treatment and response?
-
 :::
 
 <br>
@@ -844,11 +838,11 @@ library(readxl)
 
 Use a function in *readxl* to read in the qPCR data from the Excel file you downloaded. You can use the help documentation to find out how to do this.
 
-1. How many rows and columns are in the data frame?
-2. What are the column names?
-3. How many conditions are there and what are they called?
-4. How many biological replicates do we have for each condition?
-5. What is the mean Ct value for the gene of interest in the control samples?
+1.  How many rows and columns are in the data frame?
+2.  What are the column names?
+3.  How many conditions are there and what are they called?
+4.  How many biological replicates do we have for each condition?
+5.  What is the mean Ct value for the gene of interest in the control samples?
 
 <details>
 
@@ -867,27 +861,26 @@ str(qpcr)
 summary(qpcr)
 ```
 
-
-1. How many rows and columns are in the data frame?
+1.  How many rows and columns are in the data frame?
 
 ```{r}
 dim(qpcr)
 ```
 
-2. What are the column names?
+2.  What are the column names?
 
 ```{r}
 colnames(qpcr)
 ```
 
-3. How many conditions are there and what are they called?
+3.  How many conditions are there and what are they called?
 
 ```{r}
 ## The unique function gives the unique values in a vector
 unique(qpcr$Condition)
 ```
 
-4. How many biological replicates do we have for each condition?
+4.  How many biological replicates do we have for each condition?
 
 ```{r}
 ## Show a table of the number of entries for each condition
@@ -897,12 +890,11 @@ table(qpcr$Condition)
 summary(as.factor(qpcr$Condition))
 ```
 
-5. What is the mean Ct value for the gene of interest in the control samples?
+5.  What is the mean Ct value for the gene of interest in the control samples?
 
 ```{r}
 mean(qpcr$ct_gene[qpcr$Condition == "Control"])
 ```
-
 :::
 
 </details>
@@ -943,24 +935,24 @@ A t-test is a statistical test used to compare the means of two groups. In our c
 
 The t-test is a valid test to use if the data in each group meets the following assumptions.
 
-- The data in each group is approximately **normally distributed**
-- The **variance** of the two groups is approximately equal
-- The two groups are **independent** of each other
+-   The data in each group is approximately **normally distributed**
+-   The **variance** of the two groups is approximately equal
+-   The two groups are **independent** of each other
 
 Later on, we will see how to check these assumptions and use alternative tests if they are not met. For now, we can assume that the data meets these assumptions:
 
-- Box plots show approximately normal distribution
-- Variance looks approximately equal
-- The two groups are independent (different samples in each group)
+-   Box plots show approximately normal distribution
+-   Variance looks approximately equal
+-   The two groups are independent (different samples in each group)
 
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
 Use a t-test to decide if the mean values of Control and Treatment differ significantly.
 
-1. Does the treatment have a significant effect on gene expression?
+1.  Does the treatment have a significant effect on gene expression?
 
-2. Does the treatment increase or decrease gene expression?
+2.  Does the treatment increase or decrease gene expression?
 
 <details>
 
@@ -977,7 +969,7 @@ Use a t-test to decide if the mean values of Control and Treatment differ more t
 t.test(delta_ct ~ Condition, data = qpcr, var.equal=TRUE)
 ```
 
-1. Does the treatment have a significant effect on gene expression?
+1.  Does the treatment have a significant effect on gene expression?
 
 The p-value is less than 0.05, so we can reject the null hypothesis and conclude that there is a significant difference in gene expression between the control and treatment groups.
 
@@ -988,10 +980,9 @@ result <- t.test(delta_ct ~ Condition, data = qpcr, var.equal=TRUE)
 result$p.value
 ```
 
-2. Does the treatment increase or decrease gene expression?
+2.  Does the treatment increase or decrease gene expression?
 
 The mean ΔCt value for the treatment group is lower than the control group, which indicates that the treatment increases gene expression (remember that a lower ΔCt means higher expression).
-
 :::
 
 </details>
@@ -1023,6 +1014,7 @@ Now we can calculate the fold change:
 fold_change <- 2^(-delta_delta_ct)
 fold_change
 ```
+
 Expression is almost 3 times higher in the treatment group compared to the control group. When reporting this analysis, you should show the p-value and the fold change, as well as a visualisation of the data. The p-value tells us if the difference is statistically significant, while the fold change tells us how big the difference is (effect size).
 
 We will revisit this case study in later modules to see how to do the same analysis using dedicated statistical and visualisation packages for high quality presentation.
