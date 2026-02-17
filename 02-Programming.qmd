@@ -51,7 +51,7 @@ We can also use nested functions to perform more complex operations. For example
 head( subset(cars, speed > 10), n = 3)
 ```
 
-Nested functions are very powerful but can make your code difficult to understand if you nest many functions together. Later on we will learn how to use the R pipe operator `|>` to combine functions in a more naturual way.
+Nested functions are very powerful but can make your code difficult to understand if you nest many functions together. Later on we will learn how to use the R pipe operator `|>` to combine functions in a more natural way.
 
 ## Control flow statements
 
