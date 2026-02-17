@@ -37,7 +37,7 @@ One of the key advantages of using a programming language like R is that it allo
 
 ## Nested functions
 
-R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the `log` function inside the `mean` function to calculate the log of the mean of a set of numbers:
+R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the `mean` function inside the `log` function to calculate the log of the mean of a set of numbers:
 
 ```{r}
 log( mean(c(3,2,4,6,7)) )
