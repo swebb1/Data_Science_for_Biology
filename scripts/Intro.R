@@ -71,3 +71,26 @@ mydata[,c(1,3,5)]
 order(mydata$B,decreasing = T)
 mydata[order(mydata$B,decreasing = T),]
 
+ChickWeight
+summary(ChickWeight)
+class(ChickWeight$Diet)
+mean(ChickWeight$weight)
+
+nrow(ChickWeight)
+dim(ChickWeight)
+tail(ChickWeight)
+set.seed(123)
+rnorm(10, mean=6, sd=3)
+
+## Create a folder in the working directory
+dir.create("data")
+
+## Download the qPCR file and save it in the data folder
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data.xlsx", destfile = "data/qpcr_data.xlsx")
+
+library(readxl)
+qpcr<-readxl::read_excel("data/qpcr_data.xlsx")
+
+mean(qpcr$ct_gene[qpcr$Condition == "Control"])
+
+

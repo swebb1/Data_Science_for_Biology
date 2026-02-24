@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Science for Biology - Setup</title>
+<title>Data Science for Biology - The Tidyverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -171,8 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-setup" id="toc-project-setup" class="nav-link active" data-scroll-target="#project-setup">Project Setup</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link active" data-scroll-target="#tidy-data">Tidy data</a></li>
   </ul>
 </nav>
     </div>
@@ -181,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Setup</h1>
+<h1 class="title">The Tidyverse</h1>
 </div>
 
 
@@ -201,29 +200,131 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<section id="project-setup" class="level3">
-<h3 class="anchored" data-anchor-id="project-setup">Project Setup</h3>
-<ol type="1">
-<li>Create a new project in RStudio called <strong>Introduction to R</strong>.</li>
-<li>Install the following packages:</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"read_excel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="objectives">
+<h2 class="anchored">
+<i class="far fa-check-square"></i> Learning Objectives
+</h2>
+<ul>
+<li>Understand the philosophy of Tidy Data</li>
+<li>Get to know some of the Tidyverse packages</li>
+</ul>
 </div>
-</section>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>You will need to download data throughout this session using the <code>download.file()</code> function in R.</p>
-<p>If you are using a <strong>Windows</strong> computer you will need to explicitly add the argument <code>mode = "wb"</code>.</p>
+<p><br></p>
+<p>The <code>tidyverse</code> is a suite of packages that includes libraries such as <code>dplyr</code> and <code>ggplot2</code>. These packages are designed for data science and share underlying principles, grammar and data structures. There are many ways to do the same thing in R, but following the philosophy of <em>tidy data</em> and using the <code>tidyverse</code> packages will keep your data organised and make analysis easier in the long run.</p>
+<section id="tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data">Tidy data</h2>
+<p>Data can be represented in many different ways across multiple tables but the tidyverse packages are specifically designed to work with <strong>tidy</strong> datasets. Tidy data conforms to the following criteria:</p>
+<ul>
+<li>Each variable has its own column</li>
+<li>Each row is a single observation</li>
+<li>Each value has its own cell</li>
+</ul>
+<p><img src="images/tidy.png" class="img-fluid"></p>
+<p>This is the optimal structure when working in R and provides consistency amongst your datasets. Getting your data into R and wrangling it into the correct format is always the first step in your analysis. Fortunately, the <code>tidyr</code> package contains many functions to <em>tidy</em> up your dataset.</p>
+<p>We will start by reading in a dataset. The <code>readr</code> package has functions for importing data as <strong>tibbles</strong>. Tibbles are the tidyverse compatible version of an R data frame. They have stricter formatting and allow you to perform grouping of variables as we will see in the next section.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a directory to store the data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mac or Linux</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx"</span>, <span class="at">destfile =</span> <span class="st">"data/qpcr_data2.xlsx"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx"</span>, <span class="at">destfile =</span> <span class="st">"data/qpcr_data2.xlsx"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## If you already have the data installed on your computer you can read from a file:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Otherwise you can read from a URL</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/R_dplyr_and_ggplot2/data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="discussion">
+<h2 class="anchored">
+<i class="far fa-bell"></i> Discussion
+</h2>
+<ul>
+<li>Look at the options available in the <code>read_csv</code> function and compare this with the <code>read.table</code> function we saw earlier.</li>
+<li>What other <code>readr</code> functions can you find?</li>
+</ul>
+</div>
+<p><br></p>
+<p>This dataset contains observations from a field survey of different organisms at different sites (plots). Let’s inspect the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Type an R objects name to print the contents</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>surveys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,463 × 13
+   record_id month   day  year plot_id species_id sex   hindfoot_length weight
+       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+ 1       845     5     6  1978       2 NL         M                  32    204
+ 2      1164     8     5  1978       2 NL         M                  34    199
+ 3      1261     9     4  1978       2 NL         M                  32    197
+ 4      1756     4    29  1979       2 NL         M                  33    166
+ 5      1818     5    30  1979       2 NL         M                  32    184
+ 6      1882     7     4  1979       2 NL         M                  32    206
+ 7      2133    10    25  1979       2 NL         F                  33    274
+ 8      2184    11    17  1979       2 NL         F                  30    186
+ 9      2406     1    16  1980       2 NL         F                  33    184
+10      3000     5    18  1980       2 NL         F                  31     87
+# ℹ 30,453 more rows
+# ℹ 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use the View function to see the full table</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(surveys)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We can look at the structure of the dataset</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(surveys)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [30,463 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ record_id      : num [1:30463] 845 1164 1261 1756 1818 ...
+ $ month          : num [1:30463] 5 8 9 4 5 7 10 11 1 5 ...
+ $ day            : num [1:30463] 6 5 4 29 30 4 25 17 16 18 ...
+ $ year           : num [1:30463] 1978 1978 1978 1979 1979 ...
+ $ plot_id        : num [1:30463] 2 2 2 2 2 2 2 2 2 2 ...
+ $ species_id     : chr [1:30463] "NL" "NL" "NL" "NL" ...
+ $ sex            : chr [1:30463] "M" "M" "M" "M" ...
+ $ hindfoot_length: num [1:30463] 32 34 32 33 32 32 33 30 33 31 ...
+ $ weight         : num [1:30463] 204 199 197 166 184 206 274 186 184 87 ...
+ $ genus          : chr [1:30463] "Neotoma" "Neotoma" "Neotoma" "Neotoma" ...
+ $ species        : chr [1:30463] "albigula" "albigula" "albigula" "albigula" ...
+ $ taxa           : chr [1:30463] "Rodent" "Rodent" "Rodent" "Rodent" ...
+ $ plot_type      : chr [1:30463] "Control" "Control" "Control" "Control" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   record_id = col_double(),
+  ..   month = col_double(),
+  ..   day = col_double(),
+  ..   year = col_double(),
+  ..   plot_id = col_double(),
+  ..   species_id = col_character(),
+  ..   sex = col_character(),
+  ..   hindfoot_length = col_double(),
+  ..   weight = col_double(),
+  ..   genus = col_character(),
+  ..   species = col_character(),
+  ..   taxa = col_character(),
+  ..   plot_type = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<div class="resources">
+<h2 class="anchored">
+<i class="fas fa-book"></i> Further Resources
+</h2>
+<ul>
+<li>There are <a href="https://rstudio.com/resources/cheatsheets/">cheatsheets</a> available for many tidyverse and rstudio packages that will help you to choose the correct functions.</li>
+<li>Take a look at these <a href="https://drive.google.com/open?id=181oNGmKKxyx3XUDvYFgxtGj4aQjCguW0LRb3r0UIviM">slides</a> or <a href="www.tidyverse.org">www.tidyverse.org</a> for more information on the tidyverse.</li>
+</ul>
+</div>
+<p><br></p>
+<div class="key-points">
+<h2 class="anchored">
+<i class="fas fa-thumbtack"></i> Key points
+</h2>
+<ul>
+<li>The tidyverse is a suite of R packages</li>
+<li>Stick to the principles and philosophy of tidy data</li>
+<li>Use the <code>readr</code> package to import data as tibbles</li>
+<li>Use further tidyverse packages to tidy, re-format and visualise data</li>
+</ul>
 </div>
 
 

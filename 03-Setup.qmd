@@ -1,0 +1,64 @@
+---
+title: "Setup"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+### Project Setup
+
+1.  Create a new project in RStudio called **Tidyverse**.
+2.  Install the following packages:
+
+```{r,eval=FALSE}
+install.packages("tidyverse")
+install.packages("cowplot")
+
+## ggplot extensions and themes
+install.packages("ggthemes")
+install.packages("ggrepel")
+install.packages("ggsci")
+install.packages("ggpubr")
+install.packages("patchwork")
+install.packages("gghighlight")
+install.packages("ggiraph")
+
+## Colour pallettes
+install.packages("viridis")
+install.packages("RColorBrewer")
+
+## Interactive plotting
+install.packages("plotly")
+```
+
+### Data
+
+Data for this session will be downloaded on the fly using tidyverse functions.
+
+If you want to download the data manually, you can use the following code:
+```{r, eval=FALSE}
+## Create a directory to store the data
+dir.create("data")
+
+## Mac or Linux
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv", destfile = "data/sur
+veys_complete.csv")
+
+## Windows
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv", destfile = "data/sur
+veys_complete.csv", mode = "wb")
+```
+
+
+
+
+

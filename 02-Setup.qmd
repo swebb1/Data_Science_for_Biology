@@ -16,11 +16,27 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ### Project Setup
 
-1. Create a new project in RStudio called **Introduction to R**.
-2. Install the following packages:
+1.  Create a new project in RStudio called **Introduction to R**.
+2.  Install the following packages:
 
 ```{r,eval=FALSE}
 install.packages("read_excel")
 ```
 
+### Data
 
+You will need to download data throughout this session using the `download.file()` function in R.
+
+If you are using a **Windows** computer you will need to explicitly add the argument `mode = "wb"`.
+
+```{r, eval=FALSE}
+
+## Create a directory to store the data
+dir.create("data")
+
+## Mac or Linux
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx", destfile = "data/qpcr_data2.xlsx")
+
+## Windows
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx", destfile = "data/qpcr_data2.xlsx", mode = "wb")
+```

@@ -1,0 +1,208 @@
+---
+title: "Homework Task"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   Import and manipulate data using the *tidyverse* package to structure your data for plotting.
+-   Plot data using *ggplot2* to create informative and visually appealing graphics.
+:::
+
+<br>
+
+## Task
+
+
+
+## Data
+
+You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.
+
+If you don't have your own data, you can use the case study below, find a dataset online or even simulate your own dataset.
+
+
+## Case Study: Enhancing Memory with Neurotrophic Factors
+
+In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like "fertilizer" for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.
+
+Researchers are investigating whether a synthetic mimetic of BDNF (called "NeuroBoost") increases the density of dendritic spines.
+
+### Experimental setup:
+
+-   16 samples (primary neuronal cultures)
+    -   8 Control
+    -   8 Treated with NeuroBoost
+
+Using a confocal microscope, a researcher selects a dendrite and counts the number of spines per 10 micrometers ($\mu m$) of length. There are 16 independent batches of neurons derived from different embryos. For each batch, the researcher images 3 different neurons to account for the fact that some neurons in a dish are naturally more "branchy" than others.
+
+```{r,echo=FALSE}
+# Set seed for reproducibility
+set.seed(123)
+
+# 1. Setup metadata
+Group <- c(rep("Control", 8), rep("NeuroBoost", 8))
+Batch_ID <- paste0("Batch_", 1:16)
+
+# 2. Simulate the 'True' Biological effect
+# Control neurons usually have ~4-6 spines per 10um.
+# NeuroBoost treated neurons should show an increase to ~7-9 spines.
+true_densities <- c(rnorm(8, mean = 5.2, sd = 0.8),  # Control
+                    rnorm(8, mean = 8.1, sd = 1.1))  # Treated
+
+# 3. Create 3 Technical Replicates (3 neurons per batch)
+# We use rpois (Poisson distribution) because counts of objects are usually 
+# modeled this way, making the data look very authentic.
+Neuron_1 <- rpois(16, lambda = true_densities)
+Neuron_2 <- rpois(16, lambda = true_densities)
+Neuron_3 <- rpois(16, lambda = true_densities)
+
+# 4. Assemble the Data Frame
+spine_data <- data.frame(
+  Batch_ID = Batch_ID,
+  Treatment = Group,
+  Neuron_1 = Neuron_1,
+  Neuron_2 = Neuron_2,
+  Neuron_3 = Neuron_3,
+  stringsAsFactors = FALSE
+)
+```
+
+The dataset can be downloaded from here: <https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv>
+
+```{r,echo=TRUE}
+head(spine_data)
+```
+
+There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.
+
+::: hints
+<h2><i class="far fa-flag"></i> Hints</h2>
+
+-   What file format is the data in? Which function will you use to import the data?
+-   Look into the `rowMeans()` function to calculate the average spine density for each batch.
+-   Use a t-test to compare the mean spine density between the Control and NeuroBoost groups.
+-   Create a boxplot to visualize the distribution of spine densities for each treatment group.
+:::
+
+
+```{r, echo=FALSE, eval=FALSE}
+## load libraries
+library(tidyverse)
+
+t <- read_csv("data/covid_19_clean_complete.csv",col_names = T)
+
+## Check for missing values
+is.na(t) |> colSums()
+
+## Is confirmed cases equal to the sum of deaths and recoveries?
+t |> filter(Confirmed != Deaths + Recovered + Active) |> 
+  head()
+
+## No, I guess there are some active cases that are not yet resolved. We should check if confirmed is always greater than or equal to the sum of deaths and recoveries.
+tm |> filter(Confirmed < Deaths + Recovered) |> 
+  head()
+
+## Hmm, there's a couple of values where confirmed is less than the sum of deaths and recoveries. This could be due to data entry errors or reporting issues. Let's update Confirmed to be the maximum of itself and the sum of Deaths and Recovered to ensure consistency. The pmax() function will take the element-wise maximum of the two vectors.
+tm <- tm |> mutate(Confirmed = pmax(Confirmed, Deaths + Recovered))
+tm |> filter(Confirmed < Deaths + Recovered) |> 
+  head()
+
+## Is confirmed a running total? Let's plot confirmed cases over time for a few countries to check.
+tm |> filter(`Country/Region` %in% c("US", "Italy", "China")) |> 
+  ggplot(aes(x = Date, y = Confirmed, color = `Country/Region`)) +
+  geom_line() +
+  labs(title = "Confirmed COVID-19 Cases Over Time",
+       x = "Date",
+       y = "Confirmed Cases") +
+  theme_minimal()
+
+## Wow, there are a lot of cases in the US. Let's add a log scale to the y-axis to better visualize the trends.
+tm |> filter(`Country/Region` %in% c("US", "Italy", "China")) |> 
+  ggplot(aes(x = Date, y = Confirmed, color = `Country/Region`)) +
+  geom_line() +
+  labs(title = "Confirmed COVID-19 Cases Over Time (Log Scale)",
+       x = "Date",
+       y = "Confirmed Cases (log scale)") +
+  scale_y_log10() +
+  theme_minimal()
+
+## Okay, it looks like these statistics are cumulative totals. Let's look at the daily new cases by calculating the difference in confirmed cases from one day to the next for each country. The lag() function will help us get the previous day's confirmed cases, and we can subtract that from the current day's confirmed cases to get the new cases for that day.
+tm <- tm |> group_by(`Country/Region`) |> 
+  arrange(Date) |>
+  mutate(New_Cases = Confirmed - lag(Confirmed, default = 0)) |>
+  ungroup()
+
+## Now we can plot new cases over time for the same countries.
+tm |> filter(`Country/Region` %in% c("US", "Italy", "China")) |> 
+  ggplot(aes(x = Date, y = New_Cases, color = `Country/Region`)) +
+  geom_line() +
+  labs(title = "Daily New COVID-19 Cases Over Time",
+       x = "Date",
+       y = "New Cases") +
+  theme_minimal()
+
+## This seems consistent with my memory of the pandemic. The US had a large surge in cases starting around March 2020, Italy had an early surge in cases around the same time, and China had a large surge early on but then managed to control it relatively quickly.
+
+## The US has a lot of cases. What factors other than the virus are driving this:  
+## - Population size
+## - Widely available testing and reporting
+
+##Let's look at the top 10 countries by total confirmed cases as of the most recent date in the dataset.
+latest_date <- max(tm$Date)
+tm |> filter(Date == latest_date) |> 
+  arrange(desc(Confirmed)) |> 
+  select(`Country/Region`, Confirmed) |> 
+  head(10)
+
+## The top countries all have large populations. It would be good if we had population data to calculate cases per capita. We can use the WDI package to get population data from the World Bank.
+install.packages("WDI")
+library(WDI)
+population_data <- WDI(country = "all", indicator = "SP.POP.TOTL", start = 2020, end = 2020, extra = TRUE)
+population_data <- population_data |> select(iso3c, country, SP.POP.TOTL)
+
+
+tm |> inner_join(population_data, by = join_by("Country/Region" == "country")) 
+
+|> 
+  filter(Date == latest_date) |> 
+  arrange(desc(Confirmed)) |> 
+  select(`Country/Region`, Confirmed, SP.POP.TOTL) |> 
+  head(10)
+
+
+## Merge provincial data with country-level data
+tm <- t |>
+  group_by(`Country/Region`, Date) |>
+  summarise(Confirmed = sum(Confirmed),
+            Deaths = sum(Deaths),
+            Recovered = sum(Recovered)) |>
+  ungroup()
+
+
+```
+```{r, echo=FALSE,eval=FALSE}
+## Base R only
+spine_data$Mean_Spine_Density <- rowMeans(spine_data[, c("Neuron_1", "Neuron_2", "Neuron_3")])
+
+t.test(Mean_Spine_Density ~ Treatment, data = spine_data, var.equal = T)
+
+boxplot(spine_data$Mean_Spine_Density ~ spine_data$Treatment, 
+        main = "Mean Spine Density by Treatment", 
+        xlab = "Treatment", 
+        ylab = "Mean Spine Density (spines/10um)")
+
+```
+

@@ -78,11 +78,11 @@ Commands can be typed directly into the console, but in order to keep track it's
 
 To run commands directly from your script:
 
-- Place the cursor on the line of code you want to run
-- Use the **run** button above your script 
-- Alternatively, use the shortcut keys. 
-  -   <kbd>Alt</kbd> + <kbd>Enter</kbd> to keep the cursor on the same line
-  -   <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to move to the next line
+-   Place the cursor on the line of code you want to run
+-   Use the **run** button above your script
+-   Alternatively, use the shortcut keys.
+    -   <kbd>Alt</kbd> + <kbd>Enter</kbd> to keep the cursor on the same line
+    -   <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to move to the next line
 
 ## Writing commands
 
@@ -96,8 +96,7 @@ When using the console, the Up/Down arrow keys can be used to cycle through prev
 
 In the console you should always see a `>` prompt. This shows that the console is ready to go.
 
-If you can't see this, R may still be working. There is a red Stop light at the top right of the console when a command is running. You can use this or the <kbd>Esc</kbd> key
-to kill a command if it is taking too long or you have made a mistake.
+If you can't see this, R may still be working. There is a red Stop light at the top right of the console when a command is running. You can use this or the <kbd>Esc</kbd> key to kill a command if it is taking too long or you have made a mistake.
 
 If you see a `+` instead of `>`, R is waiting for more input. Sometimes this means you have typed the code wrong or forgotten to close a bracket or quotation. You can get back to the `>` prompt by pressing <kbd>Esc</kbd>.
 
@@ -141,7 +140,7 @@ We will install packages as we move through this course. Each section begins wit
 <h2><i class="fas fa-thumbtack"></i> How to follow each course</h2>
 
 -   Create a new project in RStudio
--   Install the required libraries  
+-   Install the required libraries\
 -   Open a new R script
 -   It will be best to work with the tutorial and RStudio open together so you can easily switch between the two. Working on a wide split-screen or multiple desktops is the best setup.
 -   I recommend typing out most of the commands rather than copy-and-pasting if you want to learn. Remember you can use the <kbd>Tab</kbd> key to save yourself from endless typing!
