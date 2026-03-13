@@ -212,11 +212,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#task" id="toc-task" class="nav-link active" data-scroll-target="#task">Task</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#published-data" id="toc-published-data" class="nav-link" data-scroll-target="#published-data">Published data</a></li>
-  <li><a href="#simulated-data" id="toc-simulated-data" class="nav-link" data-scroll-target="#simulated-data">Simulated data</a></li>
-  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#case-study-enhancing-memory-with-neurotrophic-factors" id="toc-case-study-enhancing-memory-with-neurotrophic-factors" class="nav-link" data-scroll-target="#case-study-enhancing-memory-with-neurotrophic-factors">Case Study: Enhancing Memory with Neurotrophic Factors</a>
   <ul class="collapse">
   <li><a href="#experimental-setup" id="toc-experimental-setup" class="nav-link" data-scroll-target="#experimental-setup">Experimental setup:</a></li>
@@ -254,76 +250,18 @@ window.Quarto = {
 <i class="far fa-check-square"></i> Learning Objectives
 </h2>
 <ul>
-<li>Write an R script to perform a data analysis task</li>
+<li>Import and manipulate data using the <em>tidyverse</em> package to structure your data for plotting.</li>
+<li>Plot data using <em>ggplot2</em> to create informative and visually appealing graphics.</li>
 </ul>
 </div>
 <p><br></p>
 <section id="task" class="level2">
 <h2 class="anchored" data-anchor-id="task">Task</h2>
-<p>Write an R script to perform a data analysis task. Your script should do the following:</p>
-<ol type="1">
-<li>Import a dataset as a data frame</li>
-<li>Perform exploratory data analysis
-<ul>
-<li>Summarise the dataset</li>
-<li>Calculate summary statistics of variables (e.g.&nbsp;mean)</li>
-</ul></li>
-<li>Plot the data (e.g.&nbsp;scatter plot, histogram, boxplot)</li>
-<li>Save the plot to a PNG file</li>
-</ol>
-<p>Additionally, you could try to:</p>
-<ol type="1">
-<li>Run a statistical test on the data</li>
-<li>Write a custom function to use in your script e.g.
-<ul>
-<li>To calculate a specific statistic</li>
-<li>To perform a specific data manipulation task</li>
-<li>To create a specific type of plot</li>
-</ul></li>
-<li>Parameterise your script by adding command line arguments</li>
-</ol>
-<p>If you need help with this task:</p>
-<ul>
-<li>Email the Bioinformatics Core team, we’re happy to help!</li>
-<li>Come to a drop in session. We run these monthly.</li>
-<li>Search online, there is an abundance of R forums, guides and videos</li>
-<li>Use AI. It’s pretty good at coding and can be a great way to learn. Just make sure you understand the code it generates and don’t just copy and paste without thinking about it!</li>
-</ul>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.</p>
 <p>If you don’t have your own data, you can use the case study below, find a dataset online or even simulate your own dataset.</p>
-<section id="published-data" class="level3">
-<h3 class="anchored" data-anchor-id="published-data">Published data</h3>
-<p>You could use a dataset from a published paper. This is a great way to practice analysing real data interpreting scientific results. You can usually find datasets in the supplementary materials of papers.</p>
-<p>Alternatively, you can use a dataset related to a specfic hobby or interest you might have. Choose something that motivates you!</p>
-<p><strong>Kaggle</strong> has an abundance of public datasets that you can use for this task at <a href="https://www.kaggle.com/datasets" class="uri">https://www.kaggle.com/datasets</a> e.g.</p>
-<ul>
-<li>Premier league football</li>
-<li>COVID-19 case outcomes</li>
-<li>Movie ratings and revenues</li>
-<li>Census data</li>
-</ul>
-</section>
-<section id="simulated-data" class="level3">
-<h3 class="anchored" data-anchor-id="simulated-data">Simulated data</h3>
-<p>The code below shows how to simulate a fairly generic dataset in R. You could modify the conditions and values to look like a more familiar dataset for your research e.g</p>
-<ul>
-<li>Gene expression levels across different conditions</li>
-<li>Cell counts across different time points</li>
-<li>Fluorescence intensity measurements across different samples</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Control"</span>,n<span class="sc">/</span><span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">"Treatment"</span>,n<span class="sc">/</span><span class="dv">2</span>)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(n<span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>),<span class="fu">rnorm</span>(n<span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">60</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
 </section>
 <section id="case-study-enhancing-memory-with-neurotrophic-factors" class="level2">
 <h2 class="anchored" data-anchor-id="case-study-enhancing-memory-with-neurotrophic-factors">Case Study: Enhancing Memory with Neurotrophic Factors</h2>
@@ -341,7 +279,7 @@ window.Quarto = {
 <p>Using a confocal microscope, a researcher selects a dendrite and counts the number of spines per 10 micrometers (<span class="math inline">\(\mu m\)</span>) of length. There are 16 independent batches of neurons derived from different embryos. For each batch, the researcher images 3 different neurons to account for the fact that some neurons in a dish are naturally more “branchy” than others.</p>
 <p>The dataset can be downloaded from here: <a href="https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv" class="uri">https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spine_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spine_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Batch_ID Treatment Neuron_1 Neuron_2 Neuron_3
 1  Batch_1   Control        6        7        7

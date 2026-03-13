@@ -155,6 +155,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tidyverse" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tidyverse</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tidyverse">    
+        <li>
+    <a class="dropdown-item" href="./03-Setup.html">
+ <span class="dropdown-text">Course setup</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -230,17 +241,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>You will need to download data throughout this session using the <code>download.file()</code> function in R.</p>
-<p>If you are using a <strong>Windows</strong> computer you will need to explicitly add the argument <code>mode = "wb"</code>.</p>
+<p>Data for this session will be downloaded on the fly using tidyverse functions.</p>
+<p>If you want to download the data manually, you can use the following code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a directory to store the data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mac or Linux</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx"</span>, <span class="at">destfile =</span> <span class="st">"data/qpcr_data2.xlsx"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx"</span>, <span class="at">destfile =</span> <span class="st">"data/qpcr_data2.xlsx"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv"</span>, <span class="at">destfile =</span> <span class="st">"data/sur</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">veys_complete.csv"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv"</span>, <span class="at">destfile =</span> <span class="st">"data/sur</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">veys_complete.csv"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

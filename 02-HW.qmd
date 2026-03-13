@@ -87,7 +87,6 @@ sim_data <- data.frame(
 )
 ```
 
-
 ## Case Study: Enhancing Memory with Neurotrophic Factors
 
 In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like "fertilizer" for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.
@@ -134,7 +133,7 @@ spine_data <- data.frame(
 )
 ```
 
-The dataset can be downloaded from here: [https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv](https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv)
+The dataset can be downloaded from here: <https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv>
 
 ```{r,echo=TRUE}
 head(spine_data)
@@ -149,7 +148,6 @@ There are 3 neurons per batch. The neurons within a batch are not biologically i
 -   Look into the `rowMeans()` function to calculate the average spine density for each batch.
 -   Use a t-test to compare the mean spine density between the Control and NeuroBoost groups.
 -   Create a boxplot to visualize the distribution of spine densities for each treatment group.
-
 :::
 
 ```{r, echo=FALSE,eval=FALSE}

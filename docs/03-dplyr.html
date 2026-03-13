@@ -155,6 +155,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tidyverse" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tidyverse</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tidyverse">    
+        <li>
+    <a class="dropdown-item" href="./03-Setup.html">
+ <span class="dropdown-text">Course setup</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -229,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>First, make sure the tidyverse package is loaded and you have read in the <code>surveys</code> dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/R_dplyr_and_ggplot2/data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To select columns of a tibble, use <code>select()</code>. The first argument to this function is the data frame <code>surveys</code>, and the subsequent arguments are the columns to keep.</p>
 <div class="cell">
@@ -553,7 +564,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored">
 <i class="fas fa-book"></i> Further Learning
 </h2>
-<p>Examples of more dplyr functions are available on the <a href="https://dplyr.tidyverse.org/">dplyr</a> website.</p>
+<ul>
+<li><a href="https://dplyr.tidyverse.org/">dplyr website</a></li>
+<li><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html">dplyr cheat sheet</a></li>
+</ul>
 </div>
 </section>
 <section id="tidyr" class="level2">
@@ -793,7 +807,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reshaping-data">
 <i class="fas fa-book"></i> Further Learning
 </h2>
-<p>Examples of more dplyr functions are available on the <a href="https://tidyr.tidyverse.org/">tidyr</a> website.</p>
+<ul>
+<li><a href="https://tidyr.tidyverse.org/">tidyr website</a></li>
+<li><a href="https://rstudio.github.io/cheatsheets/html/tidyr.html">tidyr cheat sheet</a></li>
+</ul>
 </div>
 <p><br></p>
 <div class="key-points">

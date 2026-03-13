@@ -25,6 +25,10 @@ website:
             href: 02-Programming.qmd
           - text: Homework task
             href: 02-HW.qmd
+      - text: Tidyverse
+        menu:
+          - text: Course setup
+            href: 03-Setup.qmd
 format:
   html:
     theme: 
