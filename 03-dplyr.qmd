@@ -448,7 +448,7 @@ The dataset is in a **wide** format. In this format, each gene is a separate var
 
 The `tidyr` package contains a set of *separate* functions that split a column into multiple values. In our example, we want to separate the `sample_info` column into three new columns called `genotype`, `replicate`, and `tissue`.
 
-Because this information is separated by the underscore character, we can use the `separate_wider_delim()` function. This will split the column into three new columns based on the delimiter "_". The `names` argument specifies the names of the new columns.
+Because this information is separated by the underscore character, we can use the `separate_wider_delim()` function. This will split the column into three new columns based on the delimiter `_`. The `names` argument specifies the names of the new columns.
 
 ```{r}
 expr_untidy2 <- expr_untidy |>
@@ -465,7 +465,7 @@ Other separate functions can be used for different types of separation e.g
 - `separate_wider_regex()` for separating based on regular expressions.
 - `separate_longer_delim()` for separating into multiple rows instead of columns.
 
-There is also a `unite()` function that does the opposite of `separate()`. It combines multiple columns into a single column based on a specified delimiter.
+There is also a `unite()` function that does the opposite of `separate()`. It combines multiple columns into a single column using a specified delimiter.
 :::
 
 ### Missing values
@@ -575,6 +575,15 @@ expr_long <- expr_untidy |>
   pivot_longer(cols = starts_with("Gene"), names_to = "gene", values_to = "expression")
 
 expr_long
+```
+
+We now have a tidy dataset in long format. This is the ideal structure for plotting with **ggplot2**, as we will see in the next lesson.
+
+```{r}
+expr_long |>
+  ggplot(aes(x = gene, y = expression, colour = genotype, shape = replicate)) +
+  geom_point(size = 3) +
+  theme_bw()
 ```
 
 ::: resources

@@ -23,12 +23,20 @@ website:
             href: 02-IntroR.qmd
           - text: Programming in R
             href: 02-Programming.qmd
-          - text: Homework task
+          - text: Homework exercise
             href: 02-HW.qmd
       - text: Tidyverse
         menu:
           - text: Course setup
             href: 03-Setup.qmd
+          - text: Tidy data
+            href: 03-tidyverse.qmd
+          - text: Data manipulation
+            href: 03-dplyr.qmd
+          - text: Data visualisation
+            href: 03-ggplot2.qmd
+          - text: Homework exercise
+            href: 03-HW.qmd
 format:
   html:
     theme: 

@@ -40,8 +40,15 @@ This is the optimal structure when working in R and provides consistency amongst
 We will start by reading in a dataset. The `readr` package has functions for importing data as **tibbles**. Tibbles are the tidyverse compatible version of an R data frame. They have stricter formatting and allow you to perform grouping of variables as we will see in the next section.
 
 ```{r, results='hide'}
+## You can load all of the tidyverse packages at once. This is great for an interactive session.
 library(tidyverse)
 
+## Or individually. This is better for scripts and reproducibility as it makes it clear which packages are being used.
+# library(dplyr)
+# library(ggplot2)
+```
+
+```{r, results = 'hide'}
 ## If you already have the data installed on your computer you can read from a file:
 surveys <- read_csv("data/surveys_complete.csv")
 ```
@@ -81,7 +88,7 @@ str(surveys)
 <h2><i class="fas fa-book"></i> Further Resources</h2>
 
 -   There are [cheatsheets](https://rstudio.com/resources/cheatsheets/) available for many tidyverse and rstudio packages that will help you to choose the correct functions.
--   Take a look at these [slides](https://drive.google.com/open?id=181oNGmKKxyx3XUDvYFgxtGj4aQjCguW0LRb3r0UIviM) or [www.tidyverse.org](www.tidyverse.org) for more information on the tidyverse.
+-   Take a look at these [slides](https://drive.google.com/open?id=181oNGmKKxyx3XUDvYFgxtGj4aQjCguW0LRb3r0UIviM) or [www.tidyverse.org](https://tidyverse.org/) for more information on the tidyverse.
 :::
 
 <br>

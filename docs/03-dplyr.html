@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./02-HW.html">
- <span class="dropdown-text">Homework task</span></a>
+ <span class="dropdown-text">Homework exercise</span></a>
   </li>  
     </ul>
   </li>
@@ -163,6 +163,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="./03-Setup.html">
  <span class="dropdown-text">Course setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-tidyverse.html">
+ <span class="dropdown-text">Tidy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-dplyr.html">
+ <span class="dropdown-text">Data manipulation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-ggplot2.html">
+ <span class="dropdown-text">Data visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-HW.html">
+ <span class="dropdown-text">Homework exercise</span></a>
   </li>  
     </ul>
   </li>
@@ -240,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>First, make sure the tidyverse package is loaded and you have read in the <code>surveys</code> dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/surveys_complete.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To select columns of a tibble, use <code>select()</code>. The first argument to this function is the data frame <code>surveys</code>, and the subsequent arguments are the columns to keep.</p>
 <div class="cell">
@@ -603,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="separating-columns" class="level3">
 <h3 class="anchored">Separating columns</h3>
 <p>The <code>tidyr</code> package contains a set of <em>separate</em> functions that split a column into multiple values. In our example, we want to separate the <code>sample_info</code> column into three new columns called <code>genotype</code>, <code>replicate</code>, and <code>tissue</code>.</p>
-<p>Because this information is separated by the underscore character, we can use the <code>separate_wider_delim()</code> function. This will split the column into three new columns based on the delimiter “_“. The <code>names</code> argument specifies the names of the new columns.</p>
+<p>Because this information is separated by the underscore character, we can use the <code>separate_wider_delim()</code> function. This will split the column into three new columns based on the delimiter <code>_</code>. The <code>names</code> argument specifies the names of the new columns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>expr_untidy2 <span class="ot">&lt;-</span> expr_untidy <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(sample_info, <span class="at">delim =</span> <span class="st">"_"</span>, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"genotype"</span>, <span class="st">"replicate"</span>, <span class="st">"tissue"</span>))</span>
@@ -628,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>separate_wider_regex()</code> for separating based on regular expressions.</li>
 <li><code>separate_longer_delim()</code> for separating into multiple rows instead of columns.</li>
 </ul>
-<p>There is also a <code>unite()</code> function that does the opposite of <code>separate()</code>. It combines multiple columns into a single column based on a specified delimiter.</p>
+<p>There is also a <code>unite()</code> function that does the opposite of <code>separate()</code>. It combines multiple columns into a single column using a specified delimiter.</p>
 </div>
 </section>
 <section id="missing-values" class="level3">
@@ -801,6 +817,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 KO       2         liver  B     GeneA          0
 11 KO       2         liver  B     GeneB        275
 12 KO       2         liver  B     GeneC         80</code></pre>
+</div>
+</div>
+<p>We now have a tidy dataset in long format. This is the ideal structure for plotting with <strong>ggplot2</strong>, as we will see in the next lesson.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>expr_long <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gene, <span class="at">y =</span> expression, <span class="at">colour =</span> genotype, <span class="at">shape =</span> replicate)) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-dplyr_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="resources">

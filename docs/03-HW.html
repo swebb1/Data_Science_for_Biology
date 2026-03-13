@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Science for Biology - Homework Task</title>
+<title>Data Science for Biology - Homework Exercise</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -100,35 +66,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -180,7 +117,7 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./02-HW.html">
- <span class="dropdown-text">Homework task</span></a>
+ <span class="dropdown-text">Homework exercise</span></a>
   </li>  
     </ul>
   </li>
@@ -192,6 +129,22 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="./03-Setup.html">
  <span class="dropdown-text">Course setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-tidyverse.html">
+ <span class="dropdown-text">Tidy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-dplyr.html">
+ <span class="dropdown-text">Data manipulation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-ggplot2.html">
+ <span class="dropdown-text">Data visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./03-HW.html">
+ <span class="dropdown-text">Homework exercise</span></a>
   </li>  
     </ul>
   </li>
@@ -212,11 +165,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#task" id="toc-task" class="nav-link active" data-scroll-target="#task">Task</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#case-study-enhancing-memory-with-neurotrophic-factors" id="toc-case-study-enhancing-memory-with-neurotrophic-factors" class="nav-link" data-scroll-target="#case-study-enhancing-memory-with-neurotrophic-factors">Case Study: Enhancing Memory with Neurotrophic Factors</a>
-  <ul class="collapse">
-  <li><a href="#experimental-setup" id="toc-experimental-setup" class="nav-link" data-scroll-target="#experimental-setup">Experimental setup:</a></li>
-  </ul></li>
+  <li><a href="#case-study-covid-19-data-analysis" id="toc-case-study-covid-19-data-analysis" class="nav-link" data-scroll-target="#case-study-covid-19-data-analysis">Case Study: COVID-19 Data Analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -225,7 +174,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework Task</h1>
+<h1 class="title">Homework Exercise</h1>
 </div>
 
 
@@ -250,61 +199,65 @@ window.Quarto = {
 <i class="far fa-check-square"></i> Learning Objectives
 </h2>
 <ul>
-<li>Import and manipulate data using the <em>tidyverse</em> package to structure your data for plotting.</li>
-<li>Plot data using <em>ggplot2</em> to create informative and visually appealing graphics.</li>
+<li>Import and structure your data for plotting</li>
+<li>Create an informative and visually appealing graphic</li>
+<li>Use <code>tidyverse</code> packages for data analysis</li>
 </ul>
 </div>
 <p><br></p>
 <section id="task" class="level2">
 <h2 class="anchored" data-anchor-id="task">Task</h2>
+<p>Write an R Script to import, restructure and plot a dataset of your choice. You can use the case study below, find a dataset online or even simulate your own dataset. The script should be well commented and include explanations of each step. You should also include a brief description of the dataset and the question you are trying to answer with your analysis.</p>
+<ol type="1">
+<li>Import the dataset using the appropriate function from the <code>readr</code> package.</li>
+<li>Restructure the dataset using functions from the <code>tidyr</code> or <code>dplyr</code> packages to get it into a tidy format.</li>
+<li>Create a plot using <code>ggplot2</code> to visualize the data and answer your research question.</li>
+</ol>
 </section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.</p>
-<p>If you don’t have your own data, you can use the case study below, find a dataset online or even simulate your own dataset.</p>
-</section>
-<section id="case-study-enhancing-memory-with-neurotrophic-factors" class="level2">
-<h2 class="anchored" data-anchor-id="case-study-enhancing-memory-with-neurotrophic-factors">Case Study: Enhancing Memory with Neurotrophic Factors</h2>
-<p>In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like “fertilizer” for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.</p>
-<p>Researchers are investigating whether a synthetic mimetic of BDNF (called “NeuroBoost”) increases the density of dendritic spines.</p>
-<section id="experimental-setup" class="level3">
-<h3 class="anchored">Experimental setup:</h3>
+<section id="case-study-covid-19-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-covid-19-data-analysis">Case Study: COVID-19 Data Analysis</h2>
+<p>The COVID-19 pandemic has had a profound impact on global health and economies. Analysing data related to COVID-19 can provide insights into the spread of the virus, the effectiveness of interventions, and the impact on different populations. For this task, you will analyse a dataset containing COVID-19 case reports from around the world in 2020.</p>
+<ol type="1">
+<li>Download the <a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report/code?datasetId=494766&amp;sortBy=voteCount">COVID-19 dataset</a> from Kaggle</li>
+<li>Import the table <code>covid_19_clean_complete.csv</code> into R</li>
+</ol>
+<p>This table contains daily reports of COVID-19 cases, deaths, and recoveries for different countries and regions. The columns include:</p>
 <ul>
-<li>16 samples (primary neuronal cultures)
-<ul>
-<li>8 Control</li>
-<li>8 Treated with NeuroBoost</li>
-</ul></li>
+<li><code>Province/State</code>: The province or state of the report (if applicable)</li>
+<li><code>Country/Region</code>: The country or region of the report</li>
+<li><code>Lat</code>: The latitude of the location</li>
+<li><code>Long</code>: The longitude of the location</li>
+<li><code>Date</code>: The date of the report</li>
+<li><code>Confirmed</code>: The total number of confirmed cases</li>
+<li><code>Deaths</code>: The total number of deaths</li>
+<li><code>Recovered</code>: The total number of recoveries</li>
+<li><code>Active</code>: The total number of active cases</li>
+<li><code>WHO Region</code>: The World Health Organization region of the report</li>
 </ul>
-<p>Using a confocal microscope, a researcher selects a dendrite and counts the number of spines per 10 micrometers (<span class="math inline">\(\mu m\)</span>) of length. There are 16 independent batches of neurons derived from different embryos. For each batch, the researcher images 3 different neurons to account for the fact that some neurons in a dish are naturally more “branchy” than others.</p>
-<p>The dataset can be downloaded from here: <a href="https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv" class="uri">https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv</a></p>
+<ol start="3" type="1">
+<li>Try to recreate the plot below using <code>ggplot2</code>:</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spine_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Batch_ID Treatment Neuron_1 Neuron_2 Neuron_3
-1  Batch_1   Control        6        7        7
-2  Batch_2   Control        7        2        7
-3  Batch_3   Control        2        6        8
-4  Batch_4   Control        5        7        5
-5  Batch_5   Control        7        3        7
-6  Batch_6   Control        5        7        7</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-HW_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
 </div>
 </div>
-<p>There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.</p>
+</div>
 <div class="hints">
-<h2 class="anchored" data-anchor-id="experimental-setup">
+<h2 class="anchored">
 <i class="far fa-flag"></i> Hints
 </h2>
 <ul>
-<li>What file format is the data in? Which function will you use to import the data?</li>
-<li>Look into the <code>rowMeans()</code> function to calculate the average spine density for each batch.</li>
-<li>Use a t-test to compare the mean spine density between the Control and NeuroBoost groups.</li>
-<li>Create a boxplot to visualize the distribution of spine densities for each treatment group.</li>
+<li>You will need to combine data from different regions into one country using the <code>group_by()</code> and <code>summarise()</code> functions. Some countries have regions that are oversees territories. For simplicity, combine them all into one country.</li>
+<li>Use the <strong>ggrepel</strong> package to add labels to your plot.</li>
+<li>The colour palette used here is <em>Dark2</em> from the <code>RColorBrewer</code> package.</li>
 </ul>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
