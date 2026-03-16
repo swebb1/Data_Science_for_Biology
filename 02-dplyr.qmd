@@ -1,5 +1,5 @@
 ---
-title: "Data manipulation and tidying"
+title: "Data manipulation and tidying (dplyr and tidyr)"
 ---
 
 <head>

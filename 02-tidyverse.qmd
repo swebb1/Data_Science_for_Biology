@@ -1,5 +1,5 @@
 ---
-title: "Tidy data and the tidyverse"
+title: "Tidy data and the Tidyverse"
 ---
 
 <head>
@@ -35,7 +35,7 @@ Data can be represented in many different ways across multiple tables but the ti
 
 ![](images/tidy.png)
 
-This is the optimal structure when working in R and provides consistency amongst your datasets. Getting your data into R and wrangling it into the correct format is always the first step in your analysis. Fortunately, the **tidyr* package contains many functions to *tidy* up your dataset.
+This is the optimal structure when working in R and provides consistency amongst your datasets. Getting your data into R and wrangling it into the correct format is always the first step in your analysis. Fortunately, the \*\*tidyr\* package contains many functions to *tidy* up your dataset.
 
 We will start by reading in a dataset. The **readr** package has functions for importing data as **tibbles**. Tibbles are the tidyverse compatible version of an R data frame. They have stricter formatting and allow you to perform grouping of variables as we will see in the next section.
 
