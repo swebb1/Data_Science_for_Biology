@@ -16,27 +16,45 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ### Project Setup
 
-1.  Create a new project in RStudio called **Introduction to R**.
+1.  Create a new project in RStudio called **Tidyverse**.
 2.  Install the following packages:
 
 ```{r,eval=FALSE}
-install.packages("read_excel")
+install.packages("tidyverse")
+install.packages("cowplot")
+
+## ggplot extensions and themes
+install.packages("ggthemes")
+install.packages("ggrepel")
+install.packages("ggsci")
+install.packages("ggpubr")
+install.packages("patchwork")
+install.packages("gghighlight")
+install.packages("ggiraph")
+
+## Colour pallettes
+install.packages("viridis")
+install.packages("RColorBrewer")
+
+## Interactive plotting
+install.packages("plotly")
 ```
 
 ### Data
 
-You will need to download data throughout this session using the `download.file()` function in R.
+Data for this session will be downloaded on the fly using tidyverse functions.
 
-If you are using a **Windows** computer you will need to explicitly add the argument `mode = "wb"`.
+If you want to download the data manually, you can use the following code:
 
 ```{r, eval=FALSE}
-
 ## Create a directory to store the data
 dir.create("data")
 
 ## Mac or Linux
-download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx", destfile = "data/qpcr_data2.xlsx")
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv", destfile = "data/sur
+veys_complete.csv")
 
 ## Windows
-download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data2.xlsx", destfile = "data/qpcr_data2.xlsx", mode = "wb")
+download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/surveys_complete.csv", destfile = "data/sur
+veys_complete.csv", mode = "wb")
 ```

@@ -58,11 +58,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./01-HW.html" rel="next">
+<link href="./01-IntroR.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -104,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -129,69 +132,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./01-start.html"> 
+    <a class="nav-link" href="./start.html"> 
 <span class="menu-text">Getting Started</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-an-rstudio" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">R an RStudio</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-an-rstudio">    
-        <li>
-    <a class="dropdown-item" href="./02-Setup.html">
- <span class="dropdown-text">Course setup</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-IntroR.html">
- <span class="dropdown-text">Introduction to R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-Programming.html">
- <span class="dropdown-text">Programming in R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-HW.html">
- <span class="dropdown-text">Homework exercise</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tidyverse" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tidyverse</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tidyverse">    
-        <li>
-    <a class="dropdown-item" href="./03-Setup.html">
- <span class="dropdown-text">Course setup</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-tidyverse.html">
- <span class="dropdown-text">Tidy data</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-dplyr.html">
- <span class="dropdown-text">Data manipulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-ggplot2.html">
- <span class="dropdown-text">Data visualisation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-HW.html">
- <span class="dropdown-text">Homework exercise</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-Setup.html">1: R and RStudio</a></li><li class="breadcrumb-item"><a href="./01-Programming.html">Programming in R</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">1: R and RStudio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Programming.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Programming in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">2: Tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -223,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-Setup.html">1: R and RStudio</a></li><li class="breadcrumb-item"><a href="./01-Programming.html">Programming in R</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Programming in R</h1>
 </div>
@@ -269,15 +315,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="nested-functions" class="level2">
 <h2 class="anchored" data-anchor-id="nested-functions">Nested functions</h2>
-<p>R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the <code>mean</code> function inside the <code>log</code> function to calculate the log of the mean of a set of numbers:</p>
+<p>R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the <code>mean()</code> function inside the <code>log()</code> function to calculate the log of the mean of a set of numbers:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>( <span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>)) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.481605</code></pre>
 </div>
 </div>
-<p>R will perform the innermost function first, which is the <code>mean</code> function, and then pass the result to the <code>log</code> function.</p>
-<p>We can also use nested functions to perform more complex operations. For example, we can use the <code>subset</code> function to filter the cars dataset for rows where the speed is greater than 10, and then use the <code>head</code> function to display the first 3 rows of the filtered dataset:</p>
+<p>R will perform the innermost function first, which is the <code>mean()</code> function, and then pass the result to the <code>log()</code> function.</p>
+<p>We can also use nested functions to perform more complex operations. For example, we can use the <code>subset()</code> function to filter the cars dataset for rows where the speed is greater than 10, and then use the <code>head()</code> function to display the first 3 rows of the filtered dataset:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( <span class="fu">subset</span>(cars, speed <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -408,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-Programming_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-Programming_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -445,11 +491,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>See if you can add the p-value as a subtitle.</p>
 <p><strong>HINTS</strong></p>
 <ul>
-<li>A title can be added with the <code>main</code> argument in the <code>boxplot</code> function.</li>
+<li>A title can be added with the <code>main</code> argument in the <code>boxplot()</code> function.</li>
 <li>You can use an if statement to determine the title based on the p-value from the t-test result.</li>
-<li>Store the title text in an object and use that object in the <code>main</code> argument of the <code>boxplot</code> function.</li>
+<li>Store the title text in an object and use that object in the <code>main</code> argument of the <code>boxplot()</code> function.</li>
 <li>The p-value can be accessed from the t-test result object with <code>qpcr_result$p.value</code>.</li>
-<li>The subtitle can be added with the <code>sub</code> argument in the <code>boxplot</code> function.</li>
+<li>The subtitle can be added with the <code>sub</code> argument in the <code>boxplot()</code> function.</li>
 </ul>
 <details>
 <summary>
@@ -471,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-Programming_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-Programming_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -607,7 +653,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="writing-functions">Writing functions</h2>
 <p>Functions are reusable blocks of code that perform a specific task. They allow you to break down complex problems into smaller, more manageable pieces.</p>
 <p>You have already used many functions in R, such as <code>plot()</code>, <code>read.table()</code>, and <code>t.test()</code>. All of these functions have underlying code that performs a specific task when you call the function. In fact, you can print the code for any function in R by simply typing the name of the function without parentheses.</p>
-<p>Try this with the <code>read.table</code> function:</p>
+<p>Try this with the <code>read.table()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>read.table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -827,12 +873,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     attr(data, "row.names") &lt;- row.names
     data
 }
-&lt;bytecode: 0x1111a9320&gt;
+&lt;bytecode: 0x10660a520&gt;
 &lt;environment: namespace:utils&gt;</code></pre>
 </div>
 </div>
-<p>To start with, the code is quite long. This should really highlight the power of functions in R. Instead of having to write all of this code every time you want to read in a table, you can simply call the <code>read.table</code> function and it will execute all of that code for you.</p>
-<p>If you scroll to the beginning, you can see that the code begins with a call of <code>function</code>, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses <code>()</code>. In this case, the <code>read.table</code> function takes several arguments, such as <code>file</code>, <code>header</code>, and <code>sep</code>.</p>
+<p>To start with, the code is quite long. This should really highlight the power of functions in R. Instead of having to write all of this code every time you want to read in a table, you can simply call the <code>read.table()</code> function and it will execute all of that code for you.</p>
+<p>If you scroll to the beginning, you can see that the code begins with a call of <code>function</code>, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses <code>()</code>. In this case, the <code>read.table()</code> function takes several arguments, such as <code>file</code>, <code>header</code>, and <code>sep</code>.</p>
 <p>The code inside the curly braces <code>{}</code> is the body of the function, which contains the code and control flow statements that will be executed when the function is called.</p>
 <section id="custom-functions" class="level3">
 <h3 class="anchored">Custom functions</h3>
@@ -844,8 +890,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(logsum)</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this example, we define a function called <code>log_sum</code> that takes two arguments, <code>x</code> and <code>y</code>. The body of the function calculates the <code>sum</code> of <code>x</code> and <code>y</code> and then transforms it using the <code>log</code> function.</p>
-<p>The <code>return()</code> function is used to return the value of <code>logsum</code> when the function is called. If a return statement is not included, the function will just return the value of the last expression.</p>
+<p>In this example, we define a function called <code>log_sum()</code> that takes two arguments, <code>x</code> and <code>y</code>. The body of the function calculates the <code>sum</code> of <code>x</code> and <code>y</code> and then transforms it using the <code>log</code> function.</p>
+<p>The <code>return()</code> function is used to return the value of <code>logsum()</code> when the function is called. If a return statement is not included, the function will just return the value of the last expression.</p>
 <p>You can call this function by passing two numbers as arguments:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log_sum</span>(<span class="dv">3</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -853,7 +899,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 2.079442</code></pre>
 </div>
 </div>
-<p>If we need to perform this calculation multiple times with different numbers, we can simply call the <code>log_sum</code> function with different arguments instead of writing the same code over and over again.</p>
+<p>If we need to perform this calculation multiple times with different numbers, we can simply call the <code>log_sum()</code> function with different arguments instead of writing the same code over and over again.</p>
 <p>We can add default values to the function arguments. This allows us to call the function without providing values for those arguments, and the default values will be used instead. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>log_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>)) {</span>
@@ -884,7 +930,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">sum =</span> sum, <span class="at">logsum =</span> logsum))</span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this example, the <code>log_sum</code> function returns a list containing both the sum and the log of the sum. You can access these values using the <code>$</code> operator:</p>
+<p>In this example, the <code>log_sum()</code> function returns a list containing both the sum and the log of the sum. You can access these values using the <code>$</code> operator:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">log_sum</span>(<span class="dv">3</span>, <span class="dv">5</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -954,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-Programming_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-Programming_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -978,7 +1024,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-Programming_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-Programming_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1150,7 +1196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Break up long lines of code</strong> into multiple lines to improve readability. This can help to prevent horizontal scrolling and make it easier to read the code.</li>
 <li>Use <strong>functions</strong> to break up your code into smaller, more manageable pieces.</li>
 </ul>
-<p>Later on we will cover some tools that can help with formatting your code, such as the <code>styler</code> package and the <code>formatR</code> package.</p>
+<p>Later on we will cover some tools that can help with formatting your code, such as the <strong>styler</strong> and <strong>formatR</strong> packages.</p>
 <div class="challenge">
 <h2 class="anchored" data-anchor-id="commenting-and-formatting">
 <i class="fas fa-pencil-alt"></i> Challenge:
@@ -1607,6 +1653,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-IntroR.html" class="pagination-link" aria-label="Introduction to R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction to R</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./01-HW.html" class="pagination-link" aria-label="Homework exercise">
+        <span class="nav-page-text">Homework exercise</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

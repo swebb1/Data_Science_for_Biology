@@ -159,20 +159,20 @@ Let's run a function on a real data set. The `cars` data set is built into base 
 cars
 ```
 
-We can see that this is a table of values. If we run the `class` function we will see that R recognises this as a `data.frame`.
+We can see that this is a table of values. If we run the `class()` function we will see that R recognises this as a **data.frame**.
 
 ```{r}
 class(cars)
 ```
 
-Now let's run a more useful function. The `plot` function in R is used for making basic graphs. It also has additional arguments which can be altered to change its behaviour. Try plotting the cars data.
+Now let's run a more useful function. The `plot()` function in R is used for making basic graphs. It also has additional arguments which can be altered to change its behaviour. Try plotting the cars data.
 
 ```{r}
 ## Use the options within the plot function to customise the output
 plot(cars, xlab = "Car Speed (mph)", ylab = "Stopping Distance (ft)")
 ```
 
-Not all functions need arguments. For instance, the `getwd` function which returns the path of your working directory.
+Not all functions need arguments. For instance, the `getwd()` function which returns the path of your working directory.
 
 ```{r, eval=F}
 getwd()
@@ -190,7 +190,7 @@ result = function_name(data, options, moreOptions)
 result <- function_name(data, options, moreOptions)
 ```
 
-Try storing the output of the `summary` function on the `cars` data set. You will see the object `sum_cars` appear in your Environment tab in RStudio.
+Try storing the output of the `summary()` function on the `cars` data set. You will see the object *sum_cars* appear in your Environment tab in RStudio.
 
 ```{r}
 sum_cars = summary(cars)
@@ -204,13 +204,13 @@ sum_cars
 
 ## Getting help
 
-R has extensive built in help documentation. You can access this using the `help` function. The command below provides the help page for the *function* `read.table`
+R has extensive built in help documentation. You can access this using the `help()` function. The command below provides the help page for the function `read.table()`
 
 ```{r, eval=FALSE}
 help(read.table)
 ```
 
-We can also search the help documentation using `help.search`. Let's see if we can find a function for running a t-test.
+We can also search the help documentation using `help.search()`. Let's see if we can find a function for running a t-test.
 
 ```{r, eval=FALSE}
 help.search("t test")
@@ -247,7 +247,7 @@ You can also use the **Help** tab in RStudio to search for help on functions, or
 
 Getting data into R is often the first step in any analysis.
 
-It is possible to create a vector of data by typing directly into R using the function `c`. The *c* stands for *combine* and can be used to combine values into a *vector*.
+It is possible to create a vector of data by typing directly into R using the function `c()`. The *c* stands for *combine* and can be used to combine values into a *vector*.
 
 ```{r}
 x   <-  c(1,2,3,4,5)
@@ -273,7 +273,7 @@ daysofweek <- c(Monday, Tuesday, Wednesday, Thursday, Friday)
 daysofweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 ```
 
-You can create data frames from vectors using the `data.frame` function:
+You can create data frames from vectors using the `data.frame()` function:
 
 ```{r}
 table <- data.frame(Index = x, Day = daysofweek)
@@ -281,13 +281,13 @@ table <- data.frame(Index = x, Day = daysofweek)
 table
 ```
 
-Usually however, you will want to input data from a file. You can read files on your computer or from a URL. Use the `read.table` function to read in the table hosted at the URL below.
+Usually however, you will want to input data from a file. You can read files on your computer or from a URL. Use the `read.table()` function to read in the table hosted at the URL below.
 
 ```{r, eval=FALSE}
 read.table("http://bifx-core3.bio.ed.ac.uk/data.tsv")
 ```
 
-R reads this table as a `data.frame` object and prints it to the R console by default. To save the table, we need to assign it to an object.
+R reads this table as a *data.frame* object and prints it to the R console by default. To save the table, we need to assign it to an object.
 
 ```{r}
 mydata  <- read.table("http://bifx-core3.bio.ed.ac.uk/data.tsv")
@@ -311,7 +311,7 @@ You can also use the `View()` command to open data frames in the file pane.
 
 Hmmm, something isn't right with our rows here...
 
-By default the `read.table` function assumes certain things from the file
+By default the `read.table()` function assumes certain things from the file
 
 -   The file is a plain text file (there are separate functions to read excel files etc.)
 -   Columns are separated by any number of tabs or spaces
@@ -329,7 +329,7 @@ mydata <- read.table("http://bifx-core3.bio.ed.ac.uk/data.tsv", header=TRUE)
 
 **Note** the comma between different parts of the functions arguments.
 
-This overwrites our previous data frame `mydata` with the correctly formatted one. Let's look at the first 5 rows again.
+This overwrites our previous data frame *mydata* with the correctly formatted one. Let's look at the first 5 rows again.
 
 ```{r}
 head(mydata, n=5)
@@ -345,7 +345,7 @@ Use `sep =` to define how columns are separated in your input file. This file us
 mydata  <- read.table("http://bifx-core3.bio.ed.ac.uk/data.tsv", header = T, sep = "\t")
 ```
 
-By default, `read.table` assumes columns are separated by any amount of white space (space or tabs). This can lead to problems if some of your columns have missing values, so it is good practice to always give a `sep` argument.
+By default, `read.table()` assumes columns are separated by any amount of white space (space or tabs). This can lead to problems if some of your columns have missing values, so it is good practice to always give a `sep` argument.
 
 If your data has missing values you can use `fill = TRUE`.
 
@@ -355,7 +355,7 @@ mydata  <- read.table("http://bifx-core3.bio.ed.ac.uk/data.tsv", header = T, sep
 
 This tells R to fill empty spaces in columns with the 'NA' character.
 
-As this is such a common task there are functions identical to read.table but with different default settings. e.g. `read.delim` and `read.csv`. Check out the help pages for each of these.
+As this is such a common task there are functions identical to read.table but with different default settings. e.g. `read.delim()` and `read.csv()`. Check out the help pages for each of these.
 
 ### Importing Datasets
 
@@ -417,7 +417,7 @@ mydata[mydata$B > 7,]
 
 ## Ordering data
 
-The `order` function can be used to sort data frames by a specific column.
+The `order()` function can be used to sort data frames by a specific column.
 
 ```{r}
 order(mydata$B) # Returns the row numbers in the sorted order of column B
@@ -501,13 +501,13 @@ There is a `subset()` function in R specifically for filtering tables. This gene
 subset(mydata, mydata$C == 3)
 ```
 
-The `tidyverse` packages have their own set of functions for filtering data and we will explore these in a later module.
+The **tidyverse** packages have their own set of functions for filtering data and we will explore these in a later module.
 
 ## Plotting with R
 
 Base R has many built in functions for plotting data.
 
-We recommend learning `ggplot2` for more complex graphics but it is useful to know what base R offers. Remember, to get more information about the options available to a function, type `?function`.
+We recommend learning **ggplot2** for more complex graphics but it is useful to know what base R offers. Remember, to get more information about the options available to a function, type `?function`.
 
 ### Histograms
 
@@ -523,7 +523,7 @@ The `ChickWeight` data set is another data frame built into R. It is a larger da
 1.  What type of data is stored in the `weight` column?
 2.  What is the mean weight of all the chicks?
 3.  What type of data is stored in the `Diet` column?
-4.  How many rows are in this table (try the `dim` or `nrow` functions)?
+4.  How many rows are in this table (try the `dim()` or `nrow()` functions)?
 
 <details>
 
@@ -534,7 +534,7 @@ The `ChickWeight` data set is another data frame built into R. It is a larger da
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-1.  What type of data is stored in the `weight` column?
+1.  What type of data is stored in the *weight* column?
 
 ```{r}
 class(ChickWeight$weight)
@@ -546,13 +546,13 @@ class(ChickWeight$weight)
 mean(ChickWeight$weight)
 ```
 
-3.  What type of data is stored in the `Diet` column?
+3.  What type of data is stored in the *Diet* column?
 
 ```{r}
 class(ChickWeight$Diet)
 ```
 
-4.  How many rows are in this table (try the `dim` or `nrow` functions)?
+4.  How many rows are in this table (try the `dim()` or `nrow()` functions)?
 
 ```{r}
 nrow(ChickWeight)
@@ -622,7 +622,7 @@ There are a few ways to save images in RStudio:
 
 ### Use a **graphics device** function in your R code.
 
-Use the `png` function to save a png file (easy to load into web applications and presentations).
+Use the `png()` function to save a png file (easy to load into web applications and presentations).
 
 ```{r, eval=FALSE}
 png("filename.png") 
@@ -646,7 +646,7 @@ R has many functions for statistical testing. We will cover a couple of examples
 
 ### T-test
 
-The `t.test` function can be used to compare the **numerical** means of two groups. The t-test should only be used under the following assumptions.
+The `t.test()` function can be used to compare the **numerical** means of two groups. The t-test should only be used under the following assumptions.
 
 -   Each group is approximately normally distributed
 -   The variance of the two groups is approximately equal
@@ -654,7 +654,7 @@ The `t.test` function can be used to compare the **numerical** means of two grou
 
 We can use R to simulate a data frame of values for two groups, WT and KO, with 10 values in each group (this could be any sort of experimental measurement).
 
-Below, we use the `rnorm` function to generate random numbers from a normal distribution. The `mean` and `sd` arguments specify the mean and standard deviation of the distribution.
+Below, we use the `rnorm()` function to generate random numbers from a normal distribution. The `mean` and `sd` arguments specify the mean and standard deviation of the distribution.
 
 ```{r}
 set.seed(123) # Set seed for reproducibility.
@@ -670,16 +670,16 @@ df
 ::: discussion
 <h2><i class="far fa-bell"></i> Discussion</h2>
 
-What is a normal distribution? How does `rnorm` work?
+What is a normal distribution? How does `rnorm()` work?
 
 What does `set.seed` do?
 
-What do the `paste` and `rep` functions do?
+What do the `paste()` and `rep()` functions do?
 :::
 
 <br>
 
-We can use the `t.test` function to compare the means of the two groups. The syntax for the t-test is `t.test(Value ~ Group, data=df)`, where `Value` is the numeric variable we want to compare and `Group` is the categorical variable that defines the groups.
+We can use the `t.test()` function to compare the means of the two groups. The syntax for the t-test is `t.test(Value ~ Group, data=df)`, where `Value` is the numeric variable we want to compare and `Group` is the categorical variable that defines the groups.
 
 ```{r}
 t.test(Value ~ Group, data = df, var.equal = TRUE)
@@ -697,7 +697,7 @@ Are the mean values of the WT and KO groups significantly different?
 
 ### Fisher's exact test
 
-The `fisher.test` function can be used to test for association between two **categorical** variables.
+The `fisher.test()` function can be used to test for association between two **categorical** variables.
 
 #### Example
 
@@ -716,7 +716,7 @@ Both variables are categorical:
 -   Treatment: Control / Drug
 -   Response: Responder / Non-responder
 
-Let's create a contingency table of the two categorical variables, `Treatment` and `Response`, and use the `fisher.test` function to test for an association between them.
+Let's create a contingency table of the two categorical variables, *Treatment* and *Response*, and use the `fisher.test()` function to test for an association between them.
 
 ```{r}
 # Create a contingency table
@@ -819,7 +819,7 @@ dir.create("data")
 download.file("http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data.xlsx", destfile = "data/qpcr_data.xlsx")
 ```
 
-Our data is in an Excel spreadsheet. We could open Excel and export the data as a tab delimited text file, then read it in using `read.table` or `read.delim`. However, R has a useful package called `readxl` for importing Excel files directly.
+Our data is in an Excel spreadsheet. We could open Excel and export the data as a tab delimited text file, then read it in using `read.table()` or `read.delim()`. However, R has a useful package called `readxl()` for importing Excel files directly.
 
 To access this package, we first need to install it:
 
@@ -915,7 +915,7 @@ qpcr$delta_ct <- qpcr$ct_gene - qpcr$ct_ref
 qpcr
 ```
 
-A new column `delta_ct` has been added to the data frame, which contains the ΔCt values for each sample.
+A new column **delta_ct** has been added to the data frame, which contains the ΔCt values for each sample.
 
 ### Step 3: Visualise the data
 

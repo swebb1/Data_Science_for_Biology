@@ -58,11 +58,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./01-Programming.html" rel="next">
+<link href="./01-Setup.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +136,7 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -158,69 +161,112 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./01-start.html"> 
+    <a class="nav-link" href="./start.html"> 
 <span class="menu-text">Getting Started</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-an-rstudio" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">R an RStudio</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-an-rstudio">    
-        <li>
-    <a class="dropdown-item" href="./02-Setup.html">
- <span class="dropdown-text">Course setup</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-IntroR.html">
- <span class="dropdown-text">Introduction to R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-Programming.html">
- <span class="dropdown-text">Programming in R</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./02-HW.html">
- <span class="dropdown-text">Homework exercise</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tidyverse" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tidyverse</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tidyverse">    
-        <li>
-    <a class="dropdown-item" href="./03-Setup.html">
- <span class="dropdown-text">Course setup</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-tidyverse.html">
- <span class="dropdown-text">Tidy data</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-dplyr.html">
- <span class="dropdown-text">Data manipulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-ggplot2.html">
- <span class="dropdown-text">Data visualisation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./03-HW.html">
- <span class="dropdown-text">Homework exercise</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-Setup.html">1: R and RStudio</a></li><li class="breadcrumb-item"><a href="./01-IntroR.html">Introduction to R</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">1: R and RStudio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-IntroR.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">2: Tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -284,7 +330,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-Setup.html">1: R and RStudio</a></li><li class="breadcrumb-item"><a href="./01-IntroR.html">Introduction to R</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Introduction to R</h1>
 </div>
@@ -534,26 +580,26 @@ $gene_names
 50    25   85</code></pre>
 </div>
 </div>
-<p>We can see that this is a table of values. If we run the <code>class</code> function we will see that R recognises this as a <code>data.frame</code>.</p>
+<p>We can see that this is a table of values. If we run the <code>class()</code> function we will see that R recognises this as a <strong>data.frame</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data.frame"</code></pre>
 </div>
 </div>
-<p>Now let’s run a more useful function. The <code>plot</code> function in R is used for making basic graphs. It also has additional arguments which can be altered to change its behaviour. Try plotting the cars data.</p>
+<p>Now let’s run a more useful function. The <code>plot()</code> function in R is used for making basic graphs. It also has additional arguments which can be altered to change its behaviour. Try plotting the cars data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use the options within the plot function to customise the output</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars, <span class="at">xlab =</span> <span class="st">"Car Speed (mph)"</span>, <span class="at">ylab =</span> <span class="st">"Stopping Distance (ft)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Not all functions need arguments. For instance, the <code>getwd</code> function which returns the path of your working directory.</p>
+<p>Not all functions need arguments. For instance, the <code>getwd()</code> function which returns the path of your working directory.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -567,7 +613,7 @@ $gene_names
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">function_name</span>(data, options, moreOptions)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">function_name</span>(data, options, moreOptions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Try storing the output of the <code>summary</code> function on the <code>cars</code> data set. You will see the object <code>sum_cars</code> appear in your Environment tab in RStudio.</p>
+<p>Try storing the output of the <code>summary()</code> function on the <code>cars</code> data set. You will see the object <em>sum_cars</em> appear in your Environment tab in RStudio.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sum_cars <span class="ot">=</span> <span class="fu">summary</span>(cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -587,11 +633,11 @@ $gene_names
 </section>
 <section id="getting-help" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
-<p>R has extensive built in help documentation. You can access this using the <code>help</code> function. The command below provides the help page for the <em>function</em> <code>read.table</code></p>
+<p>R has extensive built in help documentation. You can access this using the <code>help()</code> function. The command below provides the help page for the function <code>read.table()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(read.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can also search the help documentation using <code>help.search</code>. Let’s see if we can find a function for running a t-test.</p>
+<p>We can also search the help documentation using <code>help.search()</code>. Let’s see if we can find a function for running a t-test.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">"t test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -622,7 +668,7 @@ $gene_names
 <section id="getting-data-into-r" class="level2">
 <h2 class="anchored" data-anchor-id="getting-data-into-r">Getting data into R</h2>
 <p>Getting data into R is often the first step in any analysis.</p>
-<p>It is possible to create a vector of data by typing directly into R using the function <code>c</code>. The <em>c</em> stands for <em>combine</em> and can be used to combine values into a <em>vector</em>.</p>
+<p>It is possible to create a vector of data by typing directly into R using the function <code>c()</code>. The <em>c</em> stands for <em>combine</em> and can be used to combine values into a <em>vector</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x   <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -643,7 +689,7 @@ $gene_names
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This works</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>daysofweek <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Friday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can create data frames from vectors using the <code>data.frame</code> function:</p>
+<p>You can create data frames from vectors using the <code>data.frame()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Index =</span> x, <span class="at">Day =</span> daysofweek)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -657,11 +703,11 @@ $gene_names
 5     5    Friday</code></pre>
 </div>
 </div>
-<p>Usually however, you will want to input data from a file. You can read files on your computer or from a URL. Use the <code>read.table</code> function to read in the table hosted at the URL below.</p>
+<p>Usually however, you will want to input data from a file. You can read files on your computer or from a URL. Use the <code>read.table()</code> function to read in the table hosted at the URL below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.table</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/data.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>R reads this table as a <code>data.frame</code> object and prints it to the R console by default. To save the table, we need to assign it to an object.</p>
+<p>R reads this table as a <em>data.frame</em> object and prints it to the R console by default. To save the table, we need to assign it to an object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/data.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -687,7 +733,7 @@ $gene_names
 </div>
 <p>You can also use the <code>View()</code> command to open data frames in the file pane.</p>
 <p>Hmmm, something isn’t right with our rows here…</p>
-<p>By default the <code>read.table</code> function assumes certain things from the file</p>
+<p>By default the <code>read.table()</code> function assumes certain things from the file</p>
 <ul>
 <li>The file is a plain text file (there are separate functions to read excel files etc.)</li>
 <li>Columns are separated by any number of tabs or spaces</li>
@@ -702,7 +748,7 @@ $gene_names
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that header=T will also work here. TRUE and FALSE can be abbreviated to T and F in R.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Note</strong> the comma between different parts of the functions arguments.</p>
-<p>This overwrites our previous data frame <code>mydata</code> with the correctly formatted one. Let’s look at the first 5 rows again.</p>
+<p>This overwrites our previous data frame <em>mydata</em> with the correctly formatted one. Let’s look at the first 5 rows again.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mydata, <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -721,13 +767,13 @@ $gene_names
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/data.tsv"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>By default, <code>read.table</code> assumes columns are separated by any amount of white space (space or tabs). This can lead to problems if some of your columns have missing values, so it is good practice to always give a <code>sep</code> argument.</p>
+<p>By default, <code>read.table()</code> assumes columns are separated by any amount of white space (space or tabs). This can lead to problems if some of your columns have missing values, so it is good practice to always give a <code>sep</code> argument.</p>
 <p>If your data has missing values you can use <code>fill = TRUE</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/data.tsv"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">fill =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This tells R to fill empty spaces in columns with the ‘NA’ character.</p>
-<p>As this is such a common task there are functions identical to read.table but with different default settings. e.g.&nbsp;<code>read.delim</code> and <code>read.csv</code>. Check out the help pages for each of these.</p>
+<p>As this is such a common task there are functions identical to read.table but with different default settings. e.g.&nbsp;<code>read.delim()</code> and <code>read.csv()</code>. Check out the help pages for each of these.</p>
 </section>
 <section id="importing-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="importing-datasets">Importing Datasets</h3>
@@ -815,7 +861,7 @@ $gene_names
 </section>
 <section id="ordering-data" class="level2">
 <h2 class="anchored" data-anchor-id="ordering-data">Ordering data</h2>
-<p>The <code>order</code> function can be used to sort data frames by a specific column.</p>
+<p>The <code>order()</code> function can be used to sort data frames by a specific column.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">order</span>(mydata<span class="sc">$</span>B) <span class="co"># Returns the row numbers in the sorted order of column B</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1023,12 +1069,12 @@ $gene_names
 24 6 9 3 6 6</code></pre>
 </div>
 </div>
-<p>The <code>tidyverse</code> packages have their own set of functions for filtering data and we will explore these in a later module.</p>
+<p>The <strong>tidyverse</strong> packages have their own set of functions for filtering data and we will explore these in a later module.</p>
 </section>
 <section id="plotting-with-r" class="level2">
 <h2 class="anchored" data-anchor-id="plotting-with-r">Plotting with R</h2>
 <p>Base R has many built in functions for plotting data.</p>
-<p>We recommend learning <code>ggplot2</code> for more complex graphics but it is useful to know what base R offers. Remember, to get more information about the options available to a function, type <code>?function</code>.</p>
+<p>We recommend learning <strong>ggplot2</strong> for more complex graphics but it is useful to know what base R offers. Remember, to get more information about the options available to a function, type <code>?function</code>.</p>
 <section id="histograms" class="level3">
 <h3 class="anchored">Histograms</h3>
 <div class="cell">
@@ -1036,7 +1082,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1050,7 +1096,7 @@ $gene_names
 <li>What type of data is stored in the <code>weight</code> column?</li>
 <li>What is the mean weight of all the chicks?</li>
 <li>What type of data is stored in the <code>Diet</code> column?</li>
-<li>How many rows are in this table (try the <code>dim</code> or <code>nrow</code> functions)?</li>
+<li>How many rows are in this table (try the <code>dim()</code> or <code>nrow()</code> functions)?</li>
 </ol>
 <details>
 <summary>
@@ -1061,7 +1107,7 @@ $gene_names
 <i class="far fa-eye"></i> Solution:
 </h2>
 <ol type="1">
-<li>What type of data is stored in the <code>weight</code> column?</li>
+<li>What type of data is stored in the <em>weight</em> column?</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ChickWeight<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1079,7 +1125,7 @@ $gene_names
 </div>
 </div>
 <ol start="3" type="1">
-<li>What type of data is stored in the <code>Diet</code> column?</li>
+<li>What type of data is stored in the <em>Diet</em> column?</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ChickWeight<span class="sc">$</span>Diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1088,7 +1134,7 @@ $gene_names
 </div>
 </div>
 <ol start="4" type="1">
-<li>How many rows are in this table (try the <code>dim</code> or <code>nrow</code> functions)?</li>
+<li>How many rows are in this table (try the <code>dim()</code> or <code>nrow()</code> functions)?</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ChickWeight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1105,7 +1151,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1116,7 +1162,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1129,7 +1175,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1139,7 +1185,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1152,7 +1198,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/wd-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/wd-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1173,7 +1219,7 @@ $gene_names
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1193,7 +1239,7 @@ $gene_names
 </section>
 <section id="use-a-graphics-device-function-in-your-r-code." class="level3">
 <h3 class="anchored" data-anchor-id="use-a-graphics-device-function-in-your-r-code.">Use a <strong>graphics device</strong> function in your R code.</h3>
-<p>Use the <code>png</code> function to save a png file (easy to load into web applications and presentations).</p>
+<p>Use the <code>png()</code> function to save a png file (easy to load into web applications and presentations).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"filename.png"</span>) </span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(A, B, <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Value A"</span>, <span class="st">"Value B"</span>) , <span class="at">ylab=</span><span class="st">"Count of Something"</span>)</span>
@@ -1213,14 +1259,14 @@ $gene_names
 <p>R has many functions for statistical testing. We will cover a couple of examples here, but there are many more to explore. Remember, to get more information about the options available to a function, type <code>?function</code>.</p>
 <section id="t-test" class="level3">
 <h3 class="anchored">T-test</h3>
-<p>The <code>t.test</code> function can be used to compare the <strong>numerical</strong> means of two groups. The t-test should only be used under the following assumptions.</p>
+<p>The <code>t.test()</code> function can be used to compare the <strong>numerical</strong> means of two groups. The t-test should only be used under the following assumptions.</p>
 <ul>
 <li>Each group is approximately normally distributed</li>
 <li>The variance of the two groups is approximately equal</li>
 <li>The two groups are independent of each other</li>
 </ul>
 <p>We can use R to simulate a data frame of values for two groups, WT and KO, with 10 values in each group (this could be any sort of experimental measurement).</p>
-<p>Below, we use the <code>rnorm</code> function to generate random numbers from a normal distribution. The <code>mean</code> and <code>sd</code> arguments specify the mean and standard deviation of the distribution.</p>
+<p>Below, we use the <code>rnorm()</code> function to generate random numbers from a normal distribution. The <code>mean</code> and <code>sd</code> arguments specify the mean and standard deviation of the distribution.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Set seed for reproducibility.</span></span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1258,12 +1304,12 @@ $gene_names
 <h2 class="anchored" data-anchor-id="t-test">
 <i class="far fa-bell"></i> Discussion
 </h2>
-<p>What is a normal distribution? How does <code>rnorm</code> work?</p>
+<p>What is a normal distribution? How does <code>rnorm()</code> work?</p>
 <p>What does <code>set.seed</code> do?</p>
-<p>What do the <code>paste</code> and <code>rep</code> functions do?</p>
+<p>What do the <code>paste()</code> and <code>rep()</code> functions do?</p>
 </div>
 <p><br></p>
-<p>We can use the <code>t.test</code> function to compare the means of the two groups. The syntax for the t-test is <code>t.test(Value ~ Group, data=df)</code>, where <code>Value</code> is the numeric variable we want to compare and <code>Group</code> is the categorical variable that defines the groups.</p>
+<p>We can use the <code>t.test()</code> function to compare the means of the two groups. The syntax for the t-test is <code>t.test(Value ~ Group, data=df)</code>, where <code>Value</code> is the numeric variable we want to compare and <code>Group</code> is the categorical variable that defines the groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Value <span class="sc">~</span> Group, <span class="at">data =</span> df, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1291,7 +1337,7 @@ mean in group KO mean in group WT
 </section>
 <section id="fishers-exact-test" class="level3">
 <h3 class="anchored">Fisher’s exact test</h3>
-<p>The <code>fisher.test</code> function can be used to test for association between two <strong>categorical</strong> variables.</p>
+<p>The <code>fisher.test()</code> function can be used to test for association between two <strong>categorical</strong> variables.</p>
 <section id="example" class="level4">
 <h4 class="anchored">Example</h4>
 <p>Researchers are testing a new anti-cancer drug in a mouse model. Tumour-bearing mice are randomly assigned to one of two <strong>treatment</strong> groups:</p>
@@ -1309,7 +1355,7 @@ mean in group KO mean in group WT
 <li>Treatment: Control / Drug</li>
 <li>Response: Responder / Non-responder</li>
 </ul>
-<p>Let’s create a contingency table of the two categorical variables, <code>Treatment</code> and <code>Response</code>, and use the <code>fisher.test</code> function to test for an association between them.</p>
+<p>Let’s create a contingency table of the two categorical variables, <em>Treatment</em> and <em>Response</em>, and use the <code>fisher.test()</code> function to test for an association between them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a contingency table</span></span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1438,7 +1484,7 @@ Fold~Change = 2^{-ΔΔCt}
 <span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the qPCR file and save it in the data folder</span></span>
 <span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/data/qPCR_data.xlsx"</span>, <span class="at">destfile =</span> <span class="st">"data/qpcr_data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our data is in an Excel spreadsheet. We could open Excel and export the data as a tab delimited text file, then read it in using <code>read.table</code> or <code>read.delim</code>. However, R has a useful package called <code>readxl</code> for importing Excel files directly.</p>
+<p>Our data is in an Excel spreadsheet. We could open Excel and export the data as a tab delimited text file, then read it in using <code>read.table()</code> or <code>read.delim()</code>. However, R has a useful package called <code>readxl()</code> for importing Excel files directly.</p>
 <p>To access this package, we first need to install it:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1580,7 +1626,7 @@ Fold~Change = 2^{-ΔΔCt}
 16 S16       Treatment    23.5   20.1      3.4</code></pre>
 </div>
 </div>
-<p>A new column <code>delta_ct</code> has been added to the data frame, which contains the ΔCt values for each sample.</p>
+<p>A new column <strong>delta_ct</strong> has been added to the data frame, which contains the ΔCt values for each sample.</p>
 </section>
 <section id="step-3-visualise-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-visualise-the-data">Step 3: Visualise the data</h3>
@@ -1592,7 +1638,7 @@ Fold~Change = 2^{-ΔΔCt}
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-IntroR_files/figure-html/unnamed-chunk-73-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-IntroR_files/figure-html/unnamed-chunk-73-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2142,6 +2188,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-Setup.html" class="pagination-link" aria-label="Setup">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setup</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./01-Programming.html" class="pagination-link" aria-label="Programming in R">
+        <span class="nav-page-text">Programming in R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

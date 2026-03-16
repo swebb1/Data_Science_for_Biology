@@ -24,9 +24,9 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 <br>
 
-In this session we will learn how to import data into R and manipulate it using the `dplyr` package. We will also learn how to reshape data using the `tidyr` package. These are important steps in the data analysis workflow and will allow you to prepare your data for plotting with `ggplot2` in the next session.
+In this session we will learn how to import data into R and manipulate it using the **dplyr** package. We will also learn how to reshape data using the **tidyr** package. These are important steps in the data analysis workflow and will allow you to prepare your data for plotting with **ggplot2** in the next session.
 
-The `dplyr` package is specifically designed for data formatting and manipulation and allows you to merge datasets and create new columns as well as filtering and summarising your data. We are going to learn some of the most common functions.
+The **dplyr** package is specifically designed for data formatting and manipulation and allows you to merge datasets and create new columns as well as filtering and summarising your data. We are going to learn some of the most common functions.
 
 ## Selecting columns and filtering rows
 
@@ -49,7 +49,7 @@ To drop columns from a tibble, put a "-" in front of the variable to exclude it.
 select(surveys, -record_id, -species_id)
 ```
 
-This will select all the variables in `surveys` except `record_id` and `species_id`.
+This will select all the variables in `surveys` except *record_id* and *species_id*.
 
 To choose rows based on specific criteria, use `filter()`:
 
@@ -74,7 +74,7 @@ surveys_sml <- select(surveys2, species_id, sex, weight)
 
 This is readable, but can clutter up your workspace with lots of objects that you have to name individually and keep track of.
 
-You can also *nest* functions (i.e. one function inside of another), like this:
+You can also **nest** functions (i.e. one function inside of another), like this:
 
 ```{r, eval=F, purl = FALSE}
 surveys_sml <- select(filter(surveys, weight < 5), species_id, sex, weight)
@@ -116,7 +116,7 @@ R version 4.1 introduced a native pipe which can be used in base R without loadi
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Using pipes, subset the `surveys` data to include animals collected before 1995 and retain only the columns `year`, `sex`, and `weight`.
+Using pipes, subset the `surveys` data to include animals collected before 1995 and retain only the columns *year*, *sex*, and *weight*.
 
 <details>
 
@@ -149,7 +149,7 @@ write_csv(surveys_sml, file = "data/surveys_small.csv")
 #Or use write_tsv for tab separated files
 ```
 
-You can even pipe directly into `write_csv` to avoid creating another R object.
+You can even pipe directly into `write_csv()` to avoid creating another R object.
 
 ```{r, eval=F}
 surveys |>
@@ -177,7 +177,7 @@ surveys |>
          weight_lb = weight_kg * 2.2)
 ```
 
-If you just want to see the first few rows, you can use a pipe to one of the `head` commands. Base R has `head()` function and the Tidyverse uses `slice_head()` which is one of the useful `slice` functions for selecting specific rows of a dataframe or tibble.
+If you just want to see the first few rows, you can use a pipe to one of the `head` commands. Base R has a `head()` function and the Tidyverse uses `slice_head()` which is one of the useful `slice` functions for selecting specific rows of a dataframe or tibble.
 
 ```{r, eval=F,purl = FALSE}
 surveys |>
@@ -189,14 +189,14 @@ surveys |>
   slice_head(n=6)
 ```
 
-You can even use functions within `mutate`. Look at the code below and see if you can figure out how the `case_when` function works.
+You can even use functions within `mutate()`. Look at the code below and see if you can figure out how the `case_when()` function works.
 
 ```{r, eval=F,purl = FALSE}
 surveys |>
   mutate(sex = case_when(sex=="M"~"Male",sex=="F"~"Female"))
 ```
 
-The `stringr` package within the Tidyverse contains a lot of useful functions for manipulating character strings. For instance, let's imagine that the genus 'Perognathus' has been mislabeled in our table and should instead be 'Peromyscus'.
+The **stringr** package within the Tidyverse contains a lot of useful functions for manipulating character strings. For instance, let's imagine that the genus 'Perognathus' has been mislabeled in our table and should instead be 'Peromyscus'.
 
 ```{r, eval=F,purl = FALSE}
 surveys |>
@@ -224,7 +224,7 @@ surveys |>
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Create a new data frame from the `surveys` data that meets the following criteria: Contains only the `species_id` column and a new column called `hindfoot_cm` containing the `hindfoot_length` values converted to centimeters. In this `hindfoot_cm` column all values are less than 3.
+Create a new data frame from the `surveys` data that meets the following criteria: Contains only the *species_id* column and a new column called *hindfoot_cm* containing the *hindfoot_length* values converted to centimeters. In this *hindfoot_cm* column all values are less than 3.
 
 **Hint**: think about how the commands should be ordered to produce this data frame!
 
@@ -250,9 +250,9 @@ surveys_hindfoot_cm <- surveys |>
 
 ## Group_by and summarise
 
-Many data analysis tasks can be approached using the *split-apply-combine* paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy through the use of the `group_by()` function.
+Many data analysis tasks can be approached using the *split-apply-combine* paradigm: split the data into groups, apply some analysis to each group, and then combine the results. **dplyr** makes this very easy through the use of the `group_by()` function.
 
-`group_by()` is often used together with `summarise()`, which collapses each group into a single-row summary of that group. The `group_by()` function takes the column names that contain the grouping variables for which you want to calculate summary statistics. The `summarise()` function computes a summary statistic for each group using a specified function and variable. So to compute the mean `weight` by sex:
+`group_by()` is often used together with `summarise()`, which collapses each group into a single-row summary of that group. The `group_by()` function takes the column names that contain the grouping variables for which you want to calculate summary statistics. The `summarise()` function computes a summary statistic for each group using a specified function and variable. So to compute the mean *weight* by sex:
 
 ```{r, eval=F, purl = FALSE}
 surveys |>
@@ -277,7 +277,7 @@ surveys |>
             mean_hindfoot_length = mean(hindfoot_length))
 ```
 
-It is sometimes useful to rearrange the result of a query to inspect the values. For instance, we can sort on `min_weight` to put the lighter species first and :
+It is sometimes useful to rearrange the result of a query to inspect the values. For instance, we can sort on *min_weight* to put the lighter species first and :
 
 ```{r, eval = F, purl = FALSE}
 surveys |>
@@ -299,7 +299,7 @@ surveys |>
 
 ## Count
 
-When working with data, we often want to know the number of observations found for each factor or combination of factors. For this task, `dplyr` provides `count()`. For example, if we wanted to count the number of rows of data for each sex, we would do:
+When working with data, we often want to know the number of observations found for each factor or combination of factors. For this task, **dplyr** provides `count()`. For example, if we wanted to count the number of rows of data for each sex, we would do:
 
 ```{r, eval = F, purl = FALSE}
 surveys |>
@@ -314,7 +314,7 @@ surveys |>
     summarise(count = n()) #n() counts the size of each group
 ```
 
-If we wanted to count a *combination of factors*, such as `sex` and `species`, we would specify the first and the second factor as the arguments of `count()`:
+If we wanted to count a **combination of factors**, such as *sex* and *species*, we would specify the first and the second factor as the arguments of `count()`:
 
 ```{r eval = F, purl = FALSE}
 surveys |>
@@ -332,7 +332,7 @@ surveys |>
 :::::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-How many animals were caught in each `plot_type` surveyed?
+How many animals were captured in each *plot_type* surveyed?
 
 <details>
 
@@ -375,7 +375,7 @@ surveys |>
 
 </details>
 
-What was the heaviest animal measured in each year? Return the columns `year`, `genus`, `species_id`, and `weight`. Order the output by `year`.
+What was the heaviest animal measured in each year? Return the columns *year*, *genus*, *species_id*, and *weight*. Order the output by *year*.
 
 <details>
 
@@ -413,10 +413,9 @@ surveys |>
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
-- [dplyr website](https://dplyr.tidyverse.org/)
-- [dplyr cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+-   [dplyr website](https://dplyr.tidyverse.org/)
+-   [dplyr cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
 :::
-
 
 ## Tidyr
 
@@ -439,14 +438,14 @@ expr_untidy
 
 This datasets is untidy because:
 
--   The `sample_info` column contains multiple pieces of information (genotype, replicate number and tissue type).
+-   The *sample_info* column contains multiple pieces of information (genotype, replicate number and tissue type).
 -   There are missing values in the dataset.
 
 The dataset is in a **wide** format. In this format, each gene is a separate variable. This isn't ideal if we want to analyse or plot expression for all genes. We will need to convert this to **long** format.
 
 ### Separating columns
 
-The `tidyr` package contains a set of *separate* functions that split a column into multiple values. In our example, we want to separate the `sample_info` column into three new columns called `genotype`, `replicate`, and `tissue`.
+The **tidyr** package contains a set of *separate* functions that split a column into multiple values. In our example, we want to separate the *sample_info* column into three new columns called *genotype*, *replicate*, and *tissue*.
 
 Because this information is separated by the underscore character, we can use the `separate_wider_delim()` function. This will split the column into three new columns based on the delimiter `_`. The `names` argument specifies the names of the new columns.
 
@@ -462,31 +461,33 @@ expr_untidy2
 
 Other separate functions can be used for different types of separation e.g
 
-- `separate_wider_regex()` for separating based on regular expressions.
-- `separate_longer_delim()` for separating into multiple rows instead of columns.
+-   `separate_wider_regex()` for separating based on regular expressions.
+-   `separate_longer_delim()` for separating into multiple rows instead of columns.
 
 There is also a `unite()` function that does the opposite of `separate()`. It combines multiple columns into a single column using a specified delimiter.
 :::
 
 ### Missing values
 
-The `tidyr` package also contains functions for handling missing values. Missing values are represented in R as `NA`. There are several ways to handle missing values, depending on the context of your analysis.
+The **tidyr** package also contains functions for handling missing values. Missing values are represented in R as `NA`. There are several ways to handle missing values, depending on the context of your analysis.
 
 We might want to check our data for missing values first. The `is.na()` function can be used to identify which values are missing. For instance, to check for missing values in the entire dataset:
 
 ```{r}
 is.na(expr_untidy2) |> any()
 ```
+
 We can count the number of missing values per column:
 
 ```{r}
 is.na(expr_untidy2) |> colSums()
 ```
+
 There are normally three options for handling missing values:
 
--  **Drop** rows with missing values
--  **Replace** missing values with a specific value
--  **Impute** missing values based on other values in the dataset (we won't cover this today but there are functions and packages that can do this).
+-   **Drop** rows with missing values
+-   **Replace** missing values with a specific value
+-   **Impute** missing values based on other values in the dataset (we won't cover this today but there are functions and packages that can do this).
 
 The `drop_na()` function can be used to drop rows with missing values. For instance, if we wanted to drop all rows with missing values in the GeneB column:
 
@@ -516,6 +517,7 @@ There is also a missing value in the *batch* column. This could be down to human
 expr_untidy2 |>
   replace_na(list(batch = "unknown", GeneA = 0, GeneB = 0, GeneC = 0))
 ```
+
 Perhaps we know that batch A was used for the first replicates of the experiment and batch B was used for the second replicate. In this case, we could use a case_when statement within `mutate()` to fill in the missing batch information based on the replicate number:
 
 ```{r}
@@ -527,6 +529,7 @@ expr_untidy2 |>
   )) |>
   replace_na(list(GeneA = 0, GeneB = 0, GeneC = 0))
 ```
+
 This looks good. Let's save this as our tidy dataset:
 
 ```{r}
@@ -549,7 +552,7 @@ The `fill()` function is another useful function for replacing NA values. It can
 
 Although our dataset is now tidy, it is still in a wide format. This means that each gene is a separate variable and we have one row per sample. We have already seen that it is quite cumbersome to list all of the separate gene columns when we want to do something to all of the genes at once (e.g. replace NA values with 0). It would be much easier if we had a long format dataset where we have one row per gene per sample, and a column that indicates which gene is which.
 
-We often need to reshape our data to make it easier to work with. The `tidyr` package contains functions for reshaping data, such as `pivot_longer()` and `pivot_wider()`. These functions allow you to transform a dataset between *long* and *wide* formats.
+We often need to reshape our data to make it easier to work with. The **tidyr** package contains functions for reshaping data, such as `pivot_longer()` and `pivot_wider()`. These functions allow you to transform a dataset between *long* and *wide* formats.
 
 ![](images/spread_data_R.png)
 
@@ -589,8 +592,8 @@ expr_long |>
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
--  [tidyr website](https://tidyr.tidyverse.org/)
--  [tidyr cheat sheet](https://rstudio.github.io/cheatsheets/html/tidyr.html)
+-   [tidyr website](https://tidyr.tidyverse.org/)
+-   [tidyr cheat sheet](https://rstudio.github.io/cheatsheets/html/tidyr.html)
 :::
 
 <br>
@@ -598,10 +601,10 @@ expr_long |>
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
--   Import and format data with `readr` and `tidyr`.
--   Use dplyr `select`, `filter` and `mutate` to manipulate datasets
--   Use `arrange` to sort datasets by specific variables.
--   Use `group_by`, `summarise` and `count` to create summary datasets by groups.
--   Use `tidyr` functions to tidy and reshape datasets.
-    -   Move between wide and long formats with `pivot_longer` and `pivot_wider`.
+-   Import and format data with **readr** and **tidyr**.
+-   Use **dplyr** `select()`, `filter()` and `mutate()` to manipulate datasets
+-   Use `arrange()` to sort datasets by specific variables.
+-   Use `group_by()`, `summarise()` and `count()` to create summary datasets by groups.
+-   Use **tidyr** functions to tidy and reshape datasets.
+    -   Move between wide and long formats with `pivot_longer()` and `pivot_wider()`.
 :::

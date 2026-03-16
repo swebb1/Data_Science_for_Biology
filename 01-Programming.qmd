@@ -37,15 +37,15 @@ One of the key advantages of using a programming language like R is that it allo
 
 ## Nested functions
 
-R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the `mean` function inside the `log` function to calculate the log of the mean of a set of numbers:
+R functions can be nested inside other functions. This allows you to perform multiple operations on data without creating intermediate variables. For example, you can use the `mean()` function inside the `log()` function to calculate the log of the mean of a set of numbers:
 
 ```{r}
 log( mean(c(3,2,4,6,7)) )
 ```
 
-R will perform the innermost function first, which is the `mean` function, and then pass the result to the `log` function.
+R will perform the innermost function first, which is the `mean()` function, and then pass the result to the `log()` function.
 
-We can also use nested functions to perform more complex operations. For example, we can use the `subset` function to filter the cars dataset for rows where the speed is greater than 10, and then use the `head` function to display the first 3 rows of the filtered dataset:
+We can also use nested functions to perform more complex operations. For example, we can use the `subset()` function to filter the cars dataset for rows where the speed is greater than 10, and then use the `head()` function to display the first 3 rows of the filtered dataset:
 
 ```{r}
 head( subset(cars, speed > 10), n = 3)
@@ -200,11 +200,11 @@ See if you can add the p-value as a subtitle.
 
 **HINTS**
 
--   A title can be added with the `main` argument in the `boxplot` function.
+-   A title can be added with the `main` argument in the `boxplot()` function.
 -   You can use an if statement to determine the title based on the p-value from the t-test result.
--   Store the title text in an object and use that object in the `main` argument of the `boxplot` function.
+-   Store the title text in an object and use that object in the `main` argument of the `boxplot()` function.
 -   The p-value can be accessed from the t-test result object with `qpcr_result$p.value`.
--   The subtitle can be added with the `sub` argument in the `boxplot` function.
+-   The subtitle can be added with the `sub` argument in the `boxplot()` function.
 
 <details>
 
@@ -344,15 +344,15 @@ Functions are reusable blocks of code that perform a specific task. They allow y
 
 You have already used many functions in R, such as `plot()`, `read.table()`, and `t.test()`. All of these functions have underlying code that performs a specific task when you call the function. In fact, you can print the code for any function in R by simply typing the name of the function without parentheses.
 
-Try this with the `read.table` function:
+Try this with the `read.table()` function:
 
 ```{r}
 read.table
 ```
 
-To start with, the code is quite long. This should really highlight the power of functions in R. Instead of having to write all of this code every time you want to read in a table, you can simply call the `read.table` function and it will execute all of that code for you.
+To start with, the code is quite long. This should really highlight the power of functions in R. Instead of having to write all of this code every time you want to read in a table, you can simply call the `read.table()` function and it will execute all of that code for you.
 
-If you scroll to the beginning, you can see that the code begins with a call of `function`, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses `()`. In this case, the `read.table` function takes several arguments, such as `file`, `header`, and `sep`.
+If you scroll to the beginning, you can see that the code begins with a call of `function`, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses `()`. In this case, the `read.table()` function takes several arguments, such as `file`, `header`, and `sep`.
 
 The code inside the curly braces `{}` is the body of the function, which contains the code and control flow statements that will be executed when the function is called.
 
@@ -368,9 +368,9 @@ log_sum <- function(x, y) {
 }
 ```
 
-In this example, we define a function called `log_sum` that takes two arguments, `x` and `y`. The body of the function calculates the `sum` of `x` and `y` and then transforms it using the `log` function.
+In this example, we define a function called `log_sum()` that takes two arguments, `x` and `y`. The body of the function calculates the `sum` of `x` and `y` and then transforms it using the `log` function.
 
-The `return()` function is used to return the value of `logsum` when the function is called. If a return statement is not included, the function will just return the value of the last expression.
+The `return()` function is used to return the value of `logsum()` when the function is called. If a return statement is not included, the function will just return the value of the last expression.
 
 You can call this function by passing two numbers as arguments:
 
@@ -378,7 +378,7 @@ You can call this function by passing two numbers as arguments:
 log_sum(3, 5)
 ```
 
-If we need to perform this calculation multiple times with different numbers, we can simply call the `log_sum` function with different arguments instead of writing the same code over and over again.
+If we need to perform this calculation multiple times with different numbers, we can simply call the `log_sum()` function with different arguments instead of writing the same code over and over again.
 
 We can add default values to the function arguments. This allows us to call the function without providing values for those arguments, and the default values will be used instead. For example:
 
@@ -412,7 +412,7 @@ log_sum <- function(x, y, base = exp(1)) {
 }
 ```
 
-In this example, the `log_sum` function returns a list containing both the sum and the log of the sum. You can access these values using the `$` operator:
+In this example, the `log_sum()` function returns a list containing both the sum and the log of the sum. You can access these values using the `$` operator:
 
 ```{r}
 result <- log_sum(3, 5)
@@ -689,7 +689,7 @@ Some quick tips:
 -   **Break up long lines of code** into multiple lines to improve readability. This can help to prevent horizontal scrolling and make it easier to read the code.
 -   Use **functions** to break up your code into smaller, more manageable pieces.
 
-Later on we will cover some tools that can help with formatting your code, such as the `styler` package and the `formatR` package.
+Later on we will cover some tools that can help with formatting your code, such as the **styler** and **formatR** packages.
 
 ::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>

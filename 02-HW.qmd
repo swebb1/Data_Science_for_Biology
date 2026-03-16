@@ -17,148 +17,83 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ::: objectives
 <h2><i class="far fa-check-square"></i> Learning Objectives</h2>
 
--   Write an R script to perform a data analysis task
+-   Import and structure your data for plotting
+-   Create an informative and visually appealing graphic
+-   Use **tidyverse** packages for data analysis
 :::
 
 <br>
 
 ## Task
 
-Write an R script to perform a data analysis task. Your script should do the following:
+Write an R Script to import, restructure and plot a dataset of your choice. You can use the case study below, find a dataset online or even simulate your own dataset. The script should be well commented and include explanations of each step. You should also include a brief description of the dataset and the question you are trying to answer with your analysis.
 
-1.  Import a dataset as a data frame
-2.  Perform exploratory data analysis
-    -   Summarise the dataset
-    -   Calculate summary statistics of variables (e.g. mean)
-3.  Plot the data (e.g. scatter plot, histogram, boxplot)
-4.  Save the plot to a PNG file
+1.  Import the dataset using the appropriate function from the **readr** package.
+2.  Restructure the dataset using functions from the **tidyr** or **dplyr** packages to get it into a tidy format.
+3.  Create a plot using **ggplot2** to visualize the data and answer your research question.
 
-Additionally, you could try to:
+## Case Study: COVID-19 Data Analysis
 
-1.  Run a statistical test on the data
-2.  Write a custom function to use in your script e.g.
-    -   To calculate a specific statistic
-    -   To perform a specific data manipulation task
-    -   To create a specific type of plot
-3.  Parameterise your script by adding command line arguments
+The COVID-19 pandemic has had a profound impact on global health and economies. Analysing data related to COVID-19 can provide insights into the spread of the virus, the effectiveness of interventions, and the impact on different populations. For this task, you will analyse a dataset containing COVID-19 case reports from around the world in 2020.
 
-If you need help with this task:
+1.  Download the [COVID-19 dataset](https://www.kaggle.com/datasets/imdevskp/corona-virus-report/code?datasetId=494766&sortBy=voteCount) from Kaggle
+2.  Import the table `covid_19_clean_complete.csv` into R
 
--   Email the Bioinformatics Core team, we're happy to help!
--   Come to a drop in session. We run these monthly.
--   Search online, there is an abundance of R forums, guides and videos
--   Use AI. It's pretty good at coding and can be a great way to learn. Just make sure you understand the code it generates and don't just copy and paste without thinking about it!
+This table contains daily reports of COVID-19 cases, deaths, and recoveries for different countries and regions. The columns include:
 
-## Data
+-   `Province/State`: The province or state of the report (if applicable)
+-   `Country/Region`: The country or region of the report
+-   `Lat`: The latitude of the location
+-   `Long`: The longitude of the location
+-   `Date`: The date of the report
+-   `Confirmed`: The total number of confirmed cases
+-   `Deaths`: The total number of deaths
+-   `Recovered`: The total number of recoveries
+-   `Active`: The total number of active cases
+-   `WHO Region`: The World Health Organization region of the report
 
-You can use any dataset you like for this task. It would be best to use your own research data if possible. Building your programming skills around your own data is a great way to learn R. Real world data can also be messy and this will give you a more realistic experience of data analysis.
+3.  Try to recreate the plot below using **ggplot2**:
 
-If you don't have your own data, you can use the case study below, find a dataset online or even simulate your own dataset.
+```{r, fig.width=8, fig.height=6,echo=F}
+library(tidyverse)
+t <- read_csv("data/covid_19_clean_complete.csv",col_names = T)
 
-### Published data
+latest_date <- max(t$Date)
 
-You could use a dataset from a published paper. This is a great way to practice analysing real data interpreting scientific results. You can usually find datasets in the supplementary materials of papers.
+tm <- t |> 
+  group_by(`Country/Region`, Date, `WHO Region`) |> 
+  summarise(Confirmed = sum(Confirmed),
+            Deaths = sum(Deaths),
+            Recovered = sum(Recovered),
+            Active = sum(Active)) |> 
+  rename(Country = `Country/Region`, WHO_Region = `WHO Region`) |># rename `Country/Region` to Country for easier typing
+  ungroup()
 
-Alternatively, you can use a dataset related to a specfic hobby or interest you might have. Choose something that motivates you!
+countries <- c("Brazil", "Italy", "China", "New Zealand", "United Kingdom", "US")
 
-**Kaggle** has an abundance of public datasets that you can use for this task at <https://www.kaggle.com/datasets> e.g.
-
--   Premier league football
--   COVID-19 case outcomes
--   Movie ratings and revenues
--   Census data
-
-### Simulated data
-
-The code below shows how to simulate a fairly generic dataset in R. You could modify the conditions and values to look like a more familiar dataset for your research e.g
-
--   Gene expression levels across different conditions
--   Cell counts across different time points
--   Fluorescence intensity measurements across different samples
-
-```{r}
-
-set.seed(123) # for reproducibility
-n <- 100
-
-sim_data <- data.frame(
-  Condition = c(rep("Control",n/2), rep("Treatment",n/2)),
-  Value = c(rnorm(n/2, mean = 50, sd = 10),rnorm(n/2, mean = 60, sd = 10))
-)
+library(ggrepel)
+tm |> filter(Date == latest_date) |> 
+  ggplot(aes(x = Confirmed, y = Deaths, colour = WHO_Region)) +
+  geom_point() +
+  geom_label_repel(
+    data = tm |> filter(Country %in% countries, Date == latest_date),
+    aes(label = Country), 
+    size = 4,nudge_x = 3,
+    show.legend = FALSE) + ## Add labels to the points
+  scale_x_log10() + ## Use a log scale to better visualise the trends
+  scale_y_log10() +
+  scale_colour_brewer(palette = "Dark2") + ## Use a colour palette for better aesthetics
+  labs(title = "Total Deaths vs Confirmed Cases",
+       x = "Total Confirmed Cases (log scale)",
+       y = "Total Deaths (log scale)",
+       colour = "WHO Region") +
+  theme_minimal()
 ```
-
-## Case Study: Enhancing Memory with Neurotrophic Factors
-
-In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like "fertilizer" for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.
-
-Researchers are investigating whether a synthetic mimetic of BDNF (called "NeuroBoost") increases the density of dendritic spines.
-
-### Experimental setup:
-
--   16 samples (primary neuronal cultures)
-    -   8 Control
-    -   8 Treated with NeuroBoost
-
-Using a confocal microscope, a researcher selects a dendrite and counts the number of spines per 10 micrometers ($\mu m$) of length. There are 16 independent batches of neurons derived from different embryos. For each batch, the researcher images 3 different neurons to account for the fact that some neurons in a dish are naturally more "branchy" than others.
-
-```{r,echo=FALSE}
-# Set seed for reproducibility
-set.seed(123)
-
-# 1. Setup metadata
-Group <- c(rep("Control", 8), rep("NeuroBoost", 8))
-Batch_ID <- paste0("Batch_", 1:16)
-
-# 2. Simulate the 'True' Biological effect
-# Control neurons usually have ~4-6 spines per 10um.
-# NeuroBoost treated neurons should show an increase to ~7-9 spines.
-true_densities <- c(rnorm(8, mean = 5.2, sd = 0.8),  # Control
-                    rnorm(8, mean = 8.1, sd = 1.1))  # Treated
-
-# 3. Create 3 Technical Replicates (3 neurons per batch)
-# We use rpois (Poisson distribution) because counts of objects are usually 
-# modeled this way, making the data look very authentic.
-Neuron_1 <- rpois(16, lambda = true_densities)
-Neuron_2 <- rpois(16, lambda = true_densities)
-Neuron_3 <- rpois(16, lambda = true_densities)
-
-# 4. Assemble the Data Frame
-spine_data <- data.frame(
-  Batch_ID = Batch_ID,
-  Treatment = Group,
-  Neuron_1 = Neuron_1,
-  Neuron_2 = Neuron_2,
-  Neuron_3 = Neuron_3,
-  stringsAsFactors = FALSE
-)
-```
-
-The dataset can be downloaded from here: <https://bifx-core3.bio.ed.ac.uk/training/DSB/data/spine_data.csv>
-
-```{r,echo=TRUE}
-head(spine_data)
-```
-
-There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.
 
 ::: hints
 <h2><i class="far fa-flag"></i> Hints</h2>
 
--   What file format is the data in? Which function will you use to import the data?
--   Look into the `rowMeans()` function to calculate the average spine density for each batch.
--   Use a t-test to compare the mean spine density between the Control and NeuroBoost groups.
--   Create a boxplot to visualize the distribution of spine densities for each treatment group.
+-   You will need to combine data from different regions into one country using the `group_by()` and `summarise()` functions. Some countries have regions that are oversees territories. For simplicity, combine them all into one country.
+-   Use the **ggrepel** package to add labels to your plot.
+-   The colour palette used here is *Dark2* from the **RColorBrewer** package.
 :::
-
-```{r, echo=FALSE,eval=FALSE}
-## Base R only
-spine_data$Mean_Spine_Density <- rowMeans(spine_data[, c("Neuron_1", "Neuron_2", "Neuron_3")])
-
-t.test(Mean_Spine_Density ~ Treatment, data = spine_data, var.equal = T)
-
-boxplot(spine_data$Mean_Spine_Density ~ spine_data$Treatment, 
-        main = "Mean Spine Density by Treatment", 
-        xlab = "Treatment", 
-        ylab = "Mean Spine Density (spines/10um)")
-
-```

@@ -7,36 +7,41 @@ project:
 
 website:
   title: "Data Science for Biology"
+  page-navigation: true
+  
   navbar:
     logo: "images/DRP_Logo_only_square_transparent.png"
-    pinned: true
     left:
       - href: index.qmd
         text: Home
-      - href: 01-start.qmd
+      - href: start.qmd
         text: Getting Started
-      - text: R an RStudio
-        menu:
-          - text: Course setup
-            href: 02-Setup.qmd
-          - text: Introduction to R
-            href: 02-IntroR.qmd
-          - text: Programming in R
-            href: 02-Programming.qmd
-          - text: Homework exercise
-            href: 02-HW.qmd
-      - text: Tidyverse
-        menu:
-          - text: Course setup
-            href: 03-Setup.qmd
-          - text: Tidy data
-            href: 03-tidyverse.qmd
-          - text: Data manipulation
-            href: 03-dplyr.qmd
-          - text: Data visualisation
-            href: 03-ggplot2.qmd
-          - text: Homework exercise
-            href: 03-HW.qmd
+
+  sidebar:
+    style: "floating"
+    contents:
+      - section: "1: R and RStudio"
+        contents:
+          - href: 01-Setup.qmd
+            text: Setup
+          - href: 01-IntroR.qmd
+            text: Introduction to R
+          - href: 01-Programming.qmd
+            text: Programming in R
+          - href: 01-HW.qmd
+            text: Homework exercise
+      - section: "2: Tidyverse"
+        contents:
+          - href: 02-Setup.qmd
+            text: Setup
+          - href: 02-tidyverse.qmd
+            text: Tidy data
+          - href: 02-dplyr.qmd
+            text: Data manipulation
+          - href: 02-ggplot2.qmd
+            text: Data visualisation
+          - href: 02-HW.qmd
+            text: Homework exercise
 format:
   html:
     theme: 

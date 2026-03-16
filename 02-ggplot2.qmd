@@ -24,12 +24,12 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 -   Change the appearance of graphics using themes
 -   Create sub-graphics by applying facets
 -   Create and save basic graphics
--   Use additional libraries such as `plotly` to enhance the utility of graphics.
+-   Use additional libraries such as **plotly** to enhance the utility of graphics.
 :::
 
 <br>
 
-`ggplot2` is a plotting package that makes it simple to create complex graphics from data frames. It provides a grammar for specifying which variables to plot, how they are displayed, and general visual properties. 
+**ggplot2** is a plotting package that makes it simple to create complex graphics from data frames. It provides a grammar for specifying which variables to plot, how they are displayed, and general visual properties.
 
 First, make sure you load all of the required libraries and datasets. There are quite a few new libraries here and we will explain them as we go.
 
@@ -102,11 +102,11 @@ ggplot(data = iris)
 
 Our plot is completely empty! This is because we haven't specified what to plot yet.
 
-Next, we define a **mapping**. The mapping argument tells ggplot which variables in the data frame to map to visual *aesthetics* of the plot. We use the `aes()` function to do this. 
+Next, we define a **mapping**. The mapping argument tells ggplot which variables in the data frame to map to visual *aesthetics* of the plot. We use the `aes()` function to do this.
 
-The mapping is defined by selecting an aesthetic (e.g. x/y positions or characteristics such as size, shape, color, etc.) and assigning a variable from the data frame to it. 
+The mapping is defined by selecting an aesthetic (e.g. x/y positions or characteristics such as size, shape, color, etc.) and assigning a variable from the data frame to it.
 
-For example, to map the `Sepal.Length` variable to the x-axis and `Sepal.Width` to the y-axis we would use:
+For example, to map the *Sepal.Length* variable to the x-axis and *Sepal.Width* to the y-axis we would use:
 
 ```{r}
 ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width))
@@ -147,14 +147,14 @@ The `geom_point()` function has many options to customise the plot, for example 
 p + geom_point(colour = "red")
 ```
 
-This isn't very informative though. It would be better if we could make the points different colours depending on which *species* they belong to. We can do this by mapping the `colour` aesthetic to the `Species` variable in our data frame.
+This isn't very informative though. It would be better if we could make the points different colours depending on which *species* they belong to. We can do this by mapping the *colour* aesthetic to the *Species* variable in our data frame.
 
 ```{r}
 p <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, colour = Species))
 p + geom_point()
 ```
 
-Anything you put in the `ggplot()` function is inherited by subsequent layers. If you want to specify mappings for a given geom independently, you can add these within a geom instead. 
+Anything you put in the `ggplot()` function is inherited by subsequent layers. If you want to specify mappings for a given geom independently, you can add these within a geom instead.
 
 ```{r}
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
@@ -235,7 +235,7 @@ The scatterplot separates our species better, but it's difficult to visualise th
 
 ## Boxplots
 
-Boxplots are an effective way to visualise distributions of data within groups. 
+Boxplots are an effective way to visualise distributions of data within groups.
 
 !!! INFO BOX!!!
 
@@ -371,7 +371,7 @@ p + theme_dark() #Dark theme
 p + theme_bw() #Black and white theme
 ```
 
-You can also try `theme_light`, `theme_minimal`, `theme_void`, or create you own from scratch:
+You can also try `theme_light()`, `theme_minimal()`, `theme_void()`, or create you own from scratch:
 
 ```{r}
 p + theme(
@@ -398,7 +398,7 @@ We can then reuse a theme, for example on the histogram we made earlier.
 h + theme_for_nature
 ```
 
-The ggplot package has a lot of built in themes. Try typing "theme\_" and give some of them a try. The `ggthemes` and `ggpubr` packages also contain a selection of prebuilt themes e.g:
+The ggplot package has a lot of built in themes. Try typing "theme\_" and give some of them a try. The **ggthemes** and **ggpubr** packages also contain a selection of prebuilt themes e.g:
 
 ```{r}
 library(ggthemes)
@@ -421,7 +421,7 @@ theme_set(theme_bw(base_size = 12))
 
 As we have seen, points, lines and shapes can be coloured by a value in your data frame using the `aes()` function. Earlier we coloured by a factor but we can also colour by a continuous value which will create a gradient of colour. Lets look at the Petals this time and colour by the ratio of Sepal.Length to Sepal.Width:
 
-First, create a new version of the iris dataset with a new column called `Sepal.Ratio`:
+First, create a new version of the iris dataset with a new column called *Sepal.Ratio*:
 
 ```{r,echo=F}
 iris2 <- iris |> mutate(Sepal.Ratio = Sepal.Length / Sepal.Width)
@@ -539,7 +539,7 @@ ggplot(iris2, aes(x = Petal.Length, y = Petal.Width, colour = Sepal.Ratio, shape
 
 ## Faceting
 
-When we have defined groups within our data, we can split our data into separate plots by using `facets`.
+When we have defined groups within our data, we can split our data into separate plots by using **facets**.
 
 Let's look at plot q again.
 
@@ -555,7 +555,7 @@ q + facet_wrap(~Species, nrow = 1, scales = "fixed")
 
 Try playing around with the `nrow` and `scales` parameters in `facet_wrap()`.
 
-Note that the facet variable is preceded by the <key>\~</key> character. This is used to define formulas in R and is a common way to specify the variable to facet by. 
+Note that the facet variable is preceded by the <key>\~</key> character. This is used to define formulas in R and is a common way to specify the variable to facet by.
 
 The `facet_wrap()` function is useful when you are splitting by one factor, whereas the `facet_grid()` function is useful when you are splitting by multiple factors. Let's add another categorical variable to `iris2`. We can randomly assign a *country*, one of four nations of origin, to each observation:
 
@@ -607,7 +607,7 @@ ggplot(aes(x = Country, y = Mean, colour = Species)) +
 
 ## Adding labels
 
-You can add labels to points in your graphs. One of the best ways to do this is to use the package `ggrepel`.
+You can add labels to points in your graphs. One of the best ways to do this is to use the package **ggrepel**.
 
 ```{r}
 library(ggrepel)
@@ -620,7 +620,7 @@ ggplot(iris2, aes(Petal.Width, Petal.Length, colour = Sepal.Ratio)) +
 
 ### Highlight points or lines
 
-You can choose to highlight specific points or lines using `gghighlight`:
+You can choose to highlight specific points or lines using **gghighlight**:
 
 ```{r}
 library(gghighlight)
@@ -679,7 +679,7 @@ q + bp
 (q + h) / bp + plot_layout(guides = "collect")
 ```
 
-Use `ggsave` to save the image:
+Use `ggsave()` to save the image:
 
 ```{r, eval=F}
 ggsave("DoublePlot.png",q / bp)
@@ -689,7 +689,7 @@ ggsave("DoublePlot.png",q / bp)
 
 ### Cut functions
 
-The `cut_*` functions in ggplot2 can turn *continuous* data into *discrete* levels so they can be plotted as categorical labels. In this example we create a new column that bins the data into 5 groups of equal size based on `Sepal.Length`:
+The `cut_*` functions in ggplot2 can turn *continuous* data into *discrete* levels so they can be plotted as categorical labels. In this example we create a new column that bins the data into 5 groups of equal size based on *Sepal.Length*:
 
 ```{r}
 iris2 <- iris2 |> mutate(Sepal.Length.Group = cut_number(Sepal.Length, 5))
@@ -699,10 +699,10 @@ iris2 |> head()
 
 ::: discussion
 <h2><i class="far fa-bell"></i> Discussion</h2>
-Take a look at the new column `Sepal.Length.Group`. How are the groups defined? What are the cut points for each group?
 
-Have a look at the difference between the `cut_number`, `cut_interval` and `cut_width` functions.
+Take a look at the new column *Sepal.Length.Group*. How are the groups defined? What are the cut points for each group?
 
+Have a look at the difference between the `cut_number()`, `cut_interval()` and `cut_width()` functions.
 :::
 
 <br>
@@ -762,10 +762,7 @@ ggplotly(p2)
 
 <br>
 
-With plotly widgets you can:
--   Hover over points to see more information
--   Zoom and pan around the plot
--   Select groups of points by clicking and double-clicking the legend
+With plotly widgets you can: - Hover over points to see more information - Zoom and pan around the plot - Select groups of points by clicking and double-clicking the legend
 
 By default, the hover text is whatever is mapped in the aesthetics. You can add a `text` aesthetic to add this to the tooltip text.
 
@@ -781,16 +778,15 @@ ggplotly(p2, tooltip = "text")
 
 ```
 
+Interactive plotly graphics are built using html, the language of the web. They open in the *Viewer* pane in Rstudio which is used for web content.
 
-Interactive `plotly` graphics are built using html, the language of the web. They open in the *Viewer* pane in Rstudio which is used for web content. 
-
-This means they cannot be saved in static file formats like PDF or PNG. Alternatively you can save them as individual web pages using the `htmlwidgets` package:
+This means they cannot be saved in static file formats like PDF or PNG. Alternatively you can save them as individual web pages using the **htmlwidgets** package:
 
 ```{r eval=F}
 htmlwidgets::saveWidget(as_widget(gp2), "plotly_image.html")
 ```
 
-Alternatively, you can embedded them in `R Markdown` or `quarto` documents, which we will visit later on.
+Alternatively, you can embed them in **R Markdown** or **quarto** documents, which we will visit later on.
 
 ### Interactive graphics with ggiraph
 
@@ -809,7 +805,7 @@ girafe(ggobj = gg)
 
 ### Creating detailed graphics with ggpubr
 
-The `ggpubr` package provides wrapper functions for ggplot that make it easier to generate complex, publication ready graphics. It includes functions for running statistical tests and displaying the results in the plot. After using ggpubr, you will need to reset your theme with `theme_set()`.
+The **ggpubr** package provides wrapper functions for ggplot that make it easier to generate complex, publication ready graphics. It includes functions for running statistical tests and displaying the results in the plot. After using ggpubr, you will need to reset your theme with `theme_set()`.
 
 Don't worry about the details of the code below, this is just to show you some of the possibilities with ggpubr.
 
@@ -827,7 +823,7 @@ ggviolin(df, x = "dose", y = "len", fill = "dose",
   stat_compare_means(label.y = 50)                                      # Add p-value 
 ```
 
-The next example additionally uses the library `cowplot` to add density plots within the margins of the main figure. Don't worry if you get lost here, this is just a demonstration of what's possible in R and beyond the scope of this course.
+The next example additionally uses the library **cowplot** to add density plots within the margins of the main figure. Don't worry if you get lost here, this is just a demonstration of what's possible in R and beyond the scope of this course.
 
 ```{r}
 library(cowplot) 
@@ -868,8 +864,10 @@ Use these resources for inspiration!
 
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
+
 -   [ggplot2 website](https://ggplot2.tidyverse.org/)
 -   [R for Data Science (free online book)](https://r4ds.hadley.nz/)
+-   [Fundamentals of data visualization](https://clauswilke.com/dataviz/index.html)
 :::
 
 <br>
@@ -877,12 +875,12 @@ Use these resources for inspiration!
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
--   ggplot2 builds graphics layer upon layer
--   Bind a **data** set to your ggplot function and **map** values to visual **aesthetics**
+-   **ggplot2** builds graphics layer upon layer
+-   Bind **data** to your ggplot function and **map** values to visual **aesthetics**
 -   Apply different **geometries** to create different graphics
 -   Use colours, fills, gradients, shapes etc. to represent **multiple variables**
--   Use **themes* to alter the appearance of a graphic
+-   Use **themes** to alter the appearance of a graphic
 -   Generate sublots with **faceting**
--   **Save** your graphics with `ggsave`
+-   **Save** your graphics with `ggsave()`
 -   There are many **additional libraries** that extend the functionality of ggplot
 :::
