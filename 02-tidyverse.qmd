@@ -25,6 +25,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 The [**tidyverse**](www.tidyverse.org) is a suite of packages that includes libraries such as **dplyr** and **ggplot2**. These packages are designed for data science and share underlying principles, grammar and data structures. There are many ways to do the same thing in R, but following the philosophy of *tidy data* and using the tidyverse packages will keep your data organised and make analysis easier in the long run.
 
+![](images/tidyverse-packages.png){width=80% fig-align="center"}
+
 ## Tidy data
 
 Data can be represented in many different ways across multiple tables but the tidyverse packages are specifically designed to work with **tidy** datasets. Tidy data conforms to the following criteria:

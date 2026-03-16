@@ -19,8 +19,10 @@ website:
 
   sidebar:
     style: "floating"
+    collapse-level: 1
+    accordion: true
     contents:
-      - section: "1: R and RStudio"
+      - section: "<img src='images/R_logo.png' width='20px' style='margin-right: 5px;'> 1: R and RStudio"
         contents:
           - href: 01-Setup.qmd
             text: Setup
@@ -30,7 +32,7 @@ website:
             text: Programming in R
           - href: 01-HW.qmd
             text: Homework exercise
-      - section: "2: Tidyverse"
+      - section: "<img src='images/tidyverse_logo.png' width='20px' style='margin-right: 5px;'> 2: Tidyverse"
         contents:
           - href: 02-Setup.qmd
             text: Setup
