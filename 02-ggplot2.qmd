@@ -421,7 +421,7 @@ As we have seen, points, lines and shapes can be coloured by a value in your dat
 
 First, create a new version of the iris dataset with a new column called *Sepal.Ratio*:
 
-```{r,echo=F}
+```{r}
 iris2 <- iris |> mutate(Sepal.Ratio = Sepal.Length / Sepal.Width)
 iris2 |> head()
 ```
