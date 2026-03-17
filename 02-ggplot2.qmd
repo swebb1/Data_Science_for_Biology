@@ -237,8 +237,6 @@ The scatterplot separates our species better, but it's difficult to visualise th
 
 Boxplots are an effective way to visualise distributions of data within groups.
 
-!!! INFO BOX!!!
-
 The boxplot geometry requires the `x` aesthetic to be a *categorical* variable and the `y` aesthetic to be *numerical*.
 
 ```{r}
