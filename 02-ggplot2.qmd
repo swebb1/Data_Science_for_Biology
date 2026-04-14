@@ -237,6 +237,21 @@ The scatterplot separates our species better, but it's difficult to visualise th
 
 Boxplots are an effective way to visualise distributions of data within groups.
 
+::: discussion
+<h2><i class="far fa-bell"></i> Discussion</h2>
+
+### What is a boxplot?
+
+![](images/boxplot.png)
+
+The boxplot, sometimes known as a box and whisker plot, is a standard way of displaying the distribution of data based on a five number summary. The five numbers are the minimum, first quartile (Q1), median, third quartile (Q3) and maximum.
+
+The box represents the interquartile range (IQR) which contains the middle 50% of the data. The line in the middle of the box is the median. The "whiskers" extend to the smallest and largest values within 1.5 times the IQR from the lower and upper quartiles respectively. Data points outside of this range are considered outliers and are plotted as individual points.
+
+:::
+
+<br>
+
 The boxplot geometry requires the `x` aesthetic to be a *categorical* variable and the `y` aesthetic to be *numerical*.
 
 ```{r}
@@ -421,7 +436,7 @@ As we have seen, points, lines and shapes can be coloured by a value in your dat
 
 First, create a new version of the iris dataset with a new column called *Sepal.Ratio*:
 
-```{r}
+```{r,echo=F}
 iris2 <- iris |> mutate(Sepal.Ratio = Sepal.Length / Sepal.Width)
 iris2 |> head()
 ```
