@@ -10,3 +10,4 @@
 /.quarto/
 data
 drafts
+**/*.quarto_ipynb

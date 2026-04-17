@@ -44,6 +44,10 @@ website:
             text: Data visualisation
           - href: 02-HW.qmd
             text: Homework exercise
+      - section: "<img src='images/bioconductor.png' width='20px' style='margin-right: 5px;'> 3: Bioconductor"
+        contents:
+          - href: 03-Setup.qmd
+            text: Setup
 format:
   html:
     theme: 

@@ -1,0 +1,102 @@
+---
+title: "Setup"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+### Project Setup
+
+In this workshop, we will be using libraries from the **Bioconductor** project. Bioconductor libraries can be installed using the `BiocManager` package.
+
+1.  Create a new project in RStudio called **Genomic_data**.
+2.  Install the following packages:
+
+```{r, eval=FALSE}
+
+# Install from CRAN with install.packages()
+install.packages(c("gprofiler2","ggplot2","dplyr","patchwork"))
+
+# Install from bioconductor with BiocManager
+if (!requireNamespace("BiocManager", quietly = TRUE)){
+    install.packages("BiocManager")
+}
+
+## Required for the first lesson
+BiocManager::install(
+  c("GenomicRanges",
+    "genomation",
+    "BSgenome.Hsapiens.UCSC.hg19",
+    "org.Hs.eg.db",
+    "TxDb.Hsapiens.UCSC.hg19.knownGene",
+    "biomaRt",
+    "AnnotationHub",
+    "BSgenome.Mmusculus.UCSC.mm10",
+    "txdbmaker")
+)
+
+## Required for the second lesson
+BiocManager::install(
+    c("ChIPseeker",
+    "clusterProfiler",
+    "GenomeInfoDb",
+    "profileplyr",
+    "soGGi"
+    )
+)
+```
+
+## Data
+
+You should download the data before this session to save time.
+
+```{r, eval=FALSE}
+## Create a directory to store the data
+dir.create("data")
+```
+
+#### MAC and Linux users
+
+```{r, eval=FALSE}
+## Mac or Linux
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Ensembl.GRCh37.74.edited.genes.strict.bed", destfile = "data/Ensembl.GRCh37.74.edited.genes.strict.bed")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Ensembl.GRCh37.74.edited.genes.bed",destfile = "data/Ensembl.GRCh37.74.edited.genes.bed")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Homo_sapiens.GRCh37.74.edited.gtf",destfile = "data/Homo_sapiens.GRCh37.74.edited.gtf")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf",destfile = "data/Mus_musculus.GRCm38.78.edited.gtf")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw",destfile = "data/H3K4me3.bw")
+              
+download.file("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw",destfile = "data/H3K27me3.bw")
+
+```
+
+#### Windows users
+
+```{r, eval=FALSE}
+
+## Windows
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Ensembl.GRCh37.74.edited.genes.strict.bed", destfile = "data/Ensembl.GRCh37.74.edited.genes.strict.bed", mode = "wb")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Ensembl.GRCh37.74.edited.genes.bed",destfile = "data/Ensembl.GRCh37.74.edited.genes.bed", mode = "wb")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/human/hg19/annotation/Homo_sapiens.GRCh37.74.edited.gtf",destfile = "data/Homo_sapiens.GRCh37.74.edited.gtf", mode = "wb")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf",destfile = "data/Mus_musculus.GRCm38.78.edited.gtf", mode = "wb")
+
+download.file("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw",destfile = "data/H3K4me3.bw", mode = "wb")
+              
+download.file("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw",destfile = "data/H3K27me3.bw", mode = "wb")
+
+```
