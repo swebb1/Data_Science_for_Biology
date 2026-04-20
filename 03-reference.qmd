@@ -129,21 +129,15 @@ letterFrequency(gr2.seq, letters = "GC", as.prob = T)
 2. Attempt to translate the sequences in `gr2.seq` into amino acid sequences using the **Biostrings*** package.
  
 ```{r message=FALSE, warning=FALSE}
-translate(gr2.seq)
+translate(gr2.seq, if.fuzzy.codon = "solve")
 ```
 
 Because the gr2 regions are randomly selected they don't really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the *if.fuzzy.codon* argument to solve this.
-
-```{r message=FALSE, warning=FALSE}
-translate(gr2.seq, if.fuzzy.codon = "solve")
-```
 
 :::
 
 </details>
 ::::
-
-<br>
 
 ## Annotation Maps (org.db)
 
@@ -179,7 +173,7 @@ anno <- select(org.Hs.eg.db,
                columns=c("ENSEMBL","ENTREZID","SYMBOL","UNIPROT"),
                keys = keys,
                keytype = "ENSEMBL")
-anno
+head(anno)
 ```
 We now have the Entrez gene IDs, gene symbols and Uniprot IDs for all of the Ensembl gene IDs in our GRanges object.
 
@@ -431,6 +425,8 @@ writeXStringSet(top.exons.seq, 'long_exons.fa')
 
 </details>
 ::::
+
+<br>
 
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>

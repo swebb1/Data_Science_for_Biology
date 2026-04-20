@@ -54,7 +54,7 @@ website:
             text: Genomic Ranges
           - href: 03-reference.qmd
             text: Genome references and annotations
-          - href: 03-visualisation.qmd
+          - href: 03-visualisations.qmd
             text: Genomic annotation and visualisation
 
 format:

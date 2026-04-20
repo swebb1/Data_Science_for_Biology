@@ -176,7 +176,7 @@ It is possible to add errors to these plots by adding **conf** and **resample** 
 
 We can also plot this as a heatmap.
 
-```{r}
+```{r,fig.width=8}
 ## Plot heatmaps of peak distribution across promoter regions
 tagHeatmap(tagMatrixList)
 ```
@@ -370,7 +370,7 @@ Inspect the output. The "term_name" column is the enriched term and the "source"
 
 ```{r}
 ## Inspect the output
-gp$result
+head(gp$result)
 ```
 
 There is an interactive plot function built into **gprofiler2** to visualise enriched terms.
@@ -426,7 +426,7 @@ H3K27me3.chip <- "data/H3K27me3.bw"
 
 #### Average profile plots
 
-Load the *soGGi* library and run the `regionPlot()` function for each track.
+Load the **soGGi** library and run the `regionPlot()` function for each track.
 
 The `regionPlot()` function creates a matrix of binned scores across genomic regions. The default is to bin each region into 100 bins and calculate the average coverage per base. This gives us a matrix where rows are regions and columns are bins. The function will stranded features by reversing bins for features on the negative strand.
 
@@ -483,7 +483,7 @@ plotRegion(rpc,colourBy = "Sample") +
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
-The [**soGGi**](https://www.bioconductor.org/packages/release/bioc/vignettes/soGGi/inst/doc/soggi.pdf) package has many more customisation options for plotting average profiles. Take a look through the tutorial to see how you can adjust the regions to plot, the flank sizes, number of windows and smoothing options.
+The [soGGi](https://www.bioconductor.org/packages/release/bioc/vignettes/soGGi/inst/doc/soggi.pdf) package has many more customisation options for plotting average profiles. Take a look through the tutorial to see how you can adjust the regions to plot, the flank sizes, number of windows and smoothing options.
 
 :::
 
@@ -520,7 +520,7 @@ Let's plot our histone modification data based on high and low expression of gen
 
 exp <- read.table("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/rna-seq_expression.tab",header=T,sep="\t")
 
-exp
+head(exp)
 ```
 This table contains gene IDs and their expression values in TPM (transcripts per million). We will use the expression values to group genes into high and low expression groups and then plot the ChIP-seq read profiles for these groups separately.
 
@@ -583,7 +583,7 @@ In the remaining time, have a look at some of the other Bioconductor packages av
 
 <br>
 
-::: keypoints
+::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
 **Bioconductor** has a large library of packages for analysing and visualising genomic datasets.
