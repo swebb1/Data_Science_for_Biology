@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genomic annotations and sequences – Data Science for Biology</title>
+<title>Genome references and annotations – Data Science for Biology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./03-visualisation.qmd" rel="next">
+<link href="./03-genomicRanges.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -150,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Genomic annotations and sequences</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-reference.html">Genome references and annotations</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -240,17 +242,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisation.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
   </div>
 </li>
       </ul>
@@ -276,9 +302,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-reference.html">Genome references and annotations</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Genomic annotations and sequences</h1>
+<h1 class="title">Genome references and annotations</h1>
 </div>
 
 
@@ -355,11 +381,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 GAGCTGACCCTGAGACAACGCAAGTGAACACAGG...CTGAGGAGAGAGGTTAGGGAGGGACCTTTTTTT
-[2]   500 CCATACTGTTTTTACAGTAGTGAATGACTCATGA...GTGGGAGAGCACTTTTGTGATTAGAAGATAATT
-[3]   500 GCGACCTGTAGCCCTTCAAGAGCCTGTAGAGCTG...GAGCAAAACTCTGTCTCAAAAAAAAAAAAAAAA
-[4]   500 TGCCCAAGGTCTCTGAAAGACAGTGGGGTGGGAG...CTGAGTAGTGAGCACGCATAGGGCAGTGAGGAT
-[5]   500 TGTGCTGTATGAGTGCATTGTACATGTGTGTTGT...TCTCTCTCTCGTCGTCATCCTGCGCCTCCTCCC</code></pre>
+[1]   500 GCCTCCAGGAAGAGCCCTTCTCCGTGTTTCAACA...ACTTGTCCCTTTGCTTCCTTTCTCCTCTCCTAC
+[2]   500 GCCCGGCCCTGTTTTTCTTTTGAAAATATTTTAA...AGCCTGGCCAATATGGGGAAACCCCATCTCTAC
+[3]   500 ACGATAATGTGAGCCAATTCATTCAAATAAATAT...CAAATAATATCAAACACACAACATATATAACAT
+[4]   500 TTTCTTTCTTGTGAAGTGATGTAATTCTATTACC...ATGGTGGAAATTTCTACTAATGATTATTTCTTG
+[5]   500 CCTGACTGAAGGCAGAAACAGGTTAGGGGGCTGT...AGAGAAATGAAGTATGTTTTTGCTGGGCCCATC</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -368,11 +394,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
-[1,] 40 25 39 29 39 28  3 43 33 26 34 24 21 34 40 41
-[2,] 25 23 24 51 30 27  1 30 24  9 11 43 44 28 51 78
-[3,] 50 21 44 16 33 32  8 33 34 33 40 39 15 20 53 28
-[4,] 22 47 73 12 63 19  5 26 54 30 49 29 15 17 35  3
-[5,]  4  8 27 32 27 30 15 28 13 35 15 87 27 28 93 30</code></pre>
+[1,] 21 28 33 15 43 76 10 52 23 26 28 24 10 52 29 29
+[2,] 28 21 25 42 31 16  6 38 22 20 24 27 35 35 37 92
+[3,] 42 34 38 49 48 21  3 30 40 14 31 18 32 33 31 35
+[4,] 66 15 39 47 27 14  0 28 36 19 21 24 38 21 41 63
+[5,] 83 19 46 43 28 14  3 27 46 18 23 24 34 21 39 31</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -475,11 +501,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.460
-[2,] 0.350
-[3,] 0.504
-[4,] 0.550
-[5,] 0.502</code></pre>
+[1,] 0.566
+[2,] 0.370
+[3,] 0.410
+[4,] 0.340
+[5,] 0.368</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -490,11 +516,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 ELTLRQRK*TQASCCISKQNVCLSLNIKQ**TEY...AAAGSHSPPALLPRLGQPNSFSC*GERLGRDLF
-[2]   166 PYCFYSSE*LMRPDGFYKRFPHLFGSYSLSSTTM...*VSCH*NTSNFTLYLFVNLYFYVWESTFVIRR*
-[3]   166 ATCSPSRACRAAVLVHVGPCWSMLVPVGPCWSLL...A*TGEVEVAVSQDRTIALQPGGQSKTLSQKKKK
-[4]   166 CPRSLKDSGVGGGGSVSHSLS*HVPTELMPCTAP...EGSENRWSTQY*ALRGQ*GQMEH*VVSTHRAVR
-[5]   166 CAV*VHCTCVLCCMCYVCCMCVCVVRTCCVVSCM...LPLPRRPQPGPVLSLPWAICLSRLSLVVILRLL</code></pre>
+[1]   166 ASRKSPSPCFNTRAIQGWSDATLFGCSPHVSSAV...QPSTSLPPSIPSFLPPPSLSFLPLVPLLPFSSP
+[2]   166 ARPCFSFENILIYFFC*RYCR*VFISSFKDNLSQ...SAVIPALWEVEAGGLPEIRSSGPAWPIWGNPIS
+[3]   166 TIM*ANSFK*ISPSLSFFLGVGVCILINNTQHGI...ITGPSLDKWGLYFEMRFEWGHRAK*YQTHNIYN
+[4]   166 FLSCEVM*FYYQFIPLFLDYSQRLNTLPHYRDKM...NVLRDFSNMTGEGGREQAPPSWPWWKFLLMIIS
+[5]   166 PD*RQKQVRGLLYFR*KMMNQNL*DAVEMVLEFI...GGYVSREMENLGIKRQC*K*TL*EK*SMFLLGP</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>
@@ -503,11 +529,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 ELTLRQRK*TQASCCISKQNVCLSLNIKQ**TEY...AAAGSHSPPALLPRLGQPNSFSC*GERLGRDLF
-[2]   166 PYCFYSSE*LMRPDGFYKRFPHLFGSYSLSSTTM...*VSCH*NTSNFTLYLFVNLYFYVWESTFVIRR*
-[3]   166 ATCSPSRACRAAVLVHVGPCWSMLVPVGPCWSLL...A*TGEVEVAVSQDRTIALQPGGQSKTLSQKKKK
-[4]   166 CPRSLKDSGVGGGGSVSHSLS*HVPTELMPCTAP...EGSENRWSTQY*ALRGQ*GQMEH*VVSTHRAVR
-[5]   166 CAV*VHCTCVLCCMCYVCCMCVCVVRTCCVVSCM...LPLPRRPQPGPVLSLPWAICLSRLSLVVILRLL</code></pre>
+[1]   166 ASRKSPSPCFNTRAIQGWSDATLFGCSPHVSSAV...QPSTSLPPSIPSFLPPPSLSFLPLVPLLPFSSP
+[2]   166 ARPCFSFENILIYFFC*RYCR*VFISSFKDNLSQ...SAVIPALWEVEAGGLPEIRSSGPAWPIWGNPIS
+[3]   166 TIM*ANSFK*ISPSLSFFLGVGVCILINNTQHGI...ITGPSLDKWGLYFEMRFEWGHRAK*YQTHNIYN
+[4]   166 FLSCEVM*FYYQFIPLFLDYSQRLNTLPHYRDKM...NVLRDFSNMTGEGGREQAPPSWPWWKFLLMIIS
+[5]   166 PD*RQKQVRGLLYFR*KMMNQNL*DAVEMVLEFI...GGYVSREMENLGIKRQC*K*TL*EK*SMFLLGP</code></pre>
 </div>
 </div>
 </div>
@@ -26041,7 +26067,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create a txdb object from the gtf file downloaded from Ensembl</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>txdb.mm10 <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">file =</span> <span class="st">"http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>txdb.mm10 <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">file =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get exons as GRanges</span></span>
 <span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>exons <span class="ot">&lt;-</span> <span class="fu">exons</span>(txdb.mm10)</span>
@@ -26062,10 +26088,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Fetch exon sequences</span></span>
 <span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>top.exons.seq <span class="ot">&lt;-</span> <span class="fu">getSeq</span>(mm10,top.exons)</span>
 <span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Output sequences as a fasta file</span></span>
-<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(top.exons.seq, <span class="st">'long_exons.fa'</span>)</span>
-<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a>top.exons.seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a>top.exons.seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 10:
      width seq                                              names               
@@ -26080,6 +26103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  [9] 17485 GTAGAAGAGTCAGCAATGATGGG...AATAAAACGTTTAATACTCTTA 28144
 [10] 17106 ATCCCCCAGGACCACCTTCAAAT...AAGGAAGGAGTCAAAATAACAG 60509</code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Output sequences as a fasta file</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(top.exons.seq, <span class="st">'long_exons.fa'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </details>
@@ -26504,6 +26531,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-genomicRanges.html" class="pagination-link" aria-label="Genomic Ranges">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Genomic Ranges</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-visualisation.qmd" class="pagination-link" aria-label="Genomic annotation and visualisation">
+        <span class="nav-page-text">Genomic annotation and visualisation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

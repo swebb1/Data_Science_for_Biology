@@ -1,5 +1,5 @@
 ---
-title: "Genomic annotations and sequences"
+title: "Genome references and annotations"
 ---
 
 <head>

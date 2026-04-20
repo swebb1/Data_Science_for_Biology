@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./03-bioconductor.html" rel="next">
 <link href="./02-HW.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -254,6 +255,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Setup</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisation.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -305,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install from CRAN with install.packages()</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"gprofiler2"</span>,<span class="st">"ggplot2"</span>,<span class="st">"dplyr"</span>,<span class="st">"patchwork"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"gprofiler2"</span>, <span class="st">"tidyverse"</span>, <span class="st">"patchwork"</span>, <span class="st">"Cairo"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install from bioconductor with BiocManager</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)){</span>
@@ -355,9 +380,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf"</span>,<span class="at">destfile =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"H3K4me3.bw"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"data/H3K4me3.bw"</span>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"H3K27me3.bw"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"data/H3K27me3.bw"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="windows-users" class="level4">
@@ -372,9 +397,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf"</span>,<span class="at">destfile =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"H3K4me3.bw"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K4me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"data/H3K4me3.bw"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>              </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"H3K27me3.bw"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_workshop/data/H3K27me3.bw"</span>,<span class="at">destfile =</span> <span class="st">"data/H3K27me3.bw"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
@@ -794,6 +819,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./03-bioconductor.html" class="pagination-link" aria-label="Analysis of genomic data with Bioconductor">
+        <span class="nav-page-text">Analysis of genomic data with Bioconductor</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

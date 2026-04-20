@@ -24,7 +24,7 @@ In this workshop, we will be using libraries from the **Bioconductor** project. 
 ```{r, eval=FALSE}
 
 # Install from CRAN with install.packages()
-install.packages(c("gprofiler2","ggplot2","dplyr","patchwork"))
+install.packages(c("gprofiler2", "tidyverse", "patchwork", "Cairo"))
 
 # Install from bioconductor with BiocManager
 if (!requireNamespace("BiocManager", quietly = TRUE)){

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioconductor – Data Science for Biology</title>
+<title>Analysis of genomic data with Bioconductor – Data Science for Biology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,6 +68,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./03-genomicRanges.html" rel="next">
+<link href="./03-Setup.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -115,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Bioconductor</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-bioconductor.html">Analysis of genomic data with Bioconductor</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -205,17 +242,41 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisation.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
   </div>
 </li>
       </ul>
@@ -230,25 +291,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#genomics-file-formats" id="toc-genomics-file-formats" class="nav-link active" data-scroll-target="#genomics-file-formats">Genomics file formats</a>
-  <ul class="collapse">
-  <li><a href="#fasta" id="toc-fasta" class="nav-link" data-scroll-target="#fasta">Fasta</a></li>
-  <li><a href="#fastq" id="toc-fastq" class="nav-link" data-scroll-target="#fastq">Fastq</a></li>
-  <li><a href="#bed" id="toc-bed" class="nav-link" data-scroll-target="#bed">Bed</a></li>
-  <li><a href="#wiggle" id="toc-wiggle" class="nav-link" data-scroll-target="#wiggle">Wiggle</a></li>
-  <li><a href="#gffgtf" id="toc-gffgtf" class="nav-link" data-scroll-target="#gffgtf">GFF/GTF</a></li>
-  <li><a href="#sam" id="toc-sam" class="nav-link" data-scroll-target="#sam">SAM</a></li>
-  <li><a href="#vcf" id="toc-vcf" class="nav-link" data-scroll-target="#vcf">VCF</a></li>
-  </ul></li>
+  <li><a href="#bioconductor" id="toc-bioconductor" class="nav-link active" data-scroll-target="#bioconductor">Bioconductor</a></li>
+  <li><a href="#genomics-data-formats" id="toc-genomics-data-formats" class="nav-link" data-scroll-target="#genomics-data-formats">Genomics data formats</a></li>
+  <li><a href="#genome-assemblies" id="toc-genome-assemblies" class="nav-link" data-scroll-target="#genome-assemblies">Genome assemblies</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-bioconductor.html">Analysis of genomic data with Bioconductor</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Bioconductor</h1>
+<h1 class="title">Analysis of genomic data with Bioconductor</h1>
 </div>
 
 
@@ -273,26 +327,51 @@ ul.task-list li input[type="checkbox"] {
 <i class="far fa-check-square"></i> Learning Objectives
 </h2>
 <ul>
-<li>Import data into a tidy structure</li>
-<li>Format, filter and manipulate your datasets in preparation for plotting</li>
-<li>Understand the reason and methods for long and wide data formats</li>
+<li>Learn about the Bioconductor project</li>
+<li>Understand common genomics file formats</li>
+<li>Understand the difference between genome assemblies</li>
 </ul>
 </div>
+<p><br> In this course, we will shift our focus to working with genomic data in R using libraries from the Bioconductor project. Before we begin, you should familiarise yourself with the Bioconductor and the different types of genomic data that we will be working with.</p>
+<section id="bioconductor" class="level2">
+<h2 class="anchored" data-anchor-id="bioconductor">Bioconductor</h2>
 <p><br></p>
-<section id="genomics-file-formats" class="level2">
-<h2 class="anchored" data-anchor-id="genomics-file-formats">Genomics file formats</h2>
-<p>We will work with several different genomic datasets including genome sequences, gene models, ChIP-seq peak co-ordinates and aligned sequencing reads. Most of these datasets exist in databases outside of R in standardised text formats. It will be useful to familiarise yourself with these formats and the type of data stored within each.</p>
+<p><img src="images/bioconductor_full.svg" class="img-fluid" style="width:100.0%"></p>
+<p><br></p>
+<p><a href="https://www.bioconductor.org/">Bioconductor</a> is an open-source project that provides tools for the analysis and interpretation of biological data. It is built on top of the R programming language and offers a large collection of packages for a wide range of genomic analyses, including gene expression analysis, variant calling, and functional annotation.</p>
+<p>It also provides access to numerous genomic datasets that can be analysed directly in R, along with tools for querying external databases such as <a href="https://www.ensembl.org/index.html">Ensembl</a> and <a href="https://genome.ucsc.edu/">UCSC</a>.</p>
+<p>In addition, Bioconductor defines dedicated data structures for storing and manipulating genomic data, such as the GRanges class for representing genomic intervals and the SummarizedExperiment class for handling experimental data (e.g.&nbsp;gene expression matrices).</p>
+<p>Bioconductor is a community-driven project, with contributions from researchers around the world. It is maintained by a team of volunteers supported by the Bioconductor core team. A key feature of Bioconductor is its emphasis on reproducibility and transparency in research. Packages are required to follow strict guidelines for documentation, testing, and version control, helping to ensure that analyses can be reliably reproduced and shared.</p>
+<p>Extensive documentation is available on the Bioconductor website and can also be accessed within R using the <code>help()</code> function. Most packages include a <strong>vignette</strong>, which provides a detailed tutorial on how to use the package and its functions.</p>
+<p>Bioconductor libraries are installed via the <code>BiocManager</code> package, rather than the standard <code>install.packages()</code> function used for CRAN packages. To install Bioconductor packages, you first need to install the <code>BiocManager</code> package from CRAN and then use the <code>BiocManager::install()</code> function to install the desired Bioconductor packages.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## EXAMPLE. NO NEED TO RUN THIS IF ALREADY INSTALLED</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Install BiocManager from the default CRAN repository if it is not already installed</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Install Bioconductor packages with BiocManager</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"GenomicRanges"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="genomics-data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="genomics-data-formats">Genomics data formats</h2>
+<p>In this course, we will work with several different genomic datasets including genome sequences, gene models, ChIP-seq peak co-ordinates and aligned sequencing reads. Most of these datasets exist in databases outside of R in standardised text formats.</p>
+<p>Standardised file formats have specific conventions for how data is organised and represented, providing consistency and interoperability across different tools and platforms.</p>
+<p>It will be useful to familiarise yourself with these formats and the type of data stored within each. You don’t need to memorise the details of each format, but you should understand the general purpose of each file type.</p>
 <p>In this course we will use Fasta, Bed, wiggle and GFF files. A brief summary of file formats is provided below as well as in this <a href="https://docs.google.com/presentation/d/1WjaovDGr6YF0oHU1b1tJwBBvaqAdxBahOWk72LUrmjc/edit?usp=sharing">presentation</a></p>
-<section id="fasta" class="level3">
-<h3 class="anchored" data-anchor-id="fasta"><a href="https://en.wikipedia.org/wiki/FASTA_format">Fasta</a></h3>
+<section id="fasta" class="level4">
+<h4 class="anchored" data-anchor-id="fasta"><a href="https://en.wikipedia.org/wiki/FASTA_format">Fasta</a></h4>
 <p>Standard format for sequence data (DNA/RNA or protein). Can store multiple sequences separated by unique headers.</p>
 </section>
-<section id="fastq" class="level3">
-<h3 class="anchored" data-anchor-id="fastq"><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a></h3>
-<p>Fastq is similar to Fasta but is used to store sequencing reads and includes extra lines to encode quality scores.</p>
+<section id="fastq" class="level4">
+<h4 class="anchored" data-anchor-id="fastq"><a href="https://en.wikipedia.org/wiki/FASTQ_format">Fastq</a></h4>
+<p>Fastq is similar to Fasta but is used to store sequencing reads and includes extra lines to encode sequencing quality scores.</p>
 </section>
-<section id="bed" class="level3">
-<h3 class="anchored" data-anchor-id="bed"><a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">Bed</a></h3>
+<section id="bed" class="level4">
+<h4 class="anchored" data-anchor-id="bed"><a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">BED</a></h4>
 <p>Bed (browser extensible data) files store genomic co-ordinates to represent positions of features such as genes, ChIP-seq peaks or regulatory features (e.g.&nbsp;CpG islands). Bed files have at least 3 columns (chromosome, start, end) to encode regions of the genome.</p>
 <ul>
 <li>Bed6 is a strict version of the bed format where each region must have a score, strand and name (chromosome, start, end, name, score, strand).</li>
@@ -300,24 +379,65 @@ ul.task-list li input[type="checkbox"] {
 <li>There is a binary version of bed called <strong>bigBed</strong>, used to store and visualise large datasets.</li>
 </ul>
 </section>
-<section id="wiggle" class="level3">
-<h3 class="anchored" data-anchor-id="wiggle"><a href="https://genome.ucsc.edu/goldenPath/help/wiggle.html">Wiggle</a></h3>
-<p>The wiggle or .wig format is used to represent signals or scores across the genome (e.g.&nbsp;sequencing read depth, GC% etc.). It has four columns (chromosome,start,end, score). There is a binary version called bigWig used to store and visualise large datasets.</p>
-</section>
-<section id="gffgtf" class="level3">
-<h3 class="anchored" data-anchor-id="gffgtf"><a href="https://en.wikipedia.org/wiki/General_feature_format">GFF/GTF</a></h3>
+<section id="gffgtf" class="level4">
+<h4 class="anchored" data-anchor-id="gffgtf"><a href="https://en.wikipedia.org/wiki/General_feature_format">GFF/GTF</a></h4>
 <p>The GFF (general feature format) is used to store rich information on genomic annotations. GTF (gene transfer format) is a derivative of GFF which stores gene transcript models, with detailed information on genetic features such as start codons, alternative transcripts, exons and CDS.</p>
 </section>
-<section id="sam" class="level3">
-<h3 class="anchored" data-anchor-id="sam"><a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM</a></h3>
+<section id="wiggle" class="level4">
+<h4 class="anchored" data-anchor-id="wiggle"><a href="https://genome.ucsc.edu/goldenPath/help/wiggle.html">Wiggle</a></h4>
+<p>The wiggle or .wig format is used to represent signals or scores across the genome (e.g.&nbsp;sequencing read depth, GC% etc.). It has four columns (chromosome, start, end, score). There is a binary version called bigWig used to store and visualise large datasets.</p>
+</section>
+<section id="sam" class="level4">
+<h4 class="anchored" data-anchor-id="sam"><a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM</a></h4>
 <p>The SAM (sequence alignment/map) format stores sequencing reads and quality scores as well as detailed information following alignment to a genome/transcriptome. There is a binary version called BAM used to store and visualise large datasets.</p>
 </section>
-<section id="vcf" class="level3">
-<h3 class="anchored" data-anchor-id="vcf"><a href="https://genome.ucsc.edu/goldenPath/help/vcf.html">VCF</a></h3>
+<section id="vcf" class="level4">
+<h4 class="anchored" data-anchor-id="vcf"><a href="https://genome.ucsc.edu/goldenPath/help/vcf.html">VCF</a></h4>
 <p>The VCF (variant calling format) is used to store positions of SNPs, INDELs and other genomic variations following variant calling analysis</p>
-
-
 </section>
+</section>
+<section id="genome-assemblies" class="level2">
+<h2 class="anchored" data-anchor-id="genome-assemblies">Genome assemblies</h2>
+<p>A genome assembly is a reference sequence of a particular species, which serves as a template for mapping and analysing genomic data. Different assemblies may exist for the same species, representing different versions of the reference genome.</p>
+<p>When a reference genome sequence is published it is given a name or ID. Reference sequences are continually being improved by re-sequencing and new versions are given a new name. These unique names are often referred to as the genome <strong>assembly</strong> or genome <strong>build</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/assemblies.png" class="img-fluid figure-img"></p>
+<figcaption>Scientific American (2022) 327(2):92.</figcaption>
+</figure>
+</div>
+<p>For example, the human genome has several assemblies including hg19 (also known as GRCh37) and hg38 (also known as GRCh38). These assemblies differ in terms of the reference sequence, the annotation of genes and other genomic features, and the coordinates used to represent genomic locations.</p>
+<p>Human genome assemblies:</p>
+<ul>
+<li>NCBI34 / hg16: July 2003</li>
+<li>NCBI35 / hg17: May 2004</li>
+<li>NCBI36 / hg18: March 2006</li>
+<li>GRCh37 / hg19: Feb 2009</li>
+<li>GRCh38 / hg38: Dec 2013</li>
+<li>CHM13 : Mar 2021 (Gapless Telomere-to-telomere assembly)</li>
+</ul>
+<p>The reference sequence changes with each release of a genome build</p>
+<ul>
+<li>Chromosome lengths can change</li>
+<li>Each genome build has a specific co-ordinate system
+<ul>
+<li>Chr1 position 1000000 is T in hg19 and G in hg38!</li>
+</ul></li>
+</ul>
+<p>It is <strong>extremely important</strong> to know which build your data is mapped to.</p>
+<div class="key-points">
+<h2 class="anchored">
+<i class="fas fa-thumbtack"></i> Key points
+</h2>
+<ul>
+<li>Bioconductor is a repository of open source R packages for bioinformatics</li>
+<li>Bioconductor packages are installed with the <code>BiocManager</code> package</li>
+<li>Genomic data is stored in standardised file formats</li>
+<li>Different genome assemblies exist for the same species and have different reference sequences and co-ordinates</li>
+</ul>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -726,6 +846,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-Setup.html" class="pagination-link" aria-label="Setup">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setup</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-genomicRanges.html" class="pagination-link" aria-label="Genomic Ranges">
+        <span class="nav-page-text">Genomic Ranges</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

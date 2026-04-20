@@ -48,6 +48,15 @@ website:
         contents:
           - href: 03-Setup.qmd
             text: Setup
+          - href: 03-bioconductor.qmd
+            text: Analysis of genomic data with Bioconductor
+          - href: 03-genomicRanges.qmd
+            text: Genomic Ranges
+          - href: 03-reference.qmd
+            text: Genome references and annotations
+          - href: 03-visualisation.qmd
+            text: Genomic annotation and visualisation
+
 format:
   html:
     theme: 

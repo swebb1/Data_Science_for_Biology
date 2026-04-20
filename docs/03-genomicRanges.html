@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./03-reference.html" rel="next">
+<link href="./03-bioconductor.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -150,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Genomic Ranges</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-genomicRanges.html">Genomic Ranges</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -240,17 +242,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisation.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
   </div>
 </li>
       </ul>
@@ -279,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Setup.html"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</a></li><li class="breadcrumb-item"><a href="./03-genomicRanges.html">Genomic Ranges</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Genomic Ranges</h1>
 </div>
@@ -377,11 +403,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62999-63498      + |         1
-  [2]     chr4 966922-967421      + |         2
-  [3]     chr6 663790-664289      + |         3
-  [4]     chr8 713639-714138      - |         4
-  [5]    chr10 710727-711226      - |         5
+  [1]     chr2 439627-440126      + |         1
+  [2]     chr4 975972-976471      + |         2
+  [3]     chr6 525499-525998      + |         3
+  [4]     chr8 475573-476072      - |         4
+  [5]    chr10 905258-905757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -411,11 +437,11 @@ $Experiment_2
 GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-  [1]     chr2   62999-63498      + |         1
-  [2]     chr4 966922-967421      + |         2
-  [3]     chr6 663790-664289      + |         3
-  [4]     chr8 713639-714138      - |         4
-  [5]    chr10 710727-711226      - |         5
+  [1]     chr2 439627-440126      + |         1
+  [2]     chr4 975972-976471      + |         2
+  [3]     chr6 525499-525998      + |         3
+  [4]     chr8 475573-476072      - |         4
+  [5]    chr10 905258-905757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -454,12 +480,12 @@ Levels: chr2 chr6 chr10</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the start positions</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  62999 966922 663790 713639 710727</code></pre>
+<pre><code>[1] 439627 975972 525499 475573 905258</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the end positions</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">end</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  63498 967421 664289 714138 711226</code></pre>
+<pre><code>[1] 440126 976471 525998 476072 905757</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the strand information</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strand</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -555,11 +581,11 @@ Levels(3): + - *</code></pre>
    [3]     chr6       300-400      * |         3      0.50
    [4]     chr6       350-500      * |         4      0.25
    [5]    chr10       500-600      * |         5      0.00
-   [6]     chr2   62999-63498      + |         1        NA
-   [7]     chr4 966922-967421      + |         2        NA
-   [8]     chr6 663790-664289      + |         3        NA
-   [9]     chr8 713639-714138      - |         4        NA
-  [10]    chr10 710727-711226      - |         5        NA
+   [6]     chr2 439627-440126      + |         1        NA
+   [7]     chr4 975972-976471      + |         2        NA
+   [8]     chr6 525499-525998      + |         3        NA
+   [9]     chr8 475573-476072      - |         4        NA
+  [10]    chr10 905258-905757      - |         5        NA
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -571,8 +597,8 @@ Levels(3): + - *</code></pre>
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr8 713639-714138      - |         4
-  [2]    chr10 710727-711226      - |         5
+  [1]     chr8 475573-476072      - |         4
+  [2]    chr10 905258-905757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -681,11 +707,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(grc, <span class="fu">seqnames</span>(grc) <span class="sc">==</span> <span class="st">"chr2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 2 metadata columns:
-      seqnames      ranges strand |     names        GC
-         &lt;Rle&gt;   &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;numeric&gt;
-  [1]     chr2     100-200      * |         1      1.00
-  [2]     chr2     150-300      * |         2      0.75
-  [3]     chr2 62999-63498      + |         1        NA
+      seqnames        ranges strand |     names        GC
+         &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;numeric&gt;
+  [1]     chr2       100-200      * |         1      1.00
+  [2]     chr2       150-300      * |         2      0.75
+  [3]     chr2 439627-440126      + |         1        NA
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -819,11 +845,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62999-63498      + |         1
-  [2]     chr4 966922-967421      + |         2
-  [3]     chr6 663790-664289      + |         3
-  [4]     chr8 713639-714138      - |         4
-  [5]    chr10 710727-711226      - |         5
+  [1]     chr2 439627-440126      + |         1
+  [2]     chr4 975972-976471      + |         2
+  [3]     chr6 525499-525998      + |         3
+  [4]     chr8 475573-476072      - |         4
+  [5]    chr10 905258-905757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -971,11 +997,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   63099-63598      + |         1
-  [2]     chr4 967022-967521      + |         2
-  [3]     chr6 663890-664389      + |         3
-  [4]     chr8 713739-714238      - |         4
-  [5]    chr10 710827-711326      - |         5
+  [1]     chr2 439727-440226      + |         1
+  [2]     chr4 976072-976571      + |         2
+  [3]     chr6 525599-526098      + |         3
+  [4]     chr8 475673-476172      - |         4
+  [5]    chr10 905358-905857      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -996,11 +1022,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62999-63098      + |         1
-  [2]     chr4 966922-967021      + |         2
-  [3]     chr6 663790-663889      + |         3
-  [4]     chr8 714039-714138      - |         4
-  [5]    chr10 711127-711226      - |         5
+  [1]     chr2 439627-439726      + |         1
+  [2]     chr4 975972-976071      + |         2
+  [3]     chr6 525499-525598      + |         3
+  [4]     chr8 475973-476072      - |         4
+  [5]    chr10 905658-905757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1024,11 +1050,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   61999-62998      + |         1
-  [2]     chr4 965922-966921      + |         2
-  [3]     chr6 662790-663789      + |         3
-  [4]     chr8 714139-715138      - |         4
-  [5]    chr10 711227-712226      - |         5
+  [1]     chr2 438627-439626      + |         1
+  [2]     chr4 974972-975971      + |         2
+  [3]     chr6 524499-525498      + |         3
+  [4]     chr8 476073-477072      - |         4
+  [5]    chr10 905758-906757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1048,11 +1074,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   63499-64498      + |         1
-  [2]     chr4 967422-968421      + |         2
-  [3]     chr6 664290-665289      + |         3
-  [4]     chr8 712639-713638      - |         4
-  [5]    chr10 709727-710726      - |         5
+  [1]     chr2 440127-441126      + |         1
+  [2]     chr4 976472-977471      + |         2
+  [3]     chr6 525999-526998      + |         3
+  [4]     chr8 474573-475572      - |         4
+  [5]    chr10 904258-905257      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1072,11 +1098,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   61999-63998      + |         1
-  [2]     chr4 965922-967921      + |         2
-  [3]     chr6 662790-664789      + |         3
-  [4]     chr8 713139-715138      - |         4
-  [5]    chr10 710227-712226      - |         5
+  [1]     chr2 438627-440626      + |         1
+  [2]     chr4 974972-976971      + |         2
+  [3]     chr6 524499-526498      + |         3
+  [4]     chr8 475073-477072      - |         4
+  [5]    chr10 904758-906757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1096,11 +1122,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62499-64498      + |         1
-  [2]     chr4 966422-968421      + |         2
-  [3]     chr6 663290-665289      + |         3
-  [4]     chr8 712639-714638      - |         4
-  [5]    chr10 709727-711726      - |         5
+  [1]     chr2 439127-441126      + |         1
+  [2]     chr4 975472-977471      + |         2
+  [3]     chr6 524999-526998      + |         3
+  [4]     chr8 474573-476572      - |         4
+  [5]    chr10 904258-906257      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1120,11 +1146,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62499-64498      + |         1
-  [2]     chr4 966422-968421      + |         2
-  [3]     chr6 663290-665289      + |         3
-  [4]     chr8 713139-715138      - |         4
-  [5]    chr10 710227-712226      - |         5
+  [1]     chr2 439127-441126      + |         1
+  [2]     chr4 975472-977471      + |         2
+  [3]     chr6 524999-526998      + |         3
+  [4]     chr8 475073-477072      - |         4
+  [5]    chr10 904758-906757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1145,11 +1171,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   60999-63198      + |         1
-  [2]     chr4 964922-967121      + |         2
-  [3]     chr6 661790-663989      + |         3
-  [4]     chr8 713939-716138      - |         4
-  [5]    chr10 711027-713226      - |         5
+  [1]     chr2 437627-439826      + |         1
+  [2]     chr4 973972-976171      + |         2
+  [3]     chr6 523499-525698      + |         3
+  [4]     chr8 475873-478072      - |         4
+  [5]    chr10 905558-907757      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1169,11 +1195,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   62899-63098      + |         1
-  [2]     chr4 966822-967021      + |         2
-  [3]     chr6 663690-663889      + |         3
-  [4]     chr8 714039-714238      - |         4
-  [5]    chr10 711127-711326      - |         5
+  [1]     chr2 439527-439726      + |         1
+  [2]     chr4 975872-976071      + |         2
+  [3]     chr6 525399-525598      + |         3
+  [4]     chr8 475973-476172      - |         4
+  [5]    chr10 905658-905857      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1193,11 +1219,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2   63488-63597      + |         1
-  [2]     chr4 967411-967520      + |         2
-  [3]     chr6 664279-664388      + |         3
-  [4]     chr8 713540-713649      - |         4
-  [5]    chr10 710628-710737      - |         5
+  [1]     chr2 440116-440225      + |         1
+  [2]     chr4 976461-976570      + |         2
+  [3]     chr6 525988-526097      + |         3
+  [4]     chr8 475474-475583      - |         4
+  [5]    chr10 905159-905268      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1494,11 +1520,11 @@ $Experiment_2
 GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-  [1]     chr2   63099-63598      + |         1
-  [2]     chr4 967022-967521      + |         2
-  [3]     chr6 663890-664389      + |         3
-  [4]     chr8 713739-714238      - |         4
-  [5]    chr10 710827-711326      - |         5
+  [1]     chr2 439727-440226      + |         1
+  [2]     chr4 976072-976571      + |         2
+  [3]     chr6 525599-526098      + |         3
+  [4]     chr8 475673-476172      - |         4
+  [5]    chr10 905358-905857      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -2149,6 +2175,18 @@ GRanges object with 5 ranges and 1 metadata column:
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-bioconductor.html" class="pagination-link" aria-label="Analysis of genomic data with Bioconductor">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Analysis of genomic data with Bioconductor</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-reference.html" class="pagination-link" aria-label="Genome references and annotations">
+        <span class="nav-page-text">Genome references and annotations</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
