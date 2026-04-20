@@ -381,11 +381,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 TCAAATGAGAGGCAGCATGGGTCAGGGGAGGCAG...GGCCAGGGGAGGCAGCATGGGCCAGGGGAGGCA
-[2]   500 GGTTCCTTTGGCTCCGTGCCACTGCTGAGTGGGC...GGCCAGAAATCTCGGGGACATCCTCTATGCCCC
-[3]   500 CCCGTGTGGTGTTGTCAGAGGTGTTTGAAGCAGA...AACGATCAGTATAAGCAGCTGAGCAGACCATCC
-[4]   500 TGAGCCAGAAACATGCTGAGCCTTTGACAGGTGA...CAGCCCCATGTTAAGCTCTTGGTGGCTGCAGGA
-[5]   500 CACCCTGGTTCTGGGTAGAATTCCTTGTGAACCC...GAGCCACAGCCTTCTCAGCTGCATTTGCTGCAA</code></pre>
+[1]   500 TTTCTTACTTTCTAGCTTATCACATAGTATTTTA...CAGAAGCTGTTATTAAAACCTTAGTGCAATATA
+[2]   500 AGGGATGAACTAGGTGGTCAAGTGGCCGTATTAT...ACAAGTGTCAAACTACGCGAATGCTGTCCAAGC
+[3]   500 TCCGGGGGCCAGCTGGGAATGCCGCTGCTGCCTC...GGCAACATTGTATCAAACCCTTACCATCTATGT
+[4]   500 TCTGATGGGCTTCCCTTTGTGGGTAACCTGACCT...TCCATCAGGTCATTTATGTTCTTCTCTAAACTG
+[5]   500 CTGCCCATAATGATTCAATGAGCACATAGGAGTT...TTGAATTCCAGCTACCTCACAAAATGTATACAG</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -393,12 +393,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the dinucleotide frequencies for each sequence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     AA AC AG AT CA CC CG CT GA GC  GG GT TA TC TG TT
-[1,]  4  5 82 22 84 17  3  0 26 74 145  7  0  8 22  0
-[2,] 26 27 27 28 41 50  8 47 23 22  26 26 18 48 35 47
-[3,] 47 29 47 28 45 31  9 26 30 27  29 35 29 24 36 27
-[4,] 15 20 35 14 41 48  8 45 25 41  50 33  4 33 56 31
-[5,] 16 25 38 18 41 38 12 43 30 38  49 30 11 32 48 30</code></pre>
+<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
+[1,] 64 21 30 58 30 14  0 33 24 15 10 20 56 27 29 68
+[2,] 32 39 40 33 49 23  7 35 29 29 28 29 33 24 40 29
+[3,] 29 24 34 26 43 34 15 38 26 38 39 19 15 34 34 51
+[4,] 19 12 18 40 27 24  6 53 22 17 21 30 21 57 46 86
+[5,] 25 21 47 22 47 31  6 34 33 37 58 29 10 28 47 24</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -501,11 +501,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.712
-[2,] 0.488
-[3,] 0.466
-[4,] 0.582
-[5,] 0.562</code></pre>
+[1,] 0.292
+[2,] 0.460
+[3,] 0.504
+[4,] 0.402
+[5,] 0.552</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -516,11 +516,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 SNERQHGSGEAAWARGGSSMGQGRQHGPGEAAWV...AWVRGGSSMGQGRQQHGSGEAAWARGGSMGQGR
-[2]   166 GSFGSVPLLSGPLTLLPLLFILHGSSCLPS*SQY...SAHTDQTHPVVPCLGTGNPNFALARNLGDILYA
-[3]   166 PVWCCQRCLKQRNSILSSSCVK*GREALGCLLRR...NCPPLSWKTHE*STPCLVYNVEVTISISS*ADH
-[4]   166 *ARNMLSL*QVSLSADVGGSQKLKLTSVIITCLG...CAHSGTGF*GSCPVVFGRRLSHDSPMLSSWWLQ
-[5]   166 HPGSG*NSL*TPFPFSREFLLYGGGSREASGPLR...QTFRPEPLLCCGVRAAMVSLLPQSHSLLSCICC</code></pre>
+[1]   166 FLTF*LIT*YFILSKARYNYQIIETEAKMSLLCD...GTTHQNYTRINRKFE*ISSS*RHRSCY*NLSAI
+[2]   166 RDELGGQVAVLFHCINTNTPSSPGKQHTIAKRR*...SHSAILHNYKTNLCV*ASIRPSRQVSNYANAVQ
+[3]   166 SGGQLGMPLLPLSGGQPPALPPRASRAGTLMSAR...FTSGVSHTWSCFLPFLCIAGFCLATLYQTLTIY
+[4]   166 SDGLPFVGNLTFLSGCP*HFFLHFNLAQSDDYVS...PLDRISA*SLCMLHEVLMACFSAPSGHLCSSLN
+[5]   166 MPIMIQ*AHRSSCRDCAVALEGTMVWESWHWPVS...CSSVCLVHTSVTRSFLANESGAC*IPATSQNVY</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>
