@@ -403,11 +403,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889962-890461      + |         1
-  [2]     chr4 131544-132043      + |         2
-  [3]     chr6 316003-316502      + |         3
-  [4]     chr8 923378-923877      - |         4
-  [5]    chr10 153184-153683      - |         5
+  [1]     chr2 566098-566597      + |         1
+  [2]     chr4 111897-112396      + |         2
+  [3]     chr6 382826-383325      + |         3
+  [4]     chr8 755305-755804      - |         4
+  [5]    chr10 422810-423309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -437,11 +437,11 @@ $Experiment_2
 GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-  [1]     chr2 889962-890461      + |         1
-  [2]     chr4 131544-132043      + |         2
-  [3]     chr6 316003-316502      + |         3
-  [4]     chr8 923378-923877      - |         4
-  [5]    chr10 153184-153683      - |         5
+  [1]     chr2 566098-566597      + |         1
+  [2]     chr4 111897-112396      + |         2
+  [3]     chr6 382826-383325      + |         3
+  [4]     chr8 755305-755804      - |         4
+  [5]    chr10 422810-423309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -480,12 +480,12 @@ Levels: chr2 chr6 chr10</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the start positions</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 889962 131544 316003 923378 153184</code></pre>
+<pre><code>[1] 566098 111897 382826 755305 422810</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the end positions</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">end</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 890461 132043 316502 923877 153683</code></pre>
+<pre><code>[1] 566597 112396 383325 755804 423309</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the strand information</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strand</span>(gr2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -581,11 +581,11 @@ Levels(3): + - *</code></pre>
    [3]     chr6       300-400      * |         3      0.50
    [4]     chr6       350-500      * |         4      0.25
    [5]    chr10       500-600      * |         5      0.00
-   [6]     chr2 889962-890461      + |         1        NA
-   [7]     chr4 131544-132043      + |         2        NA
-   [8]     chr6 316003-316502      + |         3        NA
-   [9]     chr8 923378-923877      - |         4        NA
-  [10]    chr10 153184-153683      - |         5        NA
+   [6]     chr2 566098-566597      + |         1        NA
+   [7]     chr4 111897-112396      + |         2        NA
+   [8]     chr6 382826-383325      + |         3        NA
+   [9]     chr8 755305-755804      - |         4        NA
+  [10]    chr10 422810-423309      - |         5        NA
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -597,8 +597,8 @@ Levels(3): + - *</code></pre>
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr8 923378-923877      - |         4
-  [2]    chr10 153184-153683      - |         5
+  [1]     chr8 755305-755804      - |         4
+  [2]    chr10 422810-423309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -711,7 +711,7 @@ GRanges object with 0 ranges and 2 metadata columns:
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;numeric&gt;
   [1]     chr2       100-200      * |         1      1.00
   [2]     chr2       150-300      * |         2      0.75
-  [3]     chr2 889962-890461      + |         1        NA
+  [3]     chr2 566098-566597      + |         1        NA
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -768,35 +768,35 @@ GRanges object with 0 ranges and 2 metadata columns:
 <span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mcols</span>(gr2)[name] <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(gr2))</span>
 <span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="st">"-"</span> <span class="sc">%in%</span> <span class="fu">strand</span>(gr)){</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="st">"-"</span> <span class="sc">%in%</span> <span class="fu">factor</span>(<span class="fu">strand</span>(gr))){</span>
 <span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>    strand <span class="ot">=</span> <span class="st">"+"</span></span>
 <span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(strand <span class="sc">==</span> <span class="st">"+"</span>){</span>
-<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>    gr_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">strand</span>(gr) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>    gr_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">factor</span>(<span class="fu">strand</span>(gr)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
 <span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>    gr <span class="ot">&lt;-</span> gr_plus</span>
 <span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (strand <span class="sc">==</span> <span class="st">"-"</span>){</span>
-<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>    gr_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">strand</span>(gr) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>    gr_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">factor</span>(<span class="fu">strand</span>(gr)) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
 <span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>    gr <span class="ot">&lt;-</span> gr_minus</span>
 <span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>    gr_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">strand</span>(gr) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
-<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>    gr_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">strand</span>(gr) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>    gr_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">factor</span>(<span class="fu">strand</span>(gr)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>    gr_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr, <span class="fu">factor</span>(<span class="fu">strand</span>(gr)) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr))]</span>
 <span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>    gr <span class="ot">&lt;-</span> <span class="fu">c</span>(gr_plus, gr_minus)</span>
 <span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="st">"-"</span> <span class="sc">%in%</span> <span class="fu">strand</span>(gr2)){</span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="st">"-"</span> <span class="sc">%in%</span> <span class="fu">factor</span>(<span class="fu">strand</span>(gr2))){</span>
 <span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>    strand <span class="ot">=</span> <span class="st">"+"</span></span>
 <span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(strand <span class="sc">==</span> <span class="st">"+"</span>){</span>
-<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>    gr2_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">strand</span>(gr2) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>    gr2_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">factor</span>(<span class="fu">strand</span>(gr2)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
 <span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a>    gr2 <span class="ot">&lt;-</span> gr2_plus</span>
 <span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (strand <span class="sc">==</span> <span class="st">"-"</span>){</span>
-<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>    gr2_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">strand</span>(gr2) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>    gr2_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">factor</span>(<span class="fu">strand</span>(gr2)) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
 <span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a>    gr2 <span class="ot">&lt;-</span> gr2_minus</span>
 <span id="cb41-62"><a href="#cb41-62" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a>    gr2_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">strand</span>(gr2) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
-<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a>    gr2_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">strand</span>(gr2) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
+<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a>    gr2_plus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">factor</span>(<span class="fu">strand</span>(gr2)) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"+"</span>,<span class="st">"*"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
+<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a>    gr2_minus <span class="ot">&lt;-</span> <span class="fu">subset</span>(gr2, <span class="fu">factor</span>(<span class="fu">strand</span>(gr2)) <span class="sc">==</span> <span class="st">"-"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(n,<span class="fu">length</span>(gr2))]</span>
 <span id="cb41-65"><a href="#cb41-65" aria-hidden="true" tabindex="-1"></a>    gr2 <span class="ot">&lt;-</span> <span class="fu">c</span>(gr2_plus, gr2_minus)</span>
 <span id="cb41-66"><a href="#cb41-66" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb41-67"><a href="#cb41-67" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -845,11 +845,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889962-890461      + |         1
-  [2]     chr4 131544-132043      + |         2
-  [3]     chr6 316003-316502      + |         3
-  [4]     chr8 923378-923877      - |         4
-  [5]    chr10 153184-153683      - |         5
+  [1]     chr2 566098-566597      + |         1
+  [2]     chr4 111897-112396      + |         2
+  [3]     chr6 382826-383325      + |         3
+  [4]     chr8 755305-755804      - |         4
+  [5]    chr10 422810-423309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -997,11 +997,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 890062-890561      + |         1
-  [2]     chr4 131644-132143      + |         2
-  [3]     chr6 316103-316602      + |         3
-  [4]     chr8 923478-923977      - |         4
-  [5]    chr10 153284-153783      - |         5
+  [1]     chr2 566198-566697      + |         1
+  [2]     chr4 111997-112496      + |         2
+  [3]     chr6 382926-383425      + |         3
+  [4]     chr8 755405-755904      - |         4
+  [5]    chr10 422910-423409      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1022,11 +1022,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889962-890061      + |         1
-  [2]     chr4 131544-131643      + |         2
-  [3]     chr6 316003-316102      + |         3
-  [4]     chr8 923778-923877      - |         4
-  [5]    chr10 153584-153683      - |         5
+  [1]     chr2 566098-566197      + |         1
+  [2]     chr4 111897-111996      + |         2
+  [3]     chr6 382826-382925      + |         3
+  [4]     chr8 755705-755804      - |         4
+  [5]    chr10 423210-423309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1050,11 +1050,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 888962-889961      + |         1
-  [2]     chr4 130544-131543      + |         2
-  [3]     chr6 315003-316002      + |         3
-  [4]     chr8 923878-924877      - |         4
-  [5]    chr10 153684-154683      - |         5
+  [1]     chr2 565098-566097      + |         1
+  [2]     chr4 110897-111896      + |         2
+  [3]     chr6 381826-382825      + |         3
+  [4]     chr8 755805-756804      - |         4
+  [5]    chr10 423310-424309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1074,11 +1074,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 890462-891461      + |         1
-  [2]     chr4 132044-133043      + |         2
-  [3]     chr6 316503-317502      + |         3
-  [4]     chr8 922378-923377      - |         4
-  [5]    chr10 152184-153183      - |         5
+  [1]     chr2 566598-567597      + |         1
+  [2]     chr4 112397-113396      + |         2
+  [3]     chr6 383326-384325      + |         3
+  [4]     chr8 754305-755304      - |         4
+  [5]    chr10 421810-422809      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1098,11 +1098,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 888962-890961      + |         1
-  [2]     chr4 130544-132543      + |         2
-  [3]     chr6 315003-317002      + |         3
-  [4]     chr8 922878-924877      - |         4
-  [5]    chr10 152684-154683      - |         5
+  [1]     chr2 565098-567097      + |         1
+  [2]     chr4 110897-112896      + |         2
+  [3]     chr6 381826-383825      + |         3
+  [4]     chr8 754805-756804      - |         4
+  [5]    chr10 422310-424309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1122,11 +1122,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889462-891461      + |         1
-  [2]     chr4 131044-133043      + |         2
-  [3]     chr6 315503-317502      + |         3
-  [4]     chr8 922378-924377      - |         4
-  [5]    chr10 152184-154183      - |         5
+  [1]     chr2 565598-567597      + |         1
+  [2]     chr4 111397-113396      + |         2
+  [3]     chr6 382326-384325      + |         3
+  [4]     chr8 754305-756304      - |         4
+  [5]    chr10 421810-423809      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1146,11 +1146,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889462-891461      + |         1
-  [2]     chr4 131044-133043      + |         2
-  [3]     chr6 315503-317502      + |         3
-  [4]     chr8 922878-924877      - |         4
-  [5]    chr10 152684-154683      - |         5
+  [1]     chr2 565598-567597      + |         1
+  [2]     chr4 111397-113396      + |         2
+  [3]     chr6 382326-384325      + |         3
+  [4]     chr8 754805-756804      - |         4
+  [5]    chr10 422310-424309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1171,11 +1171,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 887962-890161      + |         1
-  [2]     chr4 129544-131743      + |         2
-  [3]     chr6 314003-316202      + |         3
-  [4]     chr8 923678-925877      - |         4
-  [5]    chr10 153484-155683      - |         5
+  [1]     chr2 564098-566297      + |         1
+  [2]     chr4 109897-112096      + |         2
+  [3]     chr6 380826-383025      + |         3
+  [4]     chr8 755605-757804      - |         4
+  [5]    chr10 423110-425309      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1195,11 +1195,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 889862-890061      + |         1
-  [2]     chr4 131444-131643      + |         2
-  [3]     chr6 315903-316102      + |         3
-  [4]     chr8 923778-923977      - |         4
-  [5]    chr10 153584-153783      - |         5
+  [1]     chr2 565998-566197      + |         1
+  [2]     chr4 111797-111996      + |         2
+  [3]     chr6 382726-382925      + |         3
+  [4]     chr8 755705-755904      - |         4
+  [5]    chr10 423210-423409      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1219,11 +1219,11 @@ GRanges object with 0 ranges and 2 metadata columns:
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;
-  [1]     chr2 890451-890560      + |         1
-  [2]     chr4 132033-132142      + |         2
-  [3]     chr6 316492-316601      + |         3
-  [4]     chr8 923279-923388      - |         4
-  [5]    chr10 153085-153194      - |         5
+  [1]     chr2 566587-566696      + |         1
+  [2]     chr4 112386-112495      + |         2
+  [3]     chr6 383315-383424      + |         3
+  [4]     chr8 755206-755315      - |         4
+  [5]    chr10 422711-422820      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
@@ -1520,11 +1520,11 @@ $Experiment_2
 GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     names
          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-  [1]     chr2 890062-890561      + |         1
-  [2]     chr4 131644-132143      + |         2
-  [3]     chr6 316103-316602      + |         3
-  [4]     chr8 923478-923977      - |         4
-  [5]    chr10 153284-153783      - |         5
+  [1]     chr2 566198-566697      + |         1
+  [2]     chr4 111997-112496      + |         2
+  [3]     chr6 382926-383425      + |         3
+  [4]     chr8 755405-755904      - |         4
+  [5]    chr10 422910-423409      - |         5
   -------
   seqinfo: 5 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>

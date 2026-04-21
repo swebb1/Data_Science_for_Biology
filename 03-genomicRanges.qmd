@@ -282,35 +282,35 @@ pg2 <- function(gr, gr2, n = 1, strand = "both", name = "names"){
     mcols(gr2)[name] <- seq(1,length(gr2))
   }
   
-  if(!"-" %in% strand(gr)){
+  if(!"-" %in% factor(strand(gr))){
     strand = "+"
   }
   
   if(strand == "+"){
-    gr_plus <- subset(gr, strand(gr) %in% c("+","*"))[1:min(n,length(gr))]
+    gr_plus <- subset(gr, factor(strand(gr)) %in% c("+","*"))[1:min(n,length(gr))]
     gr <- gr_plus
   } else if (strand == "-"){
-    gr_minus <- subset(gr, strand(gr) == "-")[1:min(n,length(gr))]
+    gr_minus <- subset(gr, factor(strand(gr)) == "-")[1:min(n,length(gr))]
     gr <- gr_minus
   } else {
-    gr_plus <- subset(gr, strand(gr) %in% c("+","*"))[1:min(n,length(gr))]
-    gr_minus <- subset(gr, strand(gr) == "-")[1:min(n,length(gr))]
+    gr_plus <- subset(gr, factor(strand(gr)) %in% c("+","*"))[1:min(n,length(gr))]
+    gr_minus <- subset(gr, factor(strand(gr)) == "-")[1:min(n,length(gr))]
     gr <- c(gr_plus, gr_minus)
   }
   
-  if(!"-" %in% strand(gr2)){
+  if(!"-" %in% factor(strand(gr2))){
     strand = "+"
   }
   
   if(strand == "+"){
-    gr2_plus <- subset(gr2, strand(gr2) %in% c("+","*"))[1:min(n,length(gr2))]
+    gr2_plus <- subset(gr2, factor(strand(gr2)) %in% c("+","*"))[1:min(n,length(gr2))]
     gr2 <- gr2_plus
   } else if (strand == "-"){
-    gr2_minus <- subset(gr2, strand(gr2) == "-")[1:min(n,length(gr2))]
+    gr2_minus <- subset(gr2, factor(strand(gr2)) == "-")[1:min(n,length(gr2))]
     gr2 <- gr2_minus
   } else {
-    gr2_plus <- subset(gr2, strand(gr2) %in% c("+","*"))[1:min(n,length(gr2))]
-    gr2_minus <- subset(gr2, strand(gr2) == "-")[1:min(n,length(gr2))]
+    gr2_plus <- subset(gr2, factor(strand(gr2)) %in% c("+","*"))[1:min(n,length(gr2))]
+    gr2_minus <- subset(gr2, factor(strand(gr2)) == "-")[1:min(n,length(gr2))]
     gr2 <- c(gr2_plus, gr2_minus)
   }
   
