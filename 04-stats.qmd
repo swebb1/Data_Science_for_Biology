@@ -1,7 +1,5 @@
 ---
 title: "Statistical Thinking"
-format: live-html
-engine: knit
 ---
 
 <head>
@@ -11,9 +9,6 @@ engine: knit
 ```
 
 </head>
-
-{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
-
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
@@ -32,6 +27,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 :::
 
 <br>
+
+This module introduces the basics of statistical thinking and how to apply it using R. We will cover the types of data commonly encountered in biology, how to summarise and visualise data, and how to perform basic statistical analyses.
 
 ## Statistics in biology
 
@@ -179,7 +176,7 @@ The geneA expression levels will be normally distributed with different means fo
 The **normal** and **Poisson** distributions are commonly used in biology to model continuous and discrete data, respectively. The normal distribution is often used to model gene expression levels, while the Poisson distribution is commonly used to model count data. We will revisit these later.
 
 
-```{webr}
+```{r}
 set.seed(123) # For reproducibility
 
 ## 100 samples
@@ -207,7 +204,7 @@ The base R `summary()` function provides a quick overview of the distribution of
 
 The `get_summary_stats()` function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a *tibble* that can be easily piped into dplyr or ggplot functions.
 
-```{webr}
+```{r}
 ## Base R
 summary(data)
 
@@ -223,7 +220,7 @@ Measures of central tendency describe the typical or central value of a dataset.
   - Median: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.
   - Mode: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.
 
-```{webr}
+```{r}
 mean(data$geneA_expression)
 ```
 

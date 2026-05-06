@@ -56,6 +56,10 @@ website:
             text: Genome references and annotations
           - href: 03-visualisations.qmd
             text: Genomic annotation and visualisation
+      - section: "<img src='images/statistics.png' width='20px' style='margin-right: 5px;'> 4: Statistics"
+        contents:
+          - href: 04-Setup.qmd
+            text: Setup
 
 format:
   html:
