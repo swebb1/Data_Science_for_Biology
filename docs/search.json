@@ -1143,5 +1143,61 @@
     "title": "Data Science for Biology",
     "section": "",
     "text": "This is the homepage for Data Science for Biology hosted by the DRP-HCB Bioinformatics Core at the University of Edinburgh.\nThese courses are run annually by the Bioinformatics Core but are also available upon request.\n\n\n\n\n\n\n\n\nFor more information contact Shaun Webb."
+  },
+  {
+    "objectID": "04-stats.html",
+    "href": "04-stats.html",
+    "title": "Statistical Thinking",
+    "section": "",
+    "text": "What is R?\nUnderstand R datatypes and classes\nUnderstand how to use functions in base R\nImport datasets into R\nInspect and format a dataset\nCreate basic graphics\nRun statistical tests"
+  },
+  {
+    "objectID": "04-stats.html#statistics-in-biology",
+    "href": "04-stats.html#statistics-in-biology",
+    "title": "Statistical Thinking",
+    "section": "Statistics in biology",
+    "text": "Statistics in biology\nStatistics is a branch of mathematics that deals with the collection, analysis, interpretation, presentation, and organisation of data. In biology, statistics is used to make sense of complex data and to draw meaningful conclusions from experiments.\nAn understanding of statistical thinking is required throughout the research life-cycle, from experimental design to publication and review.\n\nExperimental design\n\nWhat statistical power is required to see a desired effect size?\nHow many replicates are required?\nWhat confounding factors need to be considered?\n\n\n\nData analysis\n\nApplying appropriate statistical methodology to data\nInterpret the results of statistical tests in biological context\n\n\n\nData management and software\n\nPreparing and structuring data for analysis\nKnowledge of statistical software (R, Matlab, SAS…)\n\n\n\nPublication and review\n\nPresent the results of statistical analysis\nCritically evaluate the statistical methods used in published research"
+  },
+  {
+    "objectID": "04-stats.html#stastics-in-r",
+    "href": "04-stats.html#stastics-in-r",
+    "title": "Statistical Thinking",
+    "section": "Stastics in R",
+    "text": "Stastics in R\nBase R has a large number of built-in functions for performing statistical analyses. These include functions for calculating descriptive statistics, performing hypothesis tests, and fitting statistical models. In addition to the built-in functions, there are many packages available in R that provide additional functionality.\nThe stats package, which is included in base R, provides a wide range of functions for statistical analysis.\nIn this lesson, we will use the rstatix package which uses a tidyverse-friendly syntax for performing common statistical tests. The functions in rstatix are wrappers for the functions in the stats package, but they provide a more user-friendly interface and additional features such as automatic formatting of results.\nWe will use ggplot and ggpubr for visualizing data and results of statistical tests.\n\n## Load libraries\nlibrary(rstatix)\nlibrary(ggplot2)\nlibrary(ggpubr)"
+  },
+  {
+    "objectID": "04-stats.html#types-of-data",
+    "href": "04-stats.html#types-of-data",
+    "title": "Statistical Thinking",
+    "section": "Types of data",
+    "text": "Types of data\nBiological data comes in many forms: gene expression levels, mutation counts, phenotypes, and categories like genotype or treatment group.\nBefore doing any statistical test, we need to understand what type of data we have.\n\nCategorical Data\nValues represent groups or labels Examples:\n\nGenotype: WT, KO\nCell type: T-cell, B-cell\n\n\ngenotype &lt;- factor(c(\"WT\", \"WT\", \"KO\", \"KO\", \"WT\"))\nsummary(genotype)\n\nKO WT \n 2  3 \n\n\nIn R, categorical data is often represented as factors. Factors can still be numerically encoded, but they are treated as categorical variables in statistical analyses.\n\n## Numerical variable\ntimepoint &lt;- c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5)\nsummary(timepoint)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n      1       2       3       3       4       5 \n\n## Categorical variable\ntimepoint_factor &lt;- factor(c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5))\nsummary(timepoint_factor)\n\n1 2 3 4 5 \n2 2 2 2 2 \n\n\n\n\nOrdinal data\nOrdinal data is a type of categorical data where the categories have a natural order or ranking. Examples include:\n\nDisease severity: mild, moderate, severe\nTumor grade: low, intermediate, high\nTime points: day 1, day 2, day 3\n\nIn R, we can create an ordered factor to represent ordinal data. This allows us to specify the order of the categories and perform appropriate statistical analyses that take the ordering into account. The levels parameter specifies the order of the categories, and the ordered parameter indicates that the factor is ordinal.\n\n## Create an ordered factor for disease severity\nseverity &lt;- factor(c(\"moderate\", \"moderate\", \"severe\", \"mild\", \"moderate\"), \n                   levels = c(\"mild\", \"moderate\", \"severe\"), \n                   ordered = TRUE)\nsummary(severity)\n\n    mild moderate   severe \n       1        3        1 \n\n\n\n\nDiscrete data\nDiscrete data consists of distinct, separate values. It often represents counts or categories that can only take on specific values. Discrete data can either be quantitative (e.g., number of cells) or categorical (e.g., species).\nExamples include:\n\nMutation counts: 0, 1, 2, 3 (quantitative)\nNumber of cells: 10, 20, 30 (quantitative)\nSpecies: human, mouse, rat (categorical)\nResults of a survey: yes, no, maybe (categorical)\nDays post-infection: 1, 5, 10 (ordinal)\n\nData is discrete if it has the following properties:\n\nDistinct values from a finite list of possibilities\nClear spaces between values with no intermediate values\nQuantitative data is countable as integers\n\n\n## Discrete numerical variable\nmutation_counts &lt;- c(0, 1, 2, 3, 0,\n                     1, 2, 3, 0, 1)\ntable(mutation_counts)\n\nmutation_counts\n0 1 2 3 \n3 3 2 2 \n\n\n\n\nContinuous data\nContinuous data can take on any value within a range and is often measured rather than counted. Examples include:\n\nGene expression levels: 0.5, 1.2, 3.4\nProtein concentrations: 10.5 ng/mL, 20.3 ng/mL\nTime to event: 5.2 hours, 10.8 hours\nBody weight: 70.5 kg, 80.2 kg\n\nData is discrete if it has the following properties:\n\nSampled from infinite values within a given range\nData points fall in a continuous sequence\nMeasurable and divisible\n\n\n## Continuous numerical variable\ngene_expression &lt;- c(0.5, 1.2, 3.4,\n                     0.8, 1.5, 2.3,\n                     0.6, 1.0, 3.0)\nsummary(gene_expression)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  0.500   0.800   1.200   1.589   2.300   3.400 \n\n\n\n\nSimulating data\nBefore we move on, let’s simulate a dataset to work with. We will create a dataset with 100 samples, two groups (WT and KO), a continuous variable representing geneA expression levels, and a discrete variable representing mutation counts.\nThe geneA expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups.\nThe normal and Poisson distributions are commonly used in biology to model continuous and discrete data, respectively. The normal distribution is often used to model gene expression levels, while the Poisson distribution is commonly used to model count data. We will revisit these later."
+  },
+  {
+    "objectID": "04-stats.html#descriptive-statistics",
+    "href": "04-stats.html#descriptive-statistics",
+    "title": "Statistical Thinking",
+    "section": "Descriptive statistics",
+    "text": "Descriptive statistics\nSimply listing all of the values in a large dataset is not ideal for interpretation. Instead, we summarise and visualise data to describe the distribution of values.\nThe base R summary() function provides a quick overview of the distribution of values for each variable in a dataset.\nThe get_summary_stats() function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a tibble that can be easily piped into dplyr or ggplot functions.\n\n\n\n\n\n\n\n\n\nMeasures of central tendency\nMeasures of central tendency describe the typical or central value of a dataset. They are often used to summarise the data and provide a single value that represents the entire dataset. Common measures of central tendency include:\n\nMean: The average value of a dataset, calculated by summing all values and dividing by the number of values.\nMedian: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.\nMode: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.\n\n\n\n\n\n\n\n\n\nDistribution of values: Minimum and maximum range Quantiles or percentiles Variance and standard deviation\nVisualisations: Histograms Boxplots Violin plots"
+  },
+  {
+    "objectID": "04-stats.html#probability-and-distributions",
+    "href": "04-stats.html#probability-and-distributions",
+    "title": "Statistical Thinking",
+    "section": "Probability and distributions",
+    "text": "Probability and distributions"
+  },
+  {
+    "objectID": "04-stats.html#sampling-and-the-central-limit-theorem",
+    "href": "04-stats.html#sampling-and-the-central-limit-theorem",
+    "title": "Statistical Thinking",
+    "section": "Sampling and the Central Limit Theorem",
+    "text": "Sampling and the Central Limit Theorem"
+  },
+  {
+    "objectID": "04-stats.html#frequentist-vs-bayesian-statistics",
+    "href": "04-stats.html#frequentist-vs-bayesian-statistics",
+    "title": "Statistical Thinking",
+    "section": "Frequentist vs Bayesian statistics",
+    "text": "Frequentist vs Bayesian statistics"
   }
 ]

@@ -1,0 +1,249 @@
+---
+title: "Statistical Thinking"
+format: live-html
+engine: knit
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   What is R?
+-   Understand R datatypes and classes
+-   Understand how to use functions in *base R*
+-   Import datasets into R
+-   Inspect and format a dataset
+-   Create basic graphics
+-   Run statistical tests
+:::
+
+<br>
+
+## Statistics in biology
+
+Statistics is a branch of mathematics that deals with the collection, analysis, interpretation, presentation, and organisation of data. In biology, statistics is used to make sense of complex data and to draw meaningful conclusions from experiments. 
+
+An understanding of statistical thinking is required throughout the research life-cycle, from experimental design to publication and review.
+
+#### Experimental design
+  
+  - What statistical power is required to see a desired effect size?
+  - How many replicates are required?
+  - What confounding factors need to be considered? 
+
+#### Data analysis 
+
+  - Applying appropriate statistical methodology to data
+  - Interpret the results of statistical tests in biological context
+
+#### Data management and software
+
+  - Preparing and structuring data for analysis
+  - Knowledge of statistical software (R, Matlab, SAS…)
+
+#### Publication and review
+
+  - Present the results of statistical analysis
+  - Critically evaluate the statistical methods used in published research
+
+## Stastics in R
+
+Base R has a large number of built-in functions for performing statistical analyses. These include functions for calculating descriptive statistics, performing hypothesis tests, and fitting statistical models. In addition to the built-in functions, there are many packages available in R that provide additional functionality.
+
+The **stats** package, which is included in base R, provides a wide range of functions for statistical analysis. 
+
+In this lesson, we will use the **rstatix** package which uses a tidyverse-friendly syntax for performing common statistical tests. The functions in rstatix are wrappers for the functions in the stats package, but they provide a more user-friendly interface and additional features such as automatic formatting of results.
+
+We will use **ggplot** and **ggpubr** for visualizing data and results of statistical tests.
+
+```{r}
+## Load libraries
+library(rstatix)
+library(ggplot2)
+library(ggpubr)
+```
+
+## Types of data
+
+Biological data comes in many forms: gene expression levels, mutation counts, phenotypes, and categories like genotype or treatment group.
+
+Before doing any statistical test, we need to understand what type of data we have.
+
+#### Categorical Data
+
+Values represent groups or labels
+Examples:
+
+  - Genotype: WT, KO
+  - Cell type: T-cell, B-cell
+
+```{r}
+genotype <- factor(c("WT", "WT", "KO", "KO", "WT"))
+summary(genotype)
+```
+In R, categorical data is often represented as factors. Factors can still be numerically encoded, but they are treated as categorical variables in statistical analyses.
+
+```{r}
+## Numerical variable
+timepoint <- c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5)
+summary(timepoint)
+
+## Categorical variable
+timepoint_factor <- factor(c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5))
+summary(timepoint_factor)
+```
+#### Ordinal data
+
+Ordinal data is a type of categorical data where the categories have a natural order or ranking. Examples include:
+
+  - Disease severity: mild, moderate, severe
+  - Tumor grade: low, intermediate, high
+  - Time points: day 1, day 2, day 3
+
+In R, we can create an ordered factor to represent ordinal data. This allows us to specify the order of the categories and perform appropriate statistical analyses that take the ordering into account. The `levels` parameter specifies the order of the categories, and the `ordered` parameter indicates that the factor is ordinal.
+  
+```{r}
+## Create an ordered factor for disease severity
+severity <- factor(c("moderate", "moderate", "severe", "mild", "moderate"), 
+                   levels = c("mild", "moderate", "severe"), 
+                   ordered = TRUE)
+summary(severity)
+```
+
+#### Discrete data
+
+Discrete data consists of distinct, separate values. It often represents counts or categories that can only take on specific values. Discrete data can either be quantitative (e.g., number of cells) or categorical (e.g., species).
+
+Examples include:
+
+  - Mutation counts: 0, 1, 2, 3 (quantitative)
+  - Number of cells: 10, 20, 30 (quantitative)
+  - Species: human, mouse, rat (categorical)
+  - Results of a survey: yes, no, maybe (categorical)
+  - Days post-infection: 1, 5, 10 (ordinal)
+  
+Data is discrete if it has the following properties:
+
+  - Distinct values from a finite list of possibilities
+  - Clear spaces between values with no intermediate values
+  - Quantitative data is countable as integers
+  
+```{r}
+## Discrete numerical variable
+mutation_counts <- c(0, 1, 2, 3, 0,
+                     1, 2, 3, 0, 1)
+table(mutation_counts)
+```
+#### Continuous data
+
+Continuous data can take on any value within a range and is often measured rather than counted. Examples include:
+
+  - Gene expression levels: 0.5, 1.2, 3.4
+  - Protein concentrations: 10.5 ng/mL, 20.3 ng/mL
+  - Time to event: 5.2 hours, 10.8 hours
+  - Body weight: 70.5 kg, 80.2 kg
+
+Data is discrete if it has the following properties:
+
+  - Sampled from infinite values within a given range
+  - Data points fall in a continuous sequence
+  - Measurable and divisible
+
+```{r}
+## Continuous numerical variable
+gene_expression <- c(0.5, 1.2, 3.4,
+                     0.8, 1.5, 2.3,
+                     0.6, 1.0, 3.0)
+summary(gene_expression)
+```
+#### Simulating data
+
+Before we move on, let's simulate a dataset to work with. We will create a dataset with 100 samples, two groups (WT and KO), a continuous variable representing geneA expression levels, and a discrete variable representing mutation counts.
+
+The geneA expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups.
+
+The **normal** and **Poisson** distributions are commonly used in biology to model continuous and discrete data, respectively. The normal distribution is often used to model gene expression levels, while the Poisson distribution is commonly used to model count data. We will revisit these later.
+
+
+```{webr}
+set.seed(123) # For reproducibility
+
+## 100 samples
+n_samples <- 100
+
+## Categorical data randomly sampled from two groups
+group <- factor(sample(c("WT", "KO"),
+                       n_samples, replace = TRUE))
+
+## Expression levels for geneA, with different means and standard deviation for WT and KO
+geneA_expression <- rnorm(n_samples, mean = ifelse(group == "WT", 5, 7), sd = 1)
+
+## Mutation counts, with different means for WT and KO
+mutation_counts <- rpois(n_samples, lambda = ifelse(group == "WT", 2, 4))
+
+data <- data.frame(group, geneA_expression, mutation_counts)
+head(data)
+```
+
+## Descriptive statistics
+
+Simply listing all of the values in a large dataset is not ideal for interpretation. Instead, we **summarise** and **visualise** data to describe the distribution of values.
+
+The base R `summary()` function provides a quick overview of the distribution of values for each variable in a dataset. 
+
+The `get_summary_stats()` function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a *tibble* that can be easily piped into dplyr or ggplot functions.
+
+```{webr}
+## Base R
+summary(data)
+
+## RStatix
+get_summary_stats(data)
+```
+
+#### Measures of central tendency
+
+Measures of central tendency describe the typical or central value of a dataset. They are often used to summarise the data and provide a single value that represents the entire dataset. Common measures of central tendency include:
+
+  - Mean: The average value of a dataset, calculated by summing all values and dividing by the number of values.
+  - Median: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.
+  - Mode: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.
+
+```{webr}
+mean(data$geneA_expression)
+```
+
+
+Distribution of values:
+Minimum and maximum range
+Quantiles or percentiles
+Variance and standard deviation
+
+
+Visualisations:
+Histograms
+Boxplots
+Violin plots
+
+
+
+## Probability and distributions
+
+## Sampling and the Central Limit Theorem
+
+## Frequentist vs Bayesian statistics
+
