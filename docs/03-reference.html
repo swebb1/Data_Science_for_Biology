@@ -281,6 +281,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -381,11 +398,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 TTTCTTACTTTCTAGCTTATCACATAGTATTTTA...CAGAAGCTGTTATTAAAACCTTAGTGCAATATA
-[2]   500 AGGGATGAACTAGGTGGTCAAGTGGCCGTATTAT...ACAAGTGTCAAACTACGCGAATGCTGTCCAAGC
-[3]   500 TCCGGGGGCCAGCTGGGAATGCCGCTGCTGCCTC...GGCAACATTGTATCAAACCCTTACCATCTATGT
-[4]   500 TCTGATGGGCTTCCCTTTGTGGGTAACCTGACCT...TCCATCAGGTCATTTATGTTCTTCTCTAAACTG
-[5]   500 CTGCCCATAATGATTCAATGAGCACATAGGAGTT...TTGAATTCCAGCTACCTCACAAAATGTATACAG</code></pre>
+[1]   500 TCTTATGCCTAGTTTCTGCCTCCAAAGAAAGAAG...ATGGAAGAGGGACTGGTGGCTTTCCAGGAGGAG
+[2]   500 GGGGTCCCCGGCCTGTGGGGCTGGATACCAAGTG...CCTTTACAGGACATGCAGCGGGACCCACACACC
+[3]   500 ATTAGATCTTTTAATCATGAATAAAAAAAAAGAG...GCTTACATACAATGAAAAATTTGGAAATCCATA
+[4]   500 TAATTCTTCTTTGGGATCTTCTACATAAATAATC...CTCAAAAATCAGTAACCGATGATCCCACTTCCT
+[5]   500 TTTCGATGATACTGATTCTTCCAATTCATGAGCA...AAAAACTGGTCTCAGATGGGATTGGGAGAAAAT</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -393,12 +410,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the dinucleotide frequencies for each sequence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
-[1,] 64 21 30 58 30 14  0 33 24 15 10 20 56 27 29 68
-[2,] 32 39 40 33 49 23  7 35 29 29 28 29 33 24 40 29
-[3,] 29 24 34 26 43 34 15 38 26 38 39 19 15 34 34 51
-[4,] 19 12 18 40 27 24  6 53 22 17 21 30 21 57 46 86
-[5,] 25 21 47 22 47 31  6 34 33 37 58 29 10 28 47 24</code></pre>
+<pre><code>      AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
+[1,]  41 22 31 24 29 45  9 46 29 26 31 31 19 36 47 33
+[2,]  14 35 51 11 39 50 13 27 47 37 74 23 11  8 42 17
+[3,] 108 31 35 49 44 11  3 17 38 12 17 14 33 21 26 40
+[4,]  32 15 23 52 29 23  4 44 28 20 26 16 33 42 37 75
+[5,]  33 65 16 35 66 21  9 40 26  9 11 24 24 41 34 45</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -501,11 +518,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.292
-[2,] 0.460
-[3,] 0.504
-[4,] 0.402
-[5,] 0.552</code></pre>
+[1,] 0.494
+[2,] 0.622
+[3,] 0.312
+[4,] 0.380
+[5,] 0.412</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -516,11 +533,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 FLTF*LIT*YFILSKARYNYQIIETEAKMSLLCD...GTTHQNYTRINRKFE*ISSS*RHRSCY*NLSAI
-[2]   166 RDELGGQVAVLFHCINTNTPSSPGKQHTIAKRR*...SHSAILHNYKTNLCV*ASIRPSRQVSNYANAVQ
-[3]   166 SGGQLGMPLLPLSGGQPPALPPRASRAGTLMSAR...FTSGVSHTWSCFLPFLCIAGFCLATLYQTLTIY
-[4]   166 SDGLPFVGNLTFLSGCP*HFFLHFNLAQSDDYVS...PLDRISA*SLCMLHEVLMACFSAPSGHLCSSLN
-[5]   166 MPIMIQ*AHRSSCRDCAVALEGTMVWESWHWPVS...CSSVCLVHTSVTRSFLANESGAC*IPATSQNVY</code></pre>
+[1]   166 SYA*FLPPKKEVKTKRQK*NPHTDSPALRPGPG*...SVSEGFCLWLVLPHMDSWTNGLPWKRDWWLSRR
+[2]   166 GVPGLWGWIPSGDQRYGFGGPA*GARAWQGKQ*K...*GALYRTCMWGPDTHTCRQD*GALYRTCSGTHT
+[3]   166 IRSFNHE*KKRESTKMNKEW*EK*LLIISK*KII...TVLKT*GKSRRESSFGKFEYSKVLTYNEKFGNP
+[4]   166 *FFFGIFYINNHVIC*QMHFYLLYPNMHIFYFLF...QLIFEY*TSLA*LG*SFNLFCRASKISNR*SHF
+[5]   166 FR*Y*FFQFMSMRCFSMFFVSSTISFIVFCSSSC...LTLRHTQYLWDIKTTPSLPPRGRKTGLRWDWEK</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>
@@ -759,26 +776,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">filters =</span> <span class="st">"ensembl_gene_id"</span>,</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">values =</span> <span class="st">"ENSG00000169057"</span>, </span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mart =</span> hg19.ensembl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  chromosome_name start_position end_position hgnc_symbol ensembl_gene_id
-1               X      153287024    153363212       MECP2 ENSG00000169057
-  strand
-1     -1</code></pre>
-</div>
 </div>
 <p>If we run the same query using the current version of Ensembl you can see that the co-ordinates differ. This why it’s important to ensure you are always working with a consistent reference assembly!</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run the query with the current ensembl hg38 database</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getBM</span>(<span class="at">attributes =</span><span class="fu">c</span>(<span class="st">"chromosome_name"</span>,<span class="st">"start_position"</span>,<span class="st">"end_position"</span>,<span class="st">"hgnc_symbol"</span>,<span class="st">"ensembl_gene_id"</span>,<span class="st">"strand"</span>),</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">filters =</span> <span class="st">"ensembl_gene_id"</span>,</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">values =</span> <span class="st">"ENSG00000169057"</span>, </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mart =</span> ensembl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  chromosome_name start_position end_position hgnc_symbol ensembl_gene_id
-1               X      154021573    154137103       MECP2 ENSG00000169057
-  strand
-1     -1</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run the query with the current ensembl hg38 database</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getBM</span>(<span class="at">attributes =</span><span class="fu">c</span>(<span class="st">"chromosome_name"</span>,<span class="st">"start_position"</span>,<span class="st">"end_position"</span>,<span class="st">"hgnc_symbol"</span>,<span class="st">"ensembl_gene_id"</span>,<span class="st">"strand"</span>),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">filters =</span> <span class="st">"ensembl_gene_id"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">values =</span> <span class="st">"ENSG00000169057"</span>, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mart =</span> ensembl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="annotation-hubs-annotationhub" class="level2">
@@ -786,11 +791,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>AnnotationHub</strong> is another source of data within R. You can use the annotation hub to retrieve R objects and text files for multiple datasets and projects including Ensembl, UCSC, Broad Institute and the Epigenetics Roadmap project. You can even create your own AnnotationHub to provide access to your datasets.</p>
 <p>Load the AnnotationHub library and create a hub connection called <code>ah</code>. It may ask you to create a cache folder in your home directory to store files locally. This will speed up access to this data in future.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AnnotationHub)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ah <span class="ot">=</span> <span class="fu">AnnotationHub</span>()</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="do">##View all of the data providers within AnnotationHub </span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(ah<span class="sc">$</span>dataprovider)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AnnotationHub)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ah <span class="ot">=</span> <span class="fu">AnnotationHub</span>()</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="do">##View all of the data providers within AnnotationHub </span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(ah<span class="sc">$</span>dataprovider)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "UCSC"                                                                                                      
  [2] "Ensembl"                                                                                                   
@@ -880,7 +885,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can use collections of search terms to query the annotation hub. Let’s find the Ensembl hg19 gene annotations first.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(ah, <span class="fu">c</span>(<span class="st">"GRCh37"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(ah, <span class="fu">c</span>(<span class="st">"GRCh37"</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>AnnotationHub with 10 records
 # snapshotDate(): 2024-10-28
@@ -907,9 +912,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s get version 74 of the Ensembl database as a GRanges object.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>Ensembl.hg19.<span class="fl">74.</span>gr <span class="ot">&lt;-</span> ah[[<span class="st">"AH8753"</span>]]</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>Ensembl.hg19.<span class="fl">74.</span>gr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>Ensembl.hg19.<span class="fl">74.</span>gr <span class="ot">&lt;-</span> ah[[<span class="st">"AH8753"</span>]]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>Ensembl.hg19.<span class="fl">74.</span>gr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2244857 ranges and 12 metadata columns:
             seqnames      ranges strand |                             source
@@ -973,9 +978,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The EpigenomeRoadMap data is hosted online and can be searched <a href="https://egg2.wustl.edu/roadmap/web_portal">here</a>. The data is also provided by the Broad Institute as an annotation hub.</p>
 <p>Let’s find H3K4me3 ChIP-seq peak files from the EpigenomeRoadMap datasets for experiment E010 (Cultured neuronal cells).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>epiFiles <span class="ot">&lt;-</span> <span class="fu">query</span>(ah, <span class="fu">c</span>(<span class="st">"EpigenomeRoadMap"</span>,<span class="st">"E010"</span>,<span class="st">"narrowPeak"</span>,<span class="st">"H3K4me3"</span>))</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>epiFiles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>epiFiles <span class="ot">&lt;-</span> <span class="fu">query</span>(ah, <span class="fu">c</span>(<span class="st">"EpigenomeRoadMap"</span>,<span class="st">"E010"</span>,<span class="st">"narrowPeak"</span>,<span class="st">"H3K4me3"</span>))</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>epiFiles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>AnnotationHub with 1 record
 # snapshotDate(): 2024-10-28
@@ -999,9 +1004,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>There is a single hit for this search with the name <strong>AH30032</strong>. Let’s import the H3K4me3 ChIP-seq peaks as GRanges.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">##These files will be imported as GRanges objects</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>H3K4me3 <span class="ot">&lt;-</span> epiFiles[[<span class="st">"AH30032"</span>]]</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>H3K4me3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">##These files will be imported as GRanges objects</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>H3K4me3 <span class="ot">&lt;-</span> epiFiles[[<span class="st">"AH30032"</span>]]</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>H3K4me3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 37783 ranges and 6 metadata columns:
           seqnames              ranges strand |        name     score
@@ -1059,29 +1064,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="far fa-eye"></i> Solution:
 </h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create a txdb object from the gtf file downloaded from Ensembl</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>txdb.mm10 <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">file =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get exons as GRanges</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>exons <span class="ot">&lt;-</span> <span class="fu">exons</span>(txdb.mm10)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Sort by width</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>exons.sorted <span class="ot">&lt;-</span> exons[<span class="fu">order</span>(<span class="fu">width</span>(exons), <span class="at">decreasing=</span>T),]</span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Select the top 10</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>top.exons <span class="ot">&lt;-</span> exons.sorted[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Set the GRanges names to the exon_id</span></span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(top.exons) <span class="ot">&lt;-</span> top.exons<span class="sc">$</span>exon_id</span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the mm10 sequence</span></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Mmusculus.UCSC.mm10)</span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>mm10 <span class="ot">&lt;-</span> BSgenome.Mmusculus.UCSC.mm10</span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Fetch exon sequences</span></span>
-<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>top.exons.seq <span class="ot">&lt;-</span> <span class="fu">getSeq</span>(mm10,top.exons)</span>
-<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>top.exons.seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create a txdb object from the gtf file downloaded from Ensembl</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>txdb.mm10 <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">file =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get exons as GRanges</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>exons <span class="ot">&lt;-</span> <span class="fu">exons</span>(txdb.mm10)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Sort by width</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>exons.sorted <span class="ot">&lt;-</span> exons[<span class="fu">order</span>(<span class="fu">width</span>(exons), <span class="at">decreasing=</span>T),]</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Select the top 10</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>top.exons <span class="ot">&lt;-</span> exons.sorted[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Set the GRanges names to the exon_id</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(top.exons) <span class="ot">&lt;-</span> top.exons<span class="sc">$</span>exon_id</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the mm10 sequence</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BSgenome.Mmusculus.UCSC.mm10)</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>mm10 <span class="ot">&lt;-</span> BSgenome.Mmusculus.UCSC.mm10</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Fetch exon sequences</span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>top.exons.seq <span class="ot">&lt;-</span> <span class="fu">getSeq</span>(mm10,top.exons)</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>top.exons.seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 10:
      width seq                                              names               
@@ -1098,8 +1103,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Output sequences as a fasta file</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(top.exons.seq, <span class="st">'long_exons.fa'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Output sequences as a fasta file</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(top.exons.seq, <span class="st">'long_exons.fa'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </details>

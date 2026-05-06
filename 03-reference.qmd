@@ -17,8 +17,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ::: objectives
 <h2><i class="far fa-check-square"></i> Learning Objectives</h2>
 
-  - Fetch genomic annotation and sequence data from annotation packages
-  - Connect to external databases to download data
+-   Fetch genomic annotation and sequence data from annotation packages
+-   Connect to external databases to download data
 :::
 
 <br>
@@ -27,7 +27,7 @@ In this section, we will use some of the Bioconductor annotation packages to fet
 
 ## Fetching data from annotation packages and external databases
 
-There are several [annotation packages](https://www.bioconductor.org/packages/release/data/annotation/) within Bioconductor with pre-built databases that are ready to use. These include gene annotations, transcript models and genome sequences, as well as micro-array probe annotations and functional annotations like KEGG (pathway maps) and GO (gene ontology terms). 
+There are several [annotation packages](https://www.bioconductor.org/packages/release/data/annotation/) within Bioconductor with pre-built databases that are ready to use. These include gene annotations, transcript models and genome sequences, as well as micro-array probe annotations and functional annotations like KEGG (pathway maps) and GO (gene ontology terms).
 
 First, let's make sure you have the following datasets from the GenomicRanges lesson:
 
@@ -57,7 +57,6 @@ hg19.genes <- readGeneric("data/Ensembl.GRCh37.74.edited.genes.bed",
 hg19.pc.genes <- subset(hg19.genes, biotype == "protein_coding")
 ```
 
-
 #### Genomic sequences (BSgenome)
 
 **BSgenome** packages contain genome reference sequences. We can use these to fetch the underlying sequences in GRanges objects and in conjunction with other functions that require sequence information e.g. motif discovery, calculating GC content etc.
@@ -78,6 +77,7 @@ The **Biostrings** package is automatically loaded along with any BSgenome and c
 gr2.seq <- getSeq(hs, gr2)
 gr2.seq
 ```
+
 The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.
 
 ```{r}
@@ -105,11 +105,11 @@ seqinfo(hg19.pc.genes)
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-1. Find the GC content for each sequence in `gr2.seq`.
+1.  Find the GC content for each sequence in `gr2.seq`.
 
 **Hint**: Look at the *letterFrequency* or *alphabetFrequency* functions.
 
-2. Attempt to translate the sequences in `gr2.seq` into amino acid sequences using the Biostrings package.
+2.  Attempt to translate the sequences in `gr2.seq` into amino acid sequences using the Biostrings package.
 
 <details>
 
@@ -120,20 +120,19 @@ seqinfo(hg19.pc.genes)
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-1. Find the GC content for each sequence in gr2.seq.
+1.  Find the GC content for each sequence in gr2.seq.
 
 ```{r}
 letterFrequency(gr2.seq, letters = "GC", as.prob = T)
 ```
 
-2. Attempt to translate the sequences in `gr2.seq` into amino acid sequences using the **Biostrings*** package.
- 
+2.  Attempt to translate the sequences in `gr2.seq` into amino acid sequences using the **Biostrings**\* package.
+
 ```{r message=FALSE, warning=FALSE}
 translate(gr2.seq, if.fuzzy.codon = "solve")
 ```
 
 Because the gr2 regions are randomly selected they don't really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the *if.fuzzy.codon* argument to solve this.
-
 :::
 
 </details>
@@ -175,13 +174,14 @@ anno <- select(org.Hs.eg.db,
                keytype = "ENSEMBL")
 head(anno)
 ```
+
 We now have the Entrez gene IDs, gene symbols and Uniprot IDs for all of the Ensembl gene IDs in our GRanges object.
 
 There are also other annotation packages, such as **GO.db** which contains a set of annotation maps describing the entire Gene Ontology, that we can probe in the same manner as above.
 
 ## Gene Models (TxDB)
 
-We can import gene models from packages like **TxDB** which contain a database of transcript structures. 
+We can import gene models from packages like **TxDB** which contain a database of transcript structures.
 
 Load the **TxDb.Hsapiens.UCSC.hg19.knownGene** library and assign it to an object called `txdb`.
 
@@ -199,6 +199,7 @@ columns(txdb)
 ## See which columns can be searched
 keytypes(txdb)
 ```
+
 Lets get the first 10 entries in `txdb`.
 
 ```{r}
@@ -207,6 +208,7 @@ select(txdb, keys = head(keys(txdb)),
        columns=c('GENEID', 'TXCHROM', 'TXSTART', 'TXEND', 'TXID'),
        keytype="GENEID")
 ```
+
 This shows individual transcript coordinates and the gene they belong to. The *org.db* and *TxDB* databases are all centred upon Entrez gene IDs. However, we commonly use gene annotations from the Ensembl database. It is possible to make your own txdb objects.
 
 It is possible to build a txdb object from the Ensembl database using the `makeTxDbFromEnsembl()` function. However, this requires an additional installation of database package to connect to the Ensembl MySQL database and is not recommended for this workshop.
@@ -239,7 +241,6 @@ select(txdb.gff,keys = head(keys(txdb.gff)),
        keytype="GENEID")
 ```
 
-
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
@@ -268,14 +269,14 @@ listDatasets(ensembl)
 
 You will see that there are a lot of Ensembl databases. We will specifically select the human database.
 
-```{r}
+```{r, eval=F}
 ## Select the human dataset within the Ensembl biomart
 ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 ```
 
 By default `useMart()` will always select the most recent release of the Ensembl database and therefore the current genome assembly, in this case hg38. Because we have so far used data from the previous assembly (hg19/GRCh37) we must select an archived version of Ensembl. The archived versions are listed [here](https://www.ensembl.org/info/website/archives/index.html).
 
-```{r}
+```{r, eval=F}
 ##use an archived version of biomart
 hg19.ensembl <- useMart(biomart = "ensembl",
                         host = "https://grch37.ensembl.org", 
@@ -290,13 +291,13 @@ We can build a biomart query with attributes, filters and values similar to the 
 listAttributes(hg19.ensembl)
 ```
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 listFilters(hg19.ensembl)
 ```
 
 We can now query biomart using `getBM()`. Let's extract annotations for the gene *MeCP2*.
 
-```{r}
+```{r, eval=F}
 ## Create biomart query for MeCP2
 getBM(attributes =c("chromosome_name","start_position","end_position","hgnc_symbol","ensembl_gene_id","strand"),
       filters = "ensembl_gene_id",
@@ -306,14 +307,13 @@ getBM(attributes =c("chromosome_name","start_position","end_position","hgnc_symb
 
 If we run the same query using the current version of Ensembl you can see that the co-ordinates differ. This why it's important to ensure you are always working with a consistent reference assembly!
 
-```{r}
+```{r, eval=F}
 ## Run the query with the current ensembl hg38 database
 getBM(attributes =c("chromosome_name","start_position","end_position","hgnc_symbol","ensembl_gene_id","strand"),
       filters = "ensembl_gene_id",
       values = "ENSG00000169057", 
       mart = ensembl)
 ```
-
 
 ## Annotation hubs (AnnotationHub)
 
@@ -343,7 +343,7 @@ Ensembl.hg19.74.gr <- ah[["AH8753"]]
 Ensembl.hg19.74.gr
 ```
 
-We now have a GRanges object containing all of the hg19 genes and transcripts annotated by Ensembl. If we wanted to, we could also create a *txdb* object with this GRanges object using `makeTxDbFromGRanges()`. 
+We now have a GRanges object containing all of the hg19 genes and transcripts annotated by Ensembl. If we wanted to, we could also create a *txdb* object with this GRanges object using `makeTxDbFromGRanges()`.
 
 Let's download a different dataset from the annotation hub.
 
@@ -372,14 +372,14 @@ Can you get the sequences of the 10 longest exons in the Mouse Ensembl gene mode
 
 **Hints:**
 
-- There is a gtf file from Ensembl available at the URL below or in your data folder. Or you could try to fetch the gene models using **AnnotationHub**. 
+-   There is a gtf file from Ensembl available at the URL below or in your data folder. Or you could try to fetch the gene models using **AnnotationHub**.
 
 "http://bifx-core3.bio.ed.ac.uk/genomes/mouse/mm10/annotation/Mus_musculus.GRCm38.78.edited.gtf"
 
-- Use the `exons()` function to extract exons from a txdb object.
-- Reorder the exons by **width** with the **order** function.
-- Load the mm10 `BSgenome` library and get the reference sequence using the `getSeq()` function.
-- Use the `writeXStringSet()` function to export sequences in fasta format.
+-   Use the `exons()` function to extract exons from a txdb object.
+-   Reorder the exons by **width** with the **order** function.
+-   Load the mm10 `BSgenome` library and get the reference sequence using the `getSeq()` function.
+-   Use the `writeXStringSet()` function to export sequences in fasta format.
 
 <details>
 
@@ -420,7 +420,6 @@ top.exons.seq
 ## Output sequences as a fasta file
 writeXStringSet(top.exons.seq, 'long_exons.fa')
 ```
-
 :::
 
 </details>
@@ -431,8 +430,7 @@ writeXStringSet(top.exons.seq, 'long_exons.fa')
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
- -  Bioconductor has specialised packages for working with genomics data in R
- -  Genomic sequences, annotations and datasets can be imported by various means
- -  It is possible to create your own annotation objects
+-   Bioconductor has specialised packages for working with genomics data in R
+-   Genomic sequences, annotations and datasets can be imported by various means
+-   It is possible to create your own annotation objects
 :::
-
