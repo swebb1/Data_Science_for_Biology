@@ -672,7 +672,7 @@ df
 
 What is a normal distribution? How does `rnorm()` work?
 
-What does `set.seed` do?
+What does `set.seed()` do?
 
 What do the `paste()` and `rep()` functions do?
 :::
@@ -827,7 +827,7 @@ To access this package, we first need to install it:
 install.packages("readxl")
 ```
 
-We can now load the package and use the *readxl* functions in our current R session.
+We can now load the package and use the **readxl** functions in our current R session.
 
 ```{r}
 library(readxl)
@@ -836,7 +836,7 @@ library(readxl)
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Use a function in *readxl* to read in the qPCR data from the Excel file you downloaded. You can use the help documentation to find out how to do this.
+Use a function in **readxl** to read in the qPCR data from the Excel file you downloaded. You can use the help documentation to find out how to do this.
 
 1.  How many rows and columns are in the data frame?
 2.  What are the column names?

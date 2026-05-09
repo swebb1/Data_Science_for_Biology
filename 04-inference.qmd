@@ -1,0 +1,55 @@
+---
+title: "Inferential Statistics"
+---
+
+## Sampling and the Central Limit Theorem
+
+Lecture 3: Sampling & the Central Limit Theorem
+Populations vs samples
+Standard deviation vs standard error vs SEM
+Central Limit Theorem (CLT)
+
+👉 R practical: simulate sampling distributions
+
+Lecture 5: Hypothesis Testing Fundamentals
+Null vs alternative hypotheses
+Test statistics
+P-values (what they are and aren’t)
+Lecture 6: Confidence Intervals & Reporting
+Confidence intervals vs p-values
+Effect sizes
+Statistical reporting best practices
+
+👉 Emphasise reproducibility and transparency
+
+Lecture 7: Parametric Tests
+t-test (independent, paired)
+ANOVA
+
+Biology examples:
+
+Gene expression between conditions
+Drug vs control
+Lecture 8: Non-Parametric Tests
+When assumptions fail
+Wilcoxon test
+Kruskal–Wallis
+Lecture 9: Categorical Data Analysis
+Chi-squared test
+Fisher’s exact test
+
+Biology examples:
+
+Mutation enrichment
+Genotype frequencies
+Lecture 10: Multiple Testing & Adjusted P-values
+False positives in genomics
+FDR (Benjamini–Hochberg)
+
+👉 Essential for bioinformatics context
+
+Lecture 11: Statistical Power
+Type I vs Type II error
+Sample size considerations
+
+👉 Biology angle: underpowered experiments

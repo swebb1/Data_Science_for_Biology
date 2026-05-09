@@ -307,12 +307,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#statistics-in-biology" id="toc-statistics-in-biology" class="nav-link active" data-scroll-target="#statistics-in-biology">Statistics in biology</a></li>
-  <li><a href="#stastics-in-r" id="toc-stastics-in-r" class="nav-link" data-scroll-target="#stastics-in-r">Stastics in R</a></li>
-  <li><a href="#types-of-data" id="toc-types-of-data" class="nav-link" data-scroll-target="#types-of-data">Types of data</a></li>
-  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive statistics</a></li>
-  <li><a href="#probability-and-distributions" id="toc-probability-and-distributions" class="nav-link" data-scroll-target="#probability-and-distributions">Probability and distributions</a></li>
-  <li><a href="#sampling-and-the-central-limit-theorem" id="toc-sampling-and-the-central-limit-theorem" class="nav-link" data-scroll-target="#sampling-and-the-central-limit-theorem">Sampling and the Central Limit Theorem</a></li>
-  <li><a href="#frequentist-vs-bayesian-statistics" id="toc-frequentist-vs-bayesian-statistics" class="nav-link" data-scroll-target="#frequentist-vs-bayesian-statistics">Frequentist vs Bayesian statistics</a></li>
+  <li><a href="#statistics-in-r" id="toc-statistics-in-r" class="nav-link" data-scroll-target="#statistics-in-r">Statistics in R</a></li>
+  <li><a href="#types-of-data" id="toc-types-of-data" class="nav-link" data-scroll-target="#types-of-data">Types of data</a>
+  <ul class="collapse">
+  <li><a href="#categorical-data" id="toc-categorical-data" class="nav-link" data-scroll-target="#categorical-data">Categorical Data</a></li>
+  <li><a href="#ordinal-data" id="toc-ordinal-data" class="nav-link" data-scroll-target="#ordinal-data">Ordinal data</a></li>
+  <li><a href="#discrete-data" id="toc-discrete-data" class="nav-link" data-scroll-target="#discrete-data">Discrete data</a></li>
+  <li><a href="#continuous-data" id="toc-continuous-data" class="nav-link" data-scroll-target="#continuous-data">Continuous data</a></li>
+  </ul></li>
+  <li><a href="#probability" id="toc-probability" class="nav-link" data-scroll-target="#probability">Probability</a>
+  <ul class="collapse">
+  <li><a href="#independent-events" id="toc-independent-events" class="nav-link" data-scroll-target="#independent-events">Independent events</a></li>
+  <li><a href="#non-independent-events" id="toc-non-independent-events" class="nav-link" data-scroll-target="#non-independent-events">Non-Independent events</a></li>
+  </ul></li>
+  <li><a href="#probability-functions-and-distributions" id="toc-probability-functions-and-distributions" class="nav-link" data-scroll-target="#probability-functions-and-distributions">Probability functions and distributions</a></li>
+  <li><a href="#bionomial-distribution" id="toc-bionomial-distribution" class="nav-link" data-scroll-target="#bionomial-distribution">Bionomial distribution</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal distribution</a>
+  <ul class="collapse">
+  <li><a href="#standard-deviation-and-variance" id="toc-standard-deviation-and-variance" class="nav-link" data-scroll-target="#standard-deviation-and-variance">Standard deviation and variance</a></li>
+  <li><a href="#simulating-a-normal-distribution" id="toc-simulating-a-normal-distribution" class="nav-link" data-scroll-target="#simulating-a-normal-distribution">Simulating a normal distribution</a></li>
+  </ul></li>
+  <li><a href="#other-distributions" id="toc-other-distributions" class="nav-link" data-scroll-target="#other-distributions">Other distributions</a></li>
+  <li><a href="#simulating-data-from-statistical-distributions" id="toc-simulating-data-from-statistical-distributions" class="nav-link" data-scroll-target="#simulating-data-from-statistical-distributions">Simulating data from statistical distributions</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive statistics</a>
+  <ul class="collapse">
+  <li><a href="#measures-of-central-tendency" id="toc-measures-of-central-tendency" class="nav-link" data-scroll-target="#measures-of-central-tendency">Measures of central tendency</a></li>
+  </ul></li>
+  <li><a href="#visualising-data" id="toc-visualising-data" class="nav-link" data-scroll-target="#visualising-data">Visualising data</a>
+  <ul class="collapse">
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
+  </ul></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
+  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link" data-scroll-target="#anscombes-quartet">Anscombe’s quartet</a></li>
   </ul>
 </nav>
     </div>
@@ -346,13 +374,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="far fa-check-square"></i> Learning Objectives
 </h2>
 <ul>
-<li>What is R?</li>
-<li>Understand R datatypes and classes</li>
-<li>Understand how to use functions in <em>base R</em></li>
-<li>Import datasets into R</li>
-<li>Inspect and format a dataset</li>
-<li>Create basic graphics</li>
-<li>Run statistical tests</li>
+<li>Understand the concept of probability and how it relates to statistics</li>
+<li>Understand the difference between categorical, discrete and continuous data</li>
+<li>Learn about different types of probability distributions</li>
+<li>Learn how to summarise and visualise data using descriptive statistics</li>
 </ul>
 </div>
 <p><br></p>
@@ -391,25 +416,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="stastics-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="stastics-in-r">Stastics in R</h2>
+<section id="statistics-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="statistics-in-r">Statistics in R</h2>
 <p>Base R has a large number of built-in functions for performing statistical analyses. These include functions for calculating descriptive statistics, performing hypothesis tests, and fitting statistical models. In addition to the built-in functions, there are many packages available in R that provide additional functionality.</p>
 <p>The <strong>stats</strong> package, which is included in base R, provides a wide range of functions for statistical analysis.</p>
 <p>In this lesson, we will use the <strong>rstatix</strong> package which uses a tidyverse-friendly syntax for performing common statistical tests. The functions in rstatix are wrappers for the functions in the stats package, but they provide a more user-friendly interface and additional features such as automatic formatting of results.</p>
 <p>We will use <strong>ggplot</strong> and <strong>ggpubr</strong> for visualizing data and results of statistical tests.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="do">## for data manipulation and plotting</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="types-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="types-of-data">Types of data</h2>
 <p>Biological data comes in many forms: gene expression levels, mutation counts, phenotypes, and categories like genotype or treatment group.</p>
 <p>Before doing any statistical test, we need to understand what type of data we have.</p>
-<section id="categorical-data" class="level4">
-<h4 class="anchored" data-anchor-id="categorical-data">Categorical Data</h4>
+<section id="categorical-data" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-data">Categorical Data</h3>
 <p>Values represent groups or labels Examples:</p>
 <ul>
 <li>Genotype: WT, KO</li>
@@ -441,8 +467,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ordinal-data" class="level4">
-<h4 class="anchored" data-anchor-id="ordinal-data">Ordinal data</h4>
+<section id="ordinal-data" class="level3">
+<h3 class="anchored" data-anchor-id="ordinal-data">Ordinal data</h3>
 <p>Ordinal data is a type of categorical data where the categories have a natural order or ranking. Examples include:</p>
 <ul>
 <li>Disease severity: mild, moderate, severe</li>
@@ -462,8 +488,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="discrete-data" class="level4">
-<h4 class="anchored" data-anchor-id="discrete-data">Discrete data</h4>
+<section id="discrete-data" class="level3">
+<h3 class="anchored" data-anchor-id="discrete-data">Discrete data</h3>
 <p>Discrete data consists of distinct, separate values. It often represents counts or categories that can only take on specific values. Discrete data can either be quantitative (e.g., number of cells) or categorical (e.g., species).</p>
 <p>Examples include:</p>
 <ul>
@@ -491,8 +517,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="continuous-data" class="level4">
-<h4 class="anchored" data-anchor-id="continuous-data">Continuous data</h4>
+<section id="continuous-data" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-data">Continuous data</h3>
 <p>Continuous data can take on any value within a range and is often measured rather than counted. Examples include:</p>
 <ul>
 <li>Gene expression levels: 0.5, 1.2, 3.4</li>
@@ -518,95 +544,778 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="simulating-data" class="level4">
-<h4 class="anchored" data-anchor-id="simulating-data">Simulating data</h4>
-<p>Before we move on, let’s simulate a dataset to work with. We will create a dataset with 100 samples, two groups (WT and KO), a continuous variable representing geneA expression levels, and a discrete variable representing mutation counts.</p>
-<p>The geneA expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups.</p>
-<p>The <strong>normal</strong> and <strong>Poisson</strong> distributions are commonly used in biology to model continuous and discrete data, respectively. The normal distribution is often used to model gene expression levels, while the Poisson distribution is commonly used to model count data. We will revisit these later.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 100 samples</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Categorical data randomly sampled from two groups</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"WT"</span>, <span class="st">"KO"</span>),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                       n_samples, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Expression levels for geneA, with different means and standard deviation for WT and KO</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>geneA_expression <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_samples, <span class="at">mean =</span> <span class="fu">ifelse</span>(group <span class="sc">==</span> <span class="st">"WT"</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Mutation counts, with different means for WT and KO</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>mutation_counts <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_samples, <span class="at">lambda =</span> <span class="fu">ifelse</span>(group <span class="sc">==</span> <span class="st">"WT"</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(group, geneA_expression, mutation_counts)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  group geneA_expression mutation_counts
-1    WT         5.253319               3
-2    WT         4.971453               0
-3    WT         4.957130               3
-4    KO         8.368602               5
-5    WT         4.774229               2
-6    KO         8.516471               4</code></pre>
-</div>
-</div>
 </section>
+<section id="probability" class="level2">
+<h2 class="anchored" data-anchor-id="probability">Probability</h2>
+<p>Probability forms the foundation of statistics. It is important to understand the basic concepts of probability before diving into statistical analyses.</p>
+<ul>
+<li><strong>Trial</strong>: An activity or experiment that produces an event</li>
+<li><strong>Sample space</strong>: All of the possible outcomes of a trial</li>
+<li><strong>Event</strong>: 1 or more of the possible outcomes</li>
+<li><strong>Probability</strong>: The chance of a particular event occurring</li>
+</ul>
+<p><strong>Example: Flipping a coin</strong></p>
+<ul>
+<li>Sample space (S) = {heads, tails}</li>
+<li>Probability (p) of getting heads = number of outcomes that are heads / total number of possible outcomes = ½ = 0.5</li>
+</ul>
+<p><strong>Example: Drawing a card from the pack</strong></p>
+<ul>
+<li>Sample space (S) = all 52 cards</li>
+<li>p(ace of clubs) = 1/52</li>
+<li>p(ace) = 4/52 = 1/13</li>
+<li>p(club) = 13/52 = 1/4</li>
+</ul>
+<section id="independent-events" class="level3">
+<h3 class="anchored" data-anchor-id="independent-events">Independent events</h3>
+<p>What if we toss the coin twice? What are the chances of getting tails on the first flip and heads on the second flip?</p>
+<ul>
+<li>Event A = Tails on 1st toss</li>
+<li>Event B = Heads on 2nd toss</li>
+</ul>
+<p>The outcome of event A does not affect the probability of event B so these events are <strong>independent</strong>.</p>
+<ul>
+<li>p(A and B) = p(A) * p(B)</li>
+<li>p(tails and heads) = ½ * ½ = ¼</li>
+</ul>
+</section>
+<section id="non-independent-events" class="level3">
+<h3 class="anchored" data-anchor-id="non-independent-events">Non-Independent events</h3>
+<p>What is the probability of drawing 2 aces from a deck of cards?</p>
+<ul>
+<li>p(A) = p(Ace on 1st draw) = 4/52</li>
+<li>p(B|A) = p(Ace on 2nd draw | Ace on first draw) = 3/51</li>
+</ul>
+<p>These events are not independent as removing one ace from the pack changes the probability of finding another ace. For non-independent events we are interested in the conditional probability.</p>
+<p>So p(A and B) = p(A) * p(B|A) = 4/52 * 3/51 = 1/221</p>
+</section>
+</section>
+<section id="probability-functions-and-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="probability-functions-and-distributions">Probability functions and distributions</h2>
+<p>When the sample space and number of events is small, we can easily write down all of the possible outcomes and calculate probabilities.</p>
+<p><strong>Example: Flip a coin 3 times and count the number of tails</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Outcome</th>
+<th>Probability</th>
+<th>Number of tails</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HHH</td>
+<td>1/8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>HHT</td>
+<td>1/8</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>HTH</td>
+<td>1/8</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>THH</td>
+<td>1/8</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>HTT</td>
+<td>1/8</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>THT</td>
+<td>1/8</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>TTH</td>
+<td>1/8</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>TTT</td>
+<td>1/8</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>We can sum the probabilities for each outcome (0, 1, 2, or 3 tails):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Number of tails (x)</th>
+<th>Probability (p)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1/8</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>3/8</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3/8</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1/8</td>
+</tr>
+</tbody>
+</table>
+<p>We can now plot these probabilities to visualise the distribution of outcomes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tails_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">tails =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">probability =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tails_data, <span class="fu">aes</span>(<span class="at">x =</span> tails, <span class="at">y =</span> probability)) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability of Number of Tails in 3 Coin Flips"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Tails"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The probability distribution shows the likelihood of each possible outcome. The most likely outcomes are getting 1 or 2 tails, while getting 0 or 3 tails is less likely.</p>
+<p>When the total number of outcomes is large, it is not practical to list all of the possible outcomes and calculate probabilities manually.</p>
+<p>Instead, we use <strong>probability functions</strong> to calculate probabilities for different types of distributions. We can visualise these distributions using histograms.</p>
+</section>
+<section id="bionomial-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="bionomial-distribution">Bionomial distribution</h2>
+<p>Coin flips are an example of a <strong>binomial distribution</strong>, which describes the number of successes (e.g., heads) in a fixed number of independent trials (e.g., flips), where each trial has the same probability of success.</p>
+<p>The binomial distribution is defined by two parameters:</p>
+<ul>
+<li>The number of trials (n)</li>
+<li>The probability of success on each trial (p).</li>
+</ul>
+<p>The <code>dbinom()</code> function in R calculates the probability of getting a specific number of successes in a given number of trials for a binomial distribution.</p>
+<p><strong>Example: Calculate the probability of every outcome for the number of heads in 100 coin flips</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of flips</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>n_flips <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of getting heads</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>p_heads <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the probability of getting 0 to 100 heads</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>heads_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">heads =</span> <span class="dv">0</span><span class="sc">:</span>n_flips,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">probability =</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>n_flips, <span class="at">size =</span> n_flips, <span class="at">prob =</span> p_heads)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heads_data, <span class="fu">aes</span>(<span class="at">x =</span> heads, <span class="at">y =</span> probability)) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability of Number of Heads in 100 Coin Flips"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Heads"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the plot above, the possible outcomes (total number of heads) are on the x-axis, and the probability of each outcome is on the y-axis. The most likely outcome is getting 50 heads, while getting very few or many heads is less likely. The distribution is symmetric around the mean (n*p = 50) and has a <strong>bell-shaped</strong> curve.</p>
+<p>The binomial distribution describes the probability of getting a certain number of successes in a fixed number of independent trials, where each trial has the same probability of success.</p>
+<p>A <em>success</em> is defined as the outcome of interest. It can be heads in a coin flip, patient recovery after treatment, sex determination in chicken eggs, or any other binary outcome.</p>
+<p>The binomial distribution is a <strong>discrete probability distribution</strong> because it describes discrete outcomes (e.g.&nbsp;you can’t get 2.5 heads in 100 flips). There are a number of assumptions that must be met to model data using a binomial distribution:</p>
+<ul>
+<li>Each trial has a <strong>single outcome</strong></li>
+<li>There are only <strong>two possible outcomes</strong> (success/failure, heads/tails, alive/dead etc.)</li>
+<li>Each trial has the <strong>same probability</strong> of success (p)</li>
+<li>Each trial is <strong>independent</strong></li>
+</ul>
+<p><img src="images/binomial_distribution.png" class="img-fluid"></p>
+<p><strong>Experiment: Everyone flip a coin 10 times and record the number of heads</strong></p>
+<p>If you don’t have coins handy, you can simulate this experiment using the <code>rbinom()</code> function in R, which generates random numbers from a binomial distribution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="do">## number of trials (people flipping coins)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="do">## number of flips per trial</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="do">## probability of getting heads</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> size, <span class="at">prob =</span> prob)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 6 6 5 6 4 8 4 5 3 6 5 4 6 4 6 6 5 3 5 7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make a function to plot the results of a binomial experiment</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>binom_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(n, size, prob){</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, size, prob)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  results <span class="sc">|&gt;</span> <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(results)), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of successes"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,size) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(n, size, prob)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>What are the most / least frequent observations</li>
+<li>What is the overall pattern of observations</li>
+<li>Does your sample look like a binomial distribution?</li>
+</ul>
+<div class="challenge">
+<h2 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>How would the following affect the results?</p>
+<ul>
+<li>100 coin flips instead of 10</li>
+<li>100 people flipping 10 coins</li>
+<li>100 people flipping 100 coins</li>
+<li>10000 people flipping 100 coins</li>
+<li>Rolling a dice 10 times and looking for the number 6</li>
+</ul>
+<p>Use the <code>rbinom()</code> function to simulate these scenarios and visualise the results using ggplot2.</p>
+<details>
+<summary>
+</summary>
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<h2 class="anchored">
+<i class="far fa-eye"></i> Solution:
+</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 people flipping 100 coins</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 100 people flipping 10 coins</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 100 people flipping 100 coins</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 10000 people flipping 100 coins</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-10-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 10000 people rolling a dice 100 times and looking for the number 6</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-10-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<p><br></p>
+<p>What we are seeing in these plots is the <strong>law of large numbers</strong> in action. As we increase the number of flips and the number of people flipping coins, the distribution of outcomes becomes more consistent with the expected binomial distribution. The most likely outcome remains around (p * n ), but the variability decreases as we increase the number of trials.</p>
+<p>When we roll a dice 100 times and look for the number 6, we are still looking for a binary outcome (getting a 6 or not getting a 6), but the probability of success is different (p = 1/6). The distribution of outcomes will still follow a binomial distribution, but the most likely outcome will be around (p * n ) = (1/6 * 100) ≈ 16.67 successes.</p>
+<p>So, the probability (p) and the number of trials (n) defines the shape of a binomial distribution.</p>
+</section>
+<section id="normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h2>
+<p>The <strong>normal distribution</strong> is one of the most commonly encountered distributions in biology and statistics. It is a <strong>continuous</strong> probability distribution that is symmetric around its mean, with a bell-shaped curve.</p>
+<p>Continuous distributions do not have discrete outcomes like the binomial distribution. Instead, they can take on any value within a range. The normal distribution is often used to model data such as gene expression levels, protein concentrations, weights, heights and other continuous measurements.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/normal_distribution.png" class="img-fluid figure-img"></p>
+<figcaption>normal_distribution</figcaption>
+</figure>
+</div>
+<p>The normal distribution is a continuous curve. The probability of a random outcome falling into a specific interval is equal to the area beneath the curve. The total area of the curve is equal to 1, which represents the total probability of all possible outcomes.</p>
+<p>The normal distribution has the following properties:</p>
+<ul>
+<li><strong>Continuous</strong> probability distribution</li>
+<li>The curve has a <strong>single peak</strong></li>
+<li>The mean (average) lies at the centre of the distribution</li>
+<li>Distribution is <strong>symmetrical around the mean</strong></li>
+</ul>
+<p>The normal distribution is defined by two parameters:</p>
+<ul>
+<li>Mean (μ)</li>
+<li>Standard deviation (σ)</li>
+</ul>
+<section id="standard-deviation-and-variance" class="level3">
+<h3 class="anchored" data-anchor-id="standard-deviation-and-variance">Standard deviation and variance</h3>
+<p>Variance (𝛔^2 or var) is a measure of how dispersed data is from the mean. The variance is the average of the square of the distance from each data point to the mean.</p>
+<p>Standard deviation (𝛔 or sd) is the square root of the variance. A small standard deviation indicates that the data points are close to the mean, while a large standard deviation indicates that the data points are more spread out.</p>
+<p>In a normal distribution, the mean and standard deviation determine the shape of the curve. The mean determines the location of the peak, while the standard deviation determines the width of the curve. A smaller standard deviation results in a narrower curve, while a larger standard deviation results in a wider curve.</p>
+</section>
+<section id="simulating-a-normal-distribution" class="level3">
+<h3 class="anchored">Simulating a normal distribution</h3>
+<p>We can use the <code>rnorm()</code> to simulate data from a normal distribution.</p>
+<p>The <code>rnorm()</code> function takes three arguments:</p>
+<ul>
+<li>The number of observations to generate (n)</li>
+<li>The mean of the distribution (mean)</li>
+<li>The standard deviation of the distribution (sd)</li>
+</ul>
+<div class="challenge">
+<h2 class="anchored" data-anchor-id="simulating-a-normal-distribution">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>A: Use the <code>rnorm()</code> function to simulate 1000 observations from a normal distribution with a mean of 50 and a standard deviation of 10. Plot the distribution of the simulated data using a histogram.</p>
+<p>B: What happens when we change the the standard deviation to 30?</p>
+<p>C: What about a mean of -23.2 and a standard deviation of 0.75?</p>
+<details>
+<summary>
+</summary>
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<h2 class="anchored">
+<i class="far fa-eye"></i> Solution:
+</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate 1000 observations from a normal distribution with mean = 50 and sd = 10</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>simA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>), <span class="at">distribution =</span> <span class="st">"A"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate data with mean = 50 and sd = 30</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>simB <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">30</span>), <span class="at">distribution =</span> <span class="st">"B"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate data with mean = -23.2 and sd = 0.75</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>simC <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">23.2</span>, <span class="at">sd =</span> <span class="fl">0.75</span>), <span class="at">distribution =</span> <span class="st">"C"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(simA, simB, simC)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the distributions together </span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim_data, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> distribution)) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Simulated Normal Data"</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<p><br></p>
+<p>In these plots, we can see that changing the mean shifts the location of the peak of the distribution, while changing the standard deviation changes the width of the distribution. A larger standard deviation results in a wider curve, while a smaller standard deviation results in a narrower curve.</p>
+<p>Although our histogram has discrete bars, the underlying distribution is continuous. The histogram is a visual representation of the distribution of values in our dataset. As we increase the number of observations, the histogram will more closely approximate the shape of the normal distribution curve. You could try increasing <code>n</code> to see this in action. Sample size is important when trying to determine the underlying distribution of a dataset!</p>
+<p>When the standard deviation is small, the mean is a good representation of the data, as most of the values are close to the mean. However, when the standard deviation is large, the mean may not be a good representation of the data, as there is more variability and more values that are far from the mean.</p>
+</section>
+</section>
+<section id="other-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="other-distributions">Other distributions</h2>
+<p>There are many types of probability distributions with different mathematical parameters and shapes. Some of the most commonly encountered distributions in biology include:</p>
+<ul>
+<li><strong>Poisson</strong>
+<ul>
+<li>Used for modelling count data, such as mutation counts or number of cells</li>
+</ul></li>
+<li><strong>Binomial</strong>
+<ul>
+<li>Used for modelling binary outcomes, such as alive/dead</li>
+</ul></li>
+<li><strong>Normal</strong>
+<ul>
+<li>Used for modelling continuous data, such as gene expression levels or mice weights</li>
+</ul></li>
+<li><strong>Negative binomial</strong>
+<ul>
+<li>Used for modelling overdispersed count data, such as RNA-seq read with high variability</li>
+</ul></li>
+<li><strong>Hypergeometric</strong>
+<ul>
+<li>Used for modelling sampling without replacement, such as selecting individuals from a population</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><img src="images/probability_dists.png" class="img-fluid"></p>
+<p>Each distribution has its own set of parameters and assumptions, and it is important to choose the appropriate distribution for your data when performing statistical analyses.</p>
+</section>
+<section id="simulating-data-from-statistical-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-data-from-statistical-distributions">Simulating data from statistical distributions</h2>
+<p>Before we move on, we will simulate some biological data to work with. We will create a dataset with 100 samples and four variables:</p>
+<ul>
+<li>A categorical variable representing two genotypes (WT and KO)</li>
+<li>Two continuous variables representing expression levels of geneA and geneB</li>
+<li>A discrete variable representing mutation counts in a regulatory region</li>
+</ul>
+<p>The gene expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 100 samples</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Categorical data randomly sampled from two groups</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>genotype <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"WT"</span>, <span class="st">"KO"</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                       n_samples, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Expression levels for geneA and geneB, with different means and standard deviation for WT and KO</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>geneA_expression <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_samples, <span class="at">mean =</span> <span class="fu">ifelse</span>(genotype <span class="sc">==</span> <span class="st">"WT"</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>geneB_expression <span class="ot">&lt;-</span> <span class="fu">c</span>(geneA_expression <span class="sc">+</span> <span class="fu">rnorm</span>(n_samples, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.7</span>)) <span class="co"># geneB is correlated with geneA</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Mutation counts, with different means for WT and KO</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>mutation_counts <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_samples, <span class="at">lambda =</span> <span class="fu">ifelse</span>(genotype <span class="sc">==</span> <span class="st">"WT"</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(genotype, geneA_expression, geneB_expression, mutation_counts)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  genotype geneA_expression geneB_expression mutation_counts
+1       WT         5.253319         5.804736               1
+2       WT         4.971453         5.509783               1
+3       WT         4.957130         5.189671               1
+4       KO         8.368602         7.662739               1
+5       WT         4.774229         4.690612               1
+6       KO         8.516471         8.320194               2</code></pre>
+</div>
+</div>
 </section>
 <section id="descriptive-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive statistics</h2>
-<p>Simply listing all of the values in a large dataset is not ideal for interpretation. Instead, we <strong>summarise</strong> and <strong>visualise</strong> data to describe the distribution of values.</p>
+<p>Although it is possible to list all of the values in a large dataset it is not the best way for our human minds to interpret data. Instead, we use <strong>summary statistics</strong> and <strong>visualisation</strong> to describe the distribution of values.</p>
 <p>The base R <code>summary()</code> function provides a quick overview of the distribution of values for each variable in a dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base R</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> genotype geneA_expression geneB_expression mutation_counts
+ KO:43    Min.   :3.332    Min.   :2.916    Min.   :0.0    
+ WT:57    1st Qu.:4.731    1st Qu.:4.708    1st Qu.:1.0    
+          Median :5.502    Median :5.799    Median :3.0    
+          Mean   :5.806    Mean   :5.817    Mean   :2.9    
+          3rd Qu.:6.935    3rd Qu.:6.737    3rd Qu.:4.0    
+          Max.   :8.909    Max.   :9.813    Max.   :8.0    </code></pre>
+</div>
+</div>
 <p>The <code>get_summary_stats()</code> function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a <em>tibble</em> that can be easily piped into dplyr or ggplot functions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base R</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## RStatix</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_summary_stats</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> group   geneA_expression mutation_counts
- KO:43   Min.   :3.332    Min.   : 0.00  
- WT:57   1st Qu.:4.731    1st Qu.: 1.00  
-         Median :5.502    Median : 2.00  
-         Mean   :5.806    Mean   : 2.96  
-         3rd Qu.:6.935    3rd Qu.: 4.00  
-         Max.   :8.909    Max.   :12.00  </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## RStatix</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_summary_stats</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 13
+<pre><code># A tibble: 3 × 13
   variable        n   min   max median    q1    q3   iqr   mad  mean    sd    se
   &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1 geneA_expr…   100  3.33  8.91   5.50  4.73  6.94  2.20  1.62  5.81  1.39 0.139
-2 mutation_c…   100  0    12      2     1     4     3     1.48  2.96  2.28 0.228
+2 geneB_expr…   100  2.92  9.81   5.80  4.71  6.74  2.03  1.53  5.82  1.45 0.145
+3 mutation_c…   100  0     8      3     1     4     3     1.48  2.9   1.88 0.188
 # ℹ 1 more variable: ci &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<section id="measures-of-central-tendency" class="level4">
-<h4 class="anchored" data-anchor-id="measures-of-central-tendency">Measures of central tendency</h4>
-<p>Measures of central tendency describe the typical or central value of a dataset. They are often used to summarise the data and provide a single value that represents the entire dataset. Common measures of central tendency include:</p>
+<section id="measures-of-central-tendency" class="level3">
+<h3 class="anchored" data-anchor-id="measures-of-central-tendency">Measures of central tendency</h3>
+<p>Measures of central tendency describe the typical or central value of a dataset. They are often used to summarise data and provide a single value that represents the entire dataset. Common measures of central tendency include:</p>
 <ul>
-<li>Mean: The average value of a dataset, calculated by summing all values and dividing by the number of values.</li>
-<li>Median: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.</li>
-<li>Mode: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.</li>
+<li><strong>Mean</strong>: The average value of a dataset, calculated by summing all values and dividing by the number of values.</li>
+<li><strong>Median</strong>: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.</li>
+<li><strong>Mode</strong>: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>geneA_expression)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>geneA_expression)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.806254</code></pre>
 </div>
 </div>
-<p>Distribution of values: Minimum and maximum range Quantiles or percentiles Variance and standard deviation</p>
-<p>Visualisations: Histograms Boxplots Violin plots</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(data<span class="sc">$</span>geneA_expression)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.50237</code></pre>
+</div>
+</div>
+<p>In a perfectly normal distribution, the data is symmetric around the mean, and the mean, median and mode are the same value.</p>
+<p>The mean is a good measure of central tendency when the data is <strong>normally distributed</strong>. However, when data is skewed or contains outliers, the mean can be misleading and doesn’t accurately represent a typical value in the dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate an outlier and plot the distribution with the mean as a vertical line</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>outlier_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>outlier_data <span class="sc">|&gt;</span> <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(outlier_data)), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(outlier_data), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate a skewed, non-normal dataset with a long tail of high values</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>skewed_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rgamma</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="dv">2</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>skewed_data <span class="sc">|&gt;</span> <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(skewed_data)), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(skewed_data), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In some cases, the <strong>median</strong> is a better measure of central tendency because it is less affected by extreme values. For example, if we have a dataset of gene expression levels that includes a few very high values (outliers), the mean may be much higher than the typical expression level for most genes, while the median would provide a more accurate representation of the central tendency of the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the outlier data with mean in red and median in green</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>outlier_data <span class="sc">|&gt;</span> <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(outlier_data)), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(outlier_data), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(outlier_data), <span class="at">color =</span> <span class="st">"dodgerblue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The mean is sensitive to outliers and can be skewed by extreme values, while the median is more robust to outliers and provides a better representation of the central tendency for skewed distributions.</p>
+<p>Sometimes data can be <strong>multimodal</strong>, meaning it has multiple peaks in the distribution. In this case, visualisation can be more informative than summary statistics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate bimodal data</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bimodal_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>bimodal_data <span class="sc">|&gt;</span> <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(bimodal_data)), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(bimodal_data), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(bimodal_data), <span class="at">color =</span> <span class="st">"dodgerblue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Identifying multiple distributions within a dataset can provide insights into underlying biological processes or sub-populations within the data (e.g.&nbsp;different cell types, experimental batches or sample sex). This can inform your downstream analysis or allow you to separate your data into separate analyses.</p>
+<p><strong>Outliers</strong> can be biologically meaningful, so it is important to investigate outliers rather than simply removing them from your data. For example, an outlier in gene expression data could represent a technical artefact or real biology e.g.&nbsp;a rare cell type. Visualisation can help to identify outliers.</p>
+<p>Data <strong>transformation</strong> (e.g.&nbsp;log transformation) can be used to reduce the impact of outliers and make the data more normally distributed, which can improve the performance of statistical tests.</p>
 </section>
 </section>
-<section id="probability-and-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="probability-and-distributions">Probability and distributions</h2>
+<section id="visualising-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualising-data">Visualising data</h2>
+<p>The first step in every analysis is to visualise your data. Visualisation allows you to explore the distribution of values, identify patterns and relationships between variables, and detect outliers.</p>
+<section id="histograms" class="level3">
+<h3 class="anchored" data-anchor-id="histograms">Histograms</h3>
+<p>Histograms are useful for visualising the shape of the distribution, identifying skewness, and detecting outliers. If your data approximately follows a normal distribution, the histogram will have a bell-shaped curve and the mean and standard deviation will be good summary statistics to describe the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> geneA_expression)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of geneA expression"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"geneA expression"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="sampling-and-the-central-limit-theorem" class="level2">
-<h2 class="anchored" data-anchor-id="sampling-and-the-central-limit-theorem">Sampling and the Central Limit Theorem</h2>
+<section id="boxplots" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
+<p>A boxplot is a graphical representation of the distribution of a dataset that shows the median, quartiles, and potential outliers.</p>
+<section id="quartiles" class="level4">
+<h4 class="anchored" data-anchor-id="quartiles">Quartiles</h4>
+<p>Quantiles divide an ordered dataset into equal parts. There are different types of quantiles, including:</p>
+<ul>
+<li>Percentiles: Quantiles that divide the data into 100 equal parts.</li>
+<li>Quartiles: Quantiles that divide the data into 4 equal parts.</li>
+</ul>
+<p>Quartiles divide the data into four equal parts. The first quartile (Q1) is the value below which 25% of the data falls, the second quartile (Q2) is the median, and the third quartile (Q3) is the value below which 75% of the data falls. The interquartile range (IQR) is the difference between the third and first quartiles (IQR = Q3 - Q1) and represents the range of the middle 50% of the data.</p>
+<p><img src="images/quartiles.png" class="img-fluid"></p>
 </section>
-<section id="frequentist-vs-bayesian-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="frequentist-vs-bayesian-statistics">Frequentist vs Bayesian statistics</h2>
+<section id="boxplot-components" class="level4">
+<h4 class="anchored" data-anchor-id="boxplot-components">Boxplot components</h4>
+<p>The box represents the interquartile range (IQR), which contains the middle 50% of the data. The line inside the box represents the median, and the “whiskers” extend to the minimum and maximum values within 1.5 times the IQR from the quartiles. Points outside this range are considered outliers and are plotted individually.</p>
+<p><img src="images/boxplot.png" class="img-fluid"></p>
+<p>A symmetrical boxplot with the median line in the middle of the box and whiskers of equal length suggests a normal distribution. A skewed boxplot with the median line closer to one end of the box and whiskers of unequal length suggests a skewed distribution. Outliers can be identified as points outside the whiskers.</p>
+<p>Boxplots are useful for comparing the distribution of values between different groups. They can help to identify differences in central tendency, variability, and the presence of outliers between groups.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> genotype, <span class="at">y =</span> geneA_expression, <span class="at">fill =</span> genotype)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of geneA expression by group"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Group"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"geneA expression"</span>) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="scatterplots" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplots">Scatterplots</h2>
+<p>Scatterplots are used to visualise the relationship between two continuous variables. Each point on the scatterplot represents an observation, with the x-axis representing one variable and the y-axis representing the other variable. Scatterplots can help to identify patterns, trends, and potential correlations between variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> geneA_expression, <span class="at">y =</span> geneB_expression)) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of geneA expression vs mutation counts"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"geneA expression"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"geneB expression"</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A regression line can be added to the scatterplot to help visualise an overall trend in the data. We will explore linear regression later.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="co"># Add a linear model line of regression</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
+<p>A linear pattern in the scatterplot can be indicative of a <strong>correlation</strong> between two variables. A positive correlation is indicated by points that trend upwards from left to right, while a negative correlation is indicated by points that trend downwards from left to right. A lack of any clear pattern suggests no correlation between the variables.</p>
+<p><img src="images/correlation.png" class="img-fluid"></p>
+<p>The strength of a correlation can be quantified using a correlation coefficient (r or R) which ranges from -1 to 1, where values close to 1 indicate a strong positive correlation, values close to -1 indicate a strong negative correlation, and values close to 0 indicate no correlation.</p>
+<p>Correlation analysis looks for an association between two quantitative variables (does <em>x</em> vary with <em>y</em>?). The most common method for calculating correlation is the <strong>Pearson</strong> correlation coefficient, which measures the strength and direction of a linear relationship between two variables.</p>
+<p>The <code>cor()</code> function in R can be used to calculate the Pearson correlation coefficient between two variables. The <code>stat_cor()</code> function from the ggpubr package can be used to add the Pearson correlation coefficient to a scatterplot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data<span class="sc">$</span>geneA_expression, data<span class="sc">$</span>geneB_expression, <span class="at">method =</span> <span class="st">"pearson"</span>) <span class="co"># Calculate Pearson correlation coefficient)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8946464</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">label.x =</span> <span class="dv">3</span>, <span class="at">label.y =</span> <span class="dv">10</span>) <span class="co"># Add Pearson correlation coefficient to the plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can confidently say that expression of geneA correlates with expression of geneB, but it does not imply causation! Even if the two genes are strongly correlated, it does not mean that a change in expression of one is responsible for the other changing. There could be another variable that is influencing expression of these genes, or the correlation could be due to chance.</p>
+<p><img src="images/causation.png" class="img-fluid"></p>
+<p>Other types of correlation include:</p>
+<ul>
+<li><strong>Spearman’s rank correlation</strong>: Assesses the monotonic (non-linear) relationship between two variables. It is used when the data is not normally distributed or when there are outliers.</li>
+<li><strong>Kendall’s tau</strong>: Another measure of correlation that assesses the strength of association between two variables. It is based on the number of concordant and discordant pairs of observations.</li>
+</ul>
+</section>
+<section id="anscombes-quartet" class="level2">
+<h2 class="anchored" data-anchor-id="anscombes-quartet">Anscombe’s quartet</h2>
+<p>Anscombe’s quartet is a set of four datasets that have nearly identical statistical properties (mean, variance, correlation coefficient) but have very different distributions and relationships between the variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>anscombe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x1 x2 x3 x4    y1   y2    y3    y4
+1  10 10 10  8  8.04 9.14  7.46  6.58
+2   8  8  8  8  6.95 8.14  6.77  5.76
+3  13 13 13  8  7.58 8.74 12.74  7.71
+4   9  9  9  8  8.81 8.77  7.11  8.84
+5  11 11 11  8  8.33 9.26  7.81  8.47
+6  14 14 14  8  9.96 8.10  8.84  7.04
+7   6  6  6  8  7.24 6.13  6.08  5.25
+8   4  4  4 19  4.26 3.10  5.39 12.50
+9  12 12 12  8 10.84 9.13  8.15  5.56
+10  7  7  7  8  4.82 7.26  6.42  7.91
+11  5  5  5  8  5.68 4.74  5.73  6.89</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>anscombe_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(anscombe<span class="sc">$</span>x1, anscombe<span class="sc">$</span>x2, anscombe<span class="sc">$</span>x3, anscombe<span class="sc">$</span>x4),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(anscombe<span class="sc">$</span>y1, anscombe<span class="sc">$</span>y2, anscombe<span class="sc">$</span>y3, anscombe<span class="sc">$</span>y4),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">each =</span> <span class="dv">11</span>))</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">get_summary_stats</span>(anscombe_tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 13
+  variable     n   min   max median    q1    q3   iqr   mad  mean    sd    se
+  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 x           44   4    19     8     7    11     4     2.96  9     3.20 0.482
+2 y           44   3.1  12.7   7.52  6.12  8.75  2.63  1.88  7.50  1.96 0.295
+# ℹ 1 more variable: ci &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anscombe_tidy, <span class="fu">aes</span>(x, y, <span class="at">colour =</span> dataset)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dataset) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Anscombe's Quartet"</span>,</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Identical statistics, very different datasets"</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stats_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The lesson here is to never rely solely on summary statistics. Always visualise your data!</p>
 
 
 </section>
