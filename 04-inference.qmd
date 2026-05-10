@@ -1,55 +1,791 @@
 ---
-title: "Inferential Statistics"
+title: "Statistical inference"
 ---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+- Understand population sampling
+- Learn to perform hypothesis tests
+- Learn to interpret test statistics and p-values
+
+:::
+
+<br>
+
+Inferential statistics allow us to make predictions. We can use data from a sample to make inferences about the population from which the sample was drawn. This is important as it is often impossible to measure an entire population due to factors such as large numbers, cost, ethics, and other practicalities.
+
+We can express predictions about a population in degrees of confidence (confidence intervals) or in terms of significance (p-values) and use inferences to look for differences between sample groups.
+
+Let's begin by loading the libraries and data from the previous section.
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(rstatix)
+library(ggpubr)
+```
 
 ## Sampling and the Central Limit Theorem
 
-Lecture 3: Sampling & the Central Limit Theorem
-Populations vs samples
-Standard deviation vs standard error vs SEM
-Central Limit Theorem (CLT)
+When we measure or collect a sample from a population, we are trying to estimate a population parameter (e.g. mean, variance). However, any summary statistic we calculate from our sample (e.g. mean weight of a mice, lengths of a petal or expression of a gene) is likely to be different to that of the population due to sampling error.
 
-👉 R practical: simulate sampling distributions
+#### Population
 
-Lecture 5: Hypothesis Testing Fundamentals
-Null vs alternative hypotheses
-Test statistics
-P-values (what they are and aren’t)
-Lecture 6: Confidence Intervals & Reporting
-Confidence intervals vs p-values
-Effect sizes
-Statistical reporting best practices
+All objects of interest. Too big or too difficult to measure. We do not know the statistic we are interested in (e.g. mean) or its distribution.
 
-👉 Emphasise reproducibility and transparency
+#### Sample
 
-Lecture 7: Parametric Tests
-t-test (independent, paired)
-ANOVA
+We know the sample size, mean, spread, distribution etc. This gives us a best guess of the population statistic if properly selected. A sample that is large and randomly selected should be a good representation of the entire population.
 
-Biology examples:
+#### Sampling error
 
-Gene expression between conditions
-Drug vs control
-Lecture 8: Non-Parametric Tests
-When assumptions fail
-Wilcoxon test
-Kruskal–Wallis
-Lecture 9: Categorical Data Analysis
-Chi-squared test
-Fisher’s exact test
+No sample is a perfect representation of the population. The sample mean is unlikely to be the population mean. If we sample multiple times, they will all have different means.
 
-Biology examples:
+### Central Limit Theorem (CLT)
 
-Mutation enrichment
-Genotype frequencies
-Lecture 10: Multiple Testing & Adjusted P-values
-False positives in genomics
-FDR (Benjamini–Hochberg)
+The **central limit theorem** states that if you take enough samples from any population, the means of those samples will follow a normal distribution.
 
-👉 Essential for bioinformatics context
+By repeatedly sampling a from a population we can build a distribution of sample means (or other statistics). This is called the **sampling distribution**. The sampling distribution of the mean will be approximately normal if the sample size is large enough.
 
-Lecture 11: Statistical Power
-Type I vs Type II error
-Sample size considerations
+This is a powerful result because it allows us to make inferences about the population mean using the sample mean and standard error, even if the population distribution is not normal.
 
-👉 Biology angle: underpowered experiments
+We can see this in practice by simulating sampling from a population distribution and plotting the sampling distribution of the mean.
+
+```{r}
+set.seed(123)
+
+# Population of 10000 values with a Poisson distribution
+population <- rpois(10000, lambda = 5)
+hist(population)
+
+sample_means <- replicate(1000, mean(sample(population, size = 30, replace = TRUE))) # Sample means from 1000 samples of size 30
+hist(sample_means, breaks = 30, main = "Sampling Distribution of the Mean", xlab = "Sample Mean")
+
+```
+
+
+#### Standard error (SE)
+
+The **standard error** (SE) is the standard deviation of the sampling distribution and represents the dispersion of sample means around the population mean. It is a measure of how accurately a sample can estimate the population. 
+
+The SE can be estimated from a single sample using the standard deviation (SD) and sample size (n). It is common to mistake standard error (SE) and standard deviation (SD). The standard deviation is a measure of variability in the data, while the standard error is a measure of how much the sample mean is expected to vary from the true population mean.
+
+![](std_error.png)
+
+To calculate the standard error of the mean, we can use the formula:
+SE = SD / sqrt(n)
+
+Where SD is the standard deviation of the sample and n is the sample size. As the sample size increases, the standard error decreases, indicating that our estimate of the population mean becomes more precise.
+
+```{r}
+# Example of calculating standard error
+sample_data <- rnorm(100, mean = 5, sd = 2) # Sample of 100 values from a normal distribution
+sample_mean <- mean(sample_data)
+sample_sd <- sd(sample_data)
+sample_size <- length(sample_data)
+standard_error <- sample_sd / sqrt(sample_size)
+standard_error
+```
+A standard error of ~0.2 indicates that the sample mean is expected to vary by about 0.2 units from the true population mean.
+
+The standard error quantifies the uncertainty associated with our sample statistic and is crucial for constructing confidence intervals and conducting hypothesis tests.
+
+## Hypothesis testing
+
+We can test a hypothesis about a parameter in a population using data collected from a sample. Hypothesis tests provide our predictions with degrees of confidence or statistical significance.
+
+### Hypothesis testing in 6 steps:
+
+  - Specify a null hypothesis H0
+  - Specify the alternative hypothesis H1
+  - Set the significance level 𝝰 (often 0.05)
+  - Calculate the test statistic using an appropriate test
+  - Compare the test statistic to the null distribution to acquire a p-value
+  - Draw a conclusion: Accept or reject H0
+
+### Defining a hypothesis
+
+We are testing a hypothesis, not the data, so it is important to define this correctly. Hypotheses should be formulated from biological concepts rather than cherry picking data that looks different (p-hacking).
+
+Hypothesis testing tells us if our results are surprising and how likely they are to be the product of chance. We need to define a **null hypothesis** and an **alternative hypothesis** to test our data against.
+
+#### Null Hypothesis H0
+
+The null hypothesis corresponds to the absence of an effect. We start our hypothesis test by defining the null hypothesis and assuming that it is true. For example, there is no difference between the expression level of geneA in WT and KO cells. 
+
+#### Alternative Hypothesis H1
+
+The alternative hypothesis encompasses all of the possible outcomes that aren’t included in the null hypothesis. We cannot prove the alternative hypothesis. We can only choose to reject the null hypothesis based on the data we have! For example, there is a difference in the expression level of geneA between WT and KO cells.
+
+## Set a significance level 
+
+The significance level (𝝰) is the threshold for rejecting the null hypothesis. It is often set at 0.05, which means that we are willing to accept a 5% chance of rejecting the null hypothesis when it is actually true ( (false positive). You can make the significance level re or less stringent  depending on the risks associated with  false positives in your experiment. For instance, in a clinical trial for a new drug, you might want to set a more stringent significance level (e.g. 0.01) to reduce the risk of false positives, while in an exploratory study, you might be more lenient (e.g. 0.1) to allow for more discoveries.
+
+## Statistical tests
+
+There are many different types of statistical tests available, and the choice of test depends on your data and the question you are trying to answer.
+
+  - Type of data
+    - Continuous
+    - Discrete
+    - Binary
+    - Categorical
+  - Data structure
+    - Comparing 1 sample group to a hypothetical value
+    - Comparing 2 sample groups (e.g. WT and mutant)
+    - Comparing 3 or more sample groups
+  - Variables
+    - One variable (e.g. gene expression)
+    - Two variables (e.g. gene expression and treatment)
+  - Distribution of your the data 
+    - Parametric or non-parametric
+    
+![](images/right_test.png)
+
+To make inferences or predictions from sampled data we first need to understand how the data in our samples are distributed. If the data fits a known probability distribution (parametric) then we can use those parameters in our statistical analysis.
+
+### Parametric or non-parametric?
+
+Parametric data fits a known distribution and has specific properties. Specific tests are available only if the data is parametric and fits certain assumptions. A trap researchers often fall into is to use a parametric test without checking if the data meets the assumptions of that test. This can lead to incorrect conclusions.
+
+Parametric tests usually require your data to be normally distributed! You can check for normality by plotting or using a Shapiro Wilk test
+
+A **Shapiro Wilk test** tests the null hypothesis that the data is normally distributed. If the p-value is less than your significance level (e.g. 0.05), you can reject the null hypothesis and conclude that the data is not normally distributed.
+
+You can use the base R function `shapiro.test()` or the `shapiro_test()` function from the rstatix to perform a Shapiro Wilk test.
+
+:::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+
+The data frame below contains the observed times taken for mice from two sample groups (dietA and dietB) to complete a maze. Check if the data is normally distributed in each group and decide if you can use a parametric test to compare the expression between two groups of samples.
+
+You can use visualisation and/or a `shapiro_test()` to check for normality.
+
+Can you transform the data to make it more normal?
+
+```{r}
+set.seed(123)
+
+# Simulated data for two groups of mice
+dietA <- rnorm(30, mean = 5, sd = 1)
+dietB <- rexp(30, rate = 0.5)
+maze_data <- tibble(
+  time = c(dietA, dietB),
+  diet = factor(rep(c("dietA", "dietB"), each = 30))
+)
+
+```
+
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+Visualise and test for normality.
+
+```{r}
+# Example of shapiro wilk test for normality
+set.seed(123)
+
+# Draw histograms
+maze_data |>
+  ggplot(aes(x = time)) +
+  geom_histogram(bins = 30, fill = "grey80",colour="black") +
+  theme_bw() +
+  facet_wrap(~ diet)
+
+# Compare both groups with a boxplot
+maze_data |>
+  ggplot(aes(x = diet,y = time, fill = diet)) +
+  geom_boxplot() +
+  theme_bw()
+
+## Test normality with a shapiro test using rstatix package
+maze_data |>
+  group_by(diet) |>
+  shapiro_test(time)
+
+```
+
+The data for dietA is normally distributed (p-value > 0.05) but the data for dietB is not normally distributed (p-value < 0.05). Therefore, we cannot use a parametric test to compare the two groups of samples.
+
+If we log transform the data, we can check if it becomes more normal.
+
+```{r}
+# Log transform the data
+maze_data <- maze_data |>
+  mutate(log_time = log(time))
+
+# Visualise the log transformed data
+maze_data |>
+  ggplot(aes(x = log_time)) +
+  geom_histogram(bins = 15, fill = "grey80",colour="black") +
+  theme_bw() +
+  facet_wrap(~ diet)
+
+# Test for normality again
+maze_data |>
+  group_by(diet) |>
+  shapiro_test(log_time)
+```
+
+The log transformation has made the data for dietB more normal (p-value > 0.05), so we can now use a parametric test to compare the two groups of samples.
+
+:::
+
+</details>
+::::
+
+<br>
+
+**Non-parametric tests** are distribution free tests. They often work on the ranks of ordered data rather than the values themselves. A non-parametric test will give you less statistical power so it is always better to use a parametric test if your data meets the assumptions.
+
+### Choosing a statistical test
+
+Your choice of statistical test will depend on the data you have and the question you are trying to answer. 
+
+![](images/test_choice.jpg)
+
+There are many online resources to choose the correct test for your data, or you can consult with a statistician or AI (with a clear description of your data and question) to help you choose the right test.
+
+We will cover some of the most common tests used in biology in the next section.
+
+::: resources
+<h2><i class="fas fa-book"></i> Resources</h2>
+
+The resources below are a good starting point for learning about different types of statistical tests and when to use them.
+
+  - https://irrespub.com/statistical-tests-in-biomedical-research/
+  - https://www.graphpad.com/support/faqid/1790/
+  - http://www.sthda.com/english/wiki/comparing-means-in-r
+  - https://www.biostathandbook.com/testchoice.html
+
+:::
+
+## Comparing the means of two groups
+
+A common question in biology is whether there is a difference in the mean of a variable between two groups (e.g. WT vs KO cells, before / after treatment).
+
+**Example: Weights of plants**
+
+The `PlantGrowth` dataset contains the weight of plants in three different groups (control, treatment 1 and treatment 2). The treatments are different types of fertilizer. We want to know if there is a difference in the mean weight of plants between the control and treatment groups.
+
+```{r}
+data("PlantGrowth")
+summary(PlantGrowth)
+
+# View the first few rows
+head(PlantGrowth)
+
+## Visualise the data between the 3 groups
+PlantGrowth|>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw()
+
+## Check for normality of each group
+PlantGrowth |>
+  group_by(group) |>
+  shapiro_test(weight)
+
+```
+
+The data for all groups is normally distributed (p-value > 0.05) so we can use parametric tests to compare the groups.
+
+### T-test
+
+Let's test for a difference between the control and treatment 1. The appropriate test to compare the means of two independent groups is the **t-test**: 
+
+  - Parametric test
+  - Assumes data is normally distributed
+  - Compares the means and calculates a T-statistic
+  - A large T-statistic means a large difference between groups
+  - Under the null hypothesis, the T-statistic is expected to fall into a range of values distributed around zero. 
+
+The T-statistic is calculated as the difference in means between the two groups divided by the standard error of the difference.
+
+$$t = \frac{\text{Signal}}{\text{Noise}} = \frac{\bar{x}_1 - \bar{x}_2}{SE}$$
+
+We can use the `t_test()` function from the rstatix package to perform this test.
+
+  - Null hypothesis: There is no difference in mean weight between the control and treatment 1 groups.
+  - Alternative hypothesis: There is a difference in mean weight between the control and treatment 1
+  - Significance level: 0.05
+
+```{r}
+# Compare the mean weights between control and treatment
+t_test_ctrl_trt1 <- PlantGrowth |>
+  filter(group %in% c("ctrl", "trt1")) |>
+  mutate(group = droplevels(group)) |> # This removes the unused factor levels from the group variable, which is important for the t-test to work correctly.
+  t_test(weight ~ group) |>
+  add_significance() ## This adds a column with significance levels based on the p-value (e.g. *** for p < 0.001, ** for p < 0.01, * for p < 0.05, ns for not significant)
+
+# View the results
+t_test_ctrl_trt1
+```
+
+To add the p-value to the plot, we can use the `stat_compare_means()` function from the ggpubr package. This function will perform the t-test and add the p-value to the plot. Or we can use the `stat_pvalue_manual()` function to add the p-value directly from the results of the t-test we have already run.
+
+```{r}
+# Visualise the results
+p1 <- PlantGrowth |>
+  filter(group %in% c("ctrl", "trt1")) |>
+  mutate(group = droplevels(group)) |>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw() +
+  stat_compare_means(method = "t.test", var.equal = TRUE, label.y = 7)
+
+p2 <- PlantGrowth |>
+  filter(group %in% c("ctrl", "trt1")) |>
+  mutate(group = droplevels(group)) |>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw() +
+  stat_pvalue_manual(t_test_ctrl_trt1, label = "p", y.position = 7)
+
+p1 + p2
+
+```
+
+The p-value is 0.249. This means that there is a 24.9% chance of observing a difference in mean weight between the control and treatment groups as or more extreme as the one observed in our sample, assuming that the null hypothesis is true (i.e. there is no difference in mean weight between the two groups).
+
+Since this p-value is greater than our significance level of 0.05, we fail to reject the null hypothesis and conclude that there is no statistically significant difference in mean weight between the control and treatment 1 group.
+
+Now, let's compare the control group to treatment 2. We will use the same null hypothesis, alternative hypotheses and significance level.
+
+```{r}
+# Compare the mean weights between control and treatment 2
+t_test_ctrl_trt2 <- PlantGrowth |>
+  filter(group %in% c("ctrl", "trt2")) |>
+  mutate(group = droplevels(group)) |>
+  t_test(weight ~ group) |>
+  add_significance()
+
+# View the results
+t_test_ctrl_trt2
+```
+
+Let's visualise the results:
+
+```{r}
+# Visualise the results
+PlantGrowth |>
+  filter(group %in% c("ctrl", "trt2")) |>
+  mutate(group = droplevels(group)) |>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw() +
+  stat_pvalue_manual(t_test_ctrl_trt2, label = "p.signif", y.position = 7)
+```
+
+The p-value is 0.0479, which is less than our significance level of 0.05. Therefore, we reject the null hypothesis and conclude that there is a statistically significant difference in mean weight between the control and treatment 2 group.
+
+### Multiple testing
+
+WAIT, there is a problem with this analysis! Whenever we perform multiple tests on the same data, we increase the chances of finding a false positive. It's a bit like buying two lottery tickets instead of one - you have a better chance of winning. 
+
+In the context of hypothesis testing, this means that if we perform multiple tests on the same data, we are more likely to find a statistically significant result by chance alone. We need to adjust our p-values for multiple testing when we perform multiple tests on the same data.
+
+There are a few different methods to adjust for multiple testing: 
+
+#### Bonferroni
+
+Simple but stringent method that divides the significance level by the number of tests performed to control for the family-wise error rate (FWER). Good for a small number of tests but can be too conservative when many tests are performed, leading to a high rate of false negatives.
+  
+#### Benjamini-Hochberg
+
+Less conservative method that controls the false discovery rate (FDR). It ranks the p-values and compares each p-value to its rank divided by the total number of tests multiplied by the significance level. This method is more powerful than Bonferroni when many tests are performed (e.g. 22000 genes in RNA-seq experiments), but it allows for a higher rate of false positives.
+
+Let's say we want to do pairwise comparisons between all three groups in our plant data:
+
+  - Control vs treatment 1
+  - Control vs treatment 2
+  - Treatment 1 vs treatment 2
+
+With rstatix, we can run all three t-tests at once. However, since we are performing multiple tests on the same data, we need to adjust for multiple testing. Rstatix should add adjusted p-values to the result by default. We can also use the `adjust_pvalue()` function to specify the method we want to use.
+
+```{r}
+## Run all 3 t-tests and adjust for multiple testing
+t_test_results <- PlantGrowth |>
+  t_test(weight ~ group, p.adjust.method = "bonferroni") |>
+  add_significance()
+
+t_test_results
+```
+
+Visualise the results:
+
+```{r}
+PlantGrowth |>
+  ggplot(aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw() +
+  stat_pvalue_manual(t_test_results, label = "p.adj.signif", bracket.nudge.y =c(-0.5,0,0.5),y.position = 7)
+```
+
+As you can see, the only significant difference is between treatment 1 and treatment 2. The differences between control and treatment 1 and control and treatment 2 are not significant after adjusting for multiple testing. The more tests we perform, the more stringent our significance threshold becomes.
+
+With many groups, performing multiple pairwise comparisons can become unwieldy and the multiple error correction soon balloons out of control.
+
+The correct way to analyse data with more than two groups is to use an ANOVA (analysis of variance) test, which tests for differences between the means of multiple groups at once. If the ANOVA test is significant, we then perform post-hoc tests to determine which specific groups are different from each other. This framework controls for multiple testing and is more powerful than performing multiple pairwise t-tests. We will not cover ANOVA further in this course.
+
+### Two-sided vs one-sided tests
+
+When we perform a hypothesis test, we can specify whether we are testing for a difference in either direction (two-sided) or a difference in a specific direction (one-sided).
+
+For example, we might want to test if the mean weight of plants in treatment 1 is different from the mean weight of plants in the control group, without specifying whether we expect treatment 1 to be heavier or lighter than the control group.
+This would be a two-sided test, and our alternative hypothesis would be that there is a difference in mean weight between the two groups.
+
+Alternatively, we might have a specific hypothesis that treatment 1 will increase the mean weight of plants compared to the control group. In this case, we would perform a one-sided test, and our alternative hypothesis would be that the mean weight of plants in treatment 1 is greater than the mean weight of plants in the control group.
+
+A one sided test has more statistical power to detect an effect in the specified direction as your significance threshold increases on one side of the distribution. 
+
+You should only use a one-sided test if you have a strong biological rationale for expecting an effect in a specific direction and are not interested in detecting an effect in the opposite direction. It is NOT OKAY to run a two-sided test, see that the p-value is not significant, and then switch to a one-sided test to try to get a significant result. This is a form of p-hacking that can lead to false positives.
+
+The t_test() function from rstatix allows you to specify the alternative hypothesis using the `alternative` argument. You can set it to "two.sided", "greater", or "less" depending on your hypothesis.
+
+**Example: One-sided test**
+
+The `chickwts` dataset contains the weights of chicks fed with different types of feed. We want to test if the mean weight of chicks fed with "casein" feed (high protein) is greater than the mean weight of chicks fed with regular "linseed" feed.
+
+In this example, we only want to know if chicks gain more weight when fed with casein. If they gain less weight, then we are not interested in using casein as feed. Therefore, we will perform a one-sided t-test with the alternative hypothesis that the mean weight of chicks fed with casein feed is greater than the mean weight of chicks fed with meatmeal feed.
+
+```{r}
+chickwts |>
+  filter(feed %in% c("casein", "linseed")) |>
+  mutate(feed = droplevels(feed)) |>
+  ggplot(aes(x = feed, y = weight, fill = feed)) +
+  geom_boxplot() +
+  theme_bw() +
+  stat_compare_means(method = "t.test", alternative = "greater")
+
+```
+
+### Paired vs independent tests
+
+When comparing two groups, we need to consider whether the samples are independent or paired. Independent samples are those where the observations in one group are not related to the observations in the other group. 
+
+Paired samples are most often repeated measurements on the same subjects (e.g. before and after treatment) or matched samples (e.g. twins, siblings, or matched cases and controls).
+
+When the samples are paired, we need to use a paired test that takes into account the fact that the observations are related.
+
+**Example: Paired test**
+
+A researcher studying the effects of dopamine (DA) depletion on working memory in rhesus monkeys, tested working memory performance in 15 monkeys after administration of a saline (placebo) injection and again after injecting a dopamine-depleting agent.
+
+Working memory performance was measured as the percentage of correct responses in a working memory task. The researcher wants to know if there is a significant difference in working memory performance following DA depletion.
+
+```{r}
+## Load the data
+wm_data <- read_csv("data/working.memory.csv")
+wm_data |> summary()
+
+## First, lets convert our data to a tidy format where we have one row per observation and columns for the monkey ID, condition (placebo or DA depleted) and performance.
+wm_long_data <- wm_data |>
+  pivot_longer(cols = c(DA.depletion,placebo), names_to = "condition", values_to = "performance") |>
+  mutate(condition = factor(condition, levels = c("placebo", "DA.depletion")))
+
+## The placebo and DA depleted conditions are paired measurements on the same monkeys. We can visualise the data with a paired plot.
+wm_long_data |>
+  ggplot(aes(x = condition, y = performance, group = Subject)) +
+  geom_line() +
+  geom_point() +
+  theme_bw()
+
+```
+
+We can see that there is a lot of variability in the performance of the monkeys, but it looks like most monkeys perform worse after DA depletion compared to placebo. There is also a large outlier where one monkey performs much better after DA depletion than placebo. It's possible there was an error in the data collection for this monkey and it could be removed, but let's assume the result is real and include it in our analysis.
+
+In a paired test, we are interested in the difference in performance between the two conditions for each monkey. We can calculate the difference in performance for each monkey and then test if the mean difference is significantly different from zero.
+
+Because we are looking at the differences in performance for each monkey, we need to check if the differences are normally distributed.
+
+```{r}
+wm_long_data |>
+  group_by(Subject) |>
+  summarise(diff = performance[condition == "DA.depletion"] - performance[condition == "placebo"]) |>
+  shapiro_test(diff)
+```
+
+The differences are not normally distributed (p-value < 0.05), so we cannot use a parametric test to compare the two conditions. 
+
+Non-parametric tests:
+
+  - **Wilcoxon ranked sum test** = Non parametric test for independent samples (also known as the Mann-Whitney U test)
+  - **Wilcoxon signed-rank test** = Non parametric test for paired samples
+
+For both of these tests we can use the `wilcox_test()` function from the rstatix package. For the paired test, we need to specify the `paired = TRUE` argument. The `t_test()` function also has a `paired` argument that can be set to TRUE to perform a paired t-test.
+
+Non parametric tests are less powerful than parametric tests, so we have a higher chance of failing to detect a true effect. However, they are more robust to violations of assumptions and can be used when the data is not normally distributed. They work by ranking the differences in performance for each monkey and then testing if the ranks of the differences are significantly different from zero.
+
+Because we do not know what the effect of DA depletion on working memory performance is, we will perform a two-sided test with the alternative hypothesis that there is a difference in performance between the two conditions.
+
+  - Null hypothesis: There is no difference in working memory performance between the placebo and DA depleted conditions.
+  - Alternative hypothesis: There is a difference in working memory performance between the placebo and DA depleted
+  - Significance level: 0.05
+
+```{r}
+wm_long_data |>
+  wilcox_test(performance ~ condition, paired = TRUE) |>
+  add_significance()
+```
+
+Visualise the results:
+
+```{r}
+wm_long_data |>
+  ggplot(aes(x = condition, y = performance, fill = condition)) +
+  geom_boxplot() +
+  geom_point(aes(colour = condition), alpha=0.8) +
+  geom_line(aes(group = Subject), colour = "grey80") +
+  theme_bw() +
+  stat_compare_means(method = "wilcox.test", paired = TRUE)
+```
+
+## Comparing categorical data
+
+When we have categorical data, we can use different tests to compare the frequencies of categories between groups.
+
+**Example: Genotype frequencies**
+
+A researcher is studying a specific gene that determines whether a rare species of butterfly has Spotted or Plain wings. You want to see if the genotype ($AA$ vs $Aa$) is associated with the wing pattern. Because the species is rare, the researcher can only collect a small sample of butterflies (n = 20). The data is shown below:
+
+| Genotype | Wing Pattern | Count |
+|----------|--------------|-------|
+| AA       | Spotted      | 8     |
+| AA       | Plain        | 2     |
+| Aa       | Spotted      | 1     |
+| Aa       | Plain        | 9     |
+
+To test if there is an association between genotype and wing pattern, we can use a **fisher's exact test**. This test compares the observed frequencies of each category to the expected frequencies under the null hypothesis of no association. The fisher's exact test is appropriate for small sample sizes and is a non-parametric test that does not assume any distribution for the data. 
+
+  - Null hypothesis: There is no association between genotype and wing pattern.
+  - Alternative hypothesis: There is an association between genotype and wing pattern.
+  - Significance level: 0.05
+  
+Under the null hypothesis, we would expect the frequencies of each category to be proportional to the overall frequencies of the genotypes and wing patterns in the sample. 
+
+| Genotype | Wing Pattern | Observed | Expected |
+|----------|--------------|-------||----------|
+| AA       | Spotted      | 8     | 4.5      |
+| AA       | Plain        | 2     | 5.5      |
+| Aa       | Spotted      | 1     | 4.5      |
+| Aa       | Plain        | 9     | 5.5      |
+
+The fisher's exact test calculates the probability of observing the data we have collected (or more extreme) under the null hypothesis and gives us a p-value to help us decide whether to reject or fail to reject the null hypothesis.
+  
+```{r}
+# Create a contingency table
+contingency_table <- matrix(c(8, 2, 1, 9), nrow = 2, byrow = TRUE)
+rownames(contingency_table) <- c("AA", "Aa")
+colnames(contingency_table) <- c("Spotted", "Plain")
+
+contingency_table
+
+# Perform the chi-squared test
+fisher_test(contingency_table)
+```
+
+We can also use a **chi-squared test** to test for association between genotype and wing pattern. However, the chi-squared test is not appropriate for small sample sizes and can give inaccurate results when the expected frequencies in any cell of the contingency table are less than 5.
+
+## Reporting statistical results
+
+A significant p-value (e.g. p < 0.05) means that we reject the null hypothesis and conclude that there is a statistically significant difference in our data. However, it does not tell us about the size of the effect or its biological relevance.
+
+When reporting statistical results, it is important to include the test statistic, degrees of freedom, p-value, and confidence intervals for the effect size. This provides a more complete picture of the results and allows readers to assess the biological relevance of the findings.
+
+Degrees of freedom (df) are a measure of the amount of information available to estimate the variability in the data. They are calculated based on the sample size and the number of parameters being estimated.
+
+**EXAMPLE: Reporting t-test results**
+
+Let's look at the results of the t-test comparing the control and treatment 2 groups in our plant data. This time we will use the `detailed = TRUE` argument in the `t_test()` function to get more information.
+
+```{r}
+t_test_full_result <- PlantGrowth |>
+  filter(group %in% c("ctrl", "trt2")) |>
+  mutate(group = droplevels(group)) |>
+  t_test(weight ~ group, detailed = T) |>
+  add_significance()
+```
+
+The t-test results include:
+
+  - t-statistic
+  - degrees of freedom
+  - p-value
+  - confidence intervals
+
+The **t-statistic** is -2.13, which indicates that the difference in mean weight between the control and treatment 2 groups is -2.13 standard errors away from zero.
+
+The **degrees of freedom** are 16.8, which is based on the sample size of each group and the number of groups being compared.
+
+The **p-value** is 0.0479, which is less than our significance level of 0.05, so we reject the null hypothesis and conclude that there is a statistically significant difference in mean weight between the control and treatment 2 group.
+
+The **confidence interval** for the difference in means is (-0.983, -0.00513), which means that we are 95% confident that the true difference in mean weight between the two groups lies within this interval.
+
+When reporting these results in a scientific paper, we would include all of this information to provide a complete picture of the statistical analysis and allow readers to assess the biological relevance of the findings.
+
+We can print the results in a more readable format. The **glue** package is useful for this. It allows us to create a string with embedded R code that will be evaluated and included in the output.
+
+```{r}
+#install.packages("glue") # if not installed already
+library(glue)
+
+# Pre-calculate to keep the glue block clean
+ctrl_mean <- mean(PlantGrowth$weight[PlantGrowth$group == "ctrl"])
+trt2_mean <- mean(PlantGrowth$weight[PlantGrowth$group == "trt2"])
+
+glue("The mean weight of plants in the control group is {round(ctrl_mean, 2)} \\
+      and the mean weight of plants in treatment 2 group is {round(trt2_mean, 2)}. \\
+      The t-test results show a significant difference (t = {round(t_test_full_result$statistic, 2)}, \\
+      df = {round(t_test_full_result$df,2)}, p = {round(t_test_full_result$p, 4)}). \\
+      The confidence interval is ({round(t_test_full_result$conf.low, 4)}, \\
+      {round(t_test_full_result$conf.high, 4)}).")
+
+```
+## Interpreting statistical results
+
+When interpreting statistical results, it is important to consider the biological relevance of the findings. A statistically significant result does not necessarily mean that the effect is biologically meaningful. We should consider the effect size and confidence intervals to assess the magnitude and precision of the effect. Additionally, we should consider the context of the experiment and whether the findings are consistent with existing literature and biological knowledge.
+
+#### Is it meaningful?
+
+First we must assess if the difference is meaningful within the biological context of our experiment.
+
+#### Is it large enough?
+
+Statistical tests produce statistics which represent the size of the effect over the variability within samples i.e. the signal to noise ratio. 
+
+#### Is it real?
+
+We use p-values to make decisions. Using this threshold we can claim “statistical significance” and quantify the confidence we have in this difference.
+
+## P-values
+
+The p-value is the probability of finding a result, as or more extreme than ours, when we assume that the null hypothesis H0 is true. 
+
+  - p = 0 : Zero chance of getting these results under  H0 
+  - p = 1 : 100% chance of getting these results under  H0 
+  - p = 0.05 : 5% chance of getting this or a more extreme result under  H0 
+
+0.05 is a commonly used threshold to reject the null hypothesis and accept the alternative hypothesis. If there is no effect, we would only see a result like this or more extreme 5% of the time.
+
+P-values are commonly misconceived. The p-value is NOT:
+
+  - The probability of the null hypothesis being true
+  - The probability of the alternative hypothesis being true
+  - The probability of observing our precise result under the null hypothesis
+
+A non-significant p-value DOES NOT mean there is no difference observed between two groups. 
+
+A significant p-value DOES NOT represent a scientifically relevant result or the size of a detected effect.
+
+::: resources
+<h2><i class="fas fa-book"></i> Resources</h2>
+
+  - [P-values and when not to use them](https://towardsdatascience.com/p-values-and-when-not-to-use-them-92cab8a86304)
+  - [P-values and misconceptions](https://sixsigmadsi.com/wp-content/uploads/2020/10/A-Dirty-Dozen-Twelve-P-Value-Misconceptions.pdf)
+  - [What the p-value really tells us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5665734)
+
+:::
+
+## Confidence intervals
+
+P-values assign probabilities to our findings but tell us nothing about the size of the effect we are seeing. Confidence intervals can provide a more informative interpretation as they give a range of probable scores based on our model. 
+
+A 95% confidence interval is the range of values for which we are 95% certain contains the real statistic.
+
+Example: Two surveys measuring self reported quality of life on a 0-10 scale:
+Study A:  mean = 7 (95% CI 6,8) 
+Study B:  mean = 7 (95% CI 1,9)
+
+Are they saying the same thing? What is the practical impact of a larger confidence interval?
+
+If your null hypothesis represents no change between 2 groups and your 95% confidence interval does not include 0, this is the same as a statistically significant result with alpha = 0.05.
+
+## Final challenge
+
+::: challenge
+<h2><i class="fas fa-pencil-alt"></i> Final Challenge:</h2>
+
+In this challenge we are going to perform statistical analysis to see if the weights of 10 rabbits *increase* after a hypothetical experimental treatment. First prepare the data:
+
+```{r}
+# The data set 
+# Weight of the rabbit before treatment 
+before <-c(190.1, 190.9, 172.7, 213, 231.4,  
+           196.9, 172.2, 285.5, 225.2, 113.7) 
+  
+# Weight of the rabbit after treatment 
+after <-c(392.9, 313.2, 345.1, 393, 434,  
+          227.9, 422, 383.9, 392.3, 801.2) 
+  
+# Create a data frame 
+rabbits <- data.frame(  
+  sample=c(1:10), ##Assign sampleIDs
+  before=before,
+  after=after
+)
+```
+
+## Consider the following:
+
+-   Plot the data first. What is the best way to visualise this?
+-   Are the values independent or paired?
+-   Should you use a parametric or non-parametric test?
+-   Which test will you use?
+-   What is the alternative hypothesis?
+-   Are the groups significantly different?
+-   What is the confidence interval?
+
+<details>
+
+<summary>
+
+</summary>
+
+::: solution
+<h2><i class="far fa-eye"></i> Solution:</h2>
+
+Visualise:
+
+```{r, answer=TRUE, eval=TRUE, purl=FALSE}
+boxplot(rabbits$before,rabbits$after)
+```
+
+Test for normality:
+
+```{r}
+shapiro.test(rabbits$after-rabbits$before)
+```
+
+We reject the Null hypothesis that the difference in weights is normally distributed, so we must use a non parametric test.
+
+The data is paired and our null hypothesis is that the weight after treatment is not *greater* than the weight before. We therefore have a one-sided test and use "greater" as our alternative hypothesis. We include the option to produce confidence intervals:
+
+```{r}
+wilcox.test(rabbits$after, rabbits$before, paired = TRUE,alternative = "greater",conf.int = T) 
+```
+:::
+
+</details>
+:::
+

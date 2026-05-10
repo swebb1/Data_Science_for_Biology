@@ -1,0 +1,23 @@
+---
+title: "Statistical power"
+---
+
+👉 Essential for bioinformatics context
+
+Lecture 11: Statistical Power
+Type I vs Type II error
+Sample size considerations
+
+
+## Type I and II errors
+
+No statistical test is 100% certain. We can only reject or fail to reject the null hypothesis based on probability.
+
+  - A **Type I error** occurs when we reject the null hypothesis when it is actually true (false positive).
+  - A **Type II error** occurs when we fail to reject the null hypothesis when it is actually false (false negative).
+
+![](type1_type2.png)
+
+The significance level (𝝰) controls the rate of Type I errors. By setting a significance level of 0.05, we are accepting a 5% chance of making a Type I error. 
+
+The power of a test (1 - β) controls the rate of Type II errors. A higher power means a lower chance of making a Type II error.
