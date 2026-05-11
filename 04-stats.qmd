@@ -24,8 +24,6 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 :::
 
-<br>
-
 This module introduces the basics of statistical thinking and how to apply it using R. We will cover the types of data commonly encountered in biology, how to summarise and visualise data, and how to perform basic statistical analyses.
 
 ## Statistics in biology
@@ -34,23 +32,23 @@ Statistics is a branch of mathematics that deals with the collection, analysis, 
 
 An understanding of statistical thinking is required throughout the research life-cycle, from experimental design to publication and review.
 
-#### Experimental design
+### Experimental design
   
   - What statistical power is required to see a desired effect size?
   - How many replicates are required?
   - What confounding factors need to be considered? 
 
-#### Data analysis 
+### Data analysis 
 
   - Applying appropriate statistical methodology to data
   - Interpret the results of statistical tests in biological context
 
-#### Data management and software
+### Data management and software
 
   - Preparing and structuring data for analysis
-  - Knowledge of statistical software (R, Matlab, SAS…)
+  - Knowledge of statistical software (R, Matlab, SAS etc)
 
-#### Publication and review
+### Publication and review
 
   - Present the results of statistical analysis
   - Critically evaluate the statistical methods used in published research
@@ -67,17 +65,19 @@ We will use **ggplot** and **ggpubr** for visualizing data and results of statis
 
 ```{r}
 ## Load libraries
-library(tidyverse) ## for data manipulation and plotting
+
+## for data manipulation and plotting
+library(tidyverse) 
+library(patchwork)
+
+## for statistical analysis and plotting
 library(rstatix)
-library(ggplot2)
 library(ggpubr)
 ```
 
 ## Types of data
 
-Biological data comes in many forms: gene expression levels, mutation counts, phenotypes, and categories like genotype or treatment group.
-
-Before doing any statistical test, we need to understand what type of data we have.
+Biological data comes in many forms. Before performing any statistical test, we need to understand what type of data we have.
 
 ### Categorical Data
 
@@ -169,18 +169,20 @@ gene_expression <- c(0.5, 1.2, 3.4,
 summary(gene_expression)
 ```
 
+![](images/disc_cont.png)
+
 ## Probability
 
 Probability forms the foundation of statistics. It is important to understand the basic concepts of probability before diving into statistical analyses.
 
-  - **Trial**: An activity or experiment that produces an event
+  - **Trial**: An experiment or process that can produce different outcomes
   - **Sample space**: All of the possible outcomes of a trial
   - **Event**: 1 or more of the possible outcomes
   - **Probability**: The chance of a particular event occurring
 
 **Example: Flipping a coin**
 
-  - Sample space (S) = {heads, tails}
+  - Sample space (S) = heads, tails
   - Probability (p) of getting heads = number of outcomes that are heads / total number of possible outcomes = ½ = 0.5
 
 **Example: Drawing a card from the pack**
@@ -206,12 +208,14 @@ The outcome of event A does not affect the probability of event B so these event
 
 What is the probability of drawing 2 aces from a deck of cards?
 
+These events are not independent as the outcome of the first draw affects the probability of the second draw. This is an example of **conditional probability** where the probability of event B depends on the outcome of event A. We write this as p(B|A) which means the probability of event B given that event A has occurred.
+
   - p(A) = p(Ace on 1st draw) = 4/52
   - p(B|A) = p(Ace on 2nd draw | Ace on first draw) = 3/51
 
-These events are not independent as removing one ace from the pack changes the probability of finding another ace. For non-independent events we are interested in the conditional probability.
+These events are not independent as removing one ace from the pack changes the probability of finding another ace.
 
-So p(A and B) = p(A) * p(B|A)  = 4/52 * 3/51 = 1/221
+So p(A and B) = p(A) * p(B|A) = 4/52 * 3/51 = 1/221
 
 ## Probability functions and distributions
 
@@ -263,7 +267,7 @@ Instead, we use **probability functions** to calculate probabilities for differe
 
 ## Bionomial distribution
 
-Coin flips are an example of a **binomial distribution**, which describes the number of successes (e.g., heads) in a fixed number of independent trials (e.g., flips), where each trial has the same probability of success.
+Coin flips are an example of a **binomial distribution**, which describes the number of successes (e.g. heads) in a fixed number of independent trials (e.g. flips), where each trial has the same probability of success.
 
 The binomial distribution is defined by two parameters: 
 
@@ -277,8 +281,10 @@ The `dbinom()` function in R calculates the probability of getting a specific nu
 ```{r}
 ## Number of flips
 n_flips <- 100
+
 ## Probability of getting heads
 p_heads <- 0.5
+
 ## Calculate the probability of getting 0 to 100 heads
 heads_data <- data.frame(
   heads = 0:n_flips,
@@ -293,11 +299,11 @@ ggplot(heads_data, aes(x = heads, y = probability)) +
   theme_minimal()
 ```
 
-In the plot above, the possible outcomes (total number of heads) are on the x-axis, and the probability of each outcome is on the y-axis. The most likely outcome is getting 50 heads, while getting very few or many heads is less likely. The distribution is symmetric around the mean (n\*p = 50) and has a **bell-shaped** curve.
+In the plot above, the possible outcomes (total number of heads) are on the x-axis, and the probability of each outcome is on the y-axis. The most likely outcome is 50 heads, while getting very few or very many heads is less likely. The distribution is symmetric around the mean (n\*p = 50) and has a **bell-shaped** curve.
 
 The binomial distribution describes the probability of getting a certain number of successes in a fixed number of independent trials, where each trial has the same probability of success.
 
-A *success* is defined as the outcome of interest. It can be heads in a coin flip, patient recovery after treatment, sex determination in chicken eggs, or any other binary outcome.
+A *success* is defined as the outcome of interest. It can be heads in a coin flip, patient recovery after treatment, sex determination in eggs, or any other binary outcome.
 
 The binomial distribution is a **discrete probability distribution** because it describes discrete outcomes (e.g. you can't get 2.5 heads in 100 flips). There are a number of assumptions that must be met to model data using a binomial distribution:
 
@@ -382,8 +388,6 @@ binom_plot(n = 10000, size = 100, prob = 1/6)
 </details>
 ::::
 
-<br>
-
 What we are seeing in these plots is the **law of large numbers** in action. As we increase the number of flips and the number of people flipping coins, the distribution of outcomes becomes more consistent with the expected binomial distribution. The most likely outcome remains around (p \* n ), but the variability decreases as we increase the number of trials.
 
 When we roll a dice 100 times and look for the number 6, we are still looking for a binary outcome (getting a 6 or not getting a 6), but the probability of success is different (p = 1/6). The distribution of outcomes will still follow a binomial distribution, but the most likely outcome will be around (p \* n ) = (1/6 \* 100) ≈ 16.67 successes.
@@ -396,7 +400,7 @@ The **normal distribution** is one of the most commonly encountered distribution
 
 Continuous distributions do not have discrete outcomes like the binomial distribution. Instead, they can take on any value within a range. The normal distribution is often used to model data such as gene expression levels, protein concentrations, weights, heights and other continuous measurements.
 
-![normal_distribution](images/normal_distribution.png)
+![](images/normal_distribution.png)
 
 The normal distribution is a continuous curve. The probability of a random outcome falling into a specific interval is equal to the area beneath the curve. The total area of the curve is equal to 1, which represents the total probability of all possible outcomes.
 
@@ -405,7 +409,7 @@ The normal distribution has the following properties:
   - **Continuous** probability distribution
   - The curve has a **single peak**
   - The mean (average) lies at the centre of the distribution
-  - Distribution is **symmetrical around the mean**
+  - The distribution is **symmetrical around the mean**
 
 The normal distribution is defined by two parameters: 
 
@@ -414,11 +418,17 @@ The normal distribution is defined by two parameters:
 
 ### Standard deviation and variance
 
-Variance (𝛔^2 or var) is a measure of how dispersed data is from the mean. The variance is the average of the square of the distance from each data point to the mean.
+**Variance** (𝛔^2 or var) is a measure of how dispersed data is from the mean. The variance is the average of the square of the distance from each data point to the mean.
 
-Standard deviation (𝛔 or sd) is the square root of the variance. A small standard deviation indicates that the data points are close to the mean, while a large standard deviation indicates that the data points are more spread out.
+**Standard deviation** (𝛔 or sd) is the square root of the variance. We typically use standard deviation over variance as it can be expressed in the same units as the data, making it more interpretable.
 
-In a normal distribution, the mean and standard deviation determine the shape of the curve. The mean determines the location of the peak, while the standard deviation determines the width of the curve. A smaller standard deviation results in a narrower curve, while a larger standard deviation results in a wider curve.
+![](images/sd.jpg)
+
+In a normal distribution, approximately 68% of the data falls within one standard deviation of the mean, approximately 95% falls within two standard deviations, and approximately 99.7% falls within three standard deviations.
+
+A small standard deviation indicates that the data points are close to the mean, while a large standard deviation indicates that the data points are more spread out.
+
+The mean and standard deviation determine the shape of the curve in a normal distribution. The mean determines the location of the peak, while the standard deviation determines the width of the curve. A smaller standard deviation results in a narrower curve, while a larger standard deviation results in a wider curve.
 
 ### Simulating a normal distribution
 
@@ -472,17 +482,17 @@ ggplot(sim_data, aes(x = value, fill = distribution)) +
 
 ::::
 
-<br>
-
 In these plots, we can see that changing the mean shifts the location of the peak of the distribution, while changing the standard deviation changes the width of the distribution. A larger standard deviation results in a wider curve, while a smaller standard deviation results in a narrower curve.
 
-Although our histogram has discrete bars, the underlying distribution is continuous. The histogram is a visual representation of the distribution of values in our dataset. As we increase the number of observations, the histogram will more closely approximate the shape of the normal distribution curve. You could try increasing `n` to see this in action. Sample size is important when trying to determine the underlying distribution of a dataset!
+Although our histogram has discrete bars, the underlying distribution is continuous. The histogram is a visual representation of the distribution of values in our dataset. As we increase the number of observations, the histogram will more closely approximate the shape of the normal distribution curve. You could try increasing `n` to see this in action.
+
+This is why sample size is important when trying to determine the underlying distribution of a dataset. The more samples we have, the more accurately we can estimate the true distribution of the data!
 
 When the standard deviation is small, the mean is a good representation of the data, as most of the values are close to the mean. However, when the standard deviation is large, the mean may not be a good representation of the data, as there is more variability and more values that are far from the mean.
 
 ## Other distributions
 
-There are many types of probability distributions with different mathematical parameters and shapes. Some of the most commonly encountered distributions in biology include:
+There are many types of probability distribution, with different mathematical parameters and shapes. Some of the most commonly encountered distributions in biology include:
 
   - **Poisson**
     - Used for modelling count data, such as mutation counts or number of cells
@@ -509,7 +519,7 @@ Before we move on, we will simulate some biological data to work with. We will c
   - Two continuous variables representing expression levels of geneA and geneB
   - A discrete variable representing mutation counts in a regulatory region
 
-The gene expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups.
+The gene expression levels will be normally distributed with different means for the WT and KO groups, while the mutation counts will follow a Poisson distribution with different rates for the two groups. **Poisson distributions** are commonly used to model count data.
 
 
 ```{r}
@@ -535,7 +545,9 @@ head(data)
 
 ## Descriptive statistics
 
-Although it is possible to list all of the values in a large dataset it is not the best way for our human minds to interpret data. Instead, we use **summary statistics** and **visualisation** to describe the distribution of values.
+One way to describe a dataset is to list all of its values. However, this is not practical for large datasets and can be difficult to interpret.
+
+Instead, we use **summary statistics** and **visualisation** to describe the distribution of values.
 
 The base R `summary()` function provides a quick overview of the distribution of values for each variable in a dataset. 
 
@@ -544,7 +556,7 @@ The base R `summary()` function provides a quick overview of the distribution of
 summary(data)
 ```
 
-The `get_summary_stats()` function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a *tibble* that can be easily piped into dplyr or ggplot functions.
+The `get_summary_stats()` function from the rstatix package provides a more detailed summary, including measures of central tendency (mean, median) and variability (standard deviation, interquartile range). The output is a *tibble* that can be piped into dplyr or ggplot functions.
 
 ```{r}
 ## RStatix
@@ -555,9 +567,12 @@ get_summary_stats(data)
 
 Measures of central tendency describe the typical or central value of a dataset. They are often used to summarise data and provide a single value that represents the entire dataset. Common measures of central tendency include:
 
-  - **Mean**: The average value of a dataset, calculated by summing all values and dividing by the number of values.
-  - **Median**: The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.
-  - **Mode**: The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.
+  - **Mean**
+    - The average value of a dataset, calculated by summing all values and dividing by the number of values.
+  - **Median**
+    - The middle value of a dataset when the values are arranged in order. If there is an even number of values, the median is the average of the two middle values.
+  - **Mode**
+    - The value that appears most frequently in a dataset. A dataset can have one mode (unimodal), more than one mode (multimodal), or no mode if all values are unique.
 
 ```{r}
 mean(data$geneA_expression)
@@ -575,7 +590,8 @@ The mean is a good measure of central tendency when the data is **normally distr
 set.seed(123)
 
 ## Simulate an outlier and plot the distribution with the mean as a vertical line
-outlier_data <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100)
+outlier_data <- c(1, 2, 3, 4, 5, 100)
+
 outlier_data |> table() |> 
   as.data.frame() |> 
   ggplot(aes(x = as.integer(as.character(outlier_data)), y = Freq)) +
@@ -586,6 +602,7 @@ outlier_data |> table() |>
 
 ## Simulate a skewed, non-normal dataset with a long tail of high values
 skewed_data <- c(rgamma(n = 1000, shape = 1, scale = 2))
+
 skewed_data |> table() |> 
   as.data.frame() |> 
   ggplot(aes(x = as.integer(as.character(skewed_data)), y = Freq)) +
@@ -598,6 +615,8 @@ skewed_data |> table() |>
 In some cases, the **median** is a better measure of central tendency because it is less affected by extreme values. For example, if we have a dataset of gene expression levels that includes a few very high values (outliers), the mean may be much higher than the typical expression level for most genes, while the median would provide a more accurate representation of the central tendency of the data.
 
 ```{r}
+set.seed(123)
+
 ## Plot the outlier data with mean in red and median in blue
 outlier_data |> table() |> 
   as.data.frame() |> 
@@ -610,11 +629,19 @@ outlier_data |> table() |>
 ```
 The mean is sensitive to outliers and can be skewed by extreme values, while the median is more robust to outliers and provides a better representation of the central tendency for skewed distributions.
 
+#### Outliers
+
+**Outliers** can be biologically meaningful, so it is important to investigate outliers rather than simply removing them from your data. For example, an outlier in gene expression data could represent a technical artefact or real biology e.g. a rare cell type. Visualisation can help to identify outliers.
+
+Data **transformation** (e.g. log transformation) can be used to reduce the impact of outliers and make the data more normally distributed, which can improve the performance of statistical tests.
+
 #### Multimodal distributions
 
 Sometimes data can be **multimodal**, meaning it has multiple peaks in the distribution. In this case, visualisation can be more informative than summary statistics. 
 
 ```{r}
+set.seed(123)
+
 ## Simulate bimodal data
 bimodal_data <- c(rnorm(1000, mean = 5, sd = 1), rnorm(1000, mean = 10, sd = 1))
 bimodal_data |> table() |> 
@@ -629,12 +656,6 @@ bimodal_data |> table() |>
 
 Identifying multiple distributions within a dataset can provide insights into underlying biological processes or sub-populations within the data (e.g. different cell types, experimental batches or sample sex). This can inform your downstream analysis or allow you to separate your data into separate analyses.
 
-#### Outliers
-
-**Outliers** can be biologically meaningful, so it is important to investigate outliers rather than simply removing them from your data. For example, an outlier in gene expression data could represent a technical artefact or real biology e.g. a rare cell type. Visualisation can help to identify outliers.
-
-Data **transformation** (e.g. log transformation) can be used to reduce the impact of outliers and make the data more normally distributed, which can improve the performance of statistical tests.
-
 ## Visualising data
 
 The first step in every analysis is to visualise your data. Visualisation allows you to explore the distribution of values, identify patterns and relationships between variables, and detect outliers.
@@ -645,7 +666,7 @@ Histograms are useful for visualising the shape of the distribution, identifying
 
 ```{r}
 ggplot(data, aes(x = geneA_expression)) +
-  geom_histogram(binwidth = 0.3, fill = "steelblue") +
+  geom_histogram(binwidth = 0.3, fill = "steelblue",colour="grey20") +
   labs(title = "Histogram of geneA expression",
        x = "geneA expression",
        y = "Frequency") +
@@ -663,19 +684,36 @@ Quantiles divide an ordered dataset into equal parts. There are different types 
 - Percentiles: Quantiles that divide the data into 100 equal parts.
 - Quartiles: Quantiles that divide the data into 4 equal parts.
 
-Quartiles divide the data into four equal parts. The first quartile (Q1) is the value below which 25% of the data falls, the second quartile (Q2) is the median, and the third quartile (Q3) is the value below which 75% of the data falls. The interquartile range (IQR) is the difference between the third and first quartiles (IQR = Q3 - Q1) and represents the range of the middle 50% of the data.
+Quartiles divide the data into four equal parts:
+
+  - The first quartile (Q1) is the value below which 25% of the data falls
+  - The second quartile (Q2) is the median,
+  - The third quartile (Q3) is the value below which 75% of the data falls. 
+  
+The **interquartile range (IQR)** is the difference between the third and first quartiles (IQR = Q3 - Q1) and represents the range of the middle 50% of the data.
 
 ![](images/quartiles.png)
 
 #### Boxplot components
 
-The box represents the interquartile range (IQR), which contains the middle 50% of the data. The line inside the box represents the median, and the "whiskers" extend to the minimum and maximum values within 1.5 times the IQR from the quartiles. Points outside this range are considered outliers and are plotted individually.
+A boxplot, often called a box-and-whisker plot, consists of the following components:
+
+  - **Box**
+    - Represents the interquartile range (IQR), containing the middle 50% of the data
+  - **Median**
+    - The line inside the box represents the median value
+  - **Whiskers**
+    - Extend to the minimum and maximum values within 1.5 times the IQR from the quartiles
+  - **Outliers**
+    - Points outside this range are considered outliers and are plotted individually
 
 ![](images/boxplot.png)
 
-A symmetrical boxplot with the median line in the middle of the box and whiskers of equal length suggests a normal distribution. A skewed boxplot with the median line closer to one end of the box and whiskers of unequal length suggests a skewed distribution. Outliers can be identified as points outside the whiskers.
+A symmetrical boxplot with the median line in the middle of the box, and whiskers of equal length, suggests a normal distribution. A skewed boxplot, with the median line closer to one end of the box and whiskers of unequal length, suggests a skewed distribution. Outliers can be identified as points outside the whiskers.
 
-Boxplots are useful for comparing the distribution of values between different groups. They can help to identify differences in central tendency, variability, and the presence of outliers between groups.
+Boxplots are useful for comparing the distribution of values between different groups as they are easy to plot side-by-side. They can help identify differences in central tendency, variability, and the presence of outliers between groups.
+
+**EXAMPLE: Plot geneA expression by genotype using a boxplot**
 
 ```{r}
 ggplot(data, aes(x = genotype, y = geneA_expression, fill = genotype)) +
@@ -688,19 +726,21 @@ ggplot(data, aes(x = genotype, y = geneA_expression, fill = genotype)) +
 
 ## Scatterplots
 
-Scatterplots are used to visualise the relationship between two continuous variables. Each point on the scatterplot represents an observation, with the x-axis representing one variable and the y-axis representing the other variable. Scatterplots can help to identify patterns, trends, and potential correlations between variables.
+Scatterplots are used to visualise the relationship between **two continuous variables**. Each point on the scatterplot represents an observation, with the x-axis representing one variable and the y-axis representing the other variable. Scatterplots can help to identify patterns, trends, and potential correlations between variables.
+
+**EXAMPLE: Plot geneA expression against geneB expression using a scatterplot**
 
 ```{r}
 p <- ggplot(data, aes(x = geneA_expression, y = geneB_expression)) +
   geom_point() +
-  labs(title = "Scatterplot of geneA expression vs mutation counts",
+  labs(title = "Scatterplot of geneA vs geneB",
        x = "geneA expression",
        y = "geneB expression") +
   theme_minimal()
 p
 ```
 
-A regression line can be added to the scatterplot to help visualise an overall trend in the data. We will explore linear regression later.
+A **regression line** can be added to the scatterplot to help visualise an overall trend in the data. Regression lines can be linear or non-linear, depending on the relationship between the variables. A linear regression line is a straight line that best fits the data points, while a non-linear regression line can take various shapes to better fit the data. Regression analysis can be used to quantify the relationship between two variables and make predictions based on that relationship.
 
 ```{r}
 p + geom_smooth(method = "lm") # Add a linear model line of regression
@@ -712,7 +752,7 @@ A linear pattern in the scatterplot can be indicative of a **correlation** betwe
 
 ![](images/correlation.png)
 
-The strength of a correlation can be quantified using a correlation coefficient (r or R) which ranges from -1 to 1, where values close to 1 indicate a strong positive correlation, values close to -1 indicate a strong negative correlation, and values close to 0 indicate no correlation.
+The strength of a correlation can be quantified using a **correlation coefficient** (r or R) which ranges from -1 to 1, where values close to 1 indicate a strong positive correlation, values close to -1 indicate a strong negative correlation, and values close to 0 indicate no correlation.
 
 Correlation analysis looks for an association between two quantitative variables (does *x* vary with *y*?). The most common method for calculating correlation is the **Pearson** correlation coefficient, which measures the strength and direction of a linear relationship between two variables. 
 
@@ -726,29 +766,47 @@ p +
   geom_smooth(method = "lm") +
   stat_cor(method = "pearson", label.x = 3, label.y = 10) # Add Pearson correlation coefficient to the plot
 ```
-We can confidently say that expression of geneA correlates with expression of geneB, but it does not imply causation! Even if the two genes are strongly correlated, it does not mean that a change in expression of one is responsible for the other changing. There could be another variable that is influencing expression of these genes, or the correlation could be due to chance.
+
+We can confidently say that expression of geneA correlates with expression of geneB. When geneA is highly expressed, geneB is also highly expressed, and when geneA is lowly expressed, geneB is also lowly expressed. This suggests that there may be a relationship between the expression of these two genes.
+
+### Correlation vs causation
+
+Do not fall into the trap of thinking that correlation implies a causitave link between genes. Even if the two genes are strongly correlated, it does not mean that a change in expression of one is responsible for the change in the other. There could be another variable that is influencing expression of both of these genes (e.g. a common transcription factor) or the correlation could be due to chance.
+
+Many biological processes are complex and involve multiple interacting variables, so it is important to be cautious when interpreting correlations and to consider other potential explanations for observed relationships.
 
 ![](images/causation.png)
 
-Other types of correlation include:
+### Other correlation methods
 
-- **Spearman's rank correlation**: Assesses the monotonic (non-linear) relationship between two variables. It is used when the data is not normally distributed or when there are outliers.
-- **Kendall's tau**: Another measure of correlation that assesses the strength of association between two variables. It is based on the number of concordant and discordant pairs of observations.
+As well as Pearson's correlation, there are other methods for calculating correlation that can be used when the assumptions of Pearson's correlation are not met:
+
+- **Spearman's rank correlation**
+  - Assesses the monotonic (non-linear) relationship between two variables. It is used when the data is not normally distributed or when there are outliers.
+- **Kendall's tau**
+  - Assesses the strength of association between two variables. It is based on the number of concordant and discordant pairs of observations.
 
 ## Anscombe's quartet
 
 Anscombe's quartet is a set of four datasets that have nearly identical statistical properties (mean, variance, correlation coefficient) but have very different distributions and relationships between the variables. 
 
 ```{r}
+## Print the ascombe dataset
 anscombe
 
+## Get summary statistics for the anscombe dataset
+get_summary_stats(anscombe)
+```
+
+Notice that the mean and sd are identical for all four datasets. The correlation coefficient between x and y is also identical for all four datasets. However, when we plot the data, we can see that the relationships between x and y are very different in each dataset.
+
+```{r}
+## Plot each dataset
 anscombe_tidy <- tibble(
   x = c(anscombe$x1, anscombe$x2, anscombe$x3, anscombe$x4),
   y = c(anscombe$y1, anscombe$y2, anscombe$y3, anscombe$y4),
   dataset = factor(rep(1:4, each = 11))
 )
-get_summary_stats(anscombe_tidy)
-
 
 ggplot(anscombe_tidy, aes(x, y, colour = dataset)) +
   geom_point(size = 3, alpha = 0.8) +
@@ -763,20 +821,6 @@ ggplot(anscombe_tidy, aes(x, y, colour = dataset)) +
 
 The lesson here is to never rely solely on summary statistics. Always visualise your data!
 
-Lecture 3: Sampling & the Central Limit Theorem
-Populations vs samples
-Standard deviation vs standard error vs SEM
-Central Limit Theorem (CLT)
-
-👉 R practical: simulate sampling distributions
-
-Lecture 4: Frequentist vs Bayesian Thinking
-Core philosophical differences
-Likelihood vs posterior
-When each is used in biology (e.g. prior knowledge in genomics)
-
-👉 Keep light—focus on intuition, not math
-
 ::: discussion
 <h2><i class="far fa-bell"></i> Discussion</h2>
 
@@ -786,13 +830,11 @@ When each is used in biology (e.g. prior knowledge in genomics)
 
 :::
 
-<br>
-
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>
 
--   Probability is the foundation of statistics and is used to model the likelihood of different outcomes in a dataset
--   There are many different types of probability distributions, each with its own set of parameters and assumptions.
--   Descriptive statistics and visualisation are essential for summarising and understanding the distribution of values in a dataset.
+  -   Probability is the foundation of statistics and is used to model the likelihood of different outcomes in a dataset.
+  -   There are many different types of probability distributions, each with its own set of parameters and assumptions.
+  -   Descriptive statistics and visualisation are essential for summarising and understanding the distribution of values in a dataset.
 
 :::

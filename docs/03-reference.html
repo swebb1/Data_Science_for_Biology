@@ -296,6 +296,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Setup</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical thinking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -398,11 +422,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 TCTTATGCCTAGTTTCTGCCTCCAAAGAAAGAAG...ATGGAAGAGGGACTGGTGGCTTTCCAGGAGGAG
-[2]   500 GGGGTCCCCGGCCTGTGGGGCTGGATACCAAGTG...CCTTTACAGGACATGCAGCGGGACCCACACACC
-[3]   500 ATTAGATCTTTTAATCATGAATAAAAAAAAAGAG...GCTTACATACAATGAAAAATTTGGAAATCCATA
-[4]   500 TAATTCTTCTTTGGGATCTTCTACATAAATAATC...CTCAAAAATCAGTAACCGATGATCCCACTTCCT
-[5]   500 TTTCGATGATACTGATTCTTCCAATTCATGAGCA...AAAAACTGGTCTCAGATGGGATTGGGAGAAAAT</code></pre>
+[1]   500 ATGAAGTATATCAATTATAAGACGCATGCTAACT...CAGAATCCTCTCAAAACCACCCGCACACTAGGT
+[2]   500 ACTAGTGCTCAGAAAAAAAAAATCCCAGCACTTT...CAGGATACACAGCTAAGACTTCAGCTCTGTTTC
+[3]   500 TCTCGTGAGGAAAACAGGGCCACACTCACCACTG...AGACATCTCACCTGGTAAAGGATGCAGCTGTAA
+[4]   500 AGAGCTTAGTCTTCACTTGCAAGGGTGCCCCTGT...AATCGTTCCTGCTGCTTCAAACTACTGTGTGAT
+[5]   500 TACCTGCGCATGAGCAGAATTGATGTTTTCTGTG...ATAAATGTGTATTTCTATGACAGTTTTAGTGTC</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -410,12 +434,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the dinucleotide frequencies for each sequence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
-[1,]  41 22 31 24 29 45  9 46 29 26 31 31 19 36 47 33
-[2,]  14 35 51 11 39 50 13 27 47 37 74 23 11  8 42 17
-[3,] 108 31 35 49 44 11  3 17 38 12 17 14 33 21 26 40
-[4,]  32 15 23 52 29 23  4 44 28 20 26 16 33 42 37 75
-[5,]  33 65 16 35 66 21  9 40 26  9 11 24 24 41 34 45</code></pre>
+<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
+[1,] 57 31 40 30 35 32  9 33 38 23 38 19 27 23 31 33
+[2,] 42 24 43 23 38 29  8 39 35 33 43 26 16 29 43 28
+[3,] 50 24 40 31 31 16  3 31 40 14 40 33 25 27 44 50
+[4,] 25 21 37 22 27 42  4 47 36 27 32 33 16 30 55 45
+[5,] 41 16 27 55 29 20  1 36 22 13 13 32 47 38 39 70</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -518,11 +542,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.494
-[2,] 0.622
-[3,] 0.312
-[4,] 0.380
-[5,] 0.412</code></pre>
+[1,] 0.454
+[2,] 0.504
+[3,] 0.416
+[4,] 0.496
+[5,] 0.334</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -533,11 +557,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 SYA*FLPPKKEVKTKRQK*NPHTDSPALRPGPG*...SVSEGFCLWLVLPHMDSWTNGLPWKRDWWLSRR
-[2]   166 GVPGLWGWIPSGDQRYGFGGPA*GARAWQGKQ*K...*GALYRTCMWGPDTHTCRQD*GALYRTCSGTHT
-[3]   166 IRSFNHE*KKRESTKMNKEW*EK*LLIISK*KII...TVLKT*GKSRRESSFGKFEYSKVLTYNEKFGNP
-[4]   166 *FFFGIFYINNHVIC*QMHFYLLYPNMHIFYFLF...QLIFEY*TSLA*LG*SFNLFCRASKISNR*SHF
-[5]   166 FR*Y*FFQFMSMRCFSMFFVSSTISFIVFCSSSC...LTLRHTQYLWDIKTTPSLPPRGRKTGLRWDWEK</code></pre>
+[1]   166 MKYINYKTHANSRKSKT*KKCVLEWKNAVVKLFL...GLEPGLPGRGWTHFAKHLRTRPYRILSKPPAH*
+[2]   166 TSAQKKKIPALWEAKAGELPQLRSSRPAWATW*N...SWKSRVGP*SQLKRCGTDS*GCFRIHS*DFSSV
+[3]   166 SREENRATLTTGWRGLVSRW*RLRR*EILVESCG...SE*ETAPGCLRFSWVERPCVLREDISPGKGCSC
+[4]   166 RA*SSLARVPLCSSTLHPQAGLGFLEPDELKMLQ...GTA*IDL*KHL*TRKCSHGTLDEIVPAASNYCV
+[5]   166 YLRMSRIDVFCGAVS*HW*NLFCDPRSLGSSVNA...SVVHLISNQSF*NLILHVTLCFI*MCISMTVLV</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>

@@ -1,9 +1,0 @@
----
-title: "Where next?"
----
-
-PCA
-Clustering
-Linear models
-
-What's next?

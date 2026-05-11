@@ -5,43 +5,49 @@
 }
 
 .key-points {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #587e76;
   color: white;
 }
 
 .objectives {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #5b9aa0;
   color: white;
 }
 
 .discussion {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #c8553d;
   color: white;
 }
 
 .resources {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #a79e84;
   color: white;
 }
 
 .hints {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #4699C3;
   color: white;
 }
 
 .challenge {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
+  margin-bottom: 1em;
   background: #667292;
   color: white;
 }
 
 .solution {
-  padding: 0.2em 1em 0.2em 1em;
+  padding: 0.1em 1em 0.1em 1em;
   background: white;
   color: black;
 }

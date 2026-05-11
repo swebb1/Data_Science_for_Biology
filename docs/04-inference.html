@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./04-power.html" rel="next">
+<link href="./04-stats.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -179,7 +181,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Statistical inference</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-Setup.html"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</a></li><li class="breadcrumb-item"><a href="./04-inference.html">Statistical inference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -310,17 +312,41 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical thinking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-inference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Statistical inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
   </div>
 </li>
       </ul>
@@ -338,12 +364,13 @@ window.Quarto = {
   <li><a href="#sampling-and-the-central-limit-theorem" id="toc-sampling-and-the-central-limit-theorem" class="nav-link active" data-scroll-target="#sampling-and-the-central-limit-theorem">Sampling and the Central Limit Theorem</a>
   <ul class="collapse">
   <li><a href="#central-limit-theorem-clt" id="toc-central-limit-theorem-clt" class="nav-link" data-scroll-target="#central-limit-theorem-clt">Central Limit Theorem (CLT)</a></li>
+  <li><a href="#standard-error-se" id="toc-standard-error-se" class="nav-link" data-scroll-target="#standard-error-se">Standard error (SE)</a></li>
   </ul></li>
   <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis testing</a>
   <ul class="collapse">
   <li><a href="#hypothesis-testing-in-6-steps" id="toc-hypothesis-testing-in-6-steps" class="nav-link" data-scroll-target="#hypothesis-testing-in-6-steps">Hypothesis testing in 6 steps:</a></li>
-  <li><a href="#defining-a-hypothesis" id="toc-defining-a-hypothesis" class="nav-link" data-scroll-target="#defining-a-hypothesis">Defining a hypothesis</a></li>
   </ul></li>
+  <li><a href="#define-a-hypothesis" id="toc-define-a-hypothesis" class="nav-link" data-scroll-target="#define-a-hypothesis">Define a hypothesis</a></li>
   <li><a href="#set-a-significance-level" id="toc-set-a-significance-level" class="nav-link" data-scroll-target="#set-a-significance-level">Set a significance level</a></li>
   <li><a href="#statistical-tests" id="toc-statistical-tests" class="nav-link" data-scroll-target="#statistical-tests">Statistical tests</a>
   <ul class="collapse">
@@ -353,7 +380,8 @@ window.Quarto = {
   <li><a href="#comparing-the-means-of-two-groups" id="toc-comparing-the-means-of-two-groups" class="nav-link" data-scroll-target="#comparing-the-means-of-two-groups">Comparing the means of two groups</a>
   <ul class="collapse">
   <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">T-test</a></li>
-  <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing">Multiple testing</a></li>
+  <li><a href="#multiple-testing-correction" id="toc-multiple-testing-correction" class="nav-link" data-scroll-target="#multiple-testing-correction">Multiple testing correction</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
   <li><a href="#two-sided-vs-one-sided-tests" id="toc-two-sided-vs-one-sided-tests" class="nav-link" data-scroll-target="#two-sided-vs-one-sided-tests">Two-sided vs one-sided tests</a></li>
   <li><a href="#paired-vs-independent-tests" id="toc-paired-vs-independent-tests" class="nav-link" data-scroll-target="#paired-vs-independent-tests">Paired vs independent tests</a></li>
   </ul></li>
@@ -369,7 +397,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-Setup.html"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</a></li><li class="breadcrumb-item"><a href="./04-inference.html">Statistical inference</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Statistical inference</h1>
 </div>
@@ -401,19 +429,12 @@ window.Quarto = {
 <li>Learn to interpret test statistics and p-values</li>
 </ul>
 </div>
-<p><br></p>
 <p>Inferential statistics allow us to make predictions. We can use data from a sample to make inferences about the population from which the sample was drawn. This is important as it is often impossible to measure an entire population due to factors such as large numbers, cost, ethics, and other practicalities.</p>
 <p>We can express predictions about a population in degrees of confidence (confidence intervals) or in terms of significance (p-values) and use inferences to look for differences between sample groups.</p>
-<p>Let’s begin by loading the libraries and data from the previous section.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <section id="sampling-and-the-central-limit-theorem" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-and-the-central-limit-theorem">Sampling and the Central Limit Theorem</h2>
 <p>When we measure or collect a sample from a population, we are trying to estimate a population parameter (e.g.&nbsp;mean, variance). However, any summary statistic we calculate from our sample (e.g.&nbsp;mean weight of a mice, lengths of a petal or expression of a gene) is likely to be different to that of the population due to sampling error.</p>
+<p><img src="images/sampling.png" class="img-fluid"></p>
 <section id="population" class="level4">
 <h4 class="anchored" data-anchor-id="population">Population</h4>
 <p>All objects of interest. Too big or too difficult to measure. We do not know the statistic we are interested in (e.g.&nbsp;mean) or its distribution.</p>
@@ -424,7 +445,7 @@ window.Quarto = {
 </section>
 <section id="sampling-error" class="level4">
 <h4 class="anchored" data-anchor-id="sampling-error">Sampling error</h4>
-<p>No sample is a perfect representation of the population. The sample mean is unlikely to be the population mean. If we sample multiple times, they will all have different means.</p>
+<p>No sample is a perfect representation of the population. The sample mean is unlikely to be the population mean. If we sample multiple times, individual samples are likely to have different means. The sampling error is the difference between the sample statistic and the true population parameter. The sampling error can be reduced by increasing the sample size, but it can never be completely eliminated.</p>
 </section>
 <section id="central-limit-theorem-clt" class="level3">
 <h3 class="anchored" data-anchor-id="central-limit-theorem-clt">Central Limit Theorem (CLT)</h3>
@@ -433,70 +454,95 @@ window.Quarto = {
 <p>This is a powerful result because it allows us to make inferences about the population mean using the sample mean and standard error, even if the population distribution is not normal.</p>
 <p>We can see this in practice by simulating sampling from a population distribution and plotting the sampling distribution of the mean.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Population of 10000 values with a Poisson distribution</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(population)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Population of 10000 values with a Poisson distribution</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(population)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))) <span class="co"># Sample means from 1000 samples of size 30</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sample_means, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">"Sampling Distribution of the Mean"</span>, <span class="at">xlab =</span> <span class="st">"Sample Mean"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a random sample of 30 values from this distribution 1000 times and calculate the mean of each sample to build the sampling distribution of the mean</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the sampling distribution of the mean</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sample_means, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">"Sampling Distribution of the Mean"</span>, <span class="at">xlab =</span> <span class="st">"Sample Mean"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="standard-error-se" class="level4">
-<h4 class="anchored" data-anchor-id="standard-error-se">Standard error (SE)</h4>
+</section>
+<section id="standard-error-se" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-se">Standard error (SE)</h3>
 <p>The <strong>standard error</strong> (SE) is the standard deviation of the sampling distribution and represents the dispersion of sample means around the population mean. It is a measure of how accurately a sample can estimate the population.</p>
-<p>The SE can be estimated from a single sample using the standard deviation (SD) and sample size (n). It is common to mistake standard error (SE) and standard deviation (SD). The standard deviation is a measure of variability in the data, while the standard error is a measure of how much the sample mean is expected to vary from the true population mean.</p>
-<p><img src="std_error.png" class="img-fluid"></p>
-<p>To calculate the standard error of the mean, we can use the formula: SE = SD / sqrt(n)</p>
+<p>The SE can be estimated from a single sample using its standard deviation (SD) and sample size (n).</p>
+<p>It is common to mistake standard error (SE) and standard deviation (SD). The standard deviation is a measure of variability in the data, while the standard error is a measure of how much the sample mean is expected to vary from the true population mean.</p>
+<p><img src="images/std_error.png" class="img-fluid"></p>
+<p>To calculate the standard error of the mean, we can use the formula:</p>
+<p><span class="math display">\[\text{SE} = \frac{\text{SD}}{\sqrt{n}}\]</span></p>
 <p>Where SD is the standard deviation of the sample and n is the sample size. As the sample size increases, the standard error decreases, indicating that our estimate of the population mean becomes more precise.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of calculating standard error</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># Sample of 100 values from a normal distribution</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_data)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(sample_data)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="fu">length</span>(sample_data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>standard_error <span class="ot">&lt;-</span> sample_sd <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>standard_error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of calculating standard error</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample of 100 values from a normal distribution</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sample_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_data)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(sample_data)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="fu">length</span>(sample_data)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>standard_error <span class="ot">&lt;-</span> sample_sd <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>standard_error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1992939</code></pre>
 </div>
 </div>
-<p>A standard error of ~0.2 indicates that the sample mean is expected to vary by about 0.2 units from the true population mean.</p>
-<p>The standard error quantifies the uncertainty associated with our sample statistic and is crucial for constructing confidence intervals and conducting hypothesis tests.</p>
-</section>
+<p>A standard error of ~0.2 indicates that the sample mean is expected to vary by about 0.2 from the true population mean. The standard error quantifies the uncertainty associated with our sample statistic and is crucial for constructing confidence intervals and conducting hypothesis tests.</p>
 </section>
 </section>
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis testing</h2>
-<p>We can test a hypothesis about a parameter in a population using data collected from a sample. Hypothesis tests provide our predictions with degrees of confidence or statistical significance.</p>
+<p>We can test a hypothesis about a parameter in a population (e.g.&nbsp;the mean) using data collected from a sample. Hypothesis tests provide our predictions with degrees of confidence and statistical significance.</p>
 <section id="hypothesis-testing-in-6-steps" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-testing-in-6-steps">Hypothesis testing in 6 steps:</h3>
-<ul>
+<ol type="1">
 <li>Specify a null hypothesis H0</li>
 <li>Specify the alternative hypothesis H1</li>
 <li>Set the significance level 𝝰 (often 0.05)</li>
 <li>Calculate the test statistic using an appropriate test</li>
 <li>Compare the test statistic to the null distribution to acquire a p-value</li>
 <li>Draw a conclusion: Accept or reject H0</li>
-</ul>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hypothesis_test.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 </section>
-<section id="defining-a-hypothesis" class="level3">
-<h3 class="anchored" data-anchor-id="defining-a-hypothesis">Defining a hypothesis</h3>
+</section>
+<section id="define-a-hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="define-a-hypothesis">Define a hypothesis</h2>
 <p>We are testing a hypothesis, not the data, so it is important to define this correctly. Hypotheses should be formulated from biological concepts rather than cherry picking data that looks different (p-hacking).</p>
 <p>Hypothesis testing tells us if our results are surprising and how likely they are to be the product of chance. We need to define a <strong>null hypothesis</strong> and an <strong>alternative hypothesis</strong> to test our data against.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hypothesis.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 <section id="null-hypothesis-h0" class="level4">
 <h4 class="anchored" data-anchor-id="null-hypothesis-h0">Null Hypothesis H0</h4>
 <p>The null hypothesis corresponds to the absence of an effect. We start our hypothesis test by defining the null hypothesis and assuming that it is true. For example, there is no difference between the expression level of geneA in WT and KO cells.</p>
@@ -506,63 +552,67 @@ window.Quarto = {
 <p>The alternative hypothesis encompasses all of the possible outcomes that aren’t included in the null hypothesis. We cannot prove the alternative hypothesis. We can only choose to reject the null hypothesis based on the data we have! For example, there is a difference in the expression level of geneA between WT and KO cells.</p>
 </section>
 </section>
-</section>
 <section id="set-a-significance-level" class="level2">
 <h2 class="anchored" data-anchor-id="set-a-significance-level">Set a significance level</h2>
-<p>The significance level (𝝰) is the threshold for rejecting the null hypothesis. It is often set at 0.05, which means that we are willing to accept a 5% chance of rejecting the null hypothesis when it is actually true ( (false positive). You can make the significance level re or less stringent depending on the risks associated with false positives in your experiment. For instance, in a clinical trial for a new drug, you might want to set a more stringent significance level (e.g.&nbsp;0.01) to reduce the risk of false positives, while in an exploratory study, you might be more lenient (e.g.&nbsp;0.1) to allow for more discoveries.</p>
+<p>The significance level (𝝰) is the threshold for rejecting the null hypothesis. It is often set at 0.05, which means that we are willing to accept a 5% chance of rejecting the null hypothesis when it is actually true (false positive).</p>
+<p>You can make the significance level more or less stringent depending on the risks associated with false positives in your experiment. For instance, in a clinical trial for a new drug, you might want to set a more stringent significance level (e.g.&nbsp;0.01) to reduce the risk of false positives, while in an exploratory study, you might be more lenient (e.g.&nbsp;0.1) to allow for more discoveries.</p>
 </section>
 <section id="statistical-tests" class="level2">
 <h2 class="anchored" data-anchor-id="statistical-tests">Statistical tests</h2>
 <p>There are many different types of statistical tests available, and the choice of test depends on your data and the question you are trying to answer.</p>
 <ul>
-<li>Type of data
+<li><strong>Type of data</strong>
 <ul>
 <li>Continuous</li>
 <li>Discrete</li>
 <li>Binary</li>
 <li>Categorical</li>
 </ul></li>
-<li>Data structure
+<li><strong>Data structure</strong>
 <ul>
 <li>Comparing 1 sample group to a hypothetical value</li>
 <li>Comparing 2 sample groups (e.g.&nbsp;WT and mutant)</li>
 <li>Comparing 3 or more sample groups</li>
 </ul></li>
-<li>Variables
+<li><strong>Variables</strong>
 <ul>
 <li>One variable (e.g.&nbsp;gene expression)</li>
 <li>Two variables (e.g.&nbsp;gene expression and treatment)</li>
 </ul></li>
-<li>Distribution of your the data
+<li><strong>Distribution of your the data</strong>
 <ul>
 <li>Parametric or non-parametric</li>
 </ul></li>
 </ul>
-<p><img src="images/right_test.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/right_test.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
 <p>To make inferences or predictions from sampled data we first need to understand how the data in our samples are distributed. If the data fits a known probability distribution (parametric) then we can use those parameters in our statistical analysis.</p>
 <section id="parametric-or-non-parametric" class="level3">
 <h3 class="anchored">Parametric or non-parametric?</h3>
 <p>Parametric data fits a known distribution and has specific properties. Specific tests are available only if the data is parametric and fits certain assumptions. A trap researchers often fall into is to use a parametric test without checking if the data meets the assumptions of that test. This can lead to incorrect conclusions.</p>
-<p>Parametric tests usually require your data to be normally distributed! You can check for normality by plotting or using a Shapiro Wilk test</p>
-<p>A <strong>Shapiro Wilk test</strong> tests the null hypothesis that the data is normally distributed. If the p-value is less than your significance level (e.g.&nbsp;0.05), you can reject the null hypothesis and conclude that the data is not normally distributed.</p>
+<p>Parametric tests usually require your data to be normally distributed! You can check for normality by plotting or using a <strong>Shapiro Wilk test</strong>.</p>
+<p>A Shapiro Wilk test tests the null hypothesis that the data is normally distributed. If the p-value is less than your significance level (e.g.&nbsp;0.05), you can reject the null hypothesis and conclude that the data is not normally distributed.</p>
 <p>You can use the base R function <code>shapiro.test()</code> or the <code>shapiro_test()</code> function from the rstatix to perform a Shapiro Wilk test.</p>
 <div class="challenge">
 <h2 class="anchored" data-anchor-id="parametric-or-non-parametric">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h2>
-<p>The data frame below contains the observed times taken for mice from two sample groups (dietA and dietB) to complete a maze. Check if the data is normally distributed in each group and decide if you can use a parametric test to compare the expression between two groups of samples.</p>
+<p>The data frame below contains the observed times taken for mice to complete a maze. The mice are divided into two sample groups (dietA and dietB). Check if the data is normally distributed in each group and decide if you can use a parametric test to compare times between the two groups of samples.</p>
 <p>You can use visualisation and/or a <code>shapiro_test()</code> to check for normality.</p>
-<p>Can you transform the data to make it more normal?</p>
+<p>Does transforming the data to make it more normal?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated data for two groups of mice</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dietA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dietB <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">30</span>, <span class="at">rate =</span> <span class="fl">0.5</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>maze_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(dietA, dietB),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diet =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"dietA"</span>, <span class="st">"dietB"</span>), <span class="at">each =</span> <span class="dv">30</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulated data for two groups of mice</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dietA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dietB <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">30</span>, <span class="at">rate =</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>maze_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">c</span>(dietA, dietB),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">diet =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"dietA"</span>, <span class="st">"dietB"</span>), <span class="at">each =</span> <span class="dv">30</span>))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <details>
 <summary>
@@ -574,38 +624,38 @@ window.Quarto = {
 </h2>
 <p>Visualise and test for normality.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of shapiro wilk test for normality</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw histograms</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>,<span class="at">colour=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> diet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of shapiro wilk test for normality</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw histograms</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>,<span class="at">colour=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> diet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare both groups with a boxplot</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare both groups with a boxplot</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,<span class="at">y =</span> time, <span class="at">fill =</span> diet)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-inference_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Test normality with a shapiro test using rstatix package</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diet,<span class="at">y =</span> time, <span class="at">fill =</span> diet)) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Test normality with a shapiro test using rstatix package</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   diet  variable statistic           p
@@ -617,27 +667,27 @@ window.Quarto = {
 <p>The data for dietA is normally distributed (p-value &gt; 0.05) but the data for dietB is not normally distributed (p-value &lt; 0.05). Therefore, we cannot use a parametric test to compare the two groups of samples.</p>
 <p>If we log transform the data, we can check if it becomes more normal.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log transform the data</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="ot">&lt;-</span> maze_data <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_time =</span> <span class="fu">log</span>(time))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the log transformed data</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_time)) <span class="sc">+</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>,<span class="at">colour=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> diet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log transform the data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="ot">&lt;-</span> maze_data <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_time =</span> <span class="fu">log</span>(time))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the log transformed data</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_time)) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">colour=</span><span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> diet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for normality again</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(log_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for normality again</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>maze_data <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(log_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   diet  variable statistic     p
@@ -646,19 +696,24 @@ window.Quarto = {
 2 dietB log_time     0.976 0.698</code></pre>
 </div>
 </div>
-<p>The log transformation has made the data for dietB more normal (p-value &gt; 0.05), so we can now use a parametric test to compare the two groups of samples.</p>
+<p>The log transformation has made the data for dietB more normal (p-value &gt; 0.05), so we can now use a parametric test to compare the log(means) between the two groups.</p>
 </div>
 </details>
 </div>
-<p><br></p>
-<p><strong>Non-parametric tests</strong> are distribution free tests. They often work on the ranks of ordered data rather than the values themselves. A non-parametric test will give you less statistical power so it is always better to use a parametric test if your data meets the assumptions.</p>
+<section id="non-parametric-tests" class="level4">
+<h4 class="anchored" data-anchor-id="non-parametric-tests">Non-parametric tests</h4>
+<p><strong>Non-parametric tests</strong> are distribution free tests. They often work on the ranks of ordered data rather than the values themselves. A non-parametric test will give you less statistical power so it is always better to use a parametric test if your data meets the assumptions. For each parametric test, there is usually a non-parametric equivalent.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/nonparametric.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
 </section>
 <section id="choosing-a-statistical-test" class="level3">
 <h3 class="anchored">Choosing a statistical test</h3>
-<p>Your choice of statistical test will depend on the data you have and the question you are trying to answer.</p>
-<p><img src="images/test_choice.jpg" class="img-fluid"></p>
+<p>Your choice of statistical test will depend on the data you have and the question you are trying to answer. <img src="images/test_choice.jpg" class="img-fluid quarto-figure quarto-figure-center" style="width:75.0%"></p>
 <p>There are many online resources to choose the correct test for your data, or you can consult with a statistician or AI (with a clear description of your data and question) to help you choose the right test.</p>
-<p>We will cover some of the most common tests used in biology in the next section.</p>
 <div class="resources">
 <h2 class="anchored" data-anchor-id="choosing-a-statistical-test">
 <i class="fas fa-book"></i> Resources
@@ -675,12 +730,12 @@ window.Quarto = {
 </section>
 <section id="comparing-the-means-of-two-groups" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-the-means-of-two-groups">Comparing the means of two groups</h2>
-<p>A common question in biology is whether there is a difference in the mean of a variable between two groups (e.g.&nbsp;WT vs KO cells, before / after treatment).</p>
+<p>A common question in biology is whether there is a difference in the mean of a variable between two groups (e.g.&nbsp;WT vs KO cells, before/after treatment).</p>
 <p><strong>Example: Weights of plants</strong></p>
 <p>The <code>PlantGrowth</code> dataset contains the weight of plants in three different groups (control, treatment 1 and treatment 2). The treatments are different types of fertilizer. We want to know if there is a difference in the mean weight of plants between the control and treatment groups.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"PlantGrowth"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(PlantGrowth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"PlantGrowth"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(PlantGrowth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     weight       group   
  Min.   :3.590   ctrl:10  
@@ -690,8 +745,8 @@ window.Quarto = {
  3rd Qu.:5.530            
  Max.   :6.310            </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PlantGrowth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PlantGrowth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  weight group
 1   4.17  ctrl
@@ -701,22 +756,22 @@ window.Quarto = {
 5   4.50  ctrl
 6   4.61  ctrl</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Visualise the data between the 3 groups</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth<span class="sc">|&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Visualise the data between the 3 groups</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth<span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check for normality of each group</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check for normality of each group</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   group variable statistic     p
@@ -737,7 +792,7 @@ window.Quarto = {
 <li>A large T-statistic means a large difference between groups</li>
 <li>Under the null hypothesis, the T-statistic is expected to fall into a range of values distributed around zero.</li>
 </ul>
-<p>The T-statistic is calculated as the difference in means between the two groups divided by the standard error of the difference.</p>
+<p>The T-statistic is calculated as the difference in means between the two groups divided by the standard error of the difference, or in other words, the signal (difference in means) divided by the noise (standard error).</p>
 <p><span class="math display">\[t = \frac{\text{Signal}}{\text{Noise}} = \frac{\bar{x}_1 - \bar{x}_2}{SE}\]</span></p>
 <p>We can use the <code>t_test()</code> function from the rstatix package to perform this test.</p>
 <ul>
@@ -746,94 +801,99 @@ window.Quarto = {
 <li>Significance level: 0.05</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the mean weights between control and treatment</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt1 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt1"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span> <span class="co"># This removes the unused factor levels from the group variable, which is important for the t-test to work correctly.</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group) <span class="sc">|&gt;</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>() <span class="do">## This adds a column with significance levels based on the p-value (e.g. *** for p &lt; 0.001, ** for p &lt; 0.01, * for p &lt; 0.05, ns for not significant)</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the results</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the mean weights between control and treatment</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt1 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span> <span class="co"># This removes the unused factor levels from the group variable, and sets the order of the groups. We typically want to put our control group last so that the difference is calculated as treatment - control.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group) <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>() <span class="do">## This adds a column with significance levels based on the p-value (e.g. *** for p &lt; 0.001, ** for p &lt; 0.01, * for p &lt; 0.05, ns for not significant)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 9
   .y.    group1 group2    n1    n2 statistic    df     p p.signif
   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
-1 weight ctrl   trt1      10    10      1.19  16.5  0.25 ns      </code></pre>
+1 weight trt1   ctrl      10    10     -1.19  16.5  0.25 ns      </code></pre>
 </div>
 </div>
-<p>To add the p-value to the plot, we can use the <code>stat_compare_means()</code> function from the ggpubr package. This function will perform the t-test and add the p-value to the plot. Or we can use the <code>stat_pvalue_manual()</code> function to add the p-value directly from the results of the t-test we have already run.</p>
+<p>To add the p-value to the plot, we can use the <code>stat_compare_means()</code> function from the <strong>ggpubr</strong> package. This function will perform the t-test and add the p-value to the plot. Or we can use the <code>stat_pvalue_manual()</code> function to add the p-value directly from the results of the t-test we have already run.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the results</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt1"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"t.test"</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="at">label.y =</span> <span class="dv">7</span>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt1"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_ctrl_trt1, <span class="at">label =</span> <span class="st">"p"</span>, <span class="at">y.position =</span> <span class="dv">7</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the results</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"t.test"</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="at">label.y =</span> <span class="dv">7</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_ctrl_trt1, <span class="at">label =</span> <span class="st">"p"</span>, <span class="at">y.position =</span> <span class="dv">7</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The p-value is 0.249. This means that there is a 24.9% chance of observing a difference in mean weight between the control and treatment groups as or more extreme as the one observed in our sample, assuming that the null hypothesis is true (i.e.&nbsp;there is no difference in mean weight between the two groups).</p>
+<p>The p-value is 0.249. This means there is a 24.9% chance of observing a difference in mean weight between the control and treatment groups that is <strong>as, or more, extreme</strong> as the one observed in our sample, assuming that the null hypothesis is true (i.e.&nbsp;there is no difference in mean weight between the two groups).</p>
 <p>Since this p-value is greater than our significance level of 0.05, we fail to reject the null hypothesis and conclude that there is no statistically significant difference in mean weight between the control and treatment 1 group.</p>
-<p>Now, let’s compare the control group to treatment 2. We will use the same null hypothesis, alternative hypotheses and significance level.</p>
+<p>Now, let’s compare the control group to treatment 2. We will use the same null hypothesis, alternative hypothesis and significance level.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the mean weights between control and treatment 2</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt2 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt2"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group) <span class="sc">|&gt;</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the results</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the mean weights between control and treatment 2</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt2 <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group) <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>t_test_ctrl_trt2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 9
   .y.    group1 group2    n1    n2 statistic    df      p p.signif
   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
-1 weight ctrl   trt2      10    10     -2.13  16.8 0.0479 *       </code></pre>
+1 weight trt2   ctrl      10    10      2.13  16.8 0.0479 *       </code></pre>
 </div>
 </div>
 <p>Let’s visualise the results:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the results</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt2"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_ctrl_trt2, <span class="at">label =</span> <span class="st">"p.signif"</span>, <span class="at">y.position =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualise the results</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_ctrl_trt2, <span class="at">label =</span> <span class="st">"p.signif"</span>, <span class="at">y.position =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The p-value is 0.0479, which is less than our significance level of 0.05. Therefore, we reject the null hypothesis and conclude that there is a statistically significant difference in mean weight between the control and treatment 2 group.</p>
 </section>
-<section id="multiple-testing" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-testing">Multiple testing</h3>
-<p>WAIT, there is a problem with this analysis! Whenever we perform multiple tests on the same data, we increase the chances of finding a false positive. It’s a bit like buying two lottery tickets instead of one - you have a better chance of winning.</p>
-<p>In the context of hypothesis testing, this means that if we perform multiple tests on the same data, we are more likely to find a statistically significant result by chance alone. We need to adjust our p-values for multiple testing when we perform multiple tests on the same data.</p>
+<section id="multiple-testing-correction" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-testing-correction">Multiple testing correction</h3>
+<p>But wait! There is a problem with this analysis. Whenever we perform multiple tests on the same data, we increase the chances of finding a false positive. It’s a bit like buying two lottery tickets instead of one - you have a better chance of winning.</p>
+<p>In the context of hypothesis testing, this means that if we perform multiple tests on the same data, we are more likely to find a significant result by chance alone. We need to adjust our p-values for multiple testing when we perform multiple tests on the same data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/multipletesting.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
 <p>There are a few different methods to adjust for multiple testing:</p>
 <section id="bonferroni" class="level4">
 <h4 class="anchored" data-anchor-id="bonferroni">Bonferroni</h4>
@@ -844,70 +904,87 @@ window.Quarto = {
 <p>Less conservative method that controls the false discovery rate (FDR). It ranks the p-values and compares each p-value to its rank divided by the total number of tests multiplied by the significance level. This method is more powerful than Bonferroni when many tests are performed (e.g.&nbsp;22000 genes in RNA-seq experiments), but it allows for a higher rate of false positives.</p>
 <p>Let’s say we want to do pairwise comparisons between all three groups in our plant data:</p>
 <ul>
-<li>Control vs treatment 1</li>
-<li>Control vs treatment 2</li>
+<li>Treatment 1 vs Control</li>
+<li>Treatment 2 vs Control</li>
 <li>Treatment 1 vs treatment 2</li>
 </ul>
-<p>With rstatix, we can run all three t-tests at once. However, since we are performing multiple tests on the same data, we need to adjust for multiple testing. Rstatix should add adjusted p-values to the result by default. We can also use the <code>adjust_pvalue()</code> function to specify the method we want to use.</p>
+<p>With rstatix, we can run all three t-tests at once. However, since we are performing multiple tests on the same data, we need to use adjusted p-values. Rstatix adds adjusted p-values to the result by default. We can also use the <code>adjust_pvalue()</code> function to specify the method we want to use.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run all 3 t-tests and adjust for multiple testing</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>t_test_results <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>t_test_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run all 3 t-tests and adjust for multiple testing</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>t_test_results <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"trt2"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>t_test_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 10
   .y.    group1 group2    n1    n2 statistic    df     p p.adj p.adj.signif
   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
-1 weight ctrl   trt1      10    10      1.19  16.5 0.25  0.75  ns          
-2 weight ctrl   trt2      10    10     -2.13  16.8 0.048 0.144 ns          
-3 weight trt1   trt2      10    10     -3.01  14.1 0.009 0.028 *           </code></pre>
+1 weight trt1   trt2      10    10     -3.01  14.1 0.009 0.028 *           
+2 weight trt1   ctrl      10    10     -1.19  16.5 0.25  0.75  ns          
+3 weight trt2   ctrl      10    10      2.13  16.8 0.048 0.144 ns          </code></pre>
 </div>
 </div>
 <p>Visualise the results:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_results, <span class="at">label =</span> <span class="st">"p.adj.signif"</span>, <span class="at">bracket.nudge.y =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="dv">0</span>,<span class="fl">0.5</span>),<span class="at">y.position =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt1"</span>, <span class="st">"trt2"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(t_test_results, <span class="at">label =</span> <span class="st">"p.adj.signif"</span>, <span class="at">bracket.nudge.y =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="dv">0</span>,<span class="fl">0.5</span>),<span class="at">y.position =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>As you can see, the only significant difference is between treatment 1 and treatment 2. The differences between control and treatment 1 and control and treatment 2 are not significant after adjusting for multiple testing. The more tests we perform, the more stringent our significance threshold becomes.</p>
-<p>With many groups, performing multiple pairwise comparisons can become unwieldy and the multiple error correction soon balloons out of control.</p>
-<p>The correct way to analyse data with more than two groups is to use an ANOVA (analysis of variance) test, which tests for differences between the means of multiple groups at once. If the ANOVA test is significant, we then perform post-hoc tests to determine which specific groups are different from each other. This framework controls for multiple testing and is more powerful than performing multiple pairwise t-tests. We will not cover ANOVA further in this course.</p>
+<p>As you can see, the only significant difference is between treatment 1 and treatment 2. The differences between treatment 1 and control and treatment 2 and control are not significant after adjusting for multiple testing. The more tests we perform, the more stringent our significance threshold becomes.</p>
 </section>
+</section>
+<section id="anova" class="level3">
+<h3 class="anchored" data-anchor-id="anova">ANOVA</h3>
+<p>With many groups, performing multiple pairwise comparisons can become unwieldy and the multiple error correction soon balloons out of control.</p>
+<p>The correct way to analyse data with more than two groups is to use an ANOVA (analysis of variance) test, which tests for differences between the means of multiple groups at once. If the ANOVA test is significant, you can then perform post-hoc tests to determine which specific groups are different from each other.</p>
+<p>This framework controls for multiple testing and is more powerful than performing multiple pairwise t-tests. ANOVA is not covered in this course but should be your go-to for multi-factorial statistical analysis. You can use the <code>anova_test()</code> function from rstatix to perform an ANOVA test.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/anova.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 </section>
 <section id="two-sided-vs-one-sided-tests" class="level3">
 <h3 class="anchored" data-anchor-id="two-sided-vs-one-sided-tests">Two-sided vs one-sided tests</h3>
 <p>When we perform a hypothesis test, we can specify whether we are testing for a difference in either direction (two-sided) or a difference in a specific direction (one-sided).</p>
 <p>For example, we might want to test if the mean weight of plants in treatment 1 is different from the mean weight of plants in the control group, without specifying whether we expect treatment 1 to be heavier or lighter than the control group. This would be a two-sided test, and our alternative hypothesis would be that there is a difference in mean weight between the two groups.</p>
-<p>Alternatively, we might have a specific hypothesis that treatment 1 will increase the mean weight of plants compared to the control group. In this case, we would perform a one-sided test, and our alternative hypothesis would be that the mean weight of plants in treatment 1 is greater than the mean weight of plants in the control group.</p>
+<p>Alternatively, we might have a specific hypothesis that treatment 1 will increase the mean weight of plants compared to the control group. In this case, we would perform a one-sided test, and our alternative hypothesis would be that the mean weight of plants in treatment 1 is <strong>greater</strong> than the mean weight of plants in the control group.</p>
 <p>A one sided test has more statistical power to detect an effect in the specified direction as your significance threshold increases on one side of the distribution.</p>
-<p>You should only use a one-sided test if you have a strong biological rationale for expecting an effect in a specific direction and are not interested in detecting an effect in the opposite direction. It is NOT OKAY to run a two-sided test, see that the p-value is not significant, and then switch to a one-sided test to try to get a significant result. This is a form of p-hacking that can lead to false positives.</p>
-<p>The t_test() function from rstatix allows you to specify the alternative hypothesis using the <code>alternative</code> argument. You can set it to “two.sided”, “greater”, or “less” depending on your hypothesis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/tails.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>You should only use a one-sided test if you have a strong biological rationale for expecting an effect in a specific direction and are not interested in detecting an effect in the opposite direction.</p>
+<p>It is NOT OKAY to run a two-sided test, see that the p-value is not significant, and then switch to a one-sided test to try to get a significant result. This is a form of p-hacking that can lead to false positives.</p>
+<p>The <code>t_test()</code> function from rstatix allows you to specify the alternative hypothesis using the <code>alternative</code> argument. You can set it to “two.sided”, “greater”, or “less” depending on your hypothesis.</p>
 <p><strong>Example: One-sided test</strong></p>
 <p>The <code>chickwts</code> dataset contains the weights of chicks fed with different types of feed. We want to test if the mean weight of chicks fed with “casein” feed (high protein) is greater than the mean weight of chicks fed with regular “linseed” feed.</p>
-<p>In this example, we only want to know if chicks gain more weight when fed with casein. If they gain less weight, then we are not interested in using casein as feed. Therefore, we will perform a one-sided t-test with the alternative hypothesis that the mean weight of chicks fed with casein feed is greater than the mean weight of chicks fed with meatmeal feed.</p>
+<p>In this example, we only want to know if chicks gain more weight when fed with casein. If they gain less weight, then we are not interested in using casein as feed. Therefore, we will perform a one-sided t-test with the alternative hypothesis that the mean weight of chicks fed with casein feed is greater than the mean weight of chicks fed with linseed feed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>chickwts <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(feed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"casein"</span>, <span class="st">"linseed"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">feed =</span> <span class="fu">droplevels</span>(feed)) <span class="sc">|&gt;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> feed, <span class="at">y =</span> weight, <span class="at">fill =</span> feed)) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"t.test"</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>chickwts <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(feed <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"casein"</span>, <span class="st">"linseed"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">feed =</span> <span class="fu">droplevels</span>(feed)) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> feed, <span class="at">y =</span> weight, <span class="at">fill =</span> feed)) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"t.test"</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>,<span class="at">label.y =</span> <span class="dv">450</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -917,14 +994,19 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="paired-vs-independent-tests">Paired vs independent tests</h3>
 <p>When comparing two groups, we need to consider whether the samples are independent or paired. Independent samples are those where the observations in one group are not related to the observations in the other group.</p>
 <p>Paired samples are most often repeated measurements on the same subjects (e.g.&nbsp;before and after treatment) or matched samples (e.g.&nbsp;twins, siblings, or matched cases and controls).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paired_t.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 <p>When the samples are paired, we need to use a paired test that takes into account the fact that the observations are related.</p>
 <p><strong>Example: Paired test</strong></p>
 <p>A researcher studying the effects of dopamine (DA) depletion on working memory in rhesus monkeys, tested working memory performance in 15 monkeys after administration of a saline (placebo) injection and again after injecting a dopamine-depleting agent.</p>
 <p>Working memory performance was measured as the percentage of correct responses in a working memory task. The researcher wants to know if there is a significant difference in working memory performance following DA depletion.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the data</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>wm_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/working.memory.csv"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>wm_data <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>wm_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/working.memory.csv"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>wm_data <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Subject             placebo       DA.depletion  
  Length:15          Min.   : 9.00   Min.   : 7.00  
@@ -934,33 +1016,32 @@ window.Quarto = {
                     3rd Qu.:35.00   3rd Qu.:24.00  
                     Max.   :50.00   Max.   :75.00  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First, lets convert our data to a tidy format where we have one row per observation and columns for the monkey ID, condition (placebo or DA depleted) and performance.</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="ot">&lt;-</span> wm_data <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(DA.depletion,placebo), <span class="at">names_to =</span> <span class="st">"condition"</span>, <span class="at">values_to =</span> <span class="st">"performance"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"placebo"</span>, <span class="st">"DA.depletion"</span>)))</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="do">## The placebo and DA depleted conditions are paired measurements on the same monkeys. We can visualise the data with a paired plot.</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> performance, <span class="at">group =</span> Subject)) <span class="sc">+</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Convert our data to long format to make it easier to plot</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="ot">&lt;-</span> wm_data <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(DA.depletion,placebo), <span class="at">names_to =</span> <span class="st">"condition"</span>, <span class="at">values_to =</span> <span class="st">"performance"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"DA.depletion"</span>, <span class="st">"placebo"</span>)))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="do">## The placebo and DA depleted conditions are paired measurements on the same monkeys. We can visualise the data with a paired plot.</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> performance, <span class="at">group =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We can see that there is a lot of variability in the performance of the monkeys, but it looks like most monkeys perform worse after DA depletion compared to placebo. There is also a large outlier where one monkey performs much better after DA depletion than placebo. It’s possible there was an error in the data collection for this monkey and it could be removed, but let’s assume the result is real and include it in our analysis.</p>
+<p>We can see that there is a lot of variability in the performance of the monkeys, but it looks like most monkeys perform worse after DA depletion compared to placebo. There is a large outlier, where one monkey performs much better after DA depletion compared to placebo. It’s possible there was an error in the data collection for this monkey and it could be removed, but let’s assume the result is real and include it in our analysis.</p>
 <p>In a paired test, we are interested in the difference in performance between the two conditions for each monkey. We can calculate the difference in performance for each monkey and then test if the mean difference is significantly different from zero.</p>
 <p>Because we are looking at the differences in performance for each monkey, we need to check if the differences are normally distributed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Subject) <span class="sc">|&gt;</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">diff =</span> performance[condition <span class="sc">==</span> <span class="st">"DA.depletion"</span>] <span class="sc">-</span> performance[condition <span class="sc">==</span> <span class="st">"placebo"</span>]) <span class="sc">|&gt;</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>wm_data <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> DA.depletion <span class="sc">-</span> placebo) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   variable statistic         p
@@ -969,43 +1050,39 @@ window.Quarto = {
 </div>
 </div>
 <p>The differences are not normally distributed (p-value &lt; 0.05), so we cannot use a parametric test to compare the two conditions.</p>
-<p>Non-parametric tests:</p>
-<ul>
-<li><strong>Wilcoxon ranked sum test</strong> = Non parametric test for independent samples (also known as the Mann-Whitney U test)</li>
-<li><strong>Wilcoxon signed-rank test</strong> = Non parametric test for paired samples</li>
-</ul>
-<p>For both of these tests we can use the <code>wilcox_test()</code> function from the rstatix package. For the paired test, we need to specify the <code>paired = TRUE</code> argument. The <code>t_test()</code> function also has a <code>paired</code> argument that can be set to TRUE to perform a paired t-test.</p>
+<p>The non-parametric equivalent of the paired t-test is the <strong>Wilcoxon signed-rank test</strong>. This test does not assume normality and is used to compare two related samples.</p>
+<p>We can use the <code>wilcox_test()</code> function from the rstatix package. For a paired test, we need to specify the <code>paired = TRUE</code> argument. The <code>t_test()</code> function also has a <code>paired</code> argument that can be set to TRUE when performing a paired t-test.</p>
 <p>Non parametric tests are less powerful than parametric tests, so we have a higher chance of failing to detect a true effect. However, they are more robust to violations of assumptions and can be used when the data is not normally distributed. They work by ranking the differences in performance for each monkey and then testing if the ranks of the differences are significantly different from zero.</p>
-<p>Because we do not know what the effect of DA depletion on working memory performance is, we will perform a two-sided test with the alternative hypothesis that there is a difference in performance between the two conditions.</p>
+<p>Because we do not have prior hypothesis about the effect of DA depletion on working memory performance, we will perform a two-sided test with the alternative hypothesis that there is a difference in performance between the two conditions.</p>
 <ul>
 <li>Null hypothesis: There is no difference in working memory performance between the placebo and DA depleted conditions.</li>
 <li>Alternative hypothesis: There is a difference in working memory performance between the placebo and DA depleted</li>
 <li>Significance level: 0.05</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(performance <span class="sc">~</span> condition, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(performance <span class="sc">~</span> condition, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-  .y.         group1  group2          n1    n2 statistic      p p.signif
-  &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;        &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
-1 performance placebo DA.depletion    15    15       105 0.0114 *       </code></pre>
+  .y.         group1       group2     n1    n2 statistic      p p.signif
+  &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
+1 performance DA.depletion placebo    15    15        15 0.0114 *       </code></pre>
 </div>
 </div>
 <p>Visualise the results:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> performance, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> condition), <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">colour =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"wilcox.test"</span>, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>wm_long_data <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> performance, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> condition), <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">colour =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"wilcox.test"</span>, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1014,9 +1091,9 @@ window.Quarto = {
 </section>
 <section id="comparing-categorical-data" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-categorical-data">Comparing categorical data</h2>
-<p>When we have categorical data, we can use different tests to compare the frequencies of categories between groups.</p>
+<p>We can also use hypothesis testing to compare categorical data.</p>
 <p><strong>Example: Genotype frequencies</strong></p>
-<p>A researcher is studying a specific gene that determines whether a rare species of butterfly has Spotted or Plain wings. You want to see if the genotype (<span class="math inline">\(AA\)</span> vs <span class="math inline">\(Aa\)</span>) is associated with the wing pattern. Because the species is rare, the researcher can only collect a small sample of butterflies (n = 20). The data is shown below:</p>
+<p>A researcher is studying a specific gene that determines whether a rare species of butterfly has Spotted or Plain wings. They want to see if the genotype (<span class="math inline">\(AA\)</span> vs <span class="math inline">\(Aa\)</span>) is associated with the wing pattern. Because the species is rare, the researcher can only collect a small sample of butterflies (n = 20). The data is shown below:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1055,23 +1132,57 @@ window.Quarto = {
 <li>Significance level: 0.05</li>
 </ul>
 <p>Under the null hypothesis, we would expect the frequencies of each category to be proportional to the overall frequencies of the genotypes and wing patterns in the sample.</p>
-<div class="line-block">Genotype | Wing Pattern | Observed | Expected |</div>
-<p>|———-|————–|——-||———-| | AA | Spotted | 8 | 4.5 | | AA | Plain | 2 | 5.5 | | Aa | Spotted | 1 | 4.5 | | Aa | Plain | 9 | 5.5 |</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Genotype</th>
+<th>Wing Pattern</th>
+<th>Observed</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AA</td>
+<td>Spotted</td>
+<td>8</td>
+<td>4.5</td>
+</tr>
+<tr class="even">
+<td>AA</td>
+<td>Plain</td>
+<td>2</td>
+<td>5.5</td>
+</tr>
+<tr class="odd">
+<td>Aa</td>
+<td>Spotted</td>
+<td>1</td>
+<td>4.5</td>
+</tr>
+<tr class="even">
+<td>Aa</td>
+<td>Plain</td>
+<td>9</td>
+<td>5.5</td>
+</tr>
+</tbody>
+</table>
 <p>The fisher’s exact test calculates the probability of observing the data we have collected (or more extreme) under the null hypothesis and gives us a p-value to help us decide whether to reject or fail to reject the null hypothesis.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a contingency table</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">9</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(contingency_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AA"</span>, <span class="st">"Aa"</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(contingency_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Spotted"</span>, <span class="st">"Plain"</span>)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a contingency table</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">9</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(contingency_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AA"</span>, <span class="st">"Aa"</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(contingency_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Spotted"</span>, <span class="st">"Plain"</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Spotted Plain
 AA       8     2
 Aa       1     9</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the chi-squared test</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher_test</span>(contingency_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the Fisher's exact test</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher_test</span>(contingency_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
       n       p p.signif
@@ -1079,79 +1190,88 @@ Aa       1     9</code></pre>
 1    20 0.00548 **      </code></pre>
 </div>
 </div>
-<p>We can also use a <strong>chi-squared test</strong> to test for association between genotype and wing pattern. However, the chi-squared test is not appropriate for small sample sizes and can give inaccurate results when the expected frequencies in any cell of the contingency table are less than 5.</p>
+<p>We can also use a <strong>chi-squared test</strong> to test for association between categorical variables. However, the chi-squared test is not appropriate for small sample sizes and can give inaccurate results when the expected frequencies in any cell of the contingency table are less than 5.</p>
 </section>
 <section id="reporting-statistical-results" class="level2">
 <h2 class="anchored" data-anchor-id="reporting-statistical-results">Reporting statistical results</h2>
 <p>A significant p-value (e.g.&nbsp;p &lt; 0.05) means that we reject the null hypothesis and conclude that there is a statistically significant difference in our data. However, it does not tell us about the size of the effect or its biological relevance.</p>
 <p>When reporting statistical results, it is important to include the test statistic, degrees of freedom, p-value, and confidence intervals for the effect size. This provides a more complete picture of the results and allows readers to assess the biological relevance of the findings.</p>
-<p>Degrees of freedom (df) are a measure of the amount of information available to estimate the variability in the data. They are calculated based on the sample size and the number of parameters being estimated.</p>
+<p><strong>Degrees of freedom (df)</strong> are a measure of the amount of information available to estimate the variability in the data. They are calculated based on the sample size and the number of parameters being estimated.</p>
 <p><strong>EXAMPLE: Reporting t-test results</strong></p>
 <p>Let’s look at the results of the t-test comparing the control and treatment 2 groups in our plant data. This time we will use the <code>detailed = TRUE</code> argument in the <code>t_test()</code> function to get more information.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>t_test_full_result <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ctrl"</span>, <span class="st">"trt2"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">droplevels</span>(group)) <span class="sc">|&gt;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group, <span class="at">detailed =</span> T) <span class="sc">|&gt;</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>t_test_full_result <span class="ot">&lt;-</span> PlantGrowth <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"trt2"</span>, <span class="st">"ctrl"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> group, <span class="at">detailed =</span> T) <span class="sc">|&gt;</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>t_test_full_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 16
+  estimate estimate1 estimate2 .y.    group1 group2    n1    n2 statistic      p
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1    0.494      5.53      5.03 weight trt2   ctrl      10    10      2.13 0.0479
+# ℹ 6 more variables: df &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, method &lt;chr&gt;,
+#   alternative &lt;chr&gt;, p.signif &lt;chr&gt;</code></pre>
+</div>
 </div>
 <p>The t-test results include:</p>
 <ul>
-<li>t-statistic</li>
-<li>degrees of freedom</li>
-<li>p-value</li>
-<li>confidence intervals</li>
+<li>t-statistic (statistic)</li>
+<li>degrees of freedom (df)</li>
+<li>p-value (p)</li>
+<li>confidence intervals (conf.low, conf.high)</li>
 </ul>
-<p>The <strong>t-statistic</strong> is -2.13, which indicates that the difference in mean weight between the control and treatment 2 groups is -2.13 standard errors away from zero.</p>
+<p>The <strong>t-statistic</strong> is 2.13, which indicates that the difference in mean weight between the control and treatment 2 group is 2.13 standard errors away from zero.</p>
 <p>The <strong>degrees of freedom</strong> are 16.8, which is based on the sample size of each group and the number of groups being compared.</p>
 <p>The <strong>p-value</strong> is 0.0479, which is less than our significance level of 0.05, so we reject the null hypothesis and conclude that there is a statistically significant difference in mean weight between the control and treatment 2 group.</p>
 <p>The <strong>confidence interval</strong> for the difference in means is (-0.983, -0.00513), which means that we are 95% confident that the true difference in mean weight between the two groups lies within this interval.</p>
 <p>When reporting these results in a scientific paper, we would include all of this information to provide a complete picture of the statistical analysis and allow readers to assess the biological relevance of the findings.</p>
 <p>We can print the results in a more readable format. The <strong>glue</strong> package is useful for this. It allows us to create a string with embedded R code that will be evaluated and included in the output.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("glue") # if not installed already</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-calculate to keep the glue block clean</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>ctrl_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(PlantGrowth<span class="sc">$</span>weight[PlantGrowth<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"ctrl"</span>])</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>trt2_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(PlantGrowth<span class="sc">$</span>weight[PlantGrowth<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"trt2"</span>])</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">"The mean weight of plants in the control group is {round(ctrl_mean, 2)} </span><span class="sc">\\</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="st">      and the mean weight of plants in treatment 2 group is {round(trt2_mean, 2)}. </span><span class="sc">\\</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="st">      The t-test results show a significant difference (t = {round(t_test_full_result$statistic, 2)}, </span><span class="sc">\\</span></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="st">      df = {round(t_test_full_result$df,2)}, p = {round(t_test_full_result$p, 4)}). </span><span class="sc">\\</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="st">      The confidence interval is ({round(t_test_full_result$conf.low, 4)}, </span><span class="sc">\\</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="st">      {round(t_test_full_result$conf.high, 4)})."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-calculate to keep the glue block clean</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>ctrl_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(PlantGrowth<span class="sc">$</span>weight[PlantGrowth<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"ctrl"</span>])</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>trt2_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(PlantGrowth<span class="sc">$</span>weight[PlantGrowth<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"trt2"</span>])</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glue</span>(<span class="st">"The mean weight of plants in the control group is {round(ctrl_mean, 2)} </span><span class="sc">\\</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="st">      and the mean weight of plants in treatment 2 group is {round(trt2_mean, 2)}. </span><span class="sc">\\</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="st">      The t-test results show a significant difference (t = {round(t_test_full_result$statistic, 2)}, </span><span class="sc">\\</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="st">      df = {round(t_test_full_result$df,2)}, p = {round(t_test_full_result$p, 4)}). </span><span class="sc">\\</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="st">      The confidence interval is ({round(t_test_full_result$conf.low, 4)}, </span><span class="sc">\\</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="st">      {round(t_test_full_result$conf.high, 4)})."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The mean weight of plants in the control group is 5.03 and the mean weight of plants in treatment 2 group is 5.53. The t-test results show a significant difference (t = -2.13, df = 16.79, p = 0.0479). The confidence interval is (-0.9829, -0.0051).</code></pre>
+<pre><code>The mean weight of plants in the control group is 5.03 and the mean weight of plants in treatment 2 group is 5.53. The t-test results show a significant difference (t = 2.13, df = 16.79, p = 0.0479). The confidence interval is (0.0051, 0.9829).</code></pre>
 </div>
 </div>
 </section>
 <section id="interpreting-statistical-results" class="level2">
 <h2 class="anchored" data-anchor-id="interpreting-statistical-results">Interpreting statistical results</h2>
-<p>When interpreting statistical results, it is important to consider the biological relevance of the findings. A statistically significant result does not necessarily mean that the effect is biologically meaningful. We should consider the effect size and confidence intervals to assess the magnitude and precision of the effect. Additionally, we should consider the context of the experiment and whether the findings are consistent with existing literature and biological knowledge.</p>
-<section id="is-it-meaningful" class="level4">
-<h4 class="anchored" data-anchor-id="is-it-meaningful">Is it meaningful?</h4>
-<p>First we must assess if the difference is meaningful within the biological context of our experiment.</p>
-</section>
+<p>When interpreting statistical results, it is important to consider the biological relevance of the findings. A statistically significant result does not necessarily mean that the effect is biologically meaningful.</p>
 <section id="is-it-large-enough" class="level4">
 <h4 class="anchored" data-anchor-id="is-it-large-enough">Is it large enough?</h4>
-<p>Statistical tests produce statistics which represent the size of the effect over the variability within samples i.e.&nbsp;the signal to noise ratio.</p>
+<p>Statistical tests produce statistics which represent the size of the effect over the variability within samples. Check the effect size and confidence intervals to assess the magnitude and precision of the effect. When sample sizes are large, even small differences can be statistically significant, but they may not be biologically meaningful. Conversely, when sample sizes are small, large differences may not reach statistical significance, but they could still be biologically relevant.</p>
 </section>
 <section id="is-it-real" class="level4">
 <h4 class="anchored" data-anchor-id="is-it-real">Is it real?</h4>
-<p>We use p-values to make decisions. Using this threshold we can claim “statistical significance” and quantify the confidence we have in this difference.</p>
+<p>We use p-values to make decisions, not to tell us if something is real or not. Using a threshold we can claim “statistical significance” and quantify the confidence we have in this difference. However, we can never be 100% sure that the difference we are seeing is real. We can only say that it is unlikely to have occurred by chance alone (e.g.&nbsp;p &lt; 0.05).</p>
+</section>
+<section id="is-it-meaningful" class="level4">
+<h4 class="anchored" data-anchor-id="is-it-meaningful">Is it meaningful?</h4>
+<p>We must assess if the difference is meaningful within the biological context of our experiment. A significant p-value does not necessarily mean that the effect is biologically relevant or that the size of the effect is large enough to be meaningful. Consider the context of the experiment and whether the findings are consistent with existing literature and biological knowledge.</p>
 </section>
 </section>
 <section id="p-values" class="level2">
 <h2 class="anchored" data-anchor-id="p-values">P-values</h2>
-<p>The p-value is the probability of finding a result, as or more extreme than ours, when we assume that the null hypothesis H0 is true.</p>
+<p>The p-value is the probability of finding a result, as or more extreme than our observed data, when we assume that the null hypothesis H0 is true.</p>
 <ul>
 <li>p = 0 : Zero chance of getting these results under H0</li>
 <li>p = 1 : 100% chance of getting these results under H0</li>
 <li>p = 0.05 : 5% chance of getting this or a more extreme result under H0</li>
 </ul>
-<p>0.05 is a commonly used threshold to reject the null hypothesis and accept the alternative hypothesis. If there is no effect, we would only see a result like this or more extreme 5% of the time.</p>
+<p>Setting alpha = 0.05 is a commonly used threshold to reject the null hypothesis and accept the alternative hypothesis. If there is no effect, we would only see a result like this or more extreme 5% of the time.</p>
 <p>P-values are commonly misconceived. The p-value is NOT:</p>
 <ul>
 <li>The probability of the null hypothesis being true</li>
@@ -1164,6 +1284,7 @@ Aa       1     9</code></pre>
 <h2 class="anchored">
 <i class="fas fa-book"></i> Resources
 </h2>
+<p>Here is some more reading on p-values and their misconceptions:</p>
 <ul>
 <li><a href="https://towardsdatascience.com/p-values-and-when-not-to-use-them-92cab8a86304">P-values and when not to use them</a></li>
 <li><a href="https://sixsigmadsi.com/wp-content/uploads/2020/10/A-Dirty-Dozen-Twelve-P-Value-Misconceptions.pdf">P-values and misconceptions</a></li>
@@ -1174,6 +1295,11 @@ Aa       1     9</code></pre>
 <section id="confidence-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="confidence-intervals">Confidence intervals</h2>
 <p>P-values assign probabilities to our findings but tell us nothing about the size of the effect we are seeing. Confidence intervals can provide a more informative interpretation as they give a range of probable scores based on our model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/conf_int.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
 <p>A 95% confidence interval is the range of values for which we are 95% certain contains the real statistic.</p>
 <p>Example: Two surveys measuring self reported quality of life on a 0-10 scale: Study A: mean = 7 (95% CI 6,8) Study B: mean = 7 (95% CI 1,9)</p>
 <p>Are they saying the same thing? What is the practical impact of a larger confidence interval?</p>
@@ -1188,20 +1314,21 @@ Aa       1     9</code></pre>
 <p>In this challenge we are going to perform statistical analysis to see if the weights of 10 rabbits <em>increase</em> after a hypothetical experimental treatment. First prepare the data:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The data set </span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight of the rabbit before treatment </span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">190.1</span>, <span class="fl">190.9</span>, <span class="fl">172.7</span>, <span class="dv">213</span>, <span class="fl">231.4</span>,  </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>           <span class="fl">196.9</span>, <span class="fl">172.2</span>, <span class="fl">285.5</span>, <span class="fl">225.2</span>, <span class="fl">113.7</span>) </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight of the rabbit after treatment </span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">392.9</span>, <span class="fl">313.2</span>, <span class="fl">345.1</span>, <span class="dv">393</span>, <span class="dv">434</span>,  </span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>          <span class="fl">227.9</span>, <span class="dv">422</span>, <span class="fl">383.9</span>, <span class="fl">392.3</span>, <span class="fl">801.2</span>) </span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame </span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>rabbits <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(  </span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="do">##Assign sampleIDs</span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">before=</span>before,</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">after=</span>after</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight of the rabbit before treatment </span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">190.1</span>, <span class="fl">190.9</span>, <span class="fl">172.7</span>, <span class="dv">213</span>, <span class="fl">231.4</span>,  </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>           <span class="fl">196.9</span>, <span class="fl">172.2</span>, <span class="fl">285.5</span>, <span class="fl">225.2</span>, <span class="fl">113.7</span>) </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight of the rabbit after treatment </span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>after <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">392.9</span>, <span class="fl">313.2</span>, <span class="fl">345.1</span>, <span class="dv">393</span>, <span class="dv">434</span>,  </span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>          <span class="fl">227.9</span>, <span class="dv">422</span>, <span class="fl">383.9</span>, <span class="fl">392.3</span>, <span class="fl">135.6</span>) </span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame </span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>rabbits <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(  </span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="do">##Assign sampleIDs</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">before=</span>before,</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">after=</span>after</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="consider-the-following" class="level2">
 <h2 class="anchored" data-anchor-id="consider-the-following">Consider the following:</h2>
@@ -1224,47 +1351,74 @@ Aa       1     9</code></pre>
 </h2>
 <p>Visualise:</p>
 <div class="cell" data-answer="true">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rabbits<span class="sc">$</span>before,rabbits<span class="sc">$</span>after)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rabbits <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(before, after), <span class="at">names_to =</span> <span class="st">"condition"</span>, <span class="at">values_to =</span> <span class="st">"weight"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"before"</span>, <span class="st">"after"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> condition, <span class="at">y =</span> weight, <span class="at">fill =</span> condition)) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> condition), <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> sample), <span class="at">colour =</span> <span class="st">"grey80"</span>) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04-inference_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04-inference_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Test for normality:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(rabbits<span class="sc">$</span>after<span class="sc">-</span>rabbits<span class="sc">$</span>before)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>rabbits <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> after <span class="sc">-</span> before) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Shapiro-Wilk normality test
-
-data:  rabbits$after - rabbits$before
-W = 0.70287, p-value = 0.0009544</code></pre>
+<pre><code># A tibble: 1 × 3
+  variable statistic     p
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+1 diff         0.924 0.387</code></pre>
 </div>
 </div>
-<p>We reject the Null hypothesis that the difference in weights is normally distributed, so we must use a non parametric test.</p>
-<p>The data is paired and our null hypothesis is that the weight after treatment is not <em>greater</em> than the weight before. We therefore have a one-sided test and use “greater” as our alternative hypothesis. We include the option to produce confidence intervals:</p>
+<p>We fail to reject the Null hypothesis that the difference in weights is normally distributed. In this case, we can use a parametric t-test to compare the weights before and after treatment.</p>
+<ul>
+<li>Null hypothesis: There is no increase in weight after treatment compared to before treatment.</li>
+<li>Alternative hypothesis: There is an increase in weight after treatment compared to before treatment.</li>
+<li>Significance level: 0.05</li>
+</ul>
+<p>Because our alternative hypothesis is directional, we will use a one-sided test and use “greater” as our alternative hypothesis.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(rabbits<span class="sc">$</span>after, rabbits<span class="sc">$</span>before, <span class="at">paired =</span> <span class="cn">TRUE</span>,<span class="at">alternative =</span> <span class="st">"greater"</span>,<span class="at">conf.int =</span> T) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## run a paired t-test with rstatix</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>rabbits <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(before, after), <span class="at">names_to =</span> <span class="st">"condition"</span>, <span class="at">values_to =</span> <span class="st">"weight"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition =</span> <span class="fu">factor</span>(condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"after"</span>, <span class="st">"before"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(weight <span class="sc">~</span> condition, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Wilcoxon signed rank exact test
-
-data:  rabbits$after and rabbits$before
-V = 55, p-value = 0.0009766
-alternative hypothesis: true location shift is greater than 0
-95 percent confidence interval:
- 122.3   Inf
-sample estimates:
-(pseudo)median 
-         176.2 </code></pre>
+<pre><code># A tibble: 1 × 14
+  estimate .y.    group1 group2    n1    n2 statistic        p    df conf.low
+     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1     145. weight after  before    10    10      6.09 0.000091     9     101.
+# ℹ 4 more variables: conf.high &lt;dbl&gt;, method &lt;chr&gt;, alternative &lt;chr&gt;,
+#   p.signif &lt;chr&gt;</code></pre>
 </div>
 </div>
+<p>Because we are performing a one-sided test, we are only looking for an increase in weight after treatment. The p-value is 0.0002, which is less than our significance level of 0.05, so we reject the null hypothesis and conclude that there is a statistically significant increase in weight after treatment compared to before treatment. One-sided tests produce a single confidence interval that is either above or below zero, depending on the direction of the alternative hypothesis. In this case, the confidence interval is (101, Inf), which means that we are 95% confident that the true increase in weight after treatment compared to before treatment is greater than 101.</p>
 </div>
 </details>
 </section>
+</div>
+<div class="key-points">
+<h2 class="anchored">
+<i class="fas fa-thumbtack"></i> Key points
+</h2>
+<ul>
+<li>Inference is the process of drawing conclusions about a population based on a sample of data</li>
+<li>Hypothesis tests are used to determine if observed differences are statistically significant</li>
+<li>The choice of statistical test depends on the type of data, the structure of the data, the variables being compared, and the distribution of the data</li>
+<li>P-values are commonly used to determine statistical significance, but they do not provide information about the size of the effect or its biological relevance</li>
+<li>Confidence intervals can provide more information about the magnitude and biological relevance of the effect</li>
+<li>Always include the full statistical results when reporting your findings, including the test statistic, degrees of freedom, p-value, and confidence intervals</li>
+</ul>
 </div>
 
 
@@ -1676,6 +1830,18 @@ sample estimates:
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-stats.html" class="pagination-link" aria-label="Statistical thinking">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Statistical thinking</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-power.html" class="pagination-link" aria-label="Statistical power">
+        <span class="nav-page-text">Statistical power</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

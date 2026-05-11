@@ -60,6 +60,14 @@ website:
         contents:
           - href: 04-Setup.qmd
             text: Setup
+          - href: 04-stats.qmd
+            text: Statistical thinking
+          - href: 04-inference.qmd
+            text: Statistical inference
+          - href: 04-power.qmd
+            text: Statistical power
+          - href: 04-HW.qmd
+            text: Homework exercise
 
 format:
   html:
@@ -68,6 +76,7 @@ format:
       - custom.scss
     css: styles.css
     toc: true
+    toc-float: false
     link-external-newwindow: true
 
 editor: visual
