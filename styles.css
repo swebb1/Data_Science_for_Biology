@@ -6,42 +6,42 @@
 
 .key-points {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #587e76;
   color: white;
 }
 
 .objectives {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #5b9aa0;
   color: white;
 }
 
 .discussion {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #c8553d;
   color: white;
 }
 
 .resources {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #a79e84;
   color: white;
 }
 
 .hints {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #4699C3;
   color: white;
 }
 
 .challenge {
   padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
   background: #667292;
   color: white;
 }
