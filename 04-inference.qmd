@@ -501,7 +501,7 @@ chickwts |>
   ggplot(aes(x = feed, y = weight, fill = feed)) +
   geom_boxplot() +
   theme_bw() +
-  stat_compare_means(method = "t.test", alternative = "greater",label.y = 450)
+  stat_compare_means(method = "t.test", method.args = list(alternative = "greater") ,label.y = 450)
 
 ```
 
