@@ -216,7 +216,7 @@ It is important to record all relevant metadata about the samples and experiment
 
 ![](images/pca.png){fig-align="center" width=85%}
 
-## Exapnding your statistical toolkit
+## Expanding your statistical toolkit
 
 As you progress in your research, you may encounter more complex data and research questions that require advanced statistical methods. We will delve into some of these methods in our RNA-seq lesson, but here is a brief overview of some of the techniques you may want to explore:
 

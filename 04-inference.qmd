@@ -285,10 +285,10 @@ There are many online resources to choose the correct test for your data, or you
 
 The resources below are a good starting point for learning about different types of statistical tests and when to use them.
 
-  - https://irrespub.com/statistical-tests-in-biomedical-research/
-  - https://www.graphpad.com/support/faqid/1790/
-  - http://www.sthda.com/english/wiki/comparing-means-in-r
-  - https://www.biostathandbook.com/testchoice.html
+  - [Statistics in research](https://irrespub.com/statistical-tests-in-biomedical-research/)
+  - [Selecting a statistical test](https://www.graphpad.com/support/faqid/1790/)
+  - [Comparing means in R](http://www.sthda.com/english/wiki/comparing-means-in-r)
+  - [Choosing a statistical test](https://www.biostathandbook.com/testchoice.html)
 
 :::
 
