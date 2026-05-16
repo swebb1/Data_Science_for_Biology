@@ -677,8 +677,6 @@ What does `set.seed()` do?
 What do the `paste()` and `rep()` functions do?
 :::
 
-<br>
-
 We can use the `t.test()` function to compare the means of the two groups. The syntax for the t-test is `t.test(Value ~ Group, data=df)`, where `Value` is the numeric variable we want to compare and `Group` is the categorical variable that defines the groups.
 
 ```{r}
@@ -988,8 +986,6 @@ The mean ΔCt value for the treatment group is lower than the control group, whi
 </details>
 ::::
 
-<br>
-
 ### Step 5: Calculate fold change
 
 We now know that there is a significant difference in gene expression between the control and treatment groups, but how much of a difference is there? We can calculate the fold change in gene expression using the formula:
@@ -1028,9 +1024,9 @@ Next we will start to look at the strengths of R as a programming language and h
 ::: resources
 <h2><i class="fas fa-book"></i> Resources</h2>
 
--   R manual: <https://cran.r-project.org/doc/manuals/r-patched/R-intro.html>
--   RStudio user guide: <https://docs.posit.co/ide/user/>
--   RStudio cheat-sheet: <https://rstudio.github.io/cheatsheets/html/rstudio-ide.html>
+  - [R manual](https://cran.r-project.org/doc/manuals/r-patched/R-intro.html)
+  - [RStudio user guide](https://docs.posit.co/ide/user/)
+  - [RStudio cheat-sheet](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html)
 :::
 
 <br>
