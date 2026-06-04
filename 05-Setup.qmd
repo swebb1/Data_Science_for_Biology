@@ -50,7 +50,6 @@ Download the RNA-seq data:
 
 ```{r, eval=FALSE}
 
-{r, eval=FALSE}
 ## Create a directory to store the data
 dir.create("data")
 
