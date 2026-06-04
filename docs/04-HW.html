@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./05-Setup.html" rel="next">
 <link href="./04-power.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -346,6 +347,23 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./04-HW.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/deseq.jpeg" width="20px" style="margin-right: 5px;"> 5: Differential Expression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
   </div>
 </li>
       </ul>
@@ -711,7 +729,8 @@ Fold~Change = 2^{-ΔΔCt}
 <h2 class="anchored" data-anchor-id="relative-fold-change-for-plotting">Relative fold change for plotting</h2>
 <p>In the paper, they plotted the fold change values relative to the mean of the D7 samples for each differentiation lineage.</p>
 <p>Calculate the fold change values relative to the mean of the D7 samples for each differentiation lineage. The mean of D7 samples should be calculated across biological replicates for each differentiation lineage.</p>
-<p><strong>HINT</strong></p>
+<p><strong>HINT</strong> You can add a new column to your dataframe that contains the mean fold change for D7 samples for each differentiation lineage e.g.</p>
+<p><code>mutate(mean_D7_fc = mean(fold_change[Day == "D7"]))</code></p>
 <div class="hints">
 <h2 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
@@ -1310,6 +1329,9 @@ SEM = \frac{SD}{\sqrt{n}}
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./05-Setup.html" class="pagination-link" aria-label="Setup">
+        <span class="nav-page-text">Setup</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

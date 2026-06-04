@@ -68,7 +68,12 @@ website:
             text: Statistical power
           - href: 04-HW.qmd
             text: Homework exercise
-
+      - section: "<img src='images/deseq.jpeg' width='20px' style='margin-right: 5px;'> 5: Differential Expression"
+        contents:
+          - href: 05-Setup.qmd
+            text: Setup
+          - href: 05-deseq.qmd
+            text: Differential expression analysis with DESeq2
 format:
   html:
     theme: 

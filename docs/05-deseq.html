@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>RNA-Seq Differential Expression – Data Science for Biology</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0b675d35237202dc9f97b06a9c2699da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/DRP_Logo_only_square_transparent.png" alt="" class="navbar-logo light-content">
+    <img src="./images/DRP_Logo_only_square_transparent.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Science for Biology</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./start.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">RNA-Seq Differential Expression</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/R_logo.png" width="20px" style="margin-right: 5px;"> 1: R and RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/tidyverse_logo.png" width="20px" style="margin-right: 5px;"> 2: Tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical thinking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/deseq.jpeg" width="20px" style="margin-right: 5px;"> 5: Differential Expression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rna-seq-data" id="toc-rna-seq-data" class="nav-link active" data-scroll-target="#rna-seq-data">1. RNA-seq data</a>
+  <ul class="collapse">
+  <li><a href="#raw-data" id="toc-raw-data" class="nav-link" data-scroll-target="#raw-data">Raw Data</a></li>
+  <li><a href="#raw-data-to-read-counts" id="toc-raw-data-to-read-counts" class="nav-link" data-scroll-target="#raw-data-to-read-counts">Raw data to read counts</a></li>
+  <li><a href="#deseq2-input-data" id="toc-deseq2-input-data" class="nav-link" data-scroll-target="#deseq2-input-data">DESeq2 input data</a></li>
+  </ul></li>
+  <li><a href="#the-deseq2-method" id="toc-the-deseq2-method" class="nav-link" data-scroll-target="#the-deseq2-method">2. The DESeq2 method</a>
+  <ul class="collapse">
+  <li><a href="#experimental-design-for-deseq2" id="toc-experimental-design-for-deseq2" class="nav-link" data-scroll-target="#experimental-design-for-deseq2">Experimental design for DESeq2</a></li>
+  <li><a href="#comprehensive-tutorials" id="toc-comprehensive-tutorials" class="nav-link" data-scroll-target="#comprehensive-tutorials">Comprehensive tutorials</a></li>
+  </ul></li>
+  <li><a href="#create-a-sample-file" id="toc-create-a-sample-file" class="nav-link" data-scroll-target="#create-a-sample-file">3. Create a sample file</a></li>
+  <li><a href="#importing-count-data-with-tximport" id="toc-importing-count-data-with-tximport" class="nav-link" data-scroll-target="#importing-count-data-with-tximport">4. Importing count data with tximport</a>
+  <ul class="collapse">
+  <li><a href="#transcript-to-gene-mapping" id="toc-transcript-to-gene-mapping" class="nav-link" data-scroll-target="#transcript-to-gene-mapping">Transcript to gene mapping</a></li>
+  <li><a href="#import-transcript-read-counts" id="toc-import-transcript-read-counts" class="nav-link" data-scroll-target="#import-transcript-read-counts">Import transcript read counts</a></li>
+  </ul></li>
+  <li><a href="#creating-a-deseq-object" id="toc-creating-a-deseq-object" class="nav-link" data-scroll-target="#creating-a-deseq-object">5. Creating a DESeq object</a>
+  <ul class="collapse">
+  <li><a href="#deseq2-design-formula" id="toc-deseq2-design-formula" class="nav-link" data-scroll-target="#deseq2-design-formula">DESeq2 design formula</a></li>
+  </ul></li>
+  <li><a href="#running-deseq2" id="toc-running-deseq2" class="nav-link" data-scroll-target="#running-deseq2">6. Running DESeq2</a>
+  <ul class="collapse">
+  <li><a href="#size-factor-estimation" id="toc-size-factor-estimation" class="nav-link" data-scroll-target="#size-factor-estimation">Size factor estimation</a></li>
+  <li><a href="#plot-dispersions" id="toc-plot-dispersions" class="nav-link" data-scroll-target="#plot-dispersions">Plot dispersions</a></li>
+  </ul></li>
+  <li><a href="#deseq-quality-control" id="toc-deseq-quality-control" class="nav-link" data-scroll-target="#deseq-quality-control">7. DESeq quality control</a>
+  <ul class="collapse">
+  <li><a href="#transform-count-data-for-visualisation" id="toc-transform-count-data-for-visualisation" class="nav-link" data-scroll-target="#transform-count-data-for-visualisation">Transform count data for visualisation</a></li>
+  <li><a href="#heatmap-of-sample-distances" id="toc-heatmap-of-sample-distances" class="nav-link" data-scroll-target="#heatmap-of-sample-distances">Heatmap of Sample Distances</a></li>
+  <li><a href="#principle-component-analysis" id="toc-principle-component-analysis" class="nav-link" data-scroll-target="#principle-component-analysis">Principle Component Analysis</a></li>
+  <li><a href="#heatmap-of-genes-with-the-largest-variance" id="toc-heatmap-of-genes-with-the-largest-variance" class="nav-link" data-scroll-target="#heatmap-of-genes-with-the-largest-variance">Heatmap of genes with the largest variance</a></li>
+  <li><a href="#plot-individual-gene-counts" id="toc-plot-individual-gene-counts" class="nav-link" data-scroll-target="#plot-individual-gene-counts">Plot Individual Gene Counts</a></li>
+  </ul></li>
+  <li><a href="#extract-deseq2-results" id="toc-extract-deseq2-results" class="nav-link" data-scroll-target="#extract-deseq2-results">8. Extract DESeq2 results</a>
+  <ul class="collapse">
+  <li><a href="#multiple-testing-correction-and-independent-filtering" id="toc-multiple-testing-correction-and-independent-filtering" class="nav-link" data-scroll-target="#multiple-testing-correction-and-independent-filtering">Multiple testing correction and independent filtering</a></li>
+  <li><a href="#log-fold-change-shrinkage" id="toc-log-fold-change-shrinkage" class="nav-link" data-scroll-target="#log-fold-change-shrinkage">Log Fold Change Shrinkage</a></li>
+  <li><a href="#formatting-and-annotating-results" id="toc-formatting-and-annotating-results" class="nav-link" data-scroll-target="#formatting-and-annotating-results">Formatting and annotating results</a></li>
+  </ul></li>
+  <li><a href="#visualise-deseq2-results" id="toc-visualise-deseq2-results" class="nav-link" data-scroll-target="#visualise-deseq2-results">9. Visualise DESeq2 results</a>
+  <ul class="collapse">
+  <li><a href="#volcano-plots" id="toc-volcano-plots" class="nav-link" data-scroll-target="#volcano-plots">Volcano plots</a></li>
+  <li><a href="#plots-of-de-genes-by-biotype" id="toc-plots-of-de-genes-by-biotype" class="nav-link" data-scroll-target="#plots-of-de-genes-by-biotype">Plots of DE genes by biotype</a></li>
+  <li><a href="#heatmaps-of-genes-with-largest-changes" id="toc-heatmaps-of-genes-with-largest-changes" class="nav-link" data-scroll-target="#heatmaps-of-genes-with-largest-changes">Heatmaps of genes with largest changes</a></li>
+  </ul></li>
+  <li><a href="#functional-enrichment-analysis" id="toc-functional-enrichment-analysis" class="nav-link" data-scroll-target="#functional-enrichment-analysis">10. Functional enrichment analysis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">RNA-Seq Differential Expression</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>head&gt;</p>
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+
+<div class="objectives">
+<h2 class="anchored">
+<i class="far fa-check-square"></i> Learning Objectives
+</h2>
+<ul>
+<li>Import gene expression data into R</li>
+<li>Understand the concept of differential expression and statistical testing</li>
+<li>Perform differential expression analysis using the DESeq2 package</li>
+<li>Interpret the results of differential expression analysis</li>
+</ul>
+</div>
+<p>In this module, we will put all of our R knowledge together to perform a differential expression analysis of RNA-Seq data. We will use the DESeq2 package, which is a widely used tool for analysing count data from RNA-Seq experiments.</p>
+<p>This workshop is partly modeled on the training materials already provided by the <a href="https://hbctraining.github.io/main/">Harvard Chan Bioinformatics Core</a>.</p>
+<section id="rna-seq-data" class="level2">
+<h2 class="anchored" data-anchor-id="rna-seq-data">1. RNA-seq data</h2>
+<p>The data we will we use in this workshop is part of a larger study described in <a href="https://pubmed.ncbi.nlm.nih.gov/25464849/">Kenny PJ et al., Cell Rep 2014</a>. The authors investigated interactions between various genes involved in Fragile X syndrome, a disease of aberrant protein production, which results in cognitive impairment and autistic-like features. They sought to show that RNA helicase <strong>MOV10</strong> regulates the translation of RNAs involved in Fragile X syndrome.</p>
+<p>The RNA was extracted from HEK293F cells that were transfected with a MOV10 transgene (MOV10 over-expression), MOV10 siRNA (MOV10 knockdown), or an irrelevant siRNA (Control).</p>
+<p>We will use this data to investigate changes in transcription upon perturbation of MOV10 expression relative to the control (irrelevant siRNA) experiment.</p>
+<section id="raw-data" class="level3">
+<h3 class="anchored" data-anchor-id="raw-data">Raw Data</h3>
+<p>The raw RNA-seq data is available publicly via <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50499">GEO</a> and the <a href="https://www.ncbi.nlm.nih.gov/sra?term=SRP029367">SRA</a> (sequence read archive).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Description</th>
+<th>Replicate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control_1</td>
+<td>Control</td>
+<td>replicate 1</td>
+</tr>
+<tr class="even">
+<td>Control_2</td>
+<td>Control</td>
+<td>replicate 2</td>
+</tr>
+<tr class="odd">
+<td>Control_3</td>
+<td>Control</td>
+<td>replicate 3</td>
+</tr>
+<tr class="even">
+<td>MOV10_OE_1</td>
+<td>MOV10 over-expression</td>
+<td>replicate 1</td>
+</tr>
+<tr class="odd">
+<td>MOV10_OE_2</td>
+<td>MOV10 over-expression</td>
+<td>replicate 2</td>
+</tr>
+<tr class="even">
+<td>MOV10_OE_3</td>
+<td>MOV10 over-expression</td>
+<td>replicate 3</td>
+</tr>
+<tr class="odd">
+<td>MOV10_KD_2</td>
+<td>MOV10 knock-down</td>
+<td>replicate 2</td>
+</tr>
+<tr class="even">
+<td>MOV10_KD_3</td>
+<td>MOV10 knock-down</td>
+<td>replicate 3</td>
+</tr>
+</tbody>
+</table>
+<p>Replicate 1 for MOV10 knockdown is missing as this was presumably a failed experiment.</p>
+</section>
+<section id="raw-data-to-read-counts" class="level3">
+<h3 class="anchored">Raw data to read counts</h3>
+<p>Differential expression analyses work with matrices of <strong>read counts per gene</strong> for multiple samples.</p>
+<p>These read counts are typically generated using command line tools to process and count reads.</p>
+<p><img src="images/rna_workflow.png" class="img-fluid"></p>
+<p>In the past, we used RNA-seq aligners like <a href="https://github.com/alexdobin/STAR">STAR</a> to map reads to the genome, and read counting software like <a href="https://htseq.readthedocs.io/en/release_0.11.1/count.html">HTSeq-count</a> or <a href="http://bioinf.wehi.edu.au/featureCounts/">featureCounts</a> to quantify counts of aligned reads over exons for each gene model.</p>
+<p>The standard practice now is to use <strong>pseudocounts</strong> from tools like <a href="https://combine-lab.github.io/salmon/">Salmon</a> which do a much better job at estimating expression levels by:</p>
+<ul>
+<li>Correcting for sequencing biases e.g.&nbsp;GC content</li>
+<li>Correcting for differences in individual transcript lengths</li>
+<li>Including reads that map to multiple genes</li>
+<li>Producing much smaller output files than aligners</li>
+</ul>
+<p>The <a href="https://nf-co.re/rnaseq/3.14.0/">NF-core RNA-seq pipeline</a> can perform alignment with STAR and quantification with Salmon and is recommended for processing raw RNA-seq data.</p>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="raw-data-to-read-counts">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p>If you are new to RNA-seq, this <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01a_RNAseq_processing_workflow.html">overview</a> provides an explanation of how RNA-seq libraries are prepared, sequenced and quantified for short-read data.</p>
+<p>If you are thinking about performing your own RNA-seq experiments then take a look at these <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/experimental_planning_considerations.html">experimental design considerations</a>:</p>
+<ul>
+<li>How many replicates do I need?</li>
+<li>How many reads do I need?</li>
+<li>What type of reads should I use?:
+<ul>
+<li>Paired or single end?</li>
+<li>What length?</li>
+<li>Stranded or unstranded?</li>
+</ul></li>
+<li>Confounding factors</li>
+<li>Batch effects</li>
+</ul>
+</div>
+</section>
+<section id="deseq2-input-data" class="level3">
+<h3 class="anchored" data-anchor-id="deseq2-input-data">DESeq2 input data</h3>
+<p>DESeq2 requires non-normalised or <strong>raw</strong> count estimates at the <strong>gene-level</strong> for performing DE analysis.</p>
+<p>Salmon outputs estimated read counts for each <strong>transcript</strong> in a file called <code>quant.sf</code>. We will use the R package <strong>tximport</strong> to import salmon transcript counts and summarise transcript abundance estimates for each gene.</p>
+<p>The quant.sf files for our samples are already in the folder you downloaded. They are organised in sub-folders by sample name.</p>
+<p>We also have a file called <em>salmon_tx2gene.tsv</em> which contains a map between transcript IDs and gene IDs for our annotation.</p>
+</section>
+</section>
+<section id="the-deseq2-method" class="level2">
+<h2 class="anchored" data-anchor-id="the-deseq2-method">2. The DESeq2 method</h2>
+<p>DESeq2 performs statistical analysis of un-normalised raw/estimated read count data per gene. It uses a <strong>median of ratios</strong> normalisation method to account for differences in sequencing depth and RNA composition between samples.</p>
+<p>Count data is modeled using a generalised linear model based on the <strong>negative binomial distribution</strong>, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between <strong>variance</strong> in the count data and the observed <strong>mean</strong>. The reasoning behind the use of count data and the negative binomial distribution is described <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01c_RNAseq_count_distribution.html">here</a>.</p>
+<p>The model coefficient represents the change in mean between sample groups giving us <strong>log2 fold change</strong> values per gene. By default, DESeq2 performs the <strong>Wald</strong> test to test for significant changes in gene expression between sample groups and generate <strong>p-values</strong> which are then adjusted for multiple testing.</p>
+<p>The Wald test is a parametric statistical test that compares the estimated log2 fold change for each gene to its standard error. It tests the null hypothesis that the log2 fold change is equal to zero (i.e., no change in expression between groups) against the alternative hypothesis that it is not equal to zero.</p>
+<p>DESeq2 has internal methods for:</p>
+<ul>
+<li>Estimating size factors (sample normalisation)</li>
+<li>Estimating dispersions</li>
+<li>Fitting the negative binomial GLM (log2 fold changes)</li>
+<li>Filtering outliers and low count genes</li>
+<li>Statistical tests between sample groups (p-values)</li>
+<li>Multiple testing correction (FDR adjusted p-value)</li>
+</ul>
+<p><img src="images/DESeq2.png" class="img-fluid"></p>
+<section id="experimental-design-for-deseq2" class="level3">
+<h3 class="anchored" data-anchor-id="experimental-design-for-deseq2">Experimental design for DESeq2</h3>
+<p>DESeq2 and other differential expression tools perform statistical analysis by comparing mean expression levels between sample groups. Accurate mean estimates can only be achieved with precise estimates of the biological variation between independent samples.</p>
+<p>In DE experiments, increasing the number of <strong>biological replicates</strong> is generally more desirable than increasing read depth in single samples, unless you are particularly interested in rare RNAs. DESeq2 will not work if a sample group only has one replicate and it is recommended to have at least 3.</p>
+<p>If you have <strong>technical replicates</strong> in your experimental design, these should be merged into one sample to represent a single biological replicate.</p>
+<p>We also need to ensure (as much as possible) that any effect we see between groups can be attributed to differences in biology rather than <strong>confounding factors</strong> in the design or <strong>batch effects</strong> introduced at the library preparation stage.</p>
+</section>
+<section id="comprehensive-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="comprehensive-tutorials">Comprehensive tutorials</h3>
+<p>This is a <em>lightweight</em> introduction to differential expression analysis. For a comprehensive overview of the DESeq2 method, functionality and complex experimental designs, check out the following resources:</p>
+<ul>
+<li><p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 tutorial</a></p></li>
+<li><p><a href="http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">RNAseq analysis with DESeq2</a></p></li>
+<li><p><a href="https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html">HBC Differential expression workshop</a></p></li>
+</ul>
+</section>
+</section>
+<section id="create-a-sample-file" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-sample-file">3. Create a sample file</h2>
+<p>The first step in our analysis is to create a tab separated file of sample IDs and metadata. This already exists in the folder you downloaded earlier but you would normally create this manually. We can then import the sample sheet to R with the <code>read_tsv()</code> function from <strong>readr</strong>.</p>
+<p>For our DE analysis, we want to compare the expression levels of genes in our MOV10 over-expression and knockdown samples to the control. In this example, the Control samples are our <strong>reference</strong> or <strong>base-level</strong> sample. By default, DESeq2 will use the first level of the condition factor as the reference level. We should make sure the <em>Control</em> samples are the first level of our Group factor.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a dataframe</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sample =</span> <span class="fu">c</span>(<span class="st">"Control_1"</span>,<span class="st">"Control_2"</span>,<span class="st">"Control_3"</span>,<span class="st">"MOV10_OE_1"</span>,<span class="st">"MOV10_OE_2"</span>,<span class="st">"MOV10_OE_3"</span>,<span class="st">"MOV10_KD_2"</span>,<span class="st">"MOV10_KD_3"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Group =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"Control"</span>,<span class="st">"Control"</span>,<span class="st">"MOV10_OE"</span>,<span class="st">"MOV10_OE"</span>,<span class="st">"MOV10_OE"</span>,<span class="st">"MOV10_KD"</span>,<span class="st">"MOV10_KD"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>,<span class="st">"MOV10_OE"</span>,<span class="st">"MOV10_KD"</span>)),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Replicate =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Or read in a sample sheet.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## col_types argument specifies the data type for each column. The Sample name is a character and the Group and Replicate columns are factors.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/salmon/samples.tsv"</span>, <span class="at">col_names =</span> T, <span class="at">col_types =</span> <span class="st">"cff"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Look at our sample sheet</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ss</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  Sample     Group    Replicate
+  &lt;chr&gt;      &lt;fct&gt;    &lt;fct&gt;    
+1 Control_1  Control  1        
+2 Control_2  Control  2        
+3 Control_3  Control  3        
+4 MOV10_KD_2 MOV10_KD 2        
+5 MOV10_KD_3 MOV10_KD 3        
+6 MOV10_OE_1 MOV10_OE 1        
+7 MOV10_OE_2 MOV10_OE 2        
+8 MOV10_OE_3 MOV10_OE 3        </code></pre>
+</div>
+</div>
+<div class="key-points">
+<h2 class="anchored">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>The sample file contains metadata on each sample</li>
+<li>The sample file should include a column for the variable of interest (e.g.&nbsp;condition, genotype, group)</li>
+<li>It is also important to include all other known variables that could confound results or explain technical variance. These can be used in plotting and quality control</li>
+</ul>
+</div>
+</section>
+<section id="importing-count-data-with-tximport" class="level2">
+<h2 class="anchored" data-anchor-id="importing-count-data-with-tximport">4. Importing count data with tximport</h2>
+<p>The package <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a> can read Salmon transcript count files and create a matrix of read counts for each gene.</p>
+<section id="transcript-to-gene-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="transcript-to-gene-mapping">Transcript to gene mapping</h3>
+<p>We must supply a map between transcript IDs and gene IDs for our annotations, so that the function can summarise counts at gene level. This file is already provided in the downloaded data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GenomicFeatures)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the tx2gene map file</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tx2gene <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/salmon/salmon_tx2gene.tsv"</span>,<span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"TranscriptID"</span>,<span class="st">"GeneID"</span>,<span class="st">"GeneSymbol"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you don’t have a transcript -&gt; gene map, these can be downloaded from annotation databases like Ensembl or generated from a gtf annotation file using the <code>GenomicFeatures</code> package as shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">### EXAMPLE: DO NOT RUN THIS CODE!!</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Make a Transcript DB object from a gene annotation GTF file</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>txdb <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">organism =</span> <span class="st">"Homo sapiens"</span>, <span class="at">file =</span> <span class="st">"Homo_sapiens.GRCh38.106.gtf"</span>, <span class="at">format =</span> <span class="st">"gtf"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract mappings from transcriptID to geneID</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">keys</span>(txdb, <span class="at">keytype =</span> <span class="st">"TXNAME"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>tx2gene <span class="ot">&lt;-</span> <span class="fu">select</span>(txdb, k, <span class="st">"GENEID"</span>, <span class="st">"TXNAME"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s look at our transcript to gene map:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tx2gene)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  TranscriptID    GeneID          GeneSymbol
+  &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;     
+1 ENST00000379236 ENSG00000186827 TNFRSF4   
+2 ENST00000497869 ENSG00000186827 TNFRSF4   
+3 ENST00000453580 ENSG00000186827 TNFRSF4   
+4 ENST00000328596 ENSG00000186891 TNFRSF18  
+5 ENST00000379268 ENSG00000186891 TNFRSF18  
+6 ENST00000486728 ENSG00000186891 TNFRSF18  </code></pre>
+</div>
+</div>
+<p>The <code>tx2gene</code> object contains 3 columns:</p>
+<ul>
+<li>Transcript ID</li>
+<li>Gene ID</li>
+<li>Gene symbol</li>
+</ul>
+<p>When we import our transcript counts with <code>tximport()</code>, we will use the transcript ID and gene ID columns to summarise transcript counts to gene counts. The gene symbol column is not used in this step but it can be used later to annotate our results.</p>
+</section>
+<section id="import-transcript-read-counts" class="level3">
+<h3 class="anchored">Import transcript read counts</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tximport)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## List all of our salmon quant.sf files</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data/salmon"</span>,ss<span class="sc">$</span>Sample,<span class="st">"quant.sf"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(files) <span class="ot">&lt;-</span> ss<span class="sc">$</span>Sample</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Import the transcript counts and summarise to gene counts</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>txi <span class="ot">&lt;-</span> <span class="fu">tximport</span>(files, <span class="at">type =</span> <span class="st">"salmon"</span>, <span class="at">tx2gene =</span> tx2gene)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(txi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 4
+ $ abundance          : num [1:58396, 1:8] 89.64 1.17 69.36 6.07 26.68 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:58396] "ENSG00000000003" "ENSG00000000005" "ENSG00000000419" "ENSG00000000457" ...
+  .. ..$ : chr [1:8] "Control_1" "Control_2" "Control_3" "MOV10_KD_2" ...
+ $ counts             : num [1:58396, 1:8] 4336 29 1568 475 1293 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:58396] "ENSG00000000003" "ENSG00000000005" "ENSG00000000419" "ENSG00000000457" ...
+  .. ..$ : chr [1:8] "Control_1" "Control_2" "Control_3" "MOV10_KD_2" ...
+ $ length             : num [1:58396, 1:8] 1869 955 874 3026 1873 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:58396] "ENSG00000000003" "ENSG00000000005" "ENSG00000000419" "ENSG00000000457" ...
+  .. ..$ : chr [1:8] "Control_1" "Control_2" "Control_3" "MOV10_KD_2" ...
+ $ countsFromAbundance: chr "no"</code></pre>
+</div>
+</div>
+<p>The <code>txi</code> object is a list containing the following elements:</p>
+<ul>
+<li><strong>abundance</strong>: A matrix of transcript abundances (TPM) for each gene in each sample</li>
+<li><strong>counts</strong>: A matrix of estimated read counts for each gene in each sample</li>
+<li><strong>length</strong>: A matrix of the average transcript length for each gene in each sample. This is calculated as the weighted average of the lengths of the transcripts that map to each gene, where the weights are based on the estimated abundance of each transcript</li>
+</ul>
+<p>The <a href="https://bioconductor.org/packages/release/bioc/html/tximeta.html">tximeta</a> package extends tximport to automatically detect the genome, download the tx2gene map and import count data in one function.</p>
+<div class="key-points">
+<h2 class="anchored" data-anchor-id="import-transcript-read-counts">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>Import pseudo-count data into R with <strong>tximeta</strong> or <strong>tximport</strong></li>
+<li>DESeq2 expects gene-level counts</li>
+<li>Summarise transcript counts to gene counts</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="creating-a-deseq-object" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-deseq-object">5. Creating a DESeq object</h2>
+<p>Now that we have per-gene count data, we can import this into DESeq2. We need to supply the <code>txi</code> object we have just created as well as the <strong>design</strong> for our differential expression analysis.</p>
+<p>The simplest design is to compare our samples by the Group column (Control, MOV10_KD, MOV10_OE). The design is a <strong>formula</strong> in R so is preceded by the <code>~</code> character.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the DESeq dataset object</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromTximport</span>(<span class="at">txi =</span> txi, <span class="at">colData =</span> ss, <span class="at">design =</span> <span class="sc">~</span> Group)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class: DESeqDataSet 
+dim: 58396 8 
+metadata(1): version
+assays(2): counts avgTxLength
+rownames(58396): ENSG00000000003 ENSG00000000005 ... ENSG00000289718
+  ENSG00000289719
+rowData names(0):
+colnames(8): Control_1 Control_2 ... MOV10_OE_2 MOV10_OE_3
+colData names(3): Sample Group Replicate</code></pre>
+</div>
+</div>
+<p>The <code>dds</code> object is a DESeqDataSet object with 58396 rows and 8 columns, where the rows are the genes and the columns are the samples. These genes include non-coding RNAs as well as protein-coding genes.</p>
+<p>The columns of the <code>colData</code> slot contain the sample metadata from our sample sheet and can be accessed with the <code>colData()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(dds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>DataFrame with 8 rows and 3 columns
+                Sample    Group Replicate
+           &lt;character&gt; &lt;factor&gt;  &lt;factor&gt;
+Control_1    Control_1 Control          1
+Control_2    Control_2 Control          2
+Control_3    Control_3 Control          3
+MOV10_KD_2  MOV10_KD_2 MOV10_KD         2
+MOV10_KD_3  MOV10_KD_3 MOV10_KD         3
+MOV10_OE_1  MOV10_OE_1 MOV10_OE         1
+MOV10_OE_2  MOV10_OE_2 MOV10_OE         2
+MOV10_OE_3  MOV10_OE_3 MOV10_OE         3</code></pre>
+</div>
+</div>
+<p>We can access the count data with the <code>assay()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assay</span>(dds) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Control_1 Control_2 Control_3 MOV10_KD_2 MOV10_KD_3 MOV10_OE_1
+ENSG00000000003      4336      3567      2851       6082       3617       3416
+ENSG00000000005        29        26        25         32         14         25
+ENSG00000000419      1568      1380       966       2457       1441       2124
+ENSG00000000457       475       410       326        884        572        641
+ENSG00000000460      1293      1145       876       2117       1159       1134
+ENSG00000000938         1         1         0          2          0          0
+                MOV10_OE_2 MOV10_OE_3
+ENSG00000000003       3109       1956
+ENSG00000000005         34         23
+ENSG00000000419       1913       1337
+ENSG00000000457        548        352
+ENSG00000000460       1036        587
+ENSG00000000938          0          0</code></pre>
+</div>
+</div>
+<div class="resources">
+<h2 class="anchored">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p>In this example, we created our DESeq dataset from a tximport object. But what if we already have a read count table or used a different workflow to generate counts?</p>
+<p>DESeq2 has the functions <code>DESeqDataSetFromMatrix()</code> and <code>DESeqDataFromHTSeqCount</code> to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#input-data">DESeq2 vignette</a>.</p>
+</div>
+<section id="deseq2-design-formula" class="level3">
+<h3 class="anchored">DESeq2 design formula</h3>
+<p>The design formula is used to specify the variables that we want to use in our DE analysis. In this case, we have a single variable of interest, Group, which has three levels (Control, MOV10_OE, MOV10_KD). DESeq2 will perform pairwise comparisons between these levels by default.</p>
+<p>If we had other variables in our experimental design that we wanted to control for (e.g.&nbsp;sex, cell type, batch etc) we could include these in our design formula as well. For example, if we had a batch variable we could specify the design as <code>~ Batch + Group</code> to control for batch effects in our analysis.</p>
+<p>In this case, DESeq2 will first test for differences between batches and then test for differences between groups while controlling for batch effects. This is a powerful way to control for confounding factors in your analysis and ensure that any significant results you find are more likely to be biologically relevant.</p>
+<p>It is possible to perform complex analyses with multiple variables of interest and interaction terms in DESeq2.</p>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="deseq2-design-formula">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p>Have a look at these resources for advice on complex experimental designs (e.g.&nbsp;multiple variables of interest, interaction terms, time-course analysis:</p>
+<ul>
+<li><a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#variations-to-the-standard-workflow">DESeq2 manual</a></li>
+<li><a href="http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html#time-course-experiments">Time-course analysis example</a></li>
+<li><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/08a_DGE_LRT_results.html">Likelihood ratio test</a> for measuring changes across multiple sample groups at once.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="running-deseq2" class="level2">
+<h2 class="anchored" data-anchor-id="running-deseq2">6. Running DESeq2</h2>
+<p>Now we are ready to run DESeq. The DESeq function has internal methods to:</p>
+<ul>
+<li><strong>Estimate size factors</strong>: Normalise gene counts per sample</li>
+<li><strong>Estimate gene-wise dispersions</strong>: Measure variance in the dataset</li>
+<li><strong>Shrink gene-wise dispersions</strong>: Improve the dispersion estimates</li>
+<li><strong>Fit a <em>negative binomial</em> statistical model</strong> to the data</li>
+<li><strong>Perform statistical testing</strong> with the <em>Wald Test</em> or <em>Likelihood Ratio Test</em></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## run DESeq</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## save the dds object as a file for later use</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dds, <span class="at">file =</span> <span class="st">"dds.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="size-factor-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="size-factor-estimation">Size factor estimation</h3>
+<p>DESeq2 uses a <strong>median of ratios</strong> method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data. You can read more about RNA-seq normalisation <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/02_DGE_count_normalization.html">here</a>.</p>
+<p>This normalisation method assumes that most of the genes are not differentially expressed between sample groups. If this assumption is violated (e.g.&nbsp;in cases of global changes in gene expression) then the size factor estimation may be inaccurate and alternative normalisation methods should be considered.</p>
+</section>
+<section id="plot-dispersions" class="level3">
+<h3 class="anchored">Plot dispersions</h3>
+<p>It can be useful to plot the gene-level dispersion estimates to ensure the DESeq model is right for your data. You should find that dispersion is generally lower for genes with higher read counts, that final dispersion levels have been shrunk towards the fitted model and that a few outliers exist which have not been shrunk. If the red line is not a good generalisation for your data then DE analysis with DESeq2 may not be appropriate.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot dispersions</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDispEsts</span>(dds, <span class="at">main=</span><span class="st">"Dispersion plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="key-points">
+<h2 class="anchored" data-anchor-id="plot-dispersions">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>Create a DESeq dataset from count data</li>
+<li>Understand the DESeq <strong>design</strong> parameter</li>
+<li>Run the <code>DESeq()</code> function and understand the internal steps</li>
+<li>Plot <strong>dispersions</strong> to assess the fitted model</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="deseq-quality-control" class="level2">
+<h2 class="anchored" data-anchor-id="deseq-quality-control">7. DESeq quality control</h2>
+<p>Before we look at the results of differential expression tests we first want to perform some quality control by visualising and assessing the entire dataset.</p>
+<section id="transform-count-data-for-visualisation" class="level3">
+<h3 class="anchored">Transform count data for visualisation</h3>
+<p>Count data is not optimal for visualisation and clustering as there are likely to be a few genes with very high expression and variance.</p>
+<p>DEseq provides two functions to transform count data for visualisation and clustering:</p>
+<ul>
+<li><code>rlog()</code>: Regularised log transformation</li>
+<li><code>vst()</code>: Variance stabilising transformation</li>
+</ul>
+<p>The <code>rlog()</code> function is generally recommended for smaller datasets (less than 30 samples) as it can be more effective at reducing the bias from genes with extreme counts. The <code>vst()</code> function is faster to run and is recommended for larger datasets.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Log transformed data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds, <span class="at">blind=</span>F) <span class="do">## Blind=F means the transformation will take into account the experimental design</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(rld, <span class="at">file =</span> <span class="st">"MOV10.rld.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="transform-count-data-for-visualisation">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p>You can read more on DESeq2 data transformations <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization">here</a>.</p>
+</div>
+</section>
+<section id="heatmap-of-sample-distances" class="level3">
+<h3 class="anchored" data-anchor-id="heatmap-of-sample-distances">Heatmap of Sample Distances</h3>
+<p>We can use our log transformed data to perform sample clustering. Here, we calculate <strong>sample distances</strong> by applying the <code>dist()</code> function to our transformed read count matrix.</p>
+<p>By default, the <code>dist()</code> function calculates euclidean distances between the rows of a matrix. We have to transpose our read count table first to calculate distances between samples (columns). The distance calculated is a measure of the distance between two vectors, in this case the read counts for all genes:</p>
+<p><span class="math display">\[d(a,b) = \sqrt{\sum_{i=1}^{n} (a_i - b_i)^2}\]</span></p>
+<p>A heatmap of this distance matrix gives us an overview of similarities and dissimilarities between samples.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"pheatmap"</span>) <span class="co">#  heatmap plotting package</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"RColorBrewer"</span>) <span class="co"># colour scales</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sampleDists <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(rld))) <span class="do">## t() function transposes a matrix</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>sampleDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(sampleDists)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(sampleDistMatrix) <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">colnames</span>(dds))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sampleDistMatrix) <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">colnames</span>(dds))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>( <span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"Blues"</span>)) )(<span class="dv">255</span>) <span class="do">## Set a colour pallette in shades of blue</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(sampleDistMatrix,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">clustering_distance_rows =</span> sampleDists,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">clustering_distance_cols =</span> sampleDists,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> cols)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="principle-component-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="principle-component-analysis">Principle Component Analysis</h3>
+<p>Another way to visualise sample-to-sample distances is a principal component analysis (PCA). PCA is a dimensionality reduction technique that identifies the directions (principal components) in which the data varies the most. Each principal component is a linear combination of the original variables (genes) and captures a certain percentage of the total variance in the data.</p>
+<p>We can then plot our samples on a 2D plot where the x-axis and y-axis represent the first two principal components (PC1 and PC2).</p>
+<p>The percent of the total variance that is contained in each direction is printed on the axis label. Note that these percentages do not add to 100%, because there are more dimensions that contain the remaining variance.</p>
+<p>We expect to see our samples divide by their biological <strong>Group</strong> or some other source of variation that we are aware of (e.g.&nbsp;sex, cell type, batches of library preparation etc).</p>
+<p>If you do not see your samples separating by your variable of interest you may want to plot out PC3 and PC4 to see if it appears there. If there is a large amount of variance introduced by other factors or batch effects then you will need to control for these in your experimental design.</p>
+<p>We will run the PCA analysis with the DESeq2 command <code>plotPCA()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Principle component analysis - get the PCA data</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(rld, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we don’t like the default plotting style we can ask <code>plotPCA</code> to return the data only and create our own custom plot with <strong>ggplot</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Principle component analysis - get the PCA data</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(rld, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Replicate"</span>), <span class="at">returnData =</span> T)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot with ggplot</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca, <span class="fu">aes</span>(PC1, PC2, <span class="at">colour =</span> Group, <span class="at">shape =</span> Replicate)) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste</span>(<span class="st">"PC1:"</span>,<span class="fu">round</span>(<span class="fu">attr</span>(pca,<span class="st">"percentVar"</span>)[<span class="dv">1</span>]<span class="sc">*</span><span class="dv">100</span>),<span class="st">"%"</span>)) <span class="sc">+</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste</span>(<span class="st">"PC2:"</span>,<span class="fu">round</span>(<span class="fu">attr</span>(pca,<span class="st">"percentVar"</span>)[<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>),<span class="st">"%"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To plot PC3 and PC4 we can specify the <code>pcsToUse</code> argument in <code>plotPCA()</code>. By default, only the top 500 most variable genes are used in the PCA analysis. If you want to use all genes, you can set the <code>ntop</code> argument.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Principle component analysis - get the PCA data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(rld, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Replicate"</span>), <span class="at">returnData =</span> T, <span class="at">pcsToUse =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">ntop =</span> <span class="dv">2000</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot with ggplot</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca, <span class="fu">aes</span>(PC3, PC4, <span class="at">colour =</span> Group, <span class="at">shape =</span> Replicate)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste</span>(<span class="st">"PC3:"</span>,<span class="fu">round</span>(<span class="fu">attr</span>(pca,<span class="st">"percentVar"</span>)[<span class="dv">1</span>]<span class="sc">*</span><span class="dv">100</span>),<span class="st">"%"</span>)) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste</span>(<span class="st">"PC4:"</span>,<span class="fu">round</span>(<span class="fu">attr</span>(pca,<span class="st">"percentVar"</span>)[<span class="dv">2</span>]<span class="sc">*</span><span class="dv">100</span>),<span class="st">"%"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="heatmap-of-genes-with-the-largest-variance" class="level3">
+<h3 class="anchored">Heatmap of genes with the largest variance</h3>
+<p>It may also be useful to take an initial look at the genes with the highest amount of variation across the dataset. We should expect to see some genes which appear to be differentially expressed between sample groups.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the top 20 genes after ordering the rld counts by variance</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>topVarGenes <span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">order</span>(<span class="sc">-</span><span class="fu">rowVars</span>(<span class="fu">assay</span>(rld),<span class="at">useNames =</span> T)), <span class="dv">20</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a matrix from these genes only</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld)[topVarGenes, ] </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an annotation dataframe for the columns (samples) to show the Group and Replicate information</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>anno <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">colData</span>(dds)[,<span class="fu">c</span>(<span class="st">"Group"</span>,<span class="st">"Replicate"</span>)])</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the heatmap with pheatmap</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(mat, <span class="at">cluster_rows =</span> T, <span class="at">cluster_cols =</span> T, <span class="at">show_rownames =</span> T, <span class="at">scale =</span> <span class="st">"row"</span>, <span class="at">annotation_col =</span> anno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="discussion">
+<h2 class="anchored" data-anchor-id="heatmap-of-genes-with-the-largest-variance">
+<i class="far fa-bell"></i> Discussion
+</h2>
+<p>Can you guess which gene has the Ensembl identifier ENSG00000155363? What are some of the other genes in the top 20 most variable genes? Do you think these are likely to be differentially expressed between sample groups?</p>
+</div>
+<div class="challenge">
+<h2 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>Replace the rownames of the <code>mat</code> matrix with gene symbols from the <code>tx2gene</code> map and re-plot the heatmap.</p>
+<details>
+<summary>
+</summary>
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<h2 class="anchored">
+<i class="far fa-eye"></i> Solution:
+</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## set rownames to symbol using the tx2gene map</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> tx2gene<span class="sc">$</span>GeneSymbol[<span class="fu">match</span>(<span class="fu">rownames</span>(mat), tx2gene<span class="sc">$</span>GeneID)]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the heatmap again</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(mat, <span class="at">cluster_rows =</span> T, <span class="at">cluster_cols =</span> T, <span class="at">show_rownames =</span> T, <span class="at">scale =</span> <span class="st">"row"</span>, <span class="at">annotation_col =</span> anno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="plot-individual-gene-counts" class="level3">
+<h3 class="anchored">Plot Individual Gene Counts</h3>
+<p>In certain cases like ours, where we know the expression levels of particular genes should change between sample groups, we may want to plot individual gene counts for quality control. Let’s plot normalised gene counts for the MOV10 gene (ENSG00000155363).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get normalised counts for a single gene</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>gene <span class="ot">=</span> <span class="st">"ENSG00000155363"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>geneData <span class="ot">&lt;-</span> <span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> gene, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Replicate"</span>), <span class="at">returnData =</span> <span class="cn">TRUE</span>, <span class="at">normalized =</span> T)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot with ggplot</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(geneData, <span class="fu">aes</span>(<span class="at">x =</span> Group, <span class="at">y=</span> count, <span class="at">colour =</span> Replicate)) <span class="sc">+</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(gene) <span class="sc">+</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="key-points">
+<h2 class="anchored" data-anchor-id="plot-individual-gene-counts">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>Transform count data for summary plots</li>
+<li>Create summary plots and assess for QC
+<ul>
+<li>PCA</li>
+<li>Clustering by sample distance</li>
+<li>Heatmaps of gene counts</li>
+<li>Individual gene counts</li>
+</ul></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="extract-deseq2-results" class="level2">
+<h2 class="anchored" data-anchor-id="extract-deseq2-results">8. Extract DESeq2 results</h2>
+<p>If we are happy with our QC assessment we can retrieve results from the DESeq object and visualise fold changes between specific groups.</p>
+<p>DESeq2 has a <code>results()</code> function, which by default prints the results of the last level in your design variables against the reference level. In our case this is MOV10_OE vs Control.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">results</span>(dds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log2 fold change (MLE): Group MOV10 OE vs Control 
+Wald test p-value: Group MOV10 OE vs Control 
+DataFrame with 58396 rows and 6 columns
+                 baseMean log2FoldChange     lfcSE       stat      pvalue
+                &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt;  &lt;numeric&gt;   &lt;numeric&gt;
+ENSG00000000003 3493.3769     -0.4426597 0.0851357 -5.1994602 1.99868e-07
+ENSG00000000005   26.2026     -0.0163884 0.4447545 -0.0368482 9.70606e-01
+ENSG00000000419 1600.4515      0.3753645 0.0998817  3.7580902 1.71215e-04
+ENSG00000000457  504.6620      0.2532487 0.1053669  2.4034929 1.62393e-02
+ENSG00000000460 1112.7132     -0.2626755 0.0852641 -3.0807284 2.06495e-03
+...                   ...            ...       ...        ...         ...
+ENSG00000289714  0.000000             NA        NA         NA          NA
+ENSG00000289715  0.000000             NA        NA         NA          NA
+ENSG00000289716 28.600952       0.112480  0.553978   0.203041    0.839103
+ENSG00000289718  0.167725      -1.026277  4.080456  -0.251510    0.801420
+ENSG00000289719 14.921394       0.614092  0.547343   1.121950    0.261884
+                       padj
+                  &lt;numeric&gt;
+ENSG00000000003 4.12199e-06
+ENSG00000000005 9.84458e-01
+ENSG00000000419 1.39950e-03
+ENSG00000000457 5.80996e-02
+ENSG00000000460 1.12268e-02
+...                     ...
+ENSG00000289714          NA
+ENSG00000289715          NA
+ENSG00000289716    0.912842
+ENSG00000289718          NA
+ENSG00000289719    0.444436</code></pre>
+</div>
+</div>
+<p>However, the <code>dds</code> object stores several results. You can see these with the function <code>resultsNames()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Intercept"                 "Group_MOV10_KD_vs_Control"
+[3] "Group_MOV10_OE_vs_Control"</code></pre>
+</div>
+</div>
+<p>The Intercept result is a statistical model that compares gene expression to 0 so is not relevant here. We can see that we have results for both of our MOV10 perturbation experiments vs the control.</p>
+<p>We can extract a specific result by providing a contrast argument to the <code>results()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">"Group"</span>,<span class="st">"MOV10_OE"</span>,<span class="st">"Control"</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log2 fold change (MLE): Group MOV10_OE vs Control 
+Wald test p-value: Group MOV10 OE vs Control 
+DataFrame with 58396 rows and 6 columns
+                 baseMean log2FoldChange     lfcSE       stat      pvalue
+                &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt;  &lt;numeric&gt;   &lt;numeric&gt;
+ENSG00000000003 3493.3769     -0.4426597 0.0851357 -5.1994602 1.99868e-07
+ENSG00000000005   26.2026     -0.0163884 0.4447545 -0.0368482 9.70606e-01
+ENSG00000000419 1600.4515      0.3753645 0.0998817  3.7580902 1.71215e-04
+ENSG00000000457  504.6620      0.2532487 0.1053669  2.4034929 1.62393e-02
+ENSG00000000460 1112.7132     -0.2626755 0.0852641 -3.0807284 2.06495e-03
+...                   ...            ...       ...        ...         ...
+ENSG00000289714  0.000000             NA        NA         NA          NA
+ENSG00000289715  0.000000             NA        NA         NA          NA
+ENSG00000289716 28.600952       0.112480  0.553978   0.203041    0.839103
+ENSG00000289718  0.167725      -1.026277  4.080456  -0.251510    0.801420
+ENSG00000289719 14.921394       0.614092  0.547343   1.121950    0.261884
+                       padj
+                  &lt;numeric&gt;
+ENSG00000000003 4.12199e-06
+ENSG00000000005 9.84570e-01
+ENSG00000000419 1.39950e-03
+ENSG00000000457 5.80996e-02
+ENSG00000000460 1.12268e-02
+...                     ...
+ENSG00000289714          NA
+ENSG00000289715          NA
+ENSG00000289716    0.912953
+ENSG00000289718          NA
+ENSG00000289719    0.444436</code></pre>
+</div>
+</div>
+<p>The results table includes several columns:</p>
+<ul>
+<li><strong>baseMean</strong> = Mean normalised read counts of all samples</li>
+<li><strong>log2FoldChange</strong> = Log2 of the fold change between sample groups in the contrast</li>
+<li><strong>lfcSE</strong> = Standard error of the log2 fold change</li>
+<li><strong>stat</strong> = The test statistic (Wald test in this case)</li>
+<li><strong>pvalue</strong> = The pvalue for the statistical test</li>
+<li><strong>padj</strong> = The pvalue adjusted for multiple testing</li>
+</ul>
+<section id="multiple-testing-correction-and-independent-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-testing-correction-and-independent-filtering">Multiple testing correction and independent filtering</h3>
+<p>The two most important columns in our results table are <strong>log2FoldChange</strong>, which is the effect size and tells us how much a gene’s expression has changed, and <strong>padj</strong> which gives us the level of statistical confidence in this result.</p>
+<p>DESeq2 reports adjusted p-values (padj) which are corrected for <strong>multiple testing</strong>. We should use these values, <strong>not the pvalue column</strong>, to filter or call significant genes!</p>
+<p>DESeq2 uses the Benjamini-Hochberg method to adjust p-values and control the false discovery rate. If you filter for genes with a padj &lt;= 0.05 you would expect 5% of these to be false positives.</p>
+<p>If you inspect the result table you may notice that some genes have padj and/or pvalue set to NA. This is because the <code>results()</code> function performs filtering of genes to reduce the total number of genes tested and increase the likelihood of finding significant genes after the multiple testing correction. The more genes we test, the larger the multiple testing correction, so it makes sense to remove genes where we are unlikely to see a statistical effect:</p>
+<ul>
+<li>Genes with zero counts in all samples</li>
+<li>Genes with extreme outliers</li>
+<li>Genes with extremely low normalised counts</li>
+</ul>
+<p>Let’s look at a summary of our results. We will also set an <strong>alpha</strong> to tell DESeq which significance threshold to use when summarising results:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res, <span class="at">alpha =</span> alpha)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+out of 34774 with nonzero total read count
+adjusted p-value &lt; 0.05
+LFC &gt; 0 (up)       : 2077, 6%
+LFC &lt; 0 (down)     : 2708, 7.8%
+outliers [1]       : 14, 0.04%
+low counts [2]     : 16900, 49%
+(mean count &lt; 9)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results</code></pre>
+</div>
+</div>
+<p>This is great, we definitely have significant differentially expressed genes!</p>
+</section>
+<section id="log-fold-change-shrinkage" class="level3">
+<h3 class="anchored" data-anchor-id="log-fold-change-shrinkage">Log Fold Change Shrinkage</h3>
+<p>Let’s take a look at these results visually. DESeq2 provides a <code>plotMA()</code> function to create MA plots(log2FoldChange vs the mean of normalised counts), a common way to visualise DE genes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(res)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Significant genes (&lt;=0.05 padj) appear in blue, while non-significant genes are grey. We can immediately see that genes with low counts have much larger variation in log-fold changes.</p>
+<p>DESeq2 provides the <code>LFCshrink()</code> function to shrink the fold change estimates and reduce the “noise” from these genes. We can use it instead of the <code>results()</code> function and these shrunken fold changes are much better for visualising and ranking our data.</p>
+<p>The LFC shrinkage method we will use is called <strong>apeglm</strong> and is based on an adaptive t prior shrinkage estimator for log fold changes. This method has been shown to perform well in terms of reducing noise while preserving true signal in the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apeglm)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>resLFC <span class="ot">&lt;-</span> <span class="fu">lfcShrink</span>(dds, <span class="at">coef =</span> <span class="st">"Group_MOV10_OE_vs_Control"</span>, <span class="at">type =</span> <span class="st">"apeglm"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(resLFC, <span class="at">alpha =</span> alpha)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+out of 34774 with nonzero total read count
+adjusted p-value &lt; 0.05
+LFC &gt; 0 (up)       : 2077, 6%
+LFC &lt; 0 (down)     : 2708, 7.8%
+outliers [1]       : 14, 0.04%
+low counts [2]     : 16900, 49%
+(mean count &lt; 9)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results</code></pre>
+</div>
+</div>
+<p>We can see that the number of significant genes is unaffected. Let’s create a new MA plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(resLFC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>These shrunken fold changes are more useful for downstream analysis of the data where we want to rank or visualise genes by their fold change. We will use these shrunken fold changes for the rest of our analysis.</p>
+</section>
+<section id="formatting-and-annotating-results" class="level3">
+<h3 class="anchored">Formatting and annotating results</h3>
+<p>We will apply a bit of formatting to our results table and also add some annotation.</p>
+<ul>
+<li>Convert to a <strong>tidyverse</strong> tibble</li>
+<li>Move the rownames to a <strong>geneID</strong> column</li>
+<li>Add the <strong>geneSymbol</strong> from the tx2gene map as a new column</li>
+<li>Create a <strong>Significant</strong> column for genes we wish to label as significant</li>
+<li><strong>Order</strong> the table by padj so the most significant genes are at the top</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>gene_map <span class="ot">&lt;-</span> tx2gene <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GeneID, GeneSymbol) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Set a threshold for log2 fold change to call significant genes by effect size as well as padj</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>lthresh <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Build the result table</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>result_table <span class="ot">&lt;-</span> resLFC <span class="sc">|&gt;</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="st">"GeneID"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(gene_map, <span class="at">by =</span> <span class="st">"GeneID"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Significant =</span> <span class="fu">case_when</span>( </span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>      padj <span class="sc">&lt;=</span> alpha <span class="sc">&amp;</span> <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;=</span> lthresh <span class="sc">~</span> <span class="st">"Both"</span>,</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>      padj <span class="sc">&lt;=</span> alpha <span class="sc">&amp;</span> <span class="fu">abs</span>(log2FoldChange) <span class="sc">&lt;</span> lthresh <span class="sc">~</span> <span class="st">"padj"</span>,</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>      padj <span class="sc">&gt;</span> alpha <span class="sc">&amp;</span> <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;=</span> lthresh <span class="sc">~</span> <span class="st">"l2FC"</span>,</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="st">"Not Significant"</span>)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span> </span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Significant =</span> <span class="fu">factor</span>(Significant, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Not Significant"</span>, <span class="st">"padj"</span>, <span class="st">"l2FC"</span>, <span class="st">"Both"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(padj) <span class="sc">|&gt;</span> </span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">as_tibble</span>()</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>result_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 58,396 × 8
+   GeneID          baseMean log2FoldChange  lfcSE    pvalue      padj GeneSymbol
+   &lt;chr&gt;              &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
+ 1 ENSG00000155363   94561.          7.47  0.134  0         0         MOV10     
+ 2 ENSG00000189060    7874.          1.52  0.0704 1.33e-104 1.19e-100 H1-0      
+ 3 ENSG00000173110     257.          6.52  0.357  1.53e- 74 9.12e- 71 HSPA6     
+ 4 ENSG00000270882    2234.          1.73  0.101  1.39e- 66 6.22e- 63 H4C14     
+ 5 ENSG00000187837    1605.          1.48  0.0936 1.52e- 57 5.30e- 54 H1-2      
+ 6 ENSG00000265972    5203.          1.38  0.0876 1.78e- 57 5.30e- 54 TXNIP     
+ 7 ENSG00000155090    1699.          1.20  0.0810 8.51e- 51 2.17e- 47 KLF10     
+ 8 ENSG00000102317    8191.         -0.751 0.0542 1.30e- 44 2.84e- 41 RBM3      
+ 9 ENSG00000112972   12428.          0.924 0.0669 1.43e- 44 2.84e- 41 HMGCS1    
+10 ENSG00000142002    2395.         -0.765 0.0599 1.86e- 38 3.32e- 35 DPP9      
+# ℹ 58,386 more rows
+# ℹ 1 more variable: Significant &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p>Our result table contains Ensembl gene identifiers. We can use these to fetch additional annotations from the Ensembl website or fetch annotations using the <strong>AnnotationHub</strong> or <strong>biomaRt</strong> packages.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Connect to the Ensembl database</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>gene_biotype <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>,<span class="st">"gene_biotype"</span>), <span class="at">mart =</span> ensembl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we can merge our result table with the biotype column.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Map all result lists to a function that joins with the anno data</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>result_table <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gene_biotype, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"GeneID"</span> <span class="ot">=</span> <span class="st">"ensembl_gene_id"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_biotype =</span> <span class="fu">factor</span>(gene_biotype)) <span class="do">## set biotype to factor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We could use this column to filter our results if we are interested in specific types of RNA (e.g.&nbsp;protein coding).</p>
+<p>We will now save the result table to file so we can use it outside of R if required.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(result_table, <span class="st">"MOV10_OE_vs_Control.deseq2.tsv"</span>, <span class="at">col_names =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="key-points">
+<h2 class="anchored" data-anchor-id="formatting-and-annotating-results">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>Extract results for individual contrasts</li>
+<li>Create MA plots</li>
+<li>Shrink log2 fold change estimates</li>
+<li>Add annotation to result tables</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="visualise-deseq2-results" class="level2">
+<h2 class="anchored" data-anchor-id="visualise-deseq2-results">9. Visualise DESeq2 results</h2>
+<p>We have already seen the MA plot but there are many other methods for plotting DESeq2 results. We will cover some popular visualisations below.</p>
+<section id="volcano-plots" class="level3">
+<h3 class="anchored" data-anchor-id="volcano-plots">Volcano plots</h3>
+<p>A <strong>volcano plot</strong> is a popular visualisation for DE analysis. Here we are plotting the log fold change on the x-axis against the negative log10 of our adjusted p-values, so that significant genes appear at the top of the plot.</p>
+<p>We can then see the spread of fold changes in each direction in our set of significant genes.</p>
+<p>We can use our <code>Significant</code> column to colour our points by whether they are significant by padj, log2 fold change or both.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sig_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not Significant"</span> <span class="ot">=</span> <span class="st">"grey60"</span>, <span class="st">"padj"</span> <span class="ot">=</span> <span class="st">"#143960"</span>, <span class="st">"l2FC"</span> <span class="ot">=</span> <span class="st">"#08A4BD"</span>, <span class="st">"Both"</span> <span class="ot">=</span> <span class="st">"#C91F3A"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can even use <strong>ggrepel</strong> to label some of our genes. Let’s select ten genes with the lowest adjusted p-values.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>topTen <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> topTen, <span class="fu">aes</span>(<span class="at">label =</span> GeneSymbol))<span class="sc">+</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plots-of-de-genes-by-biotype" class="level3">
+<h3 class="anchored" data-anchor-id="plots-of-de-genes-by-biotype">Plots of DE genes by biotype</h3>
+<p>We can take a look at the types of RNAs which are represented in our list of DE genes. First, let’s filter our results for genes which pass our threshold for differential expression.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get significant DEGs with padj &lt;= 0.05 and log2 fold change &gt;= 1</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot barplot of gene_biotype</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sig_genes, <span class="fu">aes</span>(gene_biotype, <span class="at">fill =</span> gene_biotype)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that most of our DE genes are protein coding.</p>
+</section>
+<section id="heatmaps-of-genes-with-largest-changes" class="level3">
+<h3 class="anchored">Heatmaps of genes with largest changes</h3>
+<p>We can use the log normalised counts we created earlier to plot heatmaps of genes with the largest changes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Out of all significant genes, get the 20 with the largest fold change in either direction in MOV10_OE relative to the control</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>top20 <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha) <span class="sc">|&gt;</span> </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(log2FoldChange))) <span class="sc">|&gt;</span> </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(GeneID)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a matrix of rld counts and plot the heatmap</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld)[top20,]</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Set rownames to gene symbols using the tx2gene map</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> tx2gene<span class="sc">$</span>GeneSymbol[<span class="fu">match</span>(<span class="fu">rownames</span>(mat), tx2gene<span class="sc">$</span>GeneID)]</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a colour palette for the heatmap</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"RdBu"</span>)) )(<span class="dv">255</span>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the heatmap</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(mat, <span class="at">color =</span> colors, <span class="at">scale =</span> <span class="st">"row"</span>, <span class="at">cluster_rows =</span> T, <span class="at">cluster_cols =</span> T, <span class="at">annotation_col =</span> anno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="key-points">
+<h2 class="anchored" data-anchor-id="heatmaps-of-genes-with-largest-changes">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>There are many ways to summarise and visualise DE results</li>
+<li>Get creative!</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="functional-enrichment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="functional-enrichment-analysis">10. Functional enrichment analysis</h2>
+<p>Now that we have our list of DE genes, we can perform functional enrichment analysis to see if particular pathways or gene sets are over-represented in our list of DE genes. This is a powerful way to gain insight into the biological processes that may be affected by our experimental perturbation.</p>
+<p>We will use the <strong>clusterProfiler</strong> package to perform enrichment analysis, testing for over-representation of Gene Ontology (GO) terms and KEGG pathway IDs in our list of DE genes.</p>
+<p>We will test our list of DE genes against the background of all genes that were tested in our DESeq2 analysis (i.e.&nbsp;all genes that passed the independent filtering step). This is important to ensure that we are testing for enrichment against the correct background set of genes.</p>
+<p>The Gene Ontology is a hierarchical database of gene functions that are organised into three categories: Biological Process (BP), Molecular Function (MF) and Cellular Component (CC). We can use the <code>enrichGO()</code> function to test for over-representation of GO terms in our list of DE genes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of significant gene IDs</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>sig_gene_ids <span class="ot">&lt;-</span> sig_genes<span class="sc">$</span>GeneID</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of background gene IDs (all genes that were tested in DESeq2)</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>background_gene_ids <span class="ot">&lt;-</span> result_table<span class="sc">$</span>GeneID</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform GO enrichment analysis for the Biological Process category</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene =</span> sig_gene_ids,</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">universe =</span> background_gene_ids,</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">OrgDb =</span> org.Hs.eg.db,</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">keyType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">ont =</span> <span class="st">"BP"</span>,</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">qvalueCutoff =</span> <span class="fl">0.05</span>,</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">readable =</span> T)</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="do">## View the result as a datatable</span></span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ego) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   ID                          Description GeneRatio   BgRatio
+GO:0008380 GO:0008380                         RNA splicing  180/3946 474/18258
+GO:0022613 GO:0022613 ribonucleoprotein complex biogenesis  177/3946 466/18258
+GO:0007059 GO:0007059               chromosome segregation  161/3946 423/18258
+GO:0000819 GO:0000819         sister chromatid segregation  101/3946 234/18258
+GO:0016236 GO:0016236                       macroautophagy  138/3946 363/18258
+GO:0043484 GO:0043484           regulation of RNA splicing   85/3946 189/18258
+           RichFactor FoldEnrichment   zScore       pvalue     p.adjust
+GO:0008380  0.3797468       1.757075 8.769128 1.689686e-16 9.260704e-13
+GO:0022613  0.3798283       1.757452 8.697186 2.962477e-16 9.260704e-13
+GO:0007059  0.3806147       1.761090 8.315970 5.417386e-15 1.128983e-11
+GO:0000819  0.4316239       1.997108 8.060608 9.108545e-14 1.423666e-10
+GO:0016236  0.3801653       1.759011 7.669705 5.367546e-13 5.626216e-10
+GO:0043484  0.4497354       2.080910 7.843255 5.399440e-13 5.626216e-10
+                 qvalue
+GO:0008380 7.735185e-13
+GO:0022613 7.735185e-13
+GO:0007059 9.430053e-12
+GO:0000819 1.189144e-10
+GO:0016236 4.699407e-10
+GO:0043484 4.699407e-10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       geneID
+GO:0008380 RBM3/YBX1/CELF2/KHSRP/IVNS1ABP/C1QBP/PPIL1/SF3A1/CLK1/WDR77/RRP1B/SYNCRIP/HSPA8/SF3B4/PABPC1/MBNL1/PRPF38A/PPP1R8/ZPR1/AHNAK/FAM50A/SRSF9/RBM8A/SF3B3/SRSF6/USB1/RPUSD4/HNRNPM/CWF19L1/ATXN7L3/ERN1/SF3A3/ZNF326/RBM38/PQBP1/YJU2/PUS1/HNRNPA3/SNRPD3/RBM17/RBM22/DAZAP1/SMU1/RBM15/CCNL1/GRSF1/NCL/PRPF3/TFIP11/EXOSC10/PRPF6/U2AF2/PRMT1/FUS/LUC7L3/SNRNP200/DDX1/SNRPC/SCAF1/ALYREF/RBM42/TMBIM6/HNRNPH2/USP22/RBFOX2/HNRNPUL1/AAR2/RBM10/RALY/PRPF19/COIL/ARB2A/ZMAT2/PNN/CIR1/MBNL2/SNRPB/SFSWAP/PTBP2/RBM14/SF3B1/RRAGC/HTATSF1/SF1/RBM41/CDK12/CD2BP2/THOC3/HNRNPF/U2AF1/PUF60/PRPF8/ILF3/TADA2B/PTBP1/HNRNPU/NRDE2/TAF5L/SNRNP25/THOC7/LSM5/POLR2A/SNU13/KHDRBS1/MPHOSPH10/NONO/CTNNBL1/UBL5/SNRNP48/C9orf78/RBPMS2/LSM3/LARP7/RBM24/RTRAF/AKAP17A/TRPT1/SRSF8/CLP1/EIF1/CELF4/DDX39A/TSSC4/HNRNPA1/CASC3/LSM7/ACIN1/DDX23/SGF29/PRDX6/CWC15/HNRNPK/RNF113A/SCAF11/TAF6L/SRSF7/DDX5/DHX15/ZCCHC8/SNRNP70/EIF4A3/RBMX/CLNS1A/RSRP1/HNRNPUL2/ZBTB7A/CIRBP/LUC7L2/SF3B2/THRAP3/DDX20/RNPC3/DDX47/TADA3/KAT2A/RBM11/LSM4/KAT2B/U2AF1L4/ARGLU1/NCBP1/FASTK/EFTUD2/HSPA1A/RBM15B/HNRNPC/SNRPD2/ESRP1/SRSF1/ARMC7/PRMT7/SNRPD1/PPARGC1A/CCNL2/PRPF4/SRPK2/USP39/TRRAP/CDK13/SNRPF
+GO:0022613                                                                          URB2/PPAN/CELF2/UTP20/C1QBP/SF3A1/RPSA/DHX37/WDR77/GNL3L/WDR43/RRP1B/NGRN/MYBBP1A/SF3B4/RPUSD1/NHP2/RPS27L/XRCC5/SRSF9/NOP14/SF3B3/NOC2L/MRPS7/SRSF6/RPUSD4/PA2G4/TSR3/GRWD1/SF3A3/RIOX2/YJU2/SNRPD3/NOL11/RRP9/EIF3A/PRPF3/DDX56/EXOSC10/EIF1AX/RIOK3/PRPF6/U2AF2/LUC7L3/SNRNP200/DDX1/RPP30/UTP3/RPS19BP1/SNRPC/MRTO4/DDX21/SDAD1/SLX9/DDX18/GLUL/NOL10/NOL6/HSP90AB1/RRP36/RRP15/UTP14A/EMG1/TSR2/PDCD11/AAR2/RBM10/PRPF19/XRN2/ADAR/COIL/TRMT2B/EIF3C/PWP2/REXO1/DDX27/DKC1/PES1/RRP7A/FCF1/SNRPB/PWP1/SFSWAP/PTBP2/SF3B1/NOP2/HTATSF1/RPP40/URB1/ISG20L2/METTL25B/SF1/NMD3/CD2BP2/PUF60/HEATR1/DDX54/PRPF8/NOLC1/DENR/UTP18/RPS15A/BUD23/POP4/EIF3H/SNU13/DICER1/MPHOSPH10/CUL4A/BRIX1/TARBP2/TRMT112/ABT1/NOP16/PELP1/RAN/ERCC2/CLP1/CELF4/KRI1/DDX49/UTP25/TSSC4/LSG1/DDX23/EBNA1BP2/AGO1/NSUN4/EIF3I/SCAF11/UTP4/EXOSC3/EIF4A3/CLNS1A/NOL9/NSA2/RSRP1/SRFBP1/EIF6/EIF2S2/EIF5/LUC7L2/RRS1/SF3B2/RPL26/DDX20/DDX28/DDX47/BMS1/ERAL1/LSM4/KAT2B/KRR1/PRKDC/NCBP1/MTG2/SIRT7/RPSA2/RPS9/NPM1/PIN4/SNRPD2/SRSF1/EIF3B/HEATR3/PRMT7/SNRPD1/EXOSC5/IMP3/LTV1/SRPK2/USP39/XPO1/EIF3J/NOP56/RPL26L1/SNRPF
+GO:0007059                                                                                                                                                                  ACTB/HSPA1B/UHRF1/DDB1/RCC1/KIF3B/KIF18B/CCNB1/CTCF/NCAPH/CDCA5/RMI2/BIRC5/KAT5/CHMP4B/RHOA/PBRM1/SMARCA4/CENPQ/KMT5A/BRD7/CHMP3/KPNB1/BAG6/UBE2C/CENPI/BAZ1B/CCNB1IP1/CDC27/PSRC1/CENPX/FAM83D/NEK7/GOLGA2/ZWINT/SKA3/MAP9/RIOK3/BCL7C/SMARCAD1/BCL7A/KIF4A/NDC1/CENPK/POLDIP2/MAPRE1/AURKB/MSH4/MTCL2/RNF4/NCOR1/SMC1A/PPP2R1A/ZW10/UBE2I/KIF2C/TOP1/BCCIP/SPC25/MKI67/CCDC69/ESPL1/CSNK2A1/SEH1L/TACC3/INO80/NCAPH2/PUM2/ANAPC7/INCENP/KATNB1/ACTR2/HNRNPU/ARID2/BCL7B/CHMP1A/KNL1/TRIP13/CDC20/NUDC/DRG1/MLH1/NCAPG2/KIF22/STIL/BEX4/C9orf78/BOD1/RAN/ERCC2/CDC42/BRCA1/CSNK1D/WRAP73/RECQL5/CHMP6/SYCP2L/KIFC1/GEM/SMC3/NDC80/CEP85/PMF1/SMARCB1/SMARCC1/SYCE1L/CEP63/CENPS/HECW2/PIBF1/HAUS2/TLK1/FIRRM/DPF2/CENPP/ACTL6A/TPR/HAUS3/MYBL2/TEX14/RANGRF/CENPN/CCNE1/SMARCD1/ANAPC5/CENPC/RRS1/TOP2A/MAPRE2/CDCA8/STAG1/SIRT1/KAT2B/CEP192/TLK2/TTL/RAB11A/NSL1/CHEK2/MAU2/CENPM/SIRT7/AKAP8/CENPW/CENPE/HSPA1A/SMC4/ARL8A/SAC3D1/PTTG1/SMARCE1/MIS12/XRCC3/ESCO2/SEPTIN1/RGS14/CIAO1/CHMP4A/KNTC1/TPX2/ARL8B
+GO:0000819                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ACTB/HSPA1B/UHRF1/RCC1/KIF3B/KIF18B/CCNB1/NCAPH/CDCA5/RMI2/BIRC5/KAT5/CHMP4B/RHOA/PBRM1/SMARCA4/KMT5A/BRD7/CHMP3/KPNB1/UBE2C/CENPI/BAZ1B/CDC27/PSRC1/GOLGA2/ZWINT/SKA3/MAP9/BCL7C/BCL7A/KIF4A/CENPK/POLDIP2/MAPRE1/AURKB/SMC1A/PPP2R1A/ZW10/KIF2C/BCCIP/SPC25/ESPL1/SEH1L/TACC3/INO80/NCAPH2/ANAPC7/INCENP/KATNB1/HNRNPU/ARID2/BCL7B/CHMP1A/KNL1/TRIP13/CDC20/NUDC/DRG1/NCAPG2/KIF22/BOD1/RAN/WRAP73/CHMP6/KIFC1/SMC3/NDC80/SMARCB1/SMARCC1/HECW2/PIBF1/DPF2/ACTL6A/TPR/MYBL2/TEX14/RANGRF/SMARCD1/ANAPC5/CENPC/RRS1/TOP2A/CDCA8/STAG1/SIRT1/KAT2B/CEP192/RAB11A/NSL1/CHEK2/AKAP8/CENPE/HSPA1A/SMC4/SMARCE1/MIS12/XRCC3/CHMP4A/KNTC1/TPX2
+GO:0016236                                                                                                                                                                                                                                                      EI24/ATP6V0E2/GSK3A/VPS33A/FYCO1/TBC1D5/UBXN2B/RETREG2/ATP6V0D1/UCHL1/ATP6V1G1/PIP4K2B/VPS35/CTSD/TBC1D14/ATP2A2/RAB1B/RAB7A/VTI1B/ATP6V0C/VDAC1/KAT5/CHMP4B/ERN1/CHMP3/RNF5/SNF8/VCP/CDK5/EXOC7/RIMOC1/RETREG3/ATG13/SESN3/ATG14/MTOR/LIX1L/RALB/VPS25/LAMP2/HSPB8/SNX14/CDC37/ARFIP2/NIPSNAP3A/RNF213/VTI1A/STBD1/POLDIP2/AP5Z1/TEX264/UFC1/GBA1/TMEM39A/OGT/SNAP29/RNF41/CSNK2A1/PGAM5/TP53INP1/TIMM23/WIPI1/RIPK2/SH3GLB1/LARP1/VPS26A/ATP6V0A1/SNX32/TMEM41B/IFT88/ILRUN/FBXO7/VPS37B/AKT1/WIPI2/CHMP1A/VAMP8/NBR1/ZFYVE1/UFL1/ATG16L2/ATP6V1C1/YOD1/VMP1/PIP4K2C/FEZ1/BAG3/WDR81/ACBD5/SREBF1/UBE2A/ABI2/SNAPIN/TRIM13/OPTN/VPS36/ATP6V1B2/CHMP6/CAPNS1/PDCD6IP/ELAPOR1/FBXW7/HUWE1/CDK5R1/IRGM/GABARAPL1/NOD1/NIPSNAP3B/ULK3/RAB33B/ADCY10/KLHL3/CLEC16A/UBQLN4/HMOX1/C9orf72/TBC1D25/MFN2/NRBP2/CLN3/LRBA/HGS/ATG7/AP4M1/ARHGAP26/LRRK2/SIRT1/CHEK2/VPS28/PHF23/SUPT5H/TP53INP2/HIF1A/SPTLC1/ATG4C/CHMP4A/ARL8B/ATG4D
+GO:0043484                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   RBM3/CELF2/C1QBP/CLK1/WDR77/RRP1B/HSPA8/MBNL1/ZPR1/AHNAK/FAM50A/SRSF9/RBM8A/SF3B3/SRSF6/ATXN7L3/ERN1/ZNF326/RBM38/PQBP1/RBM22/DAZAP1/SMU1/RBM15/CCNL1/GRSF1/NCL/EXOSC10/U2AF2/FUS/RBM42/TMBIM6/HNRNPH2/USP22/RBFOX2/RBM10/PRPF19/ARB2A/MBNL2/SFSWAP/PTBP2/SF1/HNRNPF/PUF60/TADA2B/PTBP1/HNRNPU/TAF5L/POLR2A/KHDRBS1/RBPMS2/LARP7/RBM24/AKAP17A/SRSF8/EIF1/CELF4/HNRNPA1/ACIN1/SGF29/PRDX6/HNRNPK/TAF6L/SRSF7/DDX5/SNRNP70/RBMX/CLNS1A/ZBTB7A/CIRBP/THRAP3/TADA3/KAT2A/RBM11/KAT2B/ARGLU1/NCBP1/FASTK/HSPA1A/RBM15B/ESRP1/SRSF1/CCNL2/SRPK2/TRRAP
+           Count
+GO:0008380   180
+GO:0022613   177
+GO:0007059   161
+GO:0000819   101
+GO:0016236   138
+GO:0043484    85</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the ego results</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ego, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also plot the similarity between significant GO terms with an enrichment map plot. This is a network-based visualization that shows the relationships between enriched GO terms based on the overlap of their gene sets.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ego_terms <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">pairwise_termsim</span>(ego)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emapplot</span>(ego_terms, <span class="at">showCategory =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The KEGG database is a collection of manually curated pathways that represent our current knowledge of molecular interactions and reactions in various biological processes. We can use the <code>enrichKEGG()</code> function to test for over-representation of KEGG pathways in our list of DE genes.</p>
+<p>The KEGG database uses Entrez gene identifiers, so we need to convert our Ensembl gene IDs to Entrez IDs before we can perform the enrichment analysis. We can use the <code>bitr()</code> function from the <strong>clusterProfiler</strong> package to perform this conversion.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sig_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> sig_gene_ids,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>bg_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> background_gene_ids,</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>ekegg <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene =</span> sig_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">universe =</span> bg_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">organism =</span> <span class="st">"hsa"</span>,</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ekegg, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KEGG Pathway Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-deseq_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="challenge">
+<h2 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h2>
+<p>See if you can produce similar visual outputs and summaries of results for the MOV10_KD_vs_Control comparison.</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
