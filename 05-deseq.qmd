@@ -2,7 +2,7 @@
 title: "RNA-Seq Differential Expression"
 ---
 
-head>
+<head>
 
 ```{=html}
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
