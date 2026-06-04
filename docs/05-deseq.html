@@ -455,7 +455,7 @@ window.Quarto = {
 </header>
 
 
-<p>head&gt;</p>
+
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
 <div class="objectives">
@@ -1315,22 +1315,156 @@ low counts [2]     : 16900, 49%
 </div>
 <p>Our result table contains Ensembl gene identifiers. We can use these to fetch additional annotations from the Ensembl website or fetch annotations using the <strong>AnnotationHub</strong> or <strong>biomaRt</strong> packages.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Connect to the Ensembl database</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>gene_biotype <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span><span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>,<span class="st">"gene_biotype"</span>), <span class="at">mart =</span> ensembl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AnnotationHub)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ah <span class="ot">&lt;-</span> <span class="fu">AnnotationHub</span>()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Search for the human annotation database in Ensembl version 106</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(ah, <span class="fu">c</span>(<span class="st">"GRCh38"</span>,<span class="st">"106"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AnnotationHub with 10 records
+# snapshotDate(): 2024-10-28
+# $dataprovider: Ensembl
+# $species: homo sapiens, Homo sapiens
+# $rdataclass: TwoBitFile, GRanges, EnsDb
+# additional mcols(): taxonomyid, genome, description,
+#   coordinate_1_based, maintainer, rdatadateadded, preparerclass, tags,
+#   rdatapath, sourceurl, sourcetype 
+# retrieve records with, e.g., 'object[["AH100643"]]' 
+
+             title                                           
+  AH100643 | Ensembl 106 EnsDb for Homo sapiens              
+  AH102892 | Homo_sapiens.GRCh38.106.abinitio.gtf            
+  AH102893 | Homo_sapiens.GRCh38.106.chr.gtf                 
+  AH102894 | Homo_sapiens.GRCh38.106.chr_patch_hapl_scaff.gtf
+  AH102895 | Homo_sapiens.GRCh38.106.gtf                     
+  AH103843 | Homo_sapiens.GRCh38.cdna.all.2bit               
+  AH103844 | Homo_sapiens.GRCh38.dna.primary_assembly.2bit   
+  AH103845 | Homo_sapiens.GRCh38.dna_rm.primary_assembly.2bit
+  AH103846 | Homo_sapiens.GRCh38.dna_sm.primary_assembly.2bit
+  AH103847 | Homo_sapiens.GRCh38.ncrna.2bit                  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fetch the annotation for AH102893, which is the Ensembl GTF file for GRCh38 version 106. This is the GTF file that was used with Salmon to create our read count table.</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Ensembl.hg38.<span class="fl">106.</span>gr <span class="ot">&lt;-</span> ah[[<span class="st">"AH102893"</span>]]</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>Ensembl.hg38.<span class="fl">106.</span>gr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 3278829 ranges and 22 metadata columns:
+            seqnames          ranges strand |         source        type
+               &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; |       &lt;factor&gt;    &lt;factor&gt;
+        [1]        1 1211340-1214153      - | ensembl_havana gene       
+        [2]        1 1211340-1214153      - | ensembl_havana transcript 
+        [3]        1 1213983-1214153      - | ensembl_havana exon       
+        [4]        1 1213983-1214127      - | ensembl_havana CDS        
+        [5]        1 1214125-1214127      - | ensembl_havana start_codon
+        ...      ...             ...    ... .            ...         ...
+  [3278825]       MT     15888-15953      + |          insdc  transcript
+  [3278826]       MT     15888-15953      + |          insdc  exon      
+  [3278827]       MT     15956-16023      - |          insdc  gene      
+  [3278828]       MT     15956-16023      - |          insdc  transcript
+  [3278829]       MT     15956-16023      - |          insdc  exon      
+                score     phase         gene_id gene_version   gene_name
+            &lt;numeric&gt; &lt;integer&gt;     &lt;character&gt;  &lt;character&gt; &lt;character&gt;
+        [1]        NA      &lt;NA&gt; ENSG00000186827           11     TNFRSF4
+        [2]        NA      &lt;NA&gt; ENSG00000186827           11     TNFRSF4
+        [3]        NA      &lt;NA&gt; ENSG00000186827           11     TNFRSF4
+        [4]        NA         0 ENSG00000186827           11     TNFRSF4
+        [5]        NA         0 ENSG00000186827           11     TNFRSF4
+        ...       ...       ...             ...          ...         ...
+  [3278825]        NA      &lt;NA&gt; ENSG00000210195            2       MT-TT
+  [3278826]        NA      &lt;NA&gt; ENSG00000210195            2       MT-TT
+  [3278827]        NA      &lt;NA&gt; ENSG00000210196            2       MT-TP
+  [3278828]        NA      &lt;NA&gt; ENSG00000210196            2       MT-TP
+  [3278829]        NA      &lt;NA&gt; ENSG00000210196            2       MT-TP
+               gene_source   gene_biotype   transcript_id transcript_version
+               &lt;character&gt;    &lt;character&gt;     &lt;character&gt;        &lt;character&gt;
+        [1] ensembl_havana protein_coding            &lt;NA&gt;               &lt;NA&gt;
+        [2] ensembl_havana protein_coding ENST00000379236                  4
+        [3] ensembl_havana protein_coding ENST00000379236                  4
+        [4] ensembl_havana protein_coding ENST00000379236                  4
+        [5] ensembl_havana protein_coding ENST00000379236                  4
+        ...            ...            ...             ...                ...
+  [3278825]          insdc        Mt_tRNA ENST00000387460                  2
+  [3278826]          insdc        Mt_tRNA ENST00000387460                  2
+  [3278827]          insdc        Mt_tRNA            &lt;NA&gt;               &lt;NA&gt;
+  [3278828]          insdc        Mt_tRNA ENST00000387461                  2
+  [3278829]          insdc        Mt_tRNA ENST00000387461                  2
+            transcript_name transcript_source transcript_biotype         tag
+                &lt;character&gt;       &lt;character&gt;        &lt;character&gt; &lt;character&gt;
+        [1]            &lt;NA&gt;              &lt;NA&gt;               &lt;NA&gt;        &lt;NA&gt;
+        [2]     TNFRSF4-201    ensembl_havana     protein_coding       basic
+        [3]     TNFRSF4-201    ensembl_havana     protein_coding       basic
+        [4]     TNFRSF4-201    ensembl_havana     protein_coding       basic
+        [5]     TNFRSF4-201    ensembl_havana     protein_coding       basic
+        ...             ...               ...                ...         ...
+  [3278825]       MT-TT-201             insdc            Mt_tRNA       basic
+  [3278826]       MT-TT-201             insdc            Mt_tRNA       basic
+  [3278827]            &lt;NA&gt;              &lt;NA&gt;               &lt;NA&gt;        &lt;NA&gt;
+  [3278828]       MT-TP-201             insdc            Mt_tRNA       basic
+  [3278829]       MT-TP-201             insdc            Mt_tRNA       basic
+                ccds_id transcript_support_level exon_number         exon_id
+            &lt;character&gt;              &lt;character&gt; &lt;character&gt;     &lt;character&gt;
+        [1]        &lt;NA&gt;                     &lt;NA&gt;        &lt;NA&gt;            &lt;NA&gt;
+        [2]      CCDS11   1 (assigned to previ..        &lt;NA&gt;            &lt;NA&gt;
+        [3]      CCDS11   1 (assigned to previ..           1 ENSE00001832731
+        [4]      CCDS11   1 (assigned to previ..           1            &lt;NA&gt;
+        [5]      CCDS11   1 (assigned to previ..           1            &lt;NA&gt;
+        ...         ...                      ...         ...             ...
+  [3278825]        &lt;NA&gt;                       NA        &lt;NA&gt;            &lt;NA&gt;
+  [3278826]        &lt;NA&gt;                       NA           1 ENSE00001544475
+  [3278827]        &lt;NA&gt;                     &lt;NA&gt;        &lt;NA&gt;            &lt;NA&gt;
+  [3278828]        &lt;NA&gt;                       NA        &lt;NA&gt;            &lt;NA&gt;
+  [3278829]        &lt;NA&gt;                       NA           1 ENSE00001544473
+            exon_version      protein_id protein_version
+             &lt;character&gt;     &lt;character&gt;     &lt;character&gt;
+        [1]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+        [2]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+        [3]            2            &lt;NA&gt;            &lt;NA&gt;
+        [4]         &lt;NA&gt; ENSP00000368538               3
+        [5]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+        ...          ...             ...             ...
+  [3278825]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+  [3278826]            2            &lt;NA&gt;            &lt;NA&gt;
+  [3278827]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+  [3278828]         &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;
+  [3278829]            2            &lt;NA&gt;            &lt;NA&gt;
+  -------
+  seqinfo: 25 sequences (1 circular) from GRCh38.p13 genome</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Convert to a dataframe and select the gene_id and gene_biotype columns</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>gene_biotype <span class="ot">&lt;-</span> Ensembl.hg38.<span class="fl">106.</span>gr <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id, gene_biotype) <span class="sc">|&gt;</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">ensembl_gene_id =</span> gene_id) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Example code for fetching biotype annotation with biomaRt. This is not run here as the connection to the Ensembl database can be unreliable. You can run this code if you want to fetch the biotype annotation yourself, but the result is already provided in the `gene_biotype` object above.</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co">#library(biomaRt)</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co">#ensembl &lt;- useMart("ensembl", dataset = "hsapiens_gene_ensembl")</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co">#gene_biotype &lt;- getBM(attributes =c("ensembl_gene_id","gene_biotype"), mart = ensembl)</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>gene_biotype <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    ensembl_gene_id           gene_biotype
+1   ENSG00000186827         protein_coding
+32  ENSG00000186891         protein_coding
+85  ENSG00000160072         protein_coding
+192 ENSG00000260179                 lncRNA
+195 ENSG00000234396                 lncRNA
+199 ENSG00000225972 unprocessed_pseudogene</code></pre>
+</div>
 </div>
 <p>Now we can merge our result table with the biotype column.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Map all result lists to a function that joins with the anno data</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>result_table <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gene_biotype, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"GeneID"</span> <span class="ot">=</span> <span class="st">"ensembl_gene_id"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_biotype =</span> <span class="fu">factor</span>(gene_biotype)) <span class="do">## set biotype to factor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Map all result lists to a function that joins with the anno data</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result_table <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gene_biotype, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"GeneID"</span> <span class="ot">=</span> <span class="st">"ensembl_gene_id"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_biotype =</span> <span class="fu">factor</span>(gene_biotype)) <span class="do">## set biotype to factor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We could use this column to filter our results if we are interested in specific types of RNA (e.g.&nbsp;protein coding).</p>
 <p>We will now save the result table to file so we can use it outside of R if required.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(result_table, <span class="st">"MOV10_OE_vs_Control.deseq2.tsv"</span>, <span class="at">col_names =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(result_table, <span class="st">"MOV10_OE_vs_Control.deseq2.tsv"</span>, <span class="at">col_names =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="key-points">
 <h2 class="anchored" data-anchor-id="formatting-and-annotating-results">
@@ -1354,13 +1488,13 @@ low counts [2]     : 16900, 49%
 <p>We can then see the spread of fold changes in each direction in our set of significant genes.</p>
 <p>We can use our <code>Significant</code> column to colour our points by whether they are significant by padj, log2 fold change or both.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sig_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not Significant"</span> <span class="ot">=</span> <span class="st">"grey60"</span>, <span class="st">"padj"</span> <span class="ot">=</span> <span class="st">"#143960"</span>, <span class="st">"l2FC"</span> <span class="ot">=</span> <span class="st">"#08A4BD"</span>, <span class="st">"Both"</span> <span class="ot">=</span> <span class="st">"#C91F3A"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sig_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not Significant"</span> <span class="ot">=</span> <span class="st">"grey60"</span>, <span class="st">"padj"</span> <span class="ot">=</span> <span class="st">"#143960"</span>, <span class="st">"l2FC"</span> <span class="ot">=</span> <span class="st">"#08A4BD"</span>, <span class="st">"Both"</span> <span class="ot">=</span> <span class="st">"#C91F3A"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1371,16 +1505,16 @@ low counts [2]     : 16900, 49%
 </div>
 <p>We can even use <strong>ggrepel</strong> to label some of our genes. Let’s select ten genes with the lowest adjusted p-values.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>topTen <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> topTen, <span class="fu">aes</span>(<span class="at">label =</span> GeneSymbol))<span class="sc">+</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>) <span class="sc">+</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>topTen <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(result_table, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj), <span class="at">colour =</span> Significant)) <span class="sc">+</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> topTen, <span class="fu">aes</span>(<span class="at">label =</span> GeneSymbol))<span class="sc">+</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(sig_cols)) <span class="sc">+</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"MOV10_OE_vs_Control"</span>) <span class="sc">+</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1394,16 +1528,16 @@ low counts [2]     : 16900, 49%
 <h3 class="anchored" data-anchor-id="plots-of-de-genes-by-biotype">Plots of DE genes by biotype</h3>
 <p>We can take a look at the types of RNAs which are represented in our list of DE genes. First, let’s filter our results for genes which pass our threshold for differential expression.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get significant DEGs with padj &lt;= 0.05 and log2 fold change &gt;= 1</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot barplot of gene_biotype</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sig_genes, <span class="fu">aes</span>(gene_biotype, <span class="at">fill =</span> gene_biotype)) <span class="sc">+</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get significant DEGs with padj &lt;= 0.05 and log2 fold change &gt;= 1</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot barplot of gene_biotype</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sig_genes, <span class="fu">aes</span>(gene_biotype, <span class="at">fill =</span> gene_biotype)) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1418,22 +1552,22 @@ low counts [2]     : 16900, 49%
 <h3 class="anchored">Heatmaps of genes with largest changes</h3>
 <p>We can use the log normalised counts we created earlier to plot heatmaps of genes with the largest changes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Out of all significant genes, get the 20 with the largest fold change in either direction in MOV10_OE relative to the control</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>top20 <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha) <span class="sc">|&gt;</span> </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(log2FoldChange))) <span class="sc">|&gt;</span> </span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(GeneID)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a matrix of rld counts and plot the heatmap</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld)[top20,]</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Set rownames to gene symbols using the tx2gene map</span></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> tx2gene<span class="sc">$</span>GeneSymbol[<span class="fu">match</span>(<span class="fu">rownames</span>(mat), tx2gene<span class="sc">$</span>GeneID)]</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a colour palette for the heatmap</span></span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"RdBu"</span>)) )(<span class="dv">255</span>)</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the heatmap</span></span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(mat, <span class="at">color =</span> colors, <span class="at">scale =</span> <span class="st">"row"</span>, <span class="at">cluster_rows =</span> T, <span class="at">cluster_cols =</span> T, <span class="at">annotation_col =</span> anno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Out of all significant genes, get the 20 with the largest fold change in either direction in MOV10_OE relative to the control</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>top20 <span class="ot">&lt;-</span> result_table <span class="sc">|&gt;</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(padj <span class="sc">&lt;=</span> alpha) <span class="sc">|&gt;</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(log2FoldChange))) <span class="sc">|&gt;</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(GeneID)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a matrix of rld counts and plot the heatmap</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld)[top20,]</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Set rownames to gene symbols using the tx2gene map</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> tx2gene<span class="sc">$</span>GeneSymbol[<span class="fu">match</span>(<span class="fu">rownames</span>(mat), tx2gene<span class="sc">$</span>GeneID)]</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a colour palette for the heatmap</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"RdBu"</span>)) )(<span class="dv">255</span>)</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the heatmap</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(mat, <span class="at">color =</span> colors, <span class="at">scale =</span> <span class="st">"row"</span>, <span class="at">cluster_rows =</span> T, <span class="at">cluster_cols =</span> T, <span class="at">annotation_col =</span> anno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1460,27 +1594,27 @@ low counts [2]     : 16900, 49%
 <p>We will test our list of DE genes against the background of all genes that were tested in our DESeq2 analysis (i.e.&nbsp;all genes that passed the independent filtering step). This is important to ensure that we are testing for enrichment against the correct background set of genes.</p>
 <p>The Gene Ontology is a hierarchical database of gene functions that are organised into three categories: Biological Process (BP), Molecular Function (MF) and Cellular Component (CC). We can use the <code>enrichGO()</code> function to test for over-representation of GO terms in our list of DE genes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of significant gene IDs</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>sig_gene_ids <span class="ot">&lt;-</span> sig_genes<span class="sc">$</span>GeneID</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of background gene IDs (all genes that were tested in DESeq2)</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>background_gene_ids <span class="ot">&lt;-</span> result_table<span class="sc">$</span>GeneID</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform GO enrichment analysis for the Biological Process category</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene =</span> sig_gene_ids,</span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">universe =</span> background_gene_ids,</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">OrgDb =</span> org.Hs.eg.db,</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">keyType =</span> <span class="st">"ENSEMBL"</span>,</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">ont =</span> <span class="st">"BP"</span>,</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,</span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">qvalueCutoff =</span> <span class="fl">0.05</span>,</span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">readable =</span> T)</span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="do">## View the result as a datatable</span></span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ego) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of significant gene IDs</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>sig_gene_ids <span class="ot">&lt;-</span> sig_genes<span class="sc">$</span>GeneID</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Get a vector of background gene IDs (all genes that were tested in DESeq2)</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>background_gene_ids <span class="ot">&lt;-</span> result_table<span class="sc">$</span>GeneID</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform GO enrichment analysis for the Biological Process category</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene =</span> sig_gene_ids,</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">universe =</span> background_gene_ids,</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">OrgDb =</span> org.Hs.eg.db,</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">keyType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">ont =</span> <span class="st">"BP"</span>,</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">qvalueCutoff =</span> <span class="fl">0.05</span>,</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">readable =</span> T)</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a><span class="do">## View the result as a datatable</span></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ego) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   ID                          Description GeneRatio   BgRatio
 GO:0008380 GO:0008380                         RNA splicing  180/3946 474/18258
@@ -1518,10 +1652,10 @@ GO:0000819   101
 GO:0016236   138
 GO:0043484    85</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the ego results</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ego, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the ego results</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ego, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1532,10 +1666,10 @@ GO:0043484    85</code></pre>
 </div>
 <p>We can also plot the similarity between significant GO terms with an enrichment map plot. This is a network-based visualization that shows the relationships between enriched GO terms based on the overlap of their gene sets.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ego_terms <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">pairwise_termsim</span>(ego)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emapplot</span>(ego_terms, <span class="at">showCategory =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>ego_terms <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">pairwise_termsim</span>(ego)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emapplot</span>(ego_terms, <span class="at">showCategory =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"GO Biological Process Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1547,29 +1681,29 @@ GO:0043484    85</code></pre>
 <p>The KEGG database is a collection of manually curated pathways that represent our current knowledge of molecular interactions and reactions in various biological processes. We can use the <code>enrichKEGG()</code> function to test for over-representation of KEGG pathways in our list of DE genes.</p>
 <p>The KEGG database uses Entrez gene identifiers, so we need to convert our Ensembl gene IDs to Entrez IDs before we can perform the enrichment analysis. We can use the <code>bitr()</code> function from the <strong>clusterProfiler</strong> package to perform this conversion.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sig_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> sig_gene_ids,</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>bg_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> background_gene_ids,</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>ekegg <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene =</span> sig_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">universe =</span> bg_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">organism =</span> <span class="st">"hsa"</span>,</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ekegg, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KEGG Pathway Enrichment"</span>) <span class="sc">+</span></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sig_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> sig_gene_ids,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>bg_entrez <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">geneID =</span> background_gene_ids,</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>,</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">toType   =</span> <span class="st">"ENTREZID"</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">OrgDb    =</span> org.Hs.eg.db</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>ekegg <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene =</span> sig_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">universe =</span> bg_entrez<span class="sc">$</span>ENTREZID <span class="sc">|&gt;</span> <span class="fu">unique</span>(),</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">organism =</span> <span class="st">"hsa"</span>,</span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(ekegg, <span class="at">showCategory =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KEGG Pathway Enrichment"</span>) <span class="sc">+</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

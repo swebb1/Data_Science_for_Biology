@@ -322,6 +322,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/deseq.jpeg" width="20px" style="margin-right: 5px;"> 5: Differential Expression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-deseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Differential expression analysis with DESeq2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -422,11 +445,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 ATGAAGTATATCAATTATAAGACGCATGCTAACT...CAGAATCCTCTCAAAACCACCCGCACACTAGGT
-[2]   500 ACTAGTGCTCAGAAAAAAAAAATCCCAGCACTTT...CAGGATACACAGCTAAGACTTCAGCTCTGTTTC
-[3]   500 TCTCGTGAGGAAAACAGGGCCACACTCACCACTG...AGACATCTCACCTGGTAAAGGATGCAGCTGTAA
-[4]   500 AGAGCTTAGTCTTCACTTGCAAGGGTGCCCCTGT...AATCGTTCCTGCTGCTTCAAACTACTGTGTGAT
-[5]   500 TACCTGCGCATGAGCAGAATTGATGTTTTCTGTG...ATAAATGTGTATTTCTATGACAGTTTTAGTGTC</code></pre>
+[1]   500 AGTGGGGAAGATATATGGTTGAGAATGAAAATGG...TGTATATATGGTGGGGAGTATATATGGTTAGGA
+[2]   500 CCACAGACGCCACAGTTCCAAACACGTCCGCCTC...GTTATAATTTTCATTTAGTTATATATATATGTG
+[3]   500 TTTAGTAGAGACAGGGTTTCACCATGTTGGTCAG...TTTAGGGGCTTGAGAGTCCTCAGATCTTGGTAT
+[4]   500 TATTGTGAATCACTTCTGCCTAACGCCATCACCC...TTTGGTGTGGGGGGTTATATACCCAAAACTGGA
+[5]   500 TGCTCTTTTAGAATTTTCACTTTATCTTTGAACA...TGCTGTATTGTTTTTTCTGATTTCTTTGCATTG</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -434,12 +457,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the dinucleotide frequencies for each sequence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
-[1,] 57 31 40 30 35 32  9 33 38 23 38 19 27 23 31 33
-[2,] 42 24 43 23 38 29  8 39 35 33 43 26 16 29 43 28
-[3,] 50 24 40 31 31 16  3 31 40 14 40 33 25 27 44 50
-[4,] 25 21 37 22 27 42  4 47 36 27 32 33 16 30 55 45
-[5,] 41 16 27 55 29 20  1 36 22 13 13 32 47 38 39 70</code></pre>
+<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG  TT
+[1,] 31 17 28 69 22  3  3  9 37 13 82 48 55  4 67  11
+[2,] 16 32 30 22 42 40 26 34 24 39 41 32 18 30 40  33
+[3,] 57 20 40 42 33 36  4 31 33 21 24 20 36 27 30  45
+[4,] 29 20 18 35 30 43  4 51 14 26 23 38 30 39 56  43
+[5,] 31 13 16 46 20 10  2 52 21 13 14 28 34 48 45 106</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -542,11 +565,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.454
-[2,] 0.504
-[3,] 0.416
-[4,] 0.496
-[5,] 0.334</code></pre>
+[1,] 0.434
+[2,] 0.558
+[3,] 0.404
+[4,] 0.458
+[5,] 0.322</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -557,11 +580,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 MKYINYKTHANSRKSKT*KKCVLEWKNAVVKLFL...GLEPGLPGRGWTHFAKHLRTRPYRILSKPPAH*
-[2]   166 TSAQKKKIPALWEAKAGELPQLRSSRPAWATW*N...SWKSRVGP*SQLKRCGTDS*GCFRIHS*DFSSV
-[3]   166 SREENRATLTTGWRGLVSRW*RLRR*EILVESCG...SE*ETAPGCLRFSWVERPCVLREDISPGKGCSC
-[4]   166 RA*SSLARVPLCSSTLHPQAGLGFLEPDELKMLQ...GTA*IDL*KHL*TRKCSHGTLDEIVPAASNYCV
-[5]   166 YLRMSRIDVFCGAVS*HW*NLFCDPRSLGSSVNA...SVVHLISNQSF*NLILHVTLCFI*MCISMTVLV</code></pre>
+[1]   166 SGEDIWLRMKMDSGECV*WECLVGSLYNEDLGML...W*EMPMAGSNYSGDYYGGKVMGSVYMVGSIYG*
+[2]   166 PQTPQFQTRPPQQAPVPGKARVPL*RFSGGVRRR...E*KFFMLEISLVAMF*LLLTNLML*FSFSYIYM
+[3]   166 FSRDRVSPCWSGWSRTPDLR*SARLSLSKCWDYR...CLCEFHQWWNWLDRESKDIESQLLGA*ESSDLG
+[4]   166 YCESLLPNAITPVGSPVPTRSLSPSPGPQPLAVP...LPIENKAAINVHEQVSL*TPVINLVWGVIYPKL
+[5]   166 CSFRIFTLSLNNLTIMCHGEDLFALYLFGDL*AS...FTSIISVWFFFMMLSLW*ISHSRAVLFFLISLH</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>

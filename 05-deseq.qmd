@@ -651,10 +651,31 @@ result_table
 Our result table contains Ensembl gene identifiers. We can use these to fetch additional annotations from the Ensembl website or fetch annotations using the **AnnotationHub** or **biomaRt** packages.
 
 ```{r,warning=FALSE,message=FALSE}
-library(biomaRt)
-## Connect to the Ensembl database
-ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-gene_biotype <- getBM(attributes =c("ensembl_gene_id","gene_biotype"), mart = ensembl)
+library(AnnotationHub)
+ah <- AnnotationHub()
+
+## Search for the human annotation database in Ensembl version 106
+query(ah, c("GRCh38","106"))
+
+## Fetch the annotation for AH102893, which is the Ensembl GTF file for GRCh38 version 106. This is the GTF file that was used with Salmon to create our read count table.
+Ensembl.hg38.106.gr <- ah[["AH102893"]]
+
+Ensembl.hg38.106.gr
+
+## Convert to a dataframe and select the gene_id and gene_biotype columns
+gene_biotype <- Ensembl.hg38.106.gr |>
+  as.data.frame() |> 
+  dplyr::select(gene_id, gene_biotype) |> 
+  dplyr::rename(ensembl_gene_id = gene_id) |>
+  unique()
+
+## Example code for fetching biotype annotation with biomaRt. This is not run here as the connection to the Ensembl database can be unreliable. You can run this code if you want to fetch the biotype annotation yourself, but the result is already provided in the `gene_biotype` object above.
+
+#library(biomaRt)
+#ensembl <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#gene_biotype <- getBM(attributes =c("ensembl_gene_id","gene_biotype"), mart = ensembl)
+
+gene_biotype |> head()
 ```
 
 Now we can merge our result table with the biotype column.

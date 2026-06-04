@@ -39,7 +39,7 @@ BiocManager::install("tximport")
 BiocManager::install("apeglm")
 BiocManager::install("clusterProfiler")
 BiocManager::install("enrichplot")
-BiocManager::install("biomaRt")
+BiocManager::install("AnnotationHub")
 BiocManager::install("org.Hs.eg.db")
 
 ```
