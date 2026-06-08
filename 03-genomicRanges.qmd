@@ -67,6 +67,7 @@ gr <- GRanges(seqnames = c("chr2", "chr2", "chr6", "chr6", "chr10"),
 
 gr
 ```
+
 Our GRanges object contains 5 genomic intervals on 3 different chromosomes. We have included a column called **names** to store the name of each interval but we could have included any other metadata columns as well.
 
 We can use the `sample()`, `rep()` and `seq()` functions in base R to generate sample co-ordinates. Try playing around with these functions.
@@ -104,12 +105,14 @@ The `length()` function gives the number of genomic intervals in the GRanges obj
 ```{r message=FALSE, warning=FALSE}
 length(gr)
 ```
+
 We can access the individual components of the GRanges object with the following functions:
 
 ```{r message=FALSE, warning=FALSE}
 ## Get the names of sequences (e.g. chromosomes) represented in the GRanges object
 seqnames(gr)
 ```
+
 The output data type is **factor-Rle**. Rle stands for run-length encoding and is a way to store repeated values more efficiently. In this case, the chromosome names are repeated across multiple intervals so they are stored as a factor with the number of repeats. If we wanted to convert this to a vector we can use the `as.factor()` function.
 
 ```{r message=FALSE, warning=FALSE}
@@ -150,7 +153,6 @@ mcols(gr)
 
 GRanges objects work like a lot of other vector objects in R. This means you can use many of the base R functions to subset, combine, sort and compare GRanges.
 
-
 ```{r}
 ## Select specific intervals with square bracket notation
 gr3 <- gr[c(5, 4, 3)]
@@ -176,19 +178,20 @@ subset(gr2, strand(gr2) == "-")
 ## Split GRanges into a GRangesList by chromosome
 split(gr, seqnames(gr))
 ```
+
 <br>
 
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
-You may be wondering why we have gone back to using a lot of **base R** functions when the Tidyverse style of coding is much more intuitive and easier to read. The GenomicRanges package was developed before the Tidyverse and uses base R functions at its core. 
+You may be wondering why we have gone back to using a lot of **base R** functions when the Tidyverse style of coding is much more intuitive and easier to read. The GenomicRanges package was developed before the Tidyverse and uses base R functions at its core.
 
 The **TidyOmics** project has started to develop packages to manipulate genomic data in a tidyverse style.
 
-One of these packages is **plyranges**, a tidyverse style interface to GRanges objects. It has many of the same functions as GenomicRanges but uses Tidyverse style verbs instead of base R functions. 
+One of these packages is **plyranges**, a tidyverse style interface to GRanges objects. It has many of the same functions as GenomicRanges but uses Tidyverse style verbs instead of base R functions.
 
-- [https://github.com/tidyomics](https://github.com/tidyomics)
-- [https://tidyomics.github.io/plyranges/articles/an-introduction.html](https://tidyomics.github.io/plyranges/articles/an-introduction.html)
+-   <https://github.com/tidyomics>
+-   <https://tidyomics.github.io/plyranges/articles/an-introduction.html>
 
 The TidyOmics packages are still developing and not yet widely used but they are worth keeping an eye on as they will make working with genomic data much easier in the future.
 :::
@@ -198,9 +201,9 @@ The TidyOmics packages are still developing and not yet widely used but they are
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-1. Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
+1.  Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
 
-2. Concatenate the GRanges in gr and gr2 and extract the intervals on chr2.
+2.  Concatenate the GRanges in gr and gr2 and extract the intervals on chr2.
 
 <details>
 
@@ -211,20 +214,19 @@ The TidyOmics packages are still developing and not yet widely used but they are
 ::: solution
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
-1. Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
+1.  Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
 
 ```{r}
 gr_subset = subset(gr, GC>=0.5)
 split(gr_subset, seqnames(gr_subset))
 ```
 
-2. Concatenate the GRanges in gr and gr2 and extract the intervals on chr2.
+2.  Concatenate the GRanges in gr and gr2 and extract the intervals on chr2.
 
 ```{r}
 grc <- c(gr, gr2)
 subset(grc, seqnames(grc) == "chr2")
 ```
-
 :::
 
 </details>
@@ -341,7 +343,6 @@ pg(gr)
 gr2
 pg(gr2)
 ```
-
 
 ## Range based operations on GRanges objects
 
@@ -484,7 +485,6 @@ It is often interesting to find the overlaps between genomic intervals.
 
 Firstly, we may have overlapping intervals within a single GRanges object. We can use the `reduce()` function to merge these into single intervals. This is often a required step for downstream analysis where you want to avoid counting the same region multiple times. For instance, you may have overlapping ChIP-seq peaks that you want to merge together before counting the number of reads in each peak.
 
-
 ```{r}
 ## Reduce overlapping ranges into single ranges
 reduce(gr)
@@ -546,15 +546,16 @@ fo <- findOverlaps(query = genes, subject = peaks)
 fo
 ```
 
-The **query** is the GRanges object supplied as the first argument (genes) and the **subject** is the GRanges object supplied as the second argument (peaks). 
+The **query** is the GRanges object supplied as the first argument (genes) and the **subject** is the GRanges object supplied as the second argument (peaks).
 
-We can see that genes[1] overlaps with peaks[1] and peaks[2], and genes[2] overlaps with peaks[3]. The output is a **Hits object** which contains the indices of the overlapping intervals in the query and subject GRanges objects.
+We can see that genes\[1\] overlaps with peaks\[1\] and peaks\[2\], and genes\[2\] overlaps with peaks\[3\]. The output is a **Hits object** which contains the indices of the overlapping intervals in the query and subject GRanges objects.
 
 ```{r}
 ## Use the subjectHits or queryHits functions to extract columns from the output
 subjectHits(fo)
 queryHits(fo)
 ```
+
 We can use these to extract the overlapping intervals from the original GRanges objects.
 
 ```{r}
@@ -573,6 +574,7 @@ p_genes / p_peaks / p_genes_peaks + plot_layout(guides = "collect")
 ## We use unique() so intervals are not repeated
 peaks[subjectHits(fo) |> unique()]
 ```
+
 ## Set functions on GRanges
 
 GenomicRanges can perform set functions on the intervals in two GRanges objects. For instance, we can get the intersecting regions between two sets of genomic intervals with the `intersect()` function.
@@ -600,18 +602,19 @@ What happens if we set all the peaks to be on the minus strand?
 strand(peaks) = "-"
 GenomicRanges::intersect(peaks, genes)
 ```
+
 Now we only get a single intersecting region.
 
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
 
-There are many other functions to perform set operations and overlaps on GRanges objects such as 
+There are many other functions to perform set operations and overlaps on GRanges objects such as
 
-  - `union()` : Get the union of two sets of genomic intervals
-  - `setdiff()` : Get the regions in one set of genomic intervals that do not overlap with the other set
-  - `disjoin()` : Get the non-overlapping regions from a single set of genomic intervals
-  - `setequal()` : Check if two sets of genomic intervals are the same
-  - `subsetByOverlaps()` : Subset a GRanges object by overlaps with another GRanges object
+-   `union()` : Get the union of two sets of genomic intervals
+-   `setdiff()` : Get the regions in one set of genomic intervals that do not overlap with the other set
+-   `disjoin()` : Get the non-overlapping regions from a single set of genomic intervals
+-   `setequal()` : Check if two sets of genomic intervals are the same
+-   `subsetByOverlaps()` : Subset a GRanges object by overlaps with another GRanges object
 
 If you need to perform a specific operation on genomic intervals there is probably an existing function or combination of functions. Check the documentation or search the web.
 :::
@@ -628,7 +631,7 @@ shift(gl, 100)
 :::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
-Create new GRanges objects called **genes** and **peaks**. 
+Create new GRanges objects called **genes** and **peaks**.
 
 ```{r}
 genes <- GRanges(seqnames = c("chr2", "chr5", "chr6", "chr8","chr10"),
@@ -678,7 +681,6 @@ qh <- findOverlaps(query = promoters(genes), subject = peaks) |>
 
 genes[qh]
 ```
-
 :::
 
 </details>
@@ -690,7 +692,7 @@ The **genomation** package has several useful functions to import annotation and
 
 We are going to work with annotation files from the Human hg19 reference genome. The file contains gene annotations downloaded from the Ensembl database in **bed** format.
 
-Load the **genomation** library and use the `readBed()` function to read in the file. 
+Load the **genomation** library and use the `readBed()` function to read in the file.
 
 ```{r}
 library(genomation)
@@ -707,7 +709,7 @@ hg19.genes
 
 This is a much bigger GRanges object with 57773 intervals representing gene annotations.
 
-Note that the GRanges object has a slot for **seqinfo** which can store the lengths of each chromosome and the genome they are derived from. 
+Note that the GRanges object has a slot for **seqinfo** which can store the lengths of each chromosome and the genome they are derived from.
 
 Some functions make use of seqinfo. For instance, when calculating the gaps in coverage of a GRanges object we need to know where the end of each chromosome is. This information is currently empty but we will see how to update it later.
 
@@ -720,7 +722,6 @@ We can also use genomation to read in files that are not in a standard format us
 This file contains the same gene annotations along with additional columns of information. The file is not in the strict **bed** format so we need to use the `readGeneric()` function.
 
 The **meta.cols** argument allows us to specify the column numbers to be read as metadata and how to name these. It takes a list of column numbers and the names we want to give them.
-
 
 ```{r}
 
@@ -760,8 +761,6 @@ The **genomation** package has several other import functions for different type
 
 Take a look at the **genomation** [manual](https://www.bioconductor.org/packages/release/bioc/vignettes/genomation/inst/doc/GenomationManual.html) and [documentation](https://www.bioconductor.org/packages/release/bioc/manuals/genomation/man/genomation.pdf) to learn more.
 :::
-
-<br>
 
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points</h2>

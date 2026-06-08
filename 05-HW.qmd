@@ -1,0 +1,53 @@
+---
+title: "Homework exercise"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: objectives
+<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+
+-   Use publicly available RNA-seq data
+-   Perform DE analysis with DESeq2
+:::
+
+## Task
+
+There are many RNA-seq datasets available in the public domain. Find an RNA-seq dataset of interest to you and perform a DE analysis using DESeq2. You can use the code from the previous exercises as a template for your analysis.
+
+You can search for datasets on [GEO](https://www.ncbi.nlm.nih.gov/geo/) or [SRA](https://www.ncbi.nlm.nih.gov/sra). You can also use datasets from the [Bioconductor ExperimentHub](https://bioconductor.org/packages/release/bioc/html/ExperimentHub.html).
+
+The two datasets below are available as Bioconductor packages. Read the package vignettes for each dataset to learn more about the experimental design and how to access the data in R.
+
+### Airway dataset
+
+The [airway]https://www.bioconductor.org/packages/release/data/experiment/html/airway.html) dataset contains RNA-seq data from human airway smooth muscle cells treated with dexamethasone (a synthetic glucocorticoid) or left untreated.
+
+### Pasilla dataset
+
+The [pasilla](https://bioconductor.org/packages/release/data/experiment/html/pasilla.html) dataset contains RNA-seq data from Drosophila melanogaster cells treated with dsRNA against the splicing factor pasilla or left untreated.
+
+## Output
+
+  -   Quality control plots to assess quality and reproducibility of the data
+  -   A table of differentially expressed genes with log2 fold changes and adjusted p-values
+  -   A volcano plot to visualize the results of the DE analysis
+  -   A brief interpretation of the results, including any interesting genes or pathways that were identified
+
+## Further resources
+
+Use these tutorials for further guidance:
+
+  -   [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+  -   [HBC Differential expression workshop](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)
+ 

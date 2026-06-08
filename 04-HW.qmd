@@ -16,27 +16,28 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ::: objectives
 <h2><i class="far fa-check-square"></i> Learning Objectives</h2>
-  - Download and tidy a qPCR dataset
-  - Plot the data with ggplot2
-  - Perform statistical analysis
-  - Compare results with the original paper
+
+-   Download and tidy a qPCR dataset
+-   Plot the data with ggplot2
+-   Perform statistical analysis
+-   Compare results with the original paper
 :::
 
 ## Task
 
 In this exercise, you will be working with a qPCR dataset from a publication by Lee et al. (2020) investigating the role of APOE in human neural stem cell maintenance. You will download the dataset, tidy it, perform statistical analysis, and plot the results. Finally, you will compare your results with those reported in the original paper.
 
-## Paper summary
+## Publication summary
 
 [Lee et al. (2020)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7355222/) investigated the role of APOE in human neural stem cell maintenance.
 
-Apolipoprotein E (APOE) is a multifunctional protein that plays significant roles in important cellular mechanisms in peripheral tissues and is also expressed in the central nervous system, notably by adult neural stem cells (NSCs) in the hippocampus. 
+Apolipoprotein E (APOE) is a multifunctional protein that plays significant roles in important cellular mechanisms in peripheral tissues and is also expressed in the central nervous system, notably by adult neural stem cells (NSCs) in the hippocampus.
 
-Evidence from animal studies suggest that APOE is critical for adult NSC maintenance. However, whether APOE has the potential to play a similar role in human NSCs has not been directly investigated. To address this question, we conducted a focused study characterising APOE gene and protein expression in an in vitro model of neural differentiation utilising human induced pluripotent stem cells. 
+Evidence from animal studies suggest that APOE is critical for adult NSC maintenance. However, whether APOE has the potential to play a similar role in human NSCs has not been directly investigated. To address this question, we conducted a focused study characterising APOE gene and protein expression in an in vitro model of neural differentiation utilising human induced pluripotent stem cells.
 
 They found that APOE gene expression dramatically decreased as the cells became more differentiated, indicating that APOE expression levels reflect the degree of cellular differentiation during neural induction.
 
-Figure 2B from the paper shows the qPCR results for APOE expression across different days of differentiation for three different differentiation lineages (DSi, DS-Wi, DS-WHi). 
+Figure 2B from the paper shows the qPCR results for APOE expression across different days of differentiation for three different differentiation lineages (DSi, DS-Wi, DS-WHi).
 
 The data is presented as fold change normalised to GAPDH and relative to the day 7 samples.
 
@@ -54,38 +55,36 @@ The [published dataset](https://figshare.com/articles/dataset/raw_data_for_qPCR/
 
 ## Analysis steps
 
-1. Load and explore the data
-2. Tidy the data
-3. Calculate delta C(t) and fold change
-4. Run ANOVA analysis for statistical testing
-5. Normalise fold change for plotting
-6. Calculate means for plotting
-7. Plot the data
-8. Add the statistical results to the plot
+1.  Load and explore the data
+2.  Tidy the data
+3.  Calculate delta C(t) and fold change
+4.  Run ANOVA analysis for statistical testing
+5.  Normalise fold change for plotting
+6.  Calculate means for plotting
+7.  Plot the data
+8.  Add the statistical results to the plot
 
 ::: resources
 <h2><i class="far fa-bell"></i> Resources</h2>
 
-### What is ANOVA? 
+### What is ANOVA?
 
 We did not cover ANOVA in the lessons. ANOVA, or analysis of variance, is a statistical test used to compare the means of three or more groups. In this case, we want to compare the delta C(t) values across different days of differentiation for each differentiation lineage.
 
 ANOVA is a parametric test with the following assumptions:
 
-- The data is normally distributed within each group
-- The variance of the data is similar across groups
+-   The data is normally distributed within each group
+-   The variance of the data is similar across groups
 
-There are two steps to performing ANOVA analysis: 
+There are two steps to performing ANOVA analysis:
 
-  - First, run the ANOVA test to determine if there are any significant differences between the groups. 
-  - If the ANOVA test is significant, you then run post-hoc tests to identify which groups are significantly different from each other. 
-  
+-   First, run the ANOVA test to determine if there are any significant differences between the groups.
+-   If the ANOVA test is significant, you then run post-hoc tests to identify which groups are significantly different from each other.
+
 The most common post-hoc test for ANOVA is the Tukey HSD test, which compares all pairs of groups and adjusts for multiple comparisons.
 
-[Datanovia](https://www.datanovia.com/en/lessons/anova-in-r/) has a great tutorial on how to perform ANOVA analysis in R using the `rstatix` package. 
-
+[Datanovia](https://www.datanovia.com/en/lessons/anova-in-r/) has a great tutorial on how to perform ANOVA analysis in R using the `rstatix` package.
 :::
-
 
 ## Load and explore the data
 
@@ -98,35 +97,39 @@ library(ggpubr)
 
 Now load the data and explore it.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 qpcr <- read_csv("https://bifx-core3.bio.ed.ac.uk/training/DSB/data/APOE_qpcr.csv")
 summary(qpcr)
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Tidy the data
 
 The data is not in a tidy format as the sample name contains information about the differentiation lineage, day of differentiation, biological replicate and technical replicate. We need to tidy the data by separating the sample name into these different variables and setting categorical variables as factors.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 ## Separate sample column and set categorical variables as factors
 qpcr_tidy <- qpcr |>
@@ -140,16 +143,16 @@ qpcr_tidy <- qpcr |>
 qpcr_tidy
 summary(qpcr_tidy)
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Calculate delta C(t) and fold change
 
 Calculate the mean C(t) for APOE and GAPDH for each sample, then calculate the delta C(t) for each sample. The mean for APOE and GAPDH should be calculated across **technical replicates** for each biological replicate. The delta C(t) should be calculated for each biological replicate separately.
 
-The fold change should be calculated using the formula: 
+The fold change should be calculated using the formula:
 
 $$
 Fold~Change = 2^{-ΔΔCt}
@@ -161,14 +164,16 @@ This will give you the fold change for each biological replicate for each differ
 
 You can refer to the case study in lesson 1 for more information on qPCR analysis.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 qpcr_mean <- qpcr_tidy |>
   group_by(Diff, Day, Biological_rep) |>
@@ -180,10 +185,10 @@ qpcr_mean <- qpcr_tidy |>
 
 qpcr_mean
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Check if the data is normally distributed
 
@@ -213,21 +218,22 @@ Both assumptions for ANOVA are met, so the authors were correct to select ANOVA 
 
 ANOVA is a statistical test used to compare the means of three or more groups. In this case, we want to compare the delta C(t) values across different days of differentiation for each differentiation lineage.
 
-For each differentiation lineage, run a one-way ANOVA to test for differences in delta_CT across days. 
+For each differentiation lineage, run a one-way ANOVA to test for differences in delta_CT across days.
 
 Use bonferroni correction to adjust the p-values for multiple comparisons.
 
 **HINT** you can use the `anova_test()` function from the `rstatix` package to run the ANOVA and the `adjust_pvalue()` function to adjust the p-values for multiple comparisons.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
+
 <summary>
+
 </summary>
+
 ::: solution
-
-
 ```{r}
 anova_results <- qpcr_mean |>
   group_by(Diff) |>
@@ -235,33 +241,35 @@ anova_results <- qpcr_mean |>
   adjust_pvalue(method = "bonferroni") |>
   add_significance()
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 If the ANOVA is significant, we then want to run *post-hoc* tests to identify which days are significantly different from each other.
 
 The most common post-hoc test for ANOVA is the Tukey HSD test, which compares all pairs of groups and adjusts for multiple comparisons. There is an rstatix function that can be used to run the Tukey HSD test.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 posthoc_results <- qpcr_mean |>
   group_by(Diff) |>
   tukey_hsd(delta_Ct ~ Day) |>
   add_significance()
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Relative fold change for plotting
 
@@ -273,14 +281,16 @@ Calculate the fold change values relative to the mean of the D7 samples for each
 
 `mutate(mean_D7_fc = mean(fold_change[Day == "D7"]))`
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 qpcr_relative <- qpcr_mean %>%
   group_by(Diff) %>%
@@ -292,10 +302,10 @@ qpcr_relative <- qpcr_mean %>%
 
 qpcr_relative
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Calculate means for plotting
 
@@ -305,19 +315,20 @@ Calculate the mean and SEM (standard error of the mean) for relative fold change
 
 $$
 SEM = \frac{SD}{\sqrt{n}}
-$$
-Where SD is the standard deviation of the relative fold change values for each differentiation lineage and day, and n is the number of biological replicates for each differentiation lineage and day. 
+$$ Where SD is the standard deviation of the relative fold change values for each differentiation lineage and day, and n is the number of biological replicates for each differentiation lineage and day.
 
 **HINT** you can use `sd()` to calculate the standard deviation and `n()` to calculate the number of biological replicates for each differentiation lineage and day.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 qpcr_rel_means <- qpcr_relative |>
   group_by(Diff, Day) |>
@@ -329,11 +340,10 @@ qpcr_rel_means <- qpcr_relative |>
 
 qpcr_rel_means
 ```
-
 :::
+
 </details>
-:::
-
+::::
 
 ## Plot the data
 
@@ -341,14 +351,16 @@ Make a bar plot of mean fold change per differentiation lineage and day. Split t
 
 **HINT** look at `geom_col()` and `geom_errorbar()` for plotting the data.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 
 day_cols <- c("D7" = "#7DA0D4", "D12" = "#A48AD3", "D15/16" = "#E996EF", "D18/19" = "#83B355")
@@ -369,10 +381,10 @@ qpcr_plot <- ggplot(qpcr_rel_means, aes(x = Day, y = mean_relative_fc,
 
 qpcr_plot
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Add the statistical results to the plot
 
@@ -380,14 +392,16 @@ Use the results from the post-hoc tests to add significance bars to the plot. Yo
 
 This will be a bit tricky as we have faceting in our plot, so we need to manually set the y-positions for our brackets.
 
-::: hints
+:::: hints
 <h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
 
 <details>
-<summary>
-</summary>
-::: solution
 
+<summary>
+
+</summary>
+
+::: solution
 ```{r}
 # We want to manually set the bracket positions to handle the faceting in our plot
 
@@ -403,21 +417,17 @@ ph_res <- posthoc_results |>
 ## Add stat_pvalue_manual to the plot
 qpcr_plot + stat_pvalue_manual(ph_res, label = "p.adj.signif", tip.length = 0.01)
 ```
+:::
 
-:::
 </details>
-:::
+::::
 
 ## Compare results with the original paper
 
-  - Are the relative fold-changes the same?
-  - Are the SEM error bars the same?
-  - Are the significant differences between days the same?
-  
+-   Are the relative fold-changes the same?
+-   Are the SEM error bars the same?
+-   Are the significant differences between days the same?
+
 There isn't a lot of information in the paper about how they performed the statistical analysis, where do you think the differences in results might be coming from?
 
 This is why it is important to publish the code used to perform the analysis alongside the paper, so that others can reproduce the results and understand how the analysis was performed.
-
-
-
-

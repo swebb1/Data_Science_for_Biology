@@ -392,7 +392,6 @@ window.Quarto = {
   <li><a href="#the-deseq2-method" id="toc-the-deseq2-method" class="nav-link" data-scroll-target="#the-deseq2-method">2. The DESeq2 method</a>
   <ul class="collapse">
   <li><a href="#experimental-design-for-deseq2" id="toc-experimental-design-for-deseq2" class="nav-link" data-scroll-target="#experimental-design-for-deseq2">Experimental design for DESeq2</a></li>
-  <li><a href="#comprehensive-tutorials" id="toc-comprehensive-tutorials" class="nav-link" data-scroll-target="#comprehensive-tutorials">Comprehensive tutorials</a></li>
   </ul></li>
   <li><a href="#create-a-sample-file" id="toc-create-a-sample-file" class="nav-link" data-scroll-target="#create-a-sample-file">3. Create a sample file</a></li>
   <li><a href="#importing-count-data-with-tximport" id="toc-importing-count-data-with-tximport" class="nav-link" data-scroll-target="#importing-count-data-with-tximport">4. Importing count data with tximport</a>
@@ -407,7 +406,7 @@ window.Quarto = {
   <li><a href="#running-deseq2" id="toc-running-deseq2" class="nav-link" data-scroll-target="#running-deseq2">6. Running DESeq2</a>
   <ul class="collapse">
   <li><a href="#size-factor-estimation" id="toc-size-factor-estimation" class="nav-link" data-scroll-target="#size-factor-estimation">Size factor estimation</a></li>
-  <li><a href="#plot-dispersions" id="toc-plot-dispersions" class="nav-link" data-scroll-target="#plot-dispersions">Plot dispersions</a></li>
+  <li><a href="#plot-gene-level-dispersions" id="toc-plot-gene-level-dispersions" class="nav-link" data-scroll-target="#plot-gene-level-dispersions">Plot gene-level dispersions</a></li>
   </ul></li>
   <li><a href="#deseq-quality-control" id="toc-deseq-quality-control" class="nav-link" data-scroll-target="#deseq-quality-control">7. DESeq quality control</a>
   <ul class="collapse">
@@ -429,7 +428,11 @@ window.Quarto = {
   <li><a href="#plots-of-de-genes-by-biotype" id="toc-plots-of-de-genes-by-biotype" class="nav-link" data-scroll-target="#plots-of-de-genes-by-biotype">Plots of DE genes by biotype</a></li>
   <li><a href="#heatmaps-of-genes-with-largest-changes" id="toc-heatmaps-of-genes-with-largest-changes" class="nav-link" data-scroll-target="#heatmaps-of-genes-with-largest-changes">Heatmaps of genes with largest changes</a></li>
   </ul></li>
-  <li><a href="#functional-enrichment-analysis" id="toc-functional-enrichment-analysis" class="nav-link" data-scroll-target="#functional-enrichment-analysis">10. Functional enrichment analysis</a></li>
+  <li><a href="#functional-enrichment-analysis" id="toc-functional-enrichment-analysis" class="nav-link" data-scroll-target="#functional-enrichment-analysis">10. Functional enrichment analysis</a>
+  <ul class="collapse">
+  <li><a href="#gene-ontology-enrichment-analysis" id="toc-gene-ontology-enrichment-analysis" class="nav-link" data-scroll-target="#gene-ontology-enrichment-analysis">Gene Ontology enrichment analysis</a></li>
+  <li><a href="#kegg-pathway-enrichment-analysis" id="toc-kegg-pathway-enrichment-analysis" class="nav-link" data-scroll-target="#kegg-pathway-enrichment-analysis">KEGG pathway enrichment analysis</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -470,7 +473,11 @@ window.Quarto = {
 </ul>
 </div>
 <p>In this module, we will put all of our R knowledge together to perform a differential expression analysis of RNA-Seq data. We will use the DESeq2 package, which is a widely used tool for analysing count data from RNA-Seq experiments.</p>
-<p>This workshop is partly modeled on the training materials already provided by the <a href="https://hbctraining.github.io/main/">Harvard Chan Bioinformatics Core</a>.</p>
+<p>This is a lightweight differential expression workshop, partly modeled on the training materials already provided by the <a href="https://hbctraining.github.io/main/">Harvard Chan Bioinformatics Core</a>. For a comprehensive overview DESeq2 and differential expression, check out the following resources:</p>
+<ul>
+<li><p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 tutorial</a></p></li>
+<li><p><a href="https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html">HBC Differential expression workshop</a></p></li>
+</ul>
 <section id="rna-seq-data" class="level2">
 <h2 class="anchored" data-anchor-id="rna-seq-data">1. RNA-seq data</h2>
 <p>The data we will we use in this workshop is part of a larger study described in <a href="https://pubmed.ncbi.nlm.nih.gov/25464849/">Kenny PJ et al., Cell Rep 2014</a>. The authors investigated interactions between various genes involved in Fragile X syndrome, a disease of aberrant protein production, which results in cognitive impairment and autistic-like features. They sought to show that RNA helicase <strong>MOV10</strong> regulates the translation of RNAs involved in Fragile X syndrome.</p>
@@ -536,8 +543,8 @@ window.Quarto = {
 <h3 class="anchored">Raw data to read counts</h3>
 <p>Differential expression analyses work with matrices of <strong>read counts per gene</strong> for multiple samples.</p>
 <p>These read counts are typically generated using command line tools to process and count reads.</p>
-<p><img src="images/rna_workflow.png" class="img-fluid"></p>
-<p>In the past, we used RNA-seq aligners like <a href="https://github.com/alexdobin/STAR">STAR</a> to map reads to the genome, and read counting software like <a href="https://htseq.readthedocs.io/en/release_0.11.1/count.html">HTSeq-count</a> or <a href="http://bioinf.wehi.edu.au/featureCounts/">featureCounts</a> to quantify counts of aligned reads over exons for each gene model.</p>
+<p><img src="images/rna_workflow.png" class="img-fluid" style="width:50.0%"></p>
+<p>In the past, we used RNA-seq aligners like <a href="https://github.com/alexdobin/STAR">STAR</a> to map reads to the genome, and read counting software like <a href="https://htseq.readthedocs.io/en/release_0.11.1/count.html">HTSeq-count</a> or <a href="https://subread.sourceforge.net/featureCounts.html">featureCounts</a> to quantify counts of aligned reads over exons for each gene model.</p>
 <p>The standard practice now is to use <strong>pseudocounts</strong> from tools like <a href="https://combine-lab.github.io/salmon/">Salmon</a> which do a much better job at estimating expression levels by:</p>
 <ul>
 <li>Correcting for sequencing biases e.g.&nbsp;GC content</li>
@@ -551,7 +558,7 @@ window.Quarto = {
 <i class="fas fa-book"></i> Further Learning
 </h2>
 <p>If you are new to RNA-seq, this <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01a_RNAseq_processing_workflow.html">overview</a> provides an explanation of how RNA-seq libraries are prepared, sequenced and quantified for short-read data.</p>
-<p>If you are thinking about performing your own RNA-seq experiments then take a look at these <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/experimental_planning_considerations.html">experimental design considerations</a>:</p>
+<p>If you are thinking about performing your own RNA-seq experiments then take a look at these <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/experimental_planning_considerations.html">experimental design considerations</a>.</p>
 <ul>
 <li>How many replicates do I need?</li>
 <li>How many reads do I need?</li>
@@ -577,7 +584,13 @@ window.Quarto = {
 <section id="the-deseq2-method" class="level2">
 <h2 class="anchored" data-anchor-id="the-deseq2-method">2. The DESeq2 method</h2>
 <p>DESeq2 performs statistical analysis of un-normalised raw/estimated read count data per gene. It uses a <strong>median of ratios</strong> normalisation method to account for differences in sequencing depth and RNA composition between samples.</p>
-<p>Count data is modeled using a generalised linear model based on the <strong>negative binomial distribution</strong>, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between <strong>variance</strong> in the count data and the observed <strong>mean</strong>. The reasoning behind the use of count data and the negative binomial distribution is described <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01c_RNAseq_count_distribution.html">here</a>.</p>
+<p>Count data is modeled using a generalised linear model based on the <strong>negative binomial distribution</strong>, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between <strong>variance</strong> in the count data and the observed <strong>mean</strong>.</p>
+<div class="resources">
+<h2 class="anchored">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01c_RNAseq_count_distribution.html">More on count data and the negative binomial distribution</a>.</p>
+</div>
 <p>The model coefficient represents the change in mean between sample groups giving us <strong>log2 fold change</strong> values per gene. By default, DESeq2 performs the <strong>Wald</strong> test to test for significant changes in gene expression between sample groups and generate <strong>p-values</strong> which are then adjusted for multiple testing.</p>
 <p>The Wald test is a parametric statistical test that compares the estimated log2 fold change for each gene to its standard error. It tests the null hypothesis that the log2 fold change is equal to zero (i.e., no change in expression between groups) against the alternative hypothesis that it is not equal to zero.</p>
 <p>DESeq2 has internal methods for:</p>
@@ -589,22 +602,13 @@ window.Quarto = {
 <li>Statistical tests between sample groups (p-values)</li>
 <li>Multiple testing correction (FDR adjusted p-value)</li>
 </ul>
-<p><img src="images/DESeq2.png" class="img-fluid"></p>
+<p><img src="images/DESeq2.png" class="img-fluid" style="width:50.0%"></p>
 <section id="experimental-design-for-deseq2" class="level3">
 <h3 class="anchored" data-anchor-id="experimental-design-for-deseq2">Experimental design for DESeq2</h3>
 <p>DESeq2 and other differential expression tools perform statistical analysis by comparing mean expression levels between sample groups. Accurate mean estimates can only be achieved with precise estimates of the biological variation between independent samples.</p>
 <p>In DE experiments, increasing the number of <strong>biological replicates</strong> is generally more desirable than increasing read depth in single samples, unless you are particularly interested in rare RNAs. DESeq2 will not work if a sample group only has one replicate and it is recommended to have at least 3.</p>
 <p>If you have <strong>technical replicates</strong> in your experimental design, these should be merged into one sample to represent a single biological replicate.</p>
 <p>We also need to ensure (as much as possible) that any effect we see between groups can be attributed to differences in biology rather than <strong>confounding factors</strong> in the design or <strong>batch effects</strong> introduced at the library preparation stage.</p>
-</section>
-<section id="comprehensive-tutorials" class="level3">
-<h3 class="anchored" data-anchor-id="comprehensive-tutorials">Comprehensive tutorials</h3>
-<p>This is a <em>lightweight</em> introduction to differential expression analysis. For a comprehensive overview of the DESeq2 method, functionality and complex experimental designs, check out the following resources:</p>
-<ul>
-<li><p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 tutorial</a></p></li>
-<li><p><a href="http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">RNAseq analysis with DESeq2</a></p></li>
-<li><p><a href="https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html">HBC Differential expression workshop</a></p></li>
-</ul>
 </section>
 </section>
 <section id="create-a-sample-file" class="level2">
@@ -811,7 +815,7 @@ ENSG00000000938          0          0</code></pre>
 <i class="fas fa-book"></i> Further Learning
 </h2>
 <p>In this example, we created our DESeq dataset from a tximport object. But what if we already have a read count table or used a different workflow to generate counts?</p>
-<p>DESeq2 has the functions <code>DESeqDataSetFromMatrix()</code> and <code>DESeqDataFromHTSeqCount</code> to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#input-data">DESeq2 vignette</a>.</p>
+<p>DESeq2 has the functions <code>DESeqDataSetFromMatrix()</code> and <code>DESeqDataFromHTSeqCount</code> to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input">DESeq2 vignette</a>.</p>
 </div>
 <section id="deseq2-design-formula" class="level3">
 <h3 class="anchored">DESeq2 design formula</h3>
@@ -836,11 +840,11 @@ ENSG00000000938          0          0</code></pre>
 <h2 class="anchored" data-anchor-id="running-deseq2">6. Running DESeq2</h2>
 <p>Now we are ready to run DESeq. The DESeq function has internal methods to:</p>
 <ul>
-<li><strong>Estimate size factors</strong>: Normalise gene counts per sample</li>
-<li><strong>Estimate gene-wise dispersions</strong>: Measure variance in the dataset</li>
-<li><strong>Shrink gene-wise dispersions</strong>: Improve the dispersion estimates</li>
-<li><strong>Fit a <em>negative binomial</em> statistical model</strong> to the data</li>
-<li><strong>Perform statistical testing</strong> with the <em>Wald Test</em> or <em>Likelihood Ratio Test</em></li>
+<li>Estimate size factors: Normalise gene counts per sample</li>
+<li>Estimate gene-wise dispersions: Measure variance in the dataset</li>
+<li>Shrink gene-wise dispersions: Improve the dispersion estimates</li>
+<li>Fit a <strong>negative binomial</strong> statistical model to the data</li>
+<li>Perform statistical testing with the <strong>Wald Test</strong> or <strong>Likelihood Ratio Test</strong></li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## run DESeq</span></span>
@@ -850,13 +854,25 @@ ENSG00000000938          0          0</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dds, <span class="at">file =</span> <span class="st">"dds.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="size-factor-estimation" class="level3">
-<h3 class="anchored" data-anchor-id="size-factor-estimation">Size factor estimation</h3>
-<p>DESeq2 uses a <strong>median of ratios</strong> method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data. You can read more about RNA-seq normalisation <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/02_DGE_count_normalization.html">here</a>.</p>
+<h3 class="anchored">Size factor estimation</h3>
+<p>DESeq2 uses a <strong>median of ratios</strong> method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data.</p>
 <p>This normalisation method assumes that most of the genes are not differentially expressed between sample groups. If this assumption is violated (e.g.&nbsp;in cases of global changes in gene expression) then the size factor estimation may be inaccurate and alternative normalisation methods should be considered.</p>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="size-factor-estimation">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/02_DGE_count_normalization.html">More on RNA-seq normalisation</a>.</p>
+</div>
 </section>
-<section id="plot-dispersions" class="level3">
-<h3 class="anchored">Plot dispersions</h3>
-<p>It can be useful to plot the gene-level dispersion estimates to ensure the DESeq model is right for your data. You should find that dispersion is generally lower for genes with higher read counts, that final dispersion levels have been shrunk towards the fitted model and that a few outliers exist which have not been shrunk. If the red line is not a good generalisation for your data then DE analysis with DESeq2 may not be appropriate.</p>
+<section id="plot-gene-level-dispersions" class="level3">
+<h3 class="anchored">Plot gene-level dispersions</h3>
+<p>It can be useful to plot the gene-level dispersion estimates to ensure the DESeq model is right for your data. You should find that dispersion is generally lower for genes with higher read counts. Final dispersion levels should shrink towards the fitted model and there should be a few outliers. If the red line is not a good generalisation for your data then DE analysis with DESeq2 may not be appropriate.</p>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="plot-gene-level-dispersions">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/04b_DGE_DESeq2_analysis.html">More on gene-level dispersions</a>.</p>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot dispersions</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDispEsts</span>(dds, <span class="at">main=</span><span class="st">"Dispersion plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -869,7 +885,7 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 <div class="key-points">
-<h2 class="anchored" data-anchor-id="plot-dispersions">
+<h2 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
 </h2>
 <ul>
@@ -902,7 +918,7 @@ ENSG00000000938          0          0</code></pre>
 <h2 class="anchored" data-anchor-id="transform-count-data-for-visualisation">
 <i class="fas fa-book"></i> Further Learning
 </h2>
-<p>You can read more on DESeq2 data transformations <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization">here</a>.</p>
+<p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization">More on DESeq2 data transformations</a>.</p>
 </div>
 </section>
 <section id="heatmap-of-sample-distances" class="level3">
@@ -938,7 +954,7 @@ ENSG00000000938          0          0</code></pre>
 <p>Another way to visualise sample-to-sample distances is a principal component analysis (PCA). PCA is a dimensionality reduction technique that identifies the directions (principal components) in which the data varies the most. Each principal component is a linear combination of the original variables (genes) and captures a certain percentage of the total variance in the data.</p>
 <p>We can then plot our samples on a 2D plot where the x-axis and y-axis represent the first two principal components (PC1 and PC2).</p>
 <p>The percent of the total variance that is contained in each direction is printed on the axis label. Note that these percentages do not add to 100%, because there are more dimensions that contain the remaining variance.</p>
-<p>We expect to see our samples divide by their biological <strong>Group</strong> or some other source of variation that we are aware of (e.g.&nbsp;sex, cell type, batches of library preparation etc).</p>
+<p>We expect to see our samples divide by their biological <em>Group</em> or some other source of variation that we are aware of (e.g.&nbsp;sex, cell type, batches of library preparation etc).</p>
 <p>If you do not see your samples separating by your variable of interest you may want to plot out PC3 and PC4 to see if it appears there. If there is a large amount of variance introduced by other factors or batch effects then you will need to control for these in your experimental design.</p>
 <p>We will run the PCA analysis with the DESeq2 command <code>plotPCA()</code>.</p>
 <div class="cell">
@@ -952,7 +968,7 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 </div>
-<p>If we don’t like the default plotting style we can ask <code>plotPCA</code> to return the data only and create our own custom plot with <strong>ggplot</strong>.</p>
+<p>If we don’t like the default plotting style we can ask <code>plotPCA()</code> to return the data only and create our own custom plot with ggplot.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Principle component analysis - get the PCA data</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(rld, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Replicate"</span>), <span class="at">returnData =</span> T)</span>
@@ -972,7 +988,7 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 </div>
-<p>To plot PC3 and PC4 we can specify the <code>pcsToUse</code> argument in <code>plotPCA()</code>. By default, only the top 500 most variable genes are used in the PCA analysis. If you want to use all genes, you can set the <code>ntop</code> argument.</p>
+<p>To plot PC3 and PC4 we can specify the <code>pcsToUse</code> argument in <code>plotPCA()</code>. By default, only the top 500 most variable genes are used in the PCA analysis. If you want to use more genes, you can set the <code>ntop</code> argument.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Principle component analysis - get the PCA data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(rld, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Replicate"</span>), <span class="at">returnData =</span> T, <span class="at">pcsToUse =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">ntop =</span> <span class="dv">2000</span>)</span>
@@ -1592,6 +1608,8 @@ low counts [2]     : 16900, 49%
 <p>Now that we have our list of DE genes, we can perform functional enrichment analysis to see if particular pathways or gene sets are over-represented in our list of DE genes. This is a powerful way to gain insight into the biological processes that may be affected by our experimental perturbation.</p>
 <p>We will use the <strong>clusterProfiler</strong> package to perform enrichment analysis, testing for over-representation of Gene Ontology (GO) terms and KEGG pathway IDs in our list of DE genes.</p>
 <p>We will test our list of DE genes against the background of all genes that were tested in our DESeq2 analysis (i.e.&nbsp;all genes that passed the independent filtering step). This is important to ensure that we are testing for enrichment against the correct background set of genes.</p>
+<section id="gene-ontology-enrichment-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="gene-ontology-enrichment-analysis">Gene Ontology enrichment analysis</h3>
 <p>The Gene Ontology is a hierarchical database of gene functions that are organised into three categories: Biological Process (BP), Molecular Function (MF) and Cellular Component (CC). We can use the <code>enrichGO()</code> function to test for over-representation of GO terms in our list of DE genes.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
@@ -1678,6 +1696,9 @@ GO:0043484    85</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="kegg-pathway-enrichment-analysis" class="level3">
+<h3 class="anchored">KEGG pathway enrichment analysis</h3>
 <p>The KEGG database is a collection of manually curated pathways that represent our current knowledge of molecular interactions and reactions in various biological processes. We can use the <code>enrichKEGG()</code> function to test for over-representation of KEGG pathways in our list of DE genes.</p>
 <p>The KEGG database uses Entrez gene identifiers, so we need to convert our Ensembl gene IDs to Entrez IDs before we can perform the enrichment analysis. We can use the <code>bitr()</code> function from the <strong>clusterProfiler</strong> package to perform this conversion.</p>
 <div class="cell">
@@ -1712,14 +1733,41 @@ GO:0043484    85</code></pre>
 </div>
 </div>
 </div>
+<div class="resources">
+<h2 class="anchored" data-anchor-id="kegg-pathway-enrichment-analysis">
+<i class="fas fa-book"></i> Further Learning
+</h2>
+<p>The analyses above are just a starting point for functional enrichment analysis. There are many other methods and databases that you can use to perform functional enrichment analysis.</p>
+<ul>
+<li><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/10_FA_over-representation_analysis.html">More on functional enrichment analysis</a>.</li>
+<li><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/11_FA_functional_class_scoring.html">GSEA analysis</a></li>
+</ul>
+</div>
+<div class="key-points">
+<h2 class="anchored">
+<i class="fas fa-thumbtack"></i> Key points:
+</h2>
+<ul>
+<li>DEG lists can be used to perform functional enrichment analysis
+<ul>
+<li>Test for enrichment of GO terms and KEGG pathways</li>
+</ul></li>
+<li>The analyses above used all DE genes, but you can also run enrichment analysis on subsets of your DE genes e.g.:
+<ul>
+<li>Upregulated and downregulated genes separately</li>
+<li>DE above a log2FoldChange threshold</li>
+</ul></li>
+</ul>
+</div>
 <div class="challenge">
 <h2 class="anchored">
-<i class="fas fa-pencil-alt"></i> Challenge:
+<i class="fas fa-pencil-alt"></i> Final Challenge:
 </h2>
 <p>See if you can produce similar visual outputs and summaries of results for the MOV10_KD_vs_Control comparison.</p>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
