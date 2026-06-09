@@ -74,6 +74,8 @@ website:
             text: Setup
           - href: 05-deseq.qmd
             text: Differential expression analysis with DESeq2
+          - href: 05-HW.qmd
+            text: Homework exercise
 format:
   html:
     theme: 
