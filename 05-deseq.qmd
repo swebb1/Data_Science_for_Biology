@@ -17,10 +17,10 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ::: objectives
 <h2><i class="far fa-check-square"></i> Learning Objectives</h2>
 
-  -  Import gene expression data into R
-  -  Understand the concept of differential expression and statistical testing
-  -  Perform differential expression analysis using the DESeq2 package
-  -  Interpret the results of differential expression analysis
+-   Import gene expression data into R
+-   Understand the concept of differential expression and statistical testing
+-   Perform differential expression analysis using the DESeq2 package
+-   Interpret the results of differential expression analysis
 :::
 
 In this module, we will put all of our R knowledge together to perform a differential expression analysis of RNA-Seq data. We will use the DESeq2 package, which is a widely used tool for analysing count data from RNA-Seq experiments.
@@ -30,7 +30,6 @@ This is a lightweight differential expression workshop, partly modeled on the tr
 -   [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
 
 -   [HBC Differential expression workshop](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)
-
 
 ## 1. RNA-seq data
 
@@ -44,16 +43,16 @@ We will use this data to investigate changes in transcription upon perturbation 
 
 The raw RNA-seq data is available publicly via [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50499) and the [SRA](https://www.ncbi.nlm.nih.gov/sra?term=SRP029367) (sequence read archive).
 
-| Dataset    | Description | Replicate |
-|------------|-------------|-----------|
-| Control_1  | Control | replicate 1 |
-| Control_2  | Control | replicate 2 |
-| Control_3  | Control | replicate 3 |
+| Dataset    | Description           | Replicate   |
+|------------|-----------------------|-------------|
+| Control_1  | Control               | replicate 1 |
+| Control_2  | Control               | replicate 2 |
+| Control_3  | Control               | replicate 3 |
 | MOV10_OE_1 | MOV10 over-expression | replicate 1 |
 | MOV10_OE_2 | MOV10 over-expression | replicate 2 |
 | MOV10_OE_3 | MOV10 over-expression | replicate 3 |
-| MOV10_KD_2 | MOV10 knock-down | replicate 2 |
-| MOV10_KD_3 | MOV10 knock-down | replicate 3 |
+| MOV10_KD_2 | MOV10 knock-down      | replicate 2 |
+| MOV10_KD_3 | MOV10 knock-down      | replicate 3 |
 
 Replicate 1 for MOV10 knockdown is missing as this was presumably a failed experiment.
 
@@ -63,7 +62,7 @@ Differential expression analyses work with matrices of **read counts per gene** 
 
 These read counts are typically generated using command line tools to process and count reads.
 
-![](images/rna_workflow.png){ width="50%" }
+![](images/rna_workflow.png){width="50%"}
 
 In the past, we used RNA-seq aligners like [STAR](https://github.com/alexdobin/STAR) to map reads to the genome, and read counting software like [HTSeq-count](https://htseq.readthedocs.io/en/release_0.11.1/count.html) or [featureCounts](https://subread.sourceforge.net/featureCounts.html) to quantify counts of aligned reads over exons for each gene model.
 
@@ -107,7 +106,7 @@ We also have a file called *salmon_tx2gene.tsv* which contains a map between tra
 
 DESeq2 performs statistical analysis of un-normalised raw/estimated read count data per gene. It uses a **median of ratios** normalisation method to account for differences in sequencing depth and RNA composition between samples.
 
-Count data is modeled using a generalised linear model based on the **negative binomial distribution**, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between **variance** in the count data and the observed **mean**. 
+Count data is modeled using a generalised linear model based on the **negative binomial distribution**, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between **variance** in the count data and the observed **mean**.
 
 ::: resources
 <h2><i class="fas fa-book"></i> Further Learning</h2>
@@ -128,7 +127,7 @@ DESeq2 has internal methods for:
 -   Statistical tests between sample groups (p-values)
 -   Multiple testing correction (FDR adjusted p-value)
 
-![](images/DESeq2.png){ width="50%" }
+![](images/DESeq2.png){width="50%"}
 
 ### Experimental design for DESeq2
 
@@ -144,8 +143,7 @@ We also need to ensure (as much as possible) that any effect we see between grou
 
 The first step in our analysis is to create a tab separated file of sample IDs and metadata. This already exists in the folder you downloaded earlier but you would normally create this manually. We can then import the sample sheet to R with the `read_tsv()` function from **readr**.
 
-For our DE analysis, we want to compare the expression levels of genes in our MOV10 over-expression and knockdown samples to the control. In this example, the Control samples are our **reference** or **base-level** sample. 
-By default, DESeq2 will use the first level of the condition factor as the reference level. We should make sure the *Control* samples are the first level of our Group factor.
+For our DE analysis, we want to compare the expression levels of genes in our MOV10 over-expression and knockdown samples to the control. In this example, the Control samples are our **reference** or **base-level** sample. By default, DESeq2 will use the first level of the condition factor as the reference level. We should make sure the *Control* samples are the first level of our Group factor.
 
 ```{r,warning=FALSE,message=FALSE}
 library(tidyverse)
@@ -174,7 +172,7 @@ ss
 
 ## 4. Importing count data with tximport
 
-The package [tximport](https://bioconductor.org/packages/release/bioc/html/tximport.html) can read Salmon transcript count files and create a matrix of read counts for each gene. 
+The package [tximport](https://bioconductor.org/packages/release/bioc/html/tximport.html) can read Salmon transcript count files and create a matrix of read counts for each gene.
 
 ### Transcript to gene mapping
 
@@ -187,7 +185,7 @@ library(GenomicFeatures)
 tx2gene <- read_tsv("data/salmon/salmon_tx2gene.tsv",col_names = c("TranscriptID","GeneID","GeneSymbol"))
 ```
 
-If you don't have a transcript -> gene map, these can be downloaded from annotation databases like Ensembl or generated from a gtf annotation file using the `GenomicFeatures` package as shown below.
+If you don't have a transcript -\> gene map, these can be downloaded from annotation databases like Ensembl or generated from a gtf annotation file using the `GenomicFeatures` package as shown below.
 
 ```{r eval=F}
 
@@ -203,7 +201,7 @@ tx2gene <- select(txdb, k, "GENEID", "TXNAME")
 ```
 
 Let's look at our transcript to gene map:
-  
+
 ```{r,warning=FALSE,message=FALSE}
 head(tx2gene)
 ```
@@ -233,12 +231,12 @@ str(txi)
 
 The `txi` object is a list containing the following elements:
 
-  - **abundance**: A matrix of transcript abundances (TPM) for each gene in each sample
-  - **counts**: A matrix of estimated read counts for each gene in each sample
-  - **length**: A matrix of the average transcript length for each gene in each sample. This is calculated as the weighted average of the lengths of the transcripts that map to each gene, where the weights are based on the estimated abundance of each transcript
-  
-The [tximeta](https://bioconductor.org/packages/release/bioc/html/tximeta.html) package extends tximport to automatically detect the genome, download the tx2gene map and import count data in one function.  
-  
+-   **abundance**: A matrix of transcript abundances (TPM) for each gene in each sample
+-   **counts**: A matrix of estimated read counts for each gene in each sample
+-   **length**: A matrix of the average transcript length for each gene in each sample. This is calculated as the weighted average of the lengths of the transcripts that map to each gene, where the weights are based on the estimated abundance of each transcript
+
+The [tximeta](https://bioconductor.org/packages/release/bioc/html/tximeta.html) package extends tximport to automatically detect the genome, download the tx2gene map and import count data in one function.
+
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points:</h2>
 
@@ -260,6 +258,7 @@ library(DESeq2)
 dds <- DESeqDataSetFromTximport(txi = txi, colData = ss, design = ~ Group)
 dds
 ```
+
 The `dds` object is a DESeqDataSet object with 58396 rows and 8 columns, where the rows are the genes and the columns are the samples. These genes include non-coding RNAs as well as protein-coding genes.
 
 The columns of the `colData` slot contain the sample metadata from our sample sheet and can be accessed with the `colData()` function.
@@ -279,7 +278,7 @@ assay(dds) |> head()
 
 In this example, we created our DESeq dataset from a tximport object. But what if we already have a read count table or used a different workflow to generate counts?
 
-DESeq2 has the functions `DESeqDataSetFromMatrix()` and `DESeqDataFromHTSeqCount` to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the [DESeq2 vignette](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input).
+DESeq2 has the functions `DESeqDataSetFromMatrix()` and `DESeqDataFromHTSeqCount()` to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the [DESeq2 vignette](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input).
 :::
 
 ### DESeq2 design formula
@@ -322,7 +321,7 @@ saveRDS(dds, file = "dds.RDS")
 
 ### Size factor estimation
 
-DESeq2 uses a **median of ratios** method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data. 
+DESeq2 uses a **median of ratios** method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data.
 
 This normalisation method assumes that most of the genes are not differentially expressed between sample groups. If this assumption is violated (e.g. in cases of global changes in gene expression) then the size factor estimation may be inaccurate and alternative normalisation methods should be considered.
 
@@ -341,8 +340,6 @@ It can be useful to plot the gene-level dispersion estimates to ensure the DESeq
 
 [More on gene-level dispersions](https://hbctraining.github.io/Intro-to-DGE/lessons/04b_DGE_DESeq2_analysis.html).
 :::
-
-
 
 ```{r}
 #Plot dispersions
@@ -368,11 +365,10 @@ Count data is not optimal for visualisation and clustering as there are likely t
 
 DEseq provides two functions to transform count data for visualisation and clustering:
 
-  -  `rlog()`: Regularised log transformation
-  -  `vst()`: Variance stabilising transformation
+-   `rlog()`: Regularised log transformation
+-   `vst()`: Variance stabilising transformation
 
 The `rlog()` function is generally recommended for smaller datasets (less than 30 samples) as it can be more effective at reducing the bias from genes with extreme counts. The `vst()` function is faster to run and is recommended for larger datasets.
-
 
 ```{r}
 ## Log transformed data
@@ -419,7 +415,7 @@ We can then plot our samples on a 2D plot where the x-axis and y-axis represent 
 
 The percent of the total variance that is contained in each direction is printed on the axis label. Note that these percentages do not add to 100%, because there are more dimensions that contain the remaining variance.
 
-We expect to see our samples divide by their biological *Group* or some other source of variation that we are aware of (e.g. sex, cell type, batches of library preparation etc). 
+We expect to see our samples divide by their biological *Group* or some other source of variation that we are aware of (e.g. sex, cell type, batches of library preparation etc).
 
 If you do not see your samples separating by your variable of interest you may want to plot out PC3 and PC4 to see if it appears there. If there is a large amount of variance introduced by other factors or batch effects then you will need to control for these in your experimental design.
 
@@ -446,7 +442,7 @@ ggplot(pca, aes(PC1, PC2, colour = Group, shape = Replicate)) +
 
 ```
 
-To plot PC3 and PC4 we can specify the `pcsToUse` argument in `plotPCA()`.  By default, only the top 500 most variable genes are used in the PCA analysis. If you want to use more genes, you can set the `ntop` argument.
+To plot PC3 and PC4 we can specify the `pcsToUse` argument in `plotPCA()`. By default, only the top 500 most variable genes are used in the PCA analysis. If you want to use more genes, you can set the `ntop` argument.
 
 ```{r}
 ## Principle component analysis - get the PCA data
@@ -484,7 +480,7 @@ pheatmap(mat, cluster_rows = T, cluster_cols = T, show_rownames = T, scale = "ro
 Can you guess which gene has the Ensembl identifier ENSG00000155363? What are some of the other genes in the top 20 most variable genes? Do you think these are likely to be differentially expressed between sample groups?
 :::
 
-::: challenge
+:::: challenge
 <h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
 
 Replace the rownames of the `mat` matrix with gene symbols from the `tx2gene` map and re-plot the heatmap.
@@ -505,7 +501,6 @@ rownames(mat) <- tx2gene$GeneSymbol[match(rownames(mat), tx2gene$GeneID)]
 ## Plot the heatmap again
 pheatmap(mat, cluster_rows = T, cluster_cols = T, show_rownames = T, scale = "row", annotation_col = anno)
 ```
-
 :::
 
 </details>
@@ -596,7 +591,7 @@ alpha = 0.05
 summary(res, alpha = alpha)
 ```
 
-This is great, we definitely have significant differentially expressed genes! 
+This is great, we definitely have significant differentially expressed genes!
 
 ### Log Fold Change Shrinkage
 
@@ -618,6 +613,7 @@ library(apeglm)
 resLFC <- lfcShrink(dds, coef = "Group_MOV10_OE_vs_Control", type = "apeglm")
 summary(resLFC, alpha = alpha)
 ```
+
 We can see that the number of significant genes is unaffected. Let's create a new MA plot.
 
 ```{r}
@@ -702,7 +698,7 @@ result_table <- result_table |>
   mutate(gene_biotype = factor(gene_biotype)) ## set biotype to factor
 ```
 
-We could use this column to filter our results if we are interested in specific types of RNA (e.g. protein coding). 
+We could use this column to filter our results if we are interested in specific types of RNA (e.g. protein coding).
 
 We will now save the result table to file so we can use it outside of R if required.
 
@@ -725,7 +721,7 @@ We have already seen the MA plot but there are many other methods for plotting D
 
 ### Volcano plots
 
-A **volcano plot** is a popular visualisation for DE analysis. Here we are plotting the log fold change on the x-axis against the negative log10 of our adjusted p-values, so that significant genes appear at the top of the plot. 
+A **volcano plot** is a popular visualisation for DE analysis. Here we are plotting the log fold change on the x-axis against the negative log10 of our adjusted p-values, so that significant genes appear at the top of the plot.
 
 We can then see the spread of fold changes in each direction in our set of significant genes.
 
@@ -900,18 +896,18 @@ dotplot(ekegg, showCategory = 20) +
 
 The analyses above are just a starting point for functional enrichment analysis. There are many other methods and databases that you can use to perform functional enrichment analysis.
 
-  - [More on functional enrichment analysis](https://hbctraining.github.io/Intro-to-DGE/lessons/10_FA_over-representation_analysis.html).
-  - [GSEA analysis](https://hbctraining.github.io/Intro-to-DGE/lessons/11_FA_functional_class_scoring.html)
+-   [More on functional enrichment analysis](https://hbctraining.github.io/Intro-to-DGE/lessons/10_FA_over-representation_analysis.html).
+-   [GSEA analysis](https://hbctraining.github.io/Intro-to-DGE/lessons/11_FA_functional_class_scoring.html)
 :::
 
 ::: key-points
 <h2><i class="fas fa-thumbtack"></i> Key points:</h2>
 
-  - DEG lists can be used to perform functional enrichment analysis
-    - Test for enrichment of GO terms and KEGG pathways
-  - The analyses above used all DE genes, but you can also run enrichment analysis on subsets of your DE genes e.g.:
-    - Upregulated and downregulated genes separately
-    - DE above a log2FoldChange threshold
+-   DEG lists can be used to perform functional enrichment analysis
+    -   Test for enrichment of GO terms and KEGG pathways
+-   The analyses above used all DE genes, but you can also run enrichment analysis on subsets of your DE genes e.g.:
+    -   Upregulated and downregulated genes separately
+    -   DE above a log2FoldChange threshold
 :::
 
 ::: challenge
@@ -919,8 +915,3 @@ The analyses above are just a starting point for functional enrichment analysis.
 
 See if you can produce similar visual outputs and summaries of results for the MOV10_KD_vs_Control comparison.
 :::
-
-
-
-
-
