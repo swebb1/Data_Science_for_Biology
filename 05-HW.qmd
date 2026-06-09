@@ -31,7 +31,7 @@ The two datasets below are available as Bioconductor packages. Read the package 
 
 ### Airway dataset
 
-The [airway]https://www.bioconductor.org/packages/release/data/experiment/html/airway.html) dataset contains RNA-seq data from human airway smooth muscle cells treated with dexamethasone (a synthetic glucocorticoid) or left untreated.
+The [airway](https://www.bioconductor.org/packages/release/data/experiment/html/airway.html) dataset contains RNA-seq data from human airway smooth muscle cells treated with dexamethasone (a synthetic glucocorticoid) or left untreated.
 
 ### Pasilla dataset
 
@@ -39,15 +39,14 @@ The [pasilla](https://bioconductor.org/packages/release/data/experiment/html/pas
 
 ## Output
 
-  -   Quality control plots to assess quality and reproducibility of the data
-  -   A table of differentially expressed genes with log2 fold changes and adjusted p-values
-  -   A volcano plot to visualize the results of the DE analysis
-  -   A brief interpretation of the results, including any interesting genes or pathways that were identified
+-   Quality control plots to assess quality and reproducibility of the data
+-   A table of differentially expressed genes with log2 fold changes and adjusted p-values
+-   A volcano plot to visualize the results of the DE analysis
+-   A brief interpretation of the results, including any interesting genes or pathways that were identified
 
 ## Further resources
 
 Use these tutorials for further guidance:
 
-  -   [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
-  -   [HBC Differential expression workshop](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)
- 
+-   [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+-   [HBC Differential expression workshop](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)
