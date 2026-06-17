@@ -428,15 +428,14 @@ window.Quarto = {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Write an R script to perform a data analysis task</li>
 </ul>
 </div>
-<p><br></p>
 <section id="task" class="level2">
 <h2 class="anchored" data-anchor-id="task">Task</h2>
 <p>Write an R script to perform a data analysis task. Your script should do the following:</p>
@@ -509,7 +508,7 @@ window.Quarto = {
 <p>In the study of learning and memory, researchers focus on how neurons strengthen their connections, a process called Long-Term Potentiation (LTP). A key player in this process is BDNF (Brain-Derived Neurotrophic Factor), a protein that acts like “fertilizer” for neurons, promoting the growth of dendritic spines, the tiny protrusions on neurons where synapses are formed. More spines generally correlate with a higher capacity for memory storage.</p>
 <p>Researchers are investigating whether a synthetic mimetic of BDNF (called “NeuroBoost”) increases the density of dendritic spines.</p>
 <section id="experimental-setup" class="level3">
-<h3 class="anchored">Experimental setup:</h3>
+<h3 class="anchored" data-anchor-id="experimental-setup">Experimental setup:</h3>
 <ul>
 <li>16 samples (primary neuronal cultures)
 <ul>
@@ -532,10 +531,10 @@ window.Quarto = {
 </div>
 </div>
 <p>There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.</p>
-<div class="hints">
-<h2 class="anchored" data-anchor-id="experimental-setup">
+<div class="box hints">
+<h3 class="anchored">
 <i class="far fa-flag"></i> Hints
-</h2>
+</h3>
 <ul>
 <li>What file format is the data in? Which function will you use to import the data?</li>
 <li>Look into the <code>rowMeans()</code> function to calculate the average spine density for each batch.</li>

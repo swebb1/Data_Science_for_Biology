@@ -14,15 +14,13 @@ title: "Homework Exercise"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Import and structure your data for plotting
 -   Create an informative and visually appealing graphic
 -   Use **tidyverse** packages for data analysis
 :::
-
-<br>
 
 ## Task
 
@@ -90,8 +88,8 @@ tm |> filter(Date == latest_date) |>
   theme_minimal()
 ```
 
-::: hints
-<h2><i class="far fa-flag"></i> Hints</h2>
+::: {.box .hints}
+<h3><i class="far fa-flag"></i> Hints</h3>
 
 -   You will need to combine data from different regions into one country using the `group_by()` and `summarise()` functions. Some countries have regions that are oversees territories. For simplicity, combine them all into one country.
 -   Use the **ggrepel** package to add labels to your plot.

@@ -14,8 +14,8 @@ title: "Homework exercise"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Use publicly available RNA-seq data
 -   Perform DE analysis with DESeq2
@@ -33,9 +33,72 @@ The two datasets below are available as Bioconductor packages. Read the package 
 
 The [airway](https://www.bioconductor.org/packages/release/data/experiment/html/airway.html) dataset contains RNA-seq data from human airway smooth muscle cells treated with dexamethasone (a synthetic glucocorticoid) or left untreated.
 
+The airway dataset is provided as a `summarizedExperiment` object, which can be imported into DESeq2 using the `DESeqDataSet()` function.
+
+```{r,eval=F}
+## Import the airway dataset into DESeq2
+library(airway)
+data(airway)
+
+dds <- DESeqDataSet(airway, design = ~ cell + dex)
+```
+
 ### Pasilla dataset
 
 The [pasilla](https://bioconductor.org/packages/release/data/experiment/html/pasilla.html) dataset contains RNA-seq data from Drosophila melanogaster cells treated with dsRNA against the splicing factor pasilla or left untreated.
+
+The pasilla dataset is provided as a set of count matrices and sample annotation files, which can be imported into DESeq2 using the `DESeqDataSetFromMatrix()` function.
+
+```{r,eval=F}
+## Import the pasilla dataset into DESeq2
+library(pasilla)
+
+## Count data file
+pasCts <- system.file("extdata",
+                      "pasilla_gene_counts.tsv",
+                      package = "pasilla")
+
+## Annotation file
+pasAnno <- system.file("extdata",
+                       "pasilla_sample_annotation.csv",
+                       package = "pasilla")
+
+## Read in the count data and annotation
+countData <- as.matrix(
+  read.csv(pasCts,
+           sep = "\t",
+           row.names = "gene_id")
+)
+
+colData <- read.csv(
+  pasAnno,
+  row.names = 1
+)
+
+colnames(countData)
+colData
+```
+
+We need to fix the row names of the count data to match the sample names in the annotation file.
+
+```{r,eval=F}
+library(tidyverse)
+## Remove "fb" from the row names of the count data
+rownames(colData) <- rownames(colData) |> str_remove("fb")
+
+## Sort the annotation file by condition so that the untreated samples are first
+colData <- colData |> arrange(desc(condition))
+
+dds <- DESeqDataSetFromMatrix(
+  countData = countData,
+  colData = colData,
+  design = ~ condition
+)
+
+## Set untreated as the reference level for the condition factor
+dds$condition <- relevel(dds$condition, ref = "untreated")
+
+```
 
 ## Output
 
@@ -50,3 +113,4 @@ Use these tutorials for further guidance:
 
 -   [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
 -   [HBC Differential expression workshop](https://hbctraining.github.io/Intro-to-DGE/schedule/links-to-lessons.html)
+

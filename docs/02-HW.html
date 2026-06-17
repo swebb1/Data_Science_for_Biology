@@ -316,6 +316,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -356,17 +373,16 @@ ul.task-list li input[type="checkbox"] {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Import and structure your data for plotting</li>
 <li>Create an informative and visually appealing graphic</li>
 <li>Use <strong>tidyverse</strong> packages for data analysis</li>
 </ul>
 </div>
-<p><br></p>
 <section id="task" class="level2">
 <h2 class="anchored" data-anchor-id="task">Task</h2>
 <p>Write an R Script to import, restructure and plot a dataset of your choice. You can use the case study below, find a dataset online or even simulate your own dataset. The script should be well commented and include explanations of each step. You should also include a brief description of the dataset and the question you are trying to answer with your analysis.</p>
@@ -408,10 +424,10 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="far fa-flag"></i> Hints
-</h2>
+</h3>
 <ul>
 <li>You will need to combine data from different regions into one country using the <code>group_by()</code> and <code>summarise()</code> functions. Some countries have regions that are oversees territories. For simplicity, combine them all into one country.</li>
 <li>Use the <strong>ggrepel</strong> package to add labels to your plot.</li>

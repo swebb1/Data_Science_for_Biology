@@ -351,6 +351,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -408,10 +425,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Understand the power of R as a programming language</li>
 <li>Learn to use control flow statements in R</li>
@@ -419,7 +436,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Write and run reproducible R scripts</li>
 </ul>
 </div>
-<p><br></p>
 <section id="programming-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="programming-in-r">Programming in R</h2>
 <p>R is a powerful programming language that allows you to perform complex data analysis tasks.</p>
@@ -456,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="control-flow-statements">Control flow statements</h2>
 <p>Let’s begin by looking at some of the basic programming concepts in R. Control flow statements allow you to control the flow of your code based on certain conditions. These are essential for writing complex and dynamic code and common to most programming languages.</p>
 <section id="if-statements" class="level3">
-<h3 class="anchored">If statements</h3>
+<h3 class="anchored" data-anchor-id="if-statements">If statements</h3>
 <p>If statements allow you to execute a block of code only if a certain condition is true. For example:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
@@ -588,10 +604,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The <code>%in%</code> is a special operator in R that is used to check if a value is present in a vector or data frame. It returns a logical value indicating if there is a match or not.</p>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="other-logical-operators-in-r">
+<div class="box challenge">
+<h3 class="anchored" data-anchor-id="other-logical-operators-in-r">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Write an if statement to determine if a treatment has a significant effect on gene expression based on a t-test result.</p>
 <p>Use the following code to perform the t-test:</p>
 <div class="cell">
@@ -617,11 +633,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the p-value from the t-test result</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (qpcr_result<span class="sc">$</span>p.value <span class="sc">&lt;=</span> <span class="fl">0.05</span>) {</span>
@@ -642,11 +658,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
 </section>
 </section>
 <section id="for-loops" class="level3">
-<h3 class="anchored">For loops</h3>
+<h3 class="anchored" data-anchor-id="for-loops">For loops</h3>
 <p>For loops allow you to repeat a block of code a certain number of times. For example, you can use a for loop to iterate over a vector of values:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Every time the loop runs, the variable i takes on the next value in the sequence from 1 to 5</span></span>
@@ -699,10 +714,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] "Fred is visiting the doctor and is classified as Adult"</code></pre>
 </div>
 </div>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="for-loops">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Write code with control flow that takes a data frame of gene expression values and creates a new column <strong>expression</strong> classified as “low”, “medium”, or “high” based on the following criteria:</p>
 <ul>
 <li><strong>low</strong> if the expression value is less than 10</li>
@@ -727,11 +742,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## loop through the rows</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gene_expression)) {</span>
@@ -761,7 +776,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
 <p><strong>For loops</strong> and <strong>if statements</strong> are used in almost every programming language. They allow you to write code that can adapt to different situations and perform complex tasks.</p>
 <p>However, they can be slow to run on large datasets and there are more efficient ways to manipulate data frames in R. We will cover some of these in later modules.</p>
 </section>
@@ -990,7 +1004,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     attr(data, "row.names") &lt;- row.names
     data
 }
-&lt;bytecode: 0x106eda190&gt;
+&lt;bytecode: 0x12ac39520&gt;
 &lt;environment: namespace:utils&gt;</code></pre>
 </div>
 </div>
@@ -998,7 +1012,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you scroll to the beginning, you can see that the code begins with a call of <code>function</code>, which indicates that this is a function definition. This is followed by the arguments that the function takes, which are listed in parentheses <code>()</code>. In this case, the <code>read.table()</code> function takes several arguments, such as <code>file</code>, <code>header</code>, and <code>sep</code>.</p>
 <p>The code inside the curly braces <code>{}</code> is the body of the function, which contains the code and control flow statements that will be executed when the function is called.</p>
 <section id="custom-functions" class="level3">
-<h3 class="anchored">Custom functions</h3>
+<h3 class="anchored" data-anchor-id="custom-functions">Custom functions</h3>
 <p>R allows you to create your own custom functions using the same syntax. To create a function in R, you use the <code>function</code> keyword. For example, here is a simple function that takes two numbers as input, calculates the sum and outputs a log transformation:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>log_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
@@ -1060,10 +1074,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Functions are a fundamental part of programming in R. They allow you to write reusable code that can be easily maintained and shared with others. They also help to make your code more organised and easier to read.</p>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="custom-functions">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Write a function called <code>qPCR_analysis</code> that performs all of the steps we used in the first session.</p>
 <ol type="1">
 <li>Load the data from “data/qpcr_results.xlsx” into a data frame.</li>
@@ -1076,11 +1090,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>qPCR_analysis <span class="ot">&lt;-</span> <span class="cf">function</span>(qpcr_table) {</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -1105,7 +1119,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
 <p>You can call this function by passing a data frame containing the qPCR results:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
@@ -1184,16 +1197,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="example-r-script" class="level3">
-<h3 class="anchored">Example R Script</h3>
+<h3 class="anchored" data-anchor-id="example-r-script">Example R Script</h3>
 <p>Download the R script below and open it in RStudio for reading.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"scripts"</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://bifx-core3.bio.ed.ac.uk/training/DSB/scripts/qPCR_analysis.R"</span>, <span class="at">destfile =</span> <span class="st">"scripts/qpcr_analysis.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="discussion">
-<h2 class="anchored" data-anchor-id="example-r-script">
+<div class="box discussion">
+<h3 class="anchored">
 <i class="fas fa-comments"></i> Discussion:
-</h2>
+</h3>
 <ol type="1">
 <li>What does the script do?</li>
 <li>What are the inputs and outputs of the script?</li>
@@ -1201,7 +1214,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>What are the advantages of using an R script instead of running code interactively in the console?</li>
 </ol>
 </div>
-<p><br></p>
 <p>Try running this script in RStudio and from the command line. Make sure you are in your working directory.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/qpcr_analysis.R</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1212,7 +1224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="arguments" class="level3">
-<h3 class="anchored">Arguments</h3>
+<h3 class="anchored" data-anchor-id="arguments">Arguments</h3>
 <p>At the moment our script is not very flexible. It is hard coded to read in a specific file and save the output to a specific location.</p>
 <p>We can make our script more flexible by using <strong>arguments</strong>. Arguments allow us to specify the input and output files on the command line instead of in the script. This way, we can change them easily without ever having to edit the code e.g.</p>
 <div class="cell">
@@ -1231,10 +1243,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>output_file <span class="ot">&lt;-</span> args[<span class="dv">2</span>] <span class="co"># The second argument will be the output file path</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This code will read in the first and second arguments passed to the script and store them in the <code>input_file</code> and <code>output_file</code> variables, respectively. You can then use these variables in your code to read in the data and save the plot.</p>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="arguments">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Modify the <code>qPCR_analysis.R</code> script to use the input and output file paths as arguments.</p>
 <p><strong>HINTS</strong></p>
 <ul>
@@ -1245,11 +1257,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1292,7 +1304,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
 <p>Try running the modified script from the <em>terminal</em> window specifying the input and output file names:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/qPCR_analysis.R data/qpcr_data.xlsx qPCR_plot_exp1.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1303,7 +1314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="commenting-and-formatting" class="level3">
-<h3 class="anchored">Commenting and formatting</h3>
+<h3 class="anchored" data-anchor-id="commenting-and-formatting">Commenting and formatting</h3>
 <p>When writing R scripts, it’s important to use good commenting and formatting practices. This makes your code easier to read and understand, both for yourself and for others who may be reading your code in the future.</p>
 <p>Some quick tips:</p>
 <ul>
@@ -1314,10 +1325,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use <strong>functions</strong> to break up your code into smaller, more manageable pieces.</li>
 </ul>
 <p>Later on we will cover some tools that can help with formatting your code, such as the <strong>styler</strong> and <strong>formatR</strong> packages.</p>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="commenting-and-formatting">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>See if you can add more customisable arguments to the <code>qPCR_analysis.R</code> script. Be sure to comment your edits and use good formatting practices.</p>
 <p><strong>SOME IDEAS</strong></p>
 <ul>
@@ -1325,25 +1336,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Allow the user to specify the plot file format to be either png or pdf as an argument (hint: use an if statement).</li>
 </ul>
 </div>
-<p><br></p>
 </section>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>Using scripts and programmable functions is a really powerful way to perform your data analysis. Programming languages provide automation, flexibility and reproducibility.</p>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Resources
-</h2>
+</h3>
 <ul>
 <li>The <a href="https://discdown.org/rprogramming/reporting.html">Discdown R Programming book</a> is a comprehensive resource introducing R datatypes, syntax and programming concepts. It is available online for free.</li>
 </ul>
 </div>
-<p><br></p>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>R is a powerful programming language that allows you to automate tasks and write reproducible code.</li>
 <li>Control flow functions like if statements and for loops allow you to write code that can adapt to different situations and perform complex tasks.</li>

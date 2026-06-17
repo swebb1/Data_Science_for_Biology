@@ -351,6 +351,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -401,17 +418,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Import data into a tidy structure</li>
 <li>Format, filter and manipulate your datasets in preparation for plotting</li>
 <li>Understand the reason and methods for long and wide data formats</li>
 </ul>
 </div>
-<p><br></p>
 <p>In this session we will learn how to import data into R and manipulate it using the <strong>dplyr</strong> package. We will also learn how to reshape data using the <strong>tidyr</strong> package. These are important steps in the data analysis workflow and will allow you to prepare your data for plotting with <strong>ggplot2</strong> in the next session.</p>
 <p>The <strong>dplyr</strong> package is specifically designed for data formatting and manipulation and allows you to merge datasets and create new columns as well as filtering and summarising your data. We are going to learn some of the most common functions.</p>
 <section id="selecting-columns-and-filtering-rows" class="level2">
@@ -469,27 +485,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, sex, weight)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>surveys_sml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>Piping was originally introduced by the <em>magrittr</em> package which uses the <code>%&gt;%</code> symbol. Magrittr is part of the tidyverse and loads automatically with <em>dplyr</em>.</p>
 <p>R version 4.1 introduced a native pipe which can be used in base R without loading the magrittr or tidyverse packages. It uses the alternative <code>|&gt;</code> symbol. There are some subtle differences with this pipe which you can read about <a href="https://www.r-bloggers.com/2021/05/the-new-r-pipe/">here</a>. You can change the <code>CTRL+ALT+M</code> keyboard shortcut to use the native pipe in the Code section of RStudio’s Global Options.</p>
 </div>
-<p><br></p>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Using pipes, subset the <code>surveys</code> data to include animals collected before 1995 and retain only the columns <em>year</em>, <em>sex</em>, and <em>weight</em>.</p>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="dv">1995</span>) <span class="sc">|&gt;</span></span>
@@ -582,20 +597,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>() <span class="sc">|&gt;</span> <span class="co"># convert character to factor (categorical variable)</span></span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Create a new data frame from the <code>surveys</code> data that meets the following criteria: Contains only the <em>species_id</em> column and a new column called <em>hindfoot_cm</em> containing the <em>hindfoot_length</em> values converted to centimeters. In this <em>hindfoot_cm</em> column all values are less than 3.</p>
 <p><strong>Hint</strong>: think about how the commands should be ordered to produce this data frame!</p>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>surveys_hindfoot_cm <span class="ot">&lt;-</span> surveys <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">hindfoot_cm =</span> hindfoot_length <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
@@ -669,19 +684,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex, species) <span class="sc">|&gt;</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(species, <span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>How many animals were captured in each <em>plot_type</em> surveyed?</p>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(plot_type) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -692,11 +707,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(species_id) <span class="sc">|&gt;</span></span>
@@ -712,11 +727,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">|&gt;</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
@@ -727,22 +742,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
-<div class="discussion">
-<h2 class="anchored">
+<div class="box discussion">
+<h3 class="anchored">
 <i class="far fa-bell"></i> Discussion
-</h2>
+</h3>
 <ul>
 <li>Look at the <code>surveys</code> dataset with the <code>print()</code> function. How many rows and columns does it have?</li>
 <li>By default, tibbles hide a lot of the data to prevent the screen from getting crowded. How can you show more rows and all of the columns?</li>
 <li>What other questions can we ask of this dataset? Set a challenge for a partner or your group using the dplyr functions.</li>
 </ul>
 </div>
-<p><br></p>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <ul>
 <li><a href="https://dplyr.tidyverse.org/">dplyr website</a></li>
 <li><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html">dplyr cheat sheet</a></li>
@@ -780,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>The dataset is in a <strong>wide</strong> format. In this format, each gene is a separate variable. This isn’t ideal if we want to analyse or plot expression for all genes. We will need to convert this to <strong>long</strong> format.</p>
 <section id="separating-columns" class="level3">
-<h3 class="anchored">Separating columns</h3>
+<h3 class="anchored" data-anchor-id="separating-columns">Separating columns</h3>
 <p>The <strong>tidyr</strong> package contains a set of <em>separate</em> functions that split a column into multiple values. In our example, we want to separate the <em>sample_info</em> column into three new columns called <em>genotype</em>, <em>replicate</em>, and <em>tissue</em>.</p>
 <p>Because this information is separated by the underscore character, we can use the <code>separate_wider_delim()</code> function. This will split the column into three new columns based on the delimiter <code>_</code>. The <code>names</code> argument specifies the names of the new columns.</p>
 <div class="cell">
@@ -798,10 +811,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 KO       2         liver  B        NA   275    80</code></pre>
 </div>
 </div>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="separating-columns">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>Other separate functions can be used for different types of separation e.g</p>
 <ul>
 <li><code>separate_wider_regex()</code> for separating based on regular expressions.</li>
@@ -811,7 +824,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="missing-values" class="level3">
-<h3 class="anchored">Missing values</h3>
+<h3 class="anchored" data-anchor-id="missing-values">Missing values</h3>
 <p>The <strong>tidyr</strong> package also contains functions for handling missing values. Missing values are represented in R as <code>NA</code>. There are several ways to handle missing values, depending on the context of your analysis.</p>
 <p>We might want to check our data for missing values first. The <code>is.na()</code> function can be used to identify which values are missing. For instance, to check for missing values in the entire dataset:</p>
 <div class="cell">
@@ -916,15 +929,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">GeneA =</span> <span class="dv">0</span>, <span class="at">GeneB =</span> <span class="dv">0</span>, <span class="at">GeneC =</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="missing-values">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>The <code>fill()</code> function is another useful function for replacing NA values. It can be used to fill in missing values based on the values in the rows above or below.</p>
 </div>
 </section>
 <section id="reshaping-data" class="level3">
-<h3 class="anchored">Reshaping data</h3>
+<h3 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h3>
 <p>Although our dataset is now tidy, it is still in a wide format. This means that each gene is a separate variable and we have one row per sample. We have already seen that it is quite cumbersome to list all of the separate gene columns when we want to do something to all of the genes at once (e.g.&nbsp;replace NA values with 0). It would be much easier if we had a long format dataset where we have one row per gene per sample, and a column that indicates which gene is which.</p>
 <p>We often need to reshape our data to make it easier to work with. The <strong>tidyr</strong> package contains functions for reshaping data, such as <code>pivot_longer()</code> and <code>pivot_wider()</code>. These functions allow you to transform a dataset between <em>long</em> and <em>wide</em> formats.</p>
 <p><img src="images/spread_data_R.png" class="img-fluid"></p>
@@ -996,20 +1009,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="reshaping-data">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <ul>
 <li><a href="https://tidyr.tidyverse.org/">tidyr website</a></li>
 <li><a href="https://rstudio.github.io/cheatsheets/html/tidyr.html">tidyr cheat sheet</a></li>
 </ul>
 </div>
-<p><br></p>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>Import and format data with <strong>readr</strong> and <strong>tidyr</strong>.</li>
 <li>Use <strong>dplyr</strong> <code>select()</code>, <code>filter()</code> and <code>mutate()</code> to manipulate datasets</li>

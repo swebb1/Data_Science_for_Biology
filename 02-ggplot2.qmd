@@ -14,8 +14,8 @@ title: "Data visualisation (ggplot2)"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Build graphics layer by layer with ggplot2
 -   Create different types of graphics by applying geometries
@@ -26,8 +26,6 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 -   Create and save basic graphics
 -   Use additional libraries such as **plotly** to enhance the utility of graphics.
 :::
-
-<br>
 
 **ggplot2** is a plotting package that makes it simple to create complex graphics from data frames. It provides a grammar for specifying which variables to plot, how they are displayed, and general visual properties.
 
@@ -199,16 +197,14 @@ h <- ggplot(iris, aes(Sepal.Width, fill = Species )) +
 h
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 Try altering the `binwidth` parameter to see how this affects the plot.
 :::
 
-<br>
-
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Use what you have learned to create a scatterplot of Sepal.Width per Species.
 
@@ -218,8 +214,8 @@ Use what you have learned to create a scatterplot of Sepal.Width per Species.
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r,  purl=FALSE}
 ggplot(iris, aes(x=Species, y=Sepal.Width )) + geom_point() 
@@ -237,8 +233,8 @@ The scatterplot separates our species better, but it's difficult to visualise th
 
 Boxplots are an effective way to visualise distributions of data within groups.
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 ### What is a boxplot?
 
@@ -247,10 +243,7 @@ Boxplots are an effective way to visualise distributions of data within groups.
 The boxplot, sometimes known as a box and whisker plot, is a standard way of displaying the distribution of data based on a five number summary. The five numbers are the minimum, first quartile (Q1), median, third quartile (Q3) and maximum.
 
 The box represents the interquartile range (IQR) which contains the middle 50% of the data. The line in the middle of the box is the median. The "whiskers" extend to the smallest and largest values within 1.5 times the IQR from the lower and upper quartiles respectively. Data points outside of this range are considered outliers and are plotted as individual points.
-
 :::
-
-<br>
 
 The boxplot geometry requires the `x` aesthetic to be a *categorical* variable and the `y` aesthetic to be *numerical*.
 
@@ -307,8 +300,8 @@ b + geom_jitter(aes(colour = Species))
 
 ## Violin plots
 
-::::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+::::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Boxplots are useful summaries but can hide the shape of non-normal distributions. For example, if the distribution is bimodal, we would not see it in a boxplot. An alternative to the boxplot is the violin plot, where the shape of the density of points is drawn.
 
@@ -320,8 +313,8 @@ Replace the box plot with a violin plot; see `geom_violin()`.
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r,  purl=FALSE}
 ggplot(iris, aes(x = fct_reorder(Species, Sepal.Width), y = Sepal.Width, fill = Species )) + 
@@ -340,8 +333,8 @@ Can you add a boxplot and datapoints over the violin plot?
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r,  purl=FALSE}
 ggplot(iris, aes(x = fct_reorder(Species, Sepal.Width), y = Sepal.Width)) + 
@@ -453,8 +446,6 @@ Because the colour is mapped to a continuous variable, ggplot has automatically 
 
 To change the default colours, we use the `scale_color_*` functions of which there are many. Some are built into **ggplot2** and others exist in external packages such as **viridis** or **ggthemes**. The [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) and [ColorBrewer](https://www.datanovia.com/en/blog/the-a-z-of-rcolorbrewer-palette/) palettes are particularly useful and worth investigating. The [ggsci](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html) package contains palettes based on key scientific journals.
 
-!!!!! Viridis colour blind, data visualisation tricks and tips
-
 ### Continuous scales
 
 Try the different scale options in the code below:
@@ -508,11 +499,13 @@ You can also use hex codes for colours:
 h + scale_fill_manual(values = c("#DDDD33","#EE3344", "#1133FF"))
 ```
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
-The options for colouring graphs are huge.
+Colouring and data visualiation in R:
 
+-   [Colour palettes and functions in R](https://journal.r-project.org/articles/RJ-2023-071/)
+-   [Choosing colours in R](https://www.sthda.com/english/wiki/the-elements-of-choosing-colors-for-great-data-visualization-in-r)
 -   [Color brewer 2](http://colorbrewer2.org) is a great site for getting the hex values of colours to suit needs such as printer or colour blind friendliness.
 -   [Coolors](http://coolors.co) and [Colormind](http://colormind.io/) are colour palette generators.
 :::
@@ -526,8 +519,8 @@ ggplot(iris2, aes(x=Petal.Length, y=Petal.Width, colour=Sepal.Ratio)) +
   geom_point()
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 See if you can represent some of the other variables from the iris dataset in this plot as well. **Hint:** There are several other aesthetic mappings such as `size` and `shape`.
 
@@ -537,8 +530,8 @@ See if you can represent some of the other variables from the iris dataset in th
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r,  purl=FALSE}
 ggplot(iris2, aes(x = Petal.Length, y = Petal.Width, colour = Sepal.Ratio, shape = Species, size = Sepal.Length)) +
@@ -589,8 +582,8 @@ q2 <- ggplot(iris2, aes(x = Petal.Length, y = Petal.Width, colour = Sepal.Ratio)
 q2 + facet_grid(Country ~ Species)
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Use dplyr and ggplot to display the mean petal length for each species in each country except for those found in France. Use colouring and faceting to enhance the plot.
 
@@ -600,8 +593,8 @@ Use dplyr and ggplot to display the mean petal length for each species in each c
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r,  purl=FALSE}
 iris2 |>
@@ -710,15 +703,13 @@ iris2 <- iris2 |> mutate(Sepal.Length.Group = cut_number(Sepal.Length, 5))
 iris2 |> head()
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 Take a look at the new column *Sepal.Length.Group*. How are the groups defined? What are the cut points for each group?
 
 Have a look at the difference between the `cut_number()`, `cut_interval()` and `cut_width()` functions.
 :::
-
-<br>
 
 Let's use the new column to colour our data:
 
@@ -754,8 +745,8 @@ ggplot(surveys,aes(weight, hindfoot_length)) +
   scale_x_log10()
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 What is the difference between these three plots?
 :::
@@ -861,8 +852,8 @@ p2 <- insert_yaxis_grob(p1, ydens, grid::unit(.2, "null"), position = "right")
 ggdraw(p2)
 ```
 
-::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Spend the remaining time playing around with the different ggplot options and see if you can create an interesting and appealing visualisation with a dataset of your choice.\
 \
@@ -873,20 +864,16 @@ Use these resources for inspiration!
 -   [ggplot extensions](https://exts.ggplot2.tidyverse.org/gallery/)
 :::
 
-<br>
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 -   [ggplot2 website](https://ggplot2.tidyverse.org/)
 -   [R for Data Science (free online book)](https://r4ds.hadley.nz/)
 -   [Fundamentals of data visualization](https://clauswilke.com/dataviz/index.html)
 :::
 
-<br>
-
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   **ggplot2** builds graphics layer upon layer
 -   Bind **data** to your ggplot function and **map** values to visual **aesthetics**

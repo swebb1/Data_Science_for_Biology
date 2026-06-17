@@ -76,6 +76,10 @@ website:
             text: Differential expression analysis with DESeq2
           - href: 05-HW.qmd
             text: Homework exercise
+      - section: "<img src='images/shiny.jpeg' width='20px' style='margin-right: 5px;'> 6: Presenting and publishing"
+        contents:
+          - href: 06-Setup.qmd
+            text: Setup
 format:
   html:
     theme: 

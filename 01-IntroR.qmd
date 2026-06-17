@@ -14,8 +14,8 @@ title: "Introduction to R"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   What is R?
 -   Understand R datatypes and classes
@@ -25,8 +25,6 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 -   Create basic graphics
 -   Run statistical tests
 :::
-
-<br>
 
 ## What is R?
 
@@ -234,8 +232,8 @@ There is a short cut for help, `?`, which shows the help page for a function.
 
 You can also use the **Help** tab in RStudio to search for help on functions, or search online.
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   **Data types**: Understand different data types (numeric, character, factor, logical)
 -   **R objects**: Understand different ways to structure data in R (vectors, dataframes, matrices, lists). There are several other types of R object.
@@ -426,17 +424,17 @@ order(mydata$B) # Returns the row numbers in the sorted order of column B
 mydata[order(mydata$B), ]
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
-### See if you can do the following:
+See if you can do the following:
 
-1.  Select the 11th value in the third column
-2.  Select all rows where D equals 4 (hint; use '==')
-3.  Select rows where B has its maximum value (hint: use the max function)
-4.  Select even numbered rows only (hint: take a look at the seq function '?seq()')
-5.  Select columns A, C and E
-6.  Sort table by decreasing order of column B (hint: look at the options in the order function)
+  1.  Select the 11th value in the third column
+  2.  Select all rows where D equals 4 (hint; use '==')
+  3.  Select rows where B has its maximum value (hint: use the max function)
+  4.  Select even numbered rows only (hint: take a look at the seq function '?seq()')
+  5.  Select columns A, C and E
+  6.  Sort table by decreasing order of column B (hint: look at the options in the order function)
 
 <details>
 
@@ -444,8 +442,8 @@ mydata[order(mydata$B), ]
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 1.  Select row 11, column 3
 
@@ -489,8 +487,6 @@ mydata[order(mydata$B, decreasing = TRUE), ]
 </details>
 ::::
 
-<br>
-
 ## Filtering data
 
 Square bracket notation can be handy for quickly filtering data frames or checking values, but can get cumbersome for more complex queries.
@@ -517,8 +513,8 @@ hist(mydata$A)
 
 The `ChickWeight` data set is another data frame built into R. It is a larger dataset, containing the weights of chicks on different diets, measured over time. Inspect the `ChickWeight` data using some of the functions you have used already.
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 1.  What type of data is stored in the `weight` column?
 2.  What is the mean weight of all the chicks?
@@ -531,7 +527,7 @@ The `ChickWeight` data set is another data frame built into R. It is a larger da
 
 </summary>
 
-::: solution
+::: {.box .solution}
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
 1.  What type of data is stored in the *weight* column?
@@ -561,8 +557,6 @@ nrow(ChickWeight)
 
 </details>
 ::::
-
-<br>
 
 ```{r}
 hist(ChickWeight$weight)
@@ -667,8 +661,8 @@ df <- data.frame(
 df
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 What is a normal distribution? How does `rnorm()` work?
 
@@ -683,15 +677,13 @@ We can use the `t.test()` function to compare the means of the two groups. The s
 t.test(Value ~ Group, data = df, var.equal = TRUE)
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 How do we interpret the output of the t-test?
 
 Are the mean values of the WT and KO groups significantly different?
 :::
-
-<br>
 
 ### Fisher's exact test
 
@@ -738,13 +730,11 @@ Now we can perform the test on this contingency table.
 fisher.test(ct)
 ```
 
-::: discussion
+::: {.box .discussion}
 <h2><i class="far fa-bell"></i> Discussion</h2>
 
 Is there a significant association between treatment and response?
 :::
-
-<br>
 
 ## Case Study: Quantitative PCR
 
@@ -831,8 +821,8 @@ We can now load the package and use the **readxl** functions in our current R se
 library(readxl)
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Use a function in **readxl** to read in the qPCR data from the Excel file you downloaded. You can use the help documentation to find out how to do this.
 
@@ -848,8 +838,8 @@ Use a function in **readxl** to read in the qPCR data from the Excel file you do
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 Read in the qpcr data and inspect it using the functions we have already seen.
 
@@ -898,8 +888,6 @@ mean(qpcr$ct_gene[qpcr$Condition == "Control"])
 </details>
 ::::
 
-<br>
-
 ### Step 2: Calculate ΔCt
 
 To calculate ΔCt, we need to subtract the Ct value of the reference gene from the Ct value of the gene of interest for each sample.
@@ -943,8 +931,8 @@ Later on, we will see how to check these assumptions and use alternative tests i
 -   Variance looks approximately equal
 -   The two groups are independent (different samples in each group)
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Use a t-test to decide if the mean values of Control and Treatment differ significantly.
 
@@ -958,8 +946,8 @@ Use a t-test to decide if the mean values of Control and Treatment differ signif
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 Use a t-test to decide if the mean values of Control and Treatment differ more than would be expected by chance.
 
@@ -1021,18 +1009,16 @@ Congratulations! You have completed your first lesson in R. Hopefully you have a
 
 Next we will start to look at the strengths of R as a programming language and how to use it to write scripts that can be easily reproduced and shared with others.
 
-::: resources
-<h2><i class="fas fa-book"></i> Resources</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
 
-  - [R manual](https://cran.r-project.org/doc/manuals/r-patched/R-intro.html)
-  - [RStudio user guide](https://docs.posit.co/ide/user/)
-  - [RStudio cheat-sheet](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html)
+-   [R manual](https://cran.r-project.org/doc/manuals/r-patched/R-intro.html)
+-   [RStudio user guide](https://docs.posit.co/ide/user/)
+-   [RStudio cheat-sheet](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html)
 :::
 
-<br>
-
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   R is a functional programming language for data science
 -   RStudio is an interactive environment for programming in R

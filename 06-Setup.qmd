@@ -1,0 +1,72 @@
+---
+title: "Setup"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+### Project Setup
+
+In this course we will present our RNA-seq analysis from the previous module by putting all of our code and figures into a `Quarto` html document.
+
+1.  Create a new project in RStudio called **RNA-seq publication**.
+2.  Make sure the following packages are installed:
+
+```{r,eval=FALSE}
+
+install.packages("quarto")
+install.packages("Shiny")
+
+## Install packages below from differential expression analysis module (if not already installed)
+
+## Install CRAN packages
+install.packages("tidyverse")
+install.packages("patchwork")
+install.packages("gprofiler2")
+install.packages("RColorBrewer")
+install.packages("pheatmap")
+install.packages("ggrepel")
+
+## Install Bioconductor packages
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+BiocManager::install("GenomicFeatures")
+BiocManager::install("tximport")
+BiocManager::install("apeglm")
+BiocManager::install("clusterProfiler")
+BiocManager::install("enrichplot")
+BiocManager::install("AnnotationHub")
+BiocManager::install("org.Hs.eg.db")
+```
+
+### Data
+
+Download the RNA-seq data:
+
+```{r, eval=FALSE}
+
+## Create a directory to store the data
+dir.create("data")
+
+## Mac or Linux
+download.file("https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz", destfile = "data/salmon.tar.gz")
+## Unpack the data
+utils::untar("data/salmon.tar.gz", exdir = "data")
+
+## Windows
+download.file("https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz", destfile = "data/salmon.tar.gz", mode = "wb")
+## Unpack the data
+utils::untar("data/salmon.tar.gz", exdir = "data")
+
+```

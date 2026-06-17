@@ -4,56 +4,46 @@
   background: #C3D8EA;
 }
 
+.box{
+  background:#f0f7fa;
+  border-left:4px solid #4699C3;
+  padding: 0.1rem 1rem 0.1rem 1rem;
+  margin:1rem 0;
+  border-radius:4px
+}
+
 .key-points {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #587e76;
-  color: white;
+  background:#f3f7f6;
+  border-left-color:#587e76; 
 }
 
 .objectives {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #5b9aa0;
-  color: white;
+  background:#f2f7f8;
+  border-left-color:#5b9aa0; 
 }
 
 .discussion {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #c8553d;
-  color: white;
+  background:#fbf1ef;
+  border-left-color:#c8553d; 
 }
 
 .resources {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #a79e84;
-  color: white;
-}
-
-.hints {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #4699C3;
-  color: white;
+  background:#f7f6f3;
+  border-left-color:#a79e84; 
 }
 
 .challenge {
-  padding: 0.1em 1em 0.1em 1em;
-  margin-bottom: 1em !important;
-  background: #667292;
-  color: white;
+  background:#f3f4f7;
+  border-left-color:#667292; 
 }
 
 .solution {
-  padding: 0.1em 1em 0.1em 1em;
   background: white;
-  color: black;
+  border-left-color:white;
 }
 
 details > summary {
-  color: white;
+  color: black;
 }
 
 .center {

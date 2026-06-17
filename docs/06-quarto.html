@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2026-06-17">
+
+<title>RNA-seq analysis – Data Science for Biology</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0b675d35237202dc9f97b06a9c2699da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/DRP_Logo_only_square_transparent.png" alt="" class="navbar-logo light-content">
+    <img src="./images/DRP_Logo_only_square_transparent.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Science for Biology</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./start.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">RNA-seq analysis</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/R_logo.png" width="20px" style="margin-right: 5px;"> 1: R and RStudio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/tidyverse_logo.png" width="20px" style="margin-right: 5px;"> 2: Tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data manipulation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/bioconductor.png" width="20px" style="margin-right: 5px;"> 3: Bioconductor</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bioconductor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis of genomic data with Bioconductor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-genomicRanges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic Ranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genome references and annotations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-visualisations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genomic annotation and visualisation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/statistics.png" width="20px" style="margin-right: 5px;"> 4: Statistics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical thinking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical power</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/deseq.jpeg" width="20px" style="margin-right: 5px;"> 5: Differential Expression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-deseq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Differential expression analysis with DESeq2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-HW.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#create-a-reproducible-project-in-rstudio" id="toc-create-a-reproducible-project-in-rstudio" class="nav-link active" data-scroll-target="#create-a-reproducible-project-in-rstudio">Create a reproducible project in RStudio</a></li>
+  <li><a href="#manage-package-dependencies-with-renv" id="toc-manage-package-dependencies-with-renv" class="nav-link" data-scroll-target="#manage-package-dependencies-with-renv">Manage package dependencies with renv</a></li>
+  <li><a href="#create-a-quarto-document" id="toc-create-a-quarto-document" class="nav-link" data-scroll-target="#create-a-quarto-document">Create a Quarto document</a></li>
+  <li><a href="#differential-expression-analysis-with-deseq2" id="toc-differential-expression-analysis-with-deseq2" class="nav-link" data-scroll-target="#differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</a></li>
+  <li><a href="#version-control-with-git" id="toc-version-control-with-git" class="nav-link" data-scroll-target="#version-control-with-git">Version control with git</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">RNA-seq analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-06-17</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+
+<div class="box objectives">
+<h3 class="anchored">
+<i class="far fa-check-square"></i> Learning Objectives
+</h3>
+<ul>
+<li>Set up a project in RStudio for reproducible data analysis</li>
+<li>Use <strong>Quarto</strong> for reproducible reporting</li>
+<li>Use <strong>renv</strong> for managing package dependencies</li>
+<li>Use <strong>git</strong> for version control</li>
+<li>Use <strong>GitHub</strong> for publishing your work</li>
+</ul>
+</div>
+<p>In this lesson we will use <strong>Quarto</strong> to create a reproducible report of our RNA-seq analysis from the previous module. Quarto is a publishing system that allows you to create dynamic documents, reports, presentations, and websites. Quarto documents include markdown text and code chunks that are executed when the document is rendered, allowing you to include your code, results, and details of your analysis all in the same report.</p>
+<p>Reproducibility is a key aspect of data analysis. It allows others to verify your results and build upon your work. Reproducibility in RStudio can be achieved by:</p>
+<ul>
+<li>Managing package dependencies with <strong><code>renv</code></strong>.</li>
+<li>Track and install the exact versions of packages used in your analysis.</li>
+<li>Using a literate programming approach with <strong>Quarto</strong></li>
+<li>Combine code, documentation, results and figures in a single document</li>
+<li>Using version control with <strong>git</strong></li>
+<li>Track changes to your code and documents</li>
+<li>Publish your work to <strong>GitHub</strong> for sharing with others</li>
+</ul>
+<section id="create-a-reproducible-project-in-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-reproducible-project-in-rstudio">Create a reproducible project in RStudio</h2>
+<p>Create a new project in RStudio by going to <strong>File &gt; New Project</strong> and choose <strong>New Directory</strong>.</p>
+<p>You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is <strong>New Project</strong> which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.</p>
+<p>For this lesson, we will choose <strong>Quarto Project</strong> as we are going to build a quarto report.</p>
+<p>You will see 3 check boxes with project options. The first option is to create a <strong>git repository</strong>. This will allow you to use version control for your project. The second option is to <strong>use renv</strong> which will allow you to manage package dependencies for your project. The third option is to use the <strong>visual editor</strong> when editing quarto files.</p>
+<p>Make sure <strong>ALL</strong> of these boxes are checked, then click <strong>Create Project</strong>. You will see a new project created in RStudio with a default folder structure and some template files.</p>
+</section>
+<section id="manage-package-dependencies-with-renv" class="level2">
+<h2 class="anchored" data-anchor-id="manage-package-dependencies-with-renv">Manage package dependencies with renv</h2>
+<p>The <code>renv</code> package is a dependency management toolkit for R. It allows you to create a project-specific library of R packages that are isolated from your global R library. This means that you can have different versions of packages for different projects without conflicts.</p>
+<p>When you create a new project with <code>renv</code>, it automatically initializes a new environment and creates a <code>renv.lock</code> file that records the state of your project’s library. You can install packages into this environment using <code>renv::install()</code>.</p>
+<p>A cache of the packages is stored in a central location on your computer, so that if you create another project that uses the same package, it will be installed from the cache instead of downloading it again.</p>
+<p>Because <code>renv</code> is project-specific, you can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file. The <code>renv::restore()</code> function will read the <code>renv.lock</code> file and install the exact versions of packages that were used in your project. This ensures that your analysis is reproducible and that others can run your code using identical package versions.</p>
+<p>Because we instructed RStudio to use renv when creating the project, it has already created a <code>renv.lock</code> file for us. You can see this file in the <strong>Files</strong> pane in RStudio. You can also see that there is a new folder called <code>renv</code> which contains the project-specific library of packages. Take a look at the <code>renv.lock</code> file.</p>
+<p>If you would like to use renv in an existing project, you can do so by running the <code>renv::init()</code> function in the R console. This will create a new renv environment and a renv.lock file for your project.</p>
+<p>With renv initialised, we can now install packages into our project-specific library.</p>
+<p>If you look inside your <code>renv</code> folder you will see that these packages have been installed.</p>
+<p>To check the status of your renv environment, you can run the <code>renv::status()</code> function. This will show you which packages are installed in your project-specific library and which packages are out of sync with the <code>renv.lock</code> file.</p>
+<p>To update the <code>renv.lock</code> file with the new packages, you can run the <code>renv::snapshot()</code> function. This will update the <code>renv.lock</code> file with the current state of your project’s library.</p>
+<p>Run <code>renv::status()</code> again and check that the <code>renv.lock</code> file has been updated.</p>
+<p>You know have a reproducible environment for your project. You can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file.</p>
+<p>One thing to note is that true reproducibility is not guaranteed with renv. If a package is removed from CRAN or Bioconductor, it will not be possible to install that package in the future. Package management is also specific to version of R you are using, so restoring an environment on a different version of R may not work. For true reproducibility, you can use software containers like <a href="https://www.docker.com/">Docker</a> or <a href="https://docs.sylabs.io/guides/3.5/user-guide/introduction.html">Singularity</a>, but this is beyond the scope of this course.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="far fa-book"></i> Further learning
+</h3>
+<p>The <code>renv</code> package has many more features that you can explore. You can find the documentation for <code>renv</code> at <a href="https://rstudio.github.io/renv/articles/renv.html" class="uri">https://rstudio.github.io/renv/articles/renv.html</a>.</p>
+</div>
+</section>
+<section id="create-a-quarto-document" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-quarto-document">Create a Quarto document</h2>
+<p><a href="https://quarto.org/">Quarto</a> documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the <code>#</code> symbol, create lists by using <code>-</code> or <code>*</code>, and create links by using <code>[text](url)</code>.</p>
+<p>RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.</p>
+<p>Quarto documents can be rendered to many different formats including HTML (default), PDF, and Word.</p>
+<p>Create a new Quarto document by going to <strong>File &gt; New File &gt; Quarto Document</strong>. Give the document a title, this will appear as the main heading of your document. You can also choose the output format, for this lesson we will use HTML to build a web page. Click <strong>Create</strong> to create the new document.</p>
+<p>The document will open in the editor pane in RStudio. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.</p>
+<p>Save the file as RNA-seq_analysis.qmd in your project directory.</p>
+<section id="render-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="render-the-file">Render the file</h3>
+<p>You can render the document as is by clicking the <strong>Render</strong> button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.</p>
+</section>
+<section id="edit-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="edit-the-file">Edit the file</h3>
+<p>Let’s make some changes to the document. In the document toolbar, you will notice a <strong>Visual</strong> and <strong>Source</strong> button. The Visual editor allows you to edit the document in a WYSIWYG (What You See Is What You Get) interface, while the Source editor allows you to edit the raw markdown code. You can switch between the two editors by clicking the buttons in the toolbar.</p>
+<p>We are going to edit in the Source editor, so click the <strong>Source</strong> button. This will allow us to get to grips with the basics of markdown syntax. The <strong>Visual</strong> editor is great for quickly editing documents and has some powerful shortcuts to build html content, but it is not as flexible as the Source editor. You can switch between the two editors at any time.</p>
+</section>
+<section id="markdown-basics" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-basics">Markdown basics</h3>
+<div class="box resources">
+<h3 class="anchored">
+<i class="far fa-book"></i> Further learning
+</h3>
+<p>The <a href="https://quarto.org/docs/guide/">Quarto guide</a> is a comprehensive resource for formatting your Quarto documents.</p>
+<p>Use the <a href="https://quarto.org/docs/authoring/markdown-basics.html">Markdown basics</a> page as a reference to build content for your Quarto document.</p>
+</div>
+<section id="text-formatting" class="level4">
+<h4 class="anchored" data-anchor-id="text-formatting">Text formatting</h4>
+<p>Begin by adding some text to the top of your document. You can format text using the following symbols:</p>
+<ul>
+<li><code>*italic*</code> for <em>italic</em> text</li>
+<li><code>**bold**</code> for <strong>bold</strong> text</li>
+<li><code>***bold italic***</code> for <strong><em>bold italic</em></strong> text</li>
+<li><code>~~strikethrough~~</code> for <del>strikethrough</del> text</li>
+<li><code>code</code> for <code>code</code> style text</li>
+</ul>
+<div class="cell">
+<pre class="quarto cell-code"><code>In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.</code></pre>
+</div>
+</section>
+<section id="headings" class="level4">
+<h4 class="anchored" data-anchor-id="headings">Headings</h4>
+<p>We can create headings by using the <code>#</code> symbol. The number of <code>#</code> symbols indicates the level of the heading. For example, <code>#</code> is a top-level heading, <code>##</code> is a second-level heading, and so on.</p>
+<p>Add a heading for the introduction section of your document.</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>## Introduction</code></pre>
+</div>
+</section>
+<section id="links" class="level4">
+<h4 class="anchored" data-anchor-id="links">Links</h4>
+<p>Web links can be added using the following syntax: <code>[text](url)</code>. For example, to add a link to the Quarto website, you can use the following code:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).</code></pre>
+</div>
+</section>
+<section id="images" class="level4">
+<h4 class="anchored" data-anchor-id="images">Images</h4>
+<p>You can place images in your document using the following syntax: <code>![alt text](image_url)</code>. For example, to add an image from a URL, you can use the following code:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)</code></pre>
+</div>
+<p>If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file.</p>
+<p>Create a folder called <code>images</code> in your project directory and save an image in that folder. You can use the following code to add the image to your document:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>![]("images/my_image.png")</code></pre>
+</div>
+<p>You can add a caption to the image by adding a title in the square brackets. You can format the image by adding style attributes in the curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}</code></pre>
+</div>
+</section>
+<section id="lists" class="level4">
+<h4 class="anchored" data-anchor-id="lists">Lists</h4>
+<p>Lists can be created using <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists. For example, to create a list, you can use the following code:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>The RNA-seq analysis was performed using the following steps:
+  
+  1.  Quality control with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+  2.  Adapter trimming with [cutadapt](https://cutadapt.readthedocs.io/en/stable/)
+  3.  Pseudo-alignment with [salmon](https://combine-lab.github.io/salmon/) to the human transcriptome (GRCh38 Ensembl release 106).</code></pre>
+</div>
+</section>
+<section id="tables" class="level4">
+<h4 class="anchored" data-anchor-id="tables">Tables</h4>
+<p>Tables can be created using the following syntax.</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>
+The DESeq2 dataset contains counts for the following samples:
+
+| Dataset    | Description           | Replicate   |
+|------------|-----------------------|-------------|
+| Control_1  | Control               | replicate 1 |
+| Control_2  | Control               | replicate 2 |
+| Control_3  | Control               | replicate 3 |
+| MOV10_OE_1 | MOV10 over-expression | replicate 1 |
+| MOV10_OE_2 | MOV10 over-expression | replicate 2 |
+| MOV10_OE_3 | MOV10 over-expression | replicate 3 |</code></pre>
+</div>
+<p>It is sometimes easier to use the visual editor to create tables. You can switch to the visual editor by clicking the <strong>Visual</strong> button in the toolbar. You can then click the <strong>Insert Table</strong> button in the toolbar to create a table.</p>
+<p>If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.</p>
+<p>Render your document again to see the formatted text in the introduction.</p>
+</section>
+<section id="callout-blocks" class="level4">
+<h4 class="anchored">Callout blocks</h4>
+<p>You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>
+:::{.callout-note}
+This data has already been loaded into a DESeq2 dataset using `tximport` and saved as an RDS file. You can load the dataset into R using the `readRDS()` function.
+:::
+</code></pre>
+</div>
+<div class="box resources">
+<h3 class="anchored" data-anchor-id="callout-blocks">
+<i class="far fa-book"></i> Further learning
+</h3>
+<p>Quarto has several types of <a href="https://quarto.org/docs/authoring/callouts.html">preset callout blocks</a> or you can create your own.</p>
+</div>
+</section>
+</section>
+<section id="code-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="code-blocks">Code blocks</h3>
+<p>The real power of Quarto is the ability to include code blocks in your document. Code blocks are sections of code that can be executed when the document is rendered.</p>
+<p>First, add a new header to your quarto document for the data analysis section:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>## Data analysis</code></pre>
+</div>
+<p>Code blocks are created using three backticks followed by the language of the code block. It is also good practice to name the code block. For example, to create a code block for R, you can use the following syntax:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code>#```{r load_libraries}
+# Load the libraries we will use in this analysis
+library(tidyverse)
+library(DESeq2)
+library(plotly)
+library(clusterProfiler)
+
+# Load the DESeq2 dataset
+dds &lt;- readRDS("data/MOV10_dds.rds")
+# Display the column data of the DESeq dataset
+colData(dds)
+
+#```</code></pre>
+</div>
+<p>Render the document again to see the code block and the output of the code. You will see a bunch of text output relating to the loading of our libraries. This is default R output but isn’t very informative for anyone reading the document.</p>
+</section>
+<section id="execution-options" class="level3">
+<h3 class="anchored" data-anchor-id="execution-options">Execution options</h3>
+<p>The execution of code blocks in Quarto can be controlled using options that are specified at the top of each block. For example</p>
+<ul>
+<li><code>echo: false</code> will hide the code in the output</li>
+<li><code>output: false</code> will hide the output of the code block</li>
+<li><code>message: false</code> will hide messages generated by the code block</li>
+<li><code>warning: false</code> will hide warnings generated by the code block</li>
+<li><code>error: false</code> will hide errors generated by the code block</li>
+<li><code>include: false</code> will hide both the code and the output of the code block</li>
+<li><code>eval: false</code> will prevent the code block from being executed
+<ul>
+<li>This is good if you want to show the code but not run it in the rendering</li>
+</ul></li>
+</ul>
+<p>To turn off messages and warnings, we can add the following to our code block:</p>
+<div class="cell">
+<pre class="quarto cell-code"><code> 
+#```{r load_libraries}
+#| warning = FALSE
+#| message = FALSE
+# Load the libraries we will use in this analysis
+library(tidyverse)
+library(DESeq2)
+library(plotly)
+library(clusterProfiler)
+
+# Load the DESeq2 dataset
+dds &lt;- readRDS("data/MOV10_dds.rds")
+# Display the column data from our dataset
+colData(dds)
+
+
+#```</code></pre>
+</div>
+<p>Render the file again. Play around with some of the other code block options to see how they affect the output of your document.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="far fa-book"></i> Further learning
+</h3>
+<p>Quarto has many options for <a href="https://quarto.org/docs/computations/execution-options.html">execution control</a>.</p>
+</div>
+</section>
+<section id="quarto-header" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-header">Quarto header</h3>
+<p>Let’s add some more information to the header to control the output of our document. We can add a table of contents, set the theme, and add a date to the header. The header should look like this:</p>
+<p>We could have used plain text for our date, but by using 2026-06-17 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
+<p>The table of contents and theme are added as html options. The table of contents will show all of the headings in the document. The <code>toc-depth</code> option controls how many levels of headings are shown in the table of contents. In this case, we have set it to 2, which means that only headings with 1 or 2 <code>#</code> symbols will be shown in the table of contents.</p>
+<p>The theme controls the appearance of the document. You can choose from several preset themes to change the look and feel of your document.</p>
+<p>Render your document again to see how your document has changed.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="far fa-book"></i> Further learning
+</h3>
+<p>Quarto has many options for <a href="https://quarto.org/docs/output-formats/html-basics.html">HTML formatting</a> via the header.</p>
+<p>It is also possible to add <a href="https://quarto.org/docs/output-formats/html-basics.html#css-styles">custom CSS</a> to your document to change the appearance of your document. CSS styling is the standard way to format web pages.</p>
+</div>
+</section>
+</section>
+<section id="differential-expression-analysis-with-deseq2" class="level2">
+<h2 class="anchored" data-anchor-id="differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</h2>
+<p>We will now reuse our R code from the previous lesson to perform differential expression analysis with DESeq2. We will include the code in our Quarto document and render the results.</p>
+<section id="run-deseq2" class="level3">
+<h3 class="anchored" data-anchor-id="run-deseq2">Run DESeq2</h3>
+</section>
+</section>
+<section id="version-control-with-git" class="level2">
+<h2 class="anchored" data-anchor-id="version-control-with-git">Version control with git</h2>
+<section id="git-ignore" class="level3">
+<h3 class="anchored" data-anchor-id="git-ignore">Git ignore</h3>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

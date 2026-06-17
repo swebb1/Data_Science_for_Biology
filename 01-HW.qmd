@@ -14,13 +14,11 @@ title: "Homework Exercise"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Write an R script to perform a data analysis task
 :::
-
-<br>
 
 ## Task
 
@@ -141,8 +139,8 @@ head(spine_data)
 
 There are 3 neurons per batch. The neurons within a batch are not biologically independent because they come from the same dish and are influenced by the same microenvironment. Therefore, you cannot treat each neuron as an independent sample. Instead, you should average the 3 neurons to get a single value for each batch, which represents one independent measurement of spine density for that batch. The 16 batches of neurons are the independent samples in this experiment.
 
-::: hints
-<h2><i class="far fa-flag"></i> Hints</h2>
+::: {.box .hints}
+<h3><i class="far fa-flag"></i> Hints</h3>
 
 -   What file format is the data in? Which function will you use to import the data?
 -   Look into the `rowMeans()` function to calculate the average spine density for each batch.
