@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./06-reproducibility.html" rel="next">
 <link href="./05-HW.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -151,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-Setup.html">Setup</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-Setup.html">Setup</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -353,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -363,6 +364,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./06-Setup.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
   </div>
 </li>
       </ul>
@@ -377,15 +384,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-setup" id="toc-project-setup" class="nav-link active" data-scroll-target="#project-setup">Project Setup</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#install-quarto" id="toc-install-quarto" class="nav-link active" data-scroll-target="#install-quarto">1. Install Quarto</a>
+  <ul class="collapse">
+  <li><a href="#check-quarto-installation" id="toc-check-quarto-installation" class="nav-link" data-scroll-target="#check-quarto-installation">Check Quarto installation</a></li>
+  </ul></li>
+  <li><a href="#create-a-github-account" id="toc-create-a-github-account" class="nav-link" data-scroll-target="#create-a-github-account">2. Create a GitHub account</a>
+  <ul class="collapse">
+  <li><a href="#generate-a-personal-access-token" id="toc-generate-a-personal-access-token" class="nav-link" data-scroll-target="#generate-a-personal-access-token">Generate a personal access token</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-Setup.html">Setup</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-Setup.html">Setup</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Setup</h1>
 </div>
@@ -407,60 +420,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<section id="project-setup" class="level3">
-<h3 class="anchored" data-anchor-id="project-setup">Project Setup</h3>
-<p>In this course we will present our RNA-seq analysis from the previous module by putting all of our code and figures into a <code>Quarto</code> html document.</p>
-<ol type="1">
-<li>Create a new project in RStudio called <strong>RNA-seq publication</strong>.</li>
-<li>Make sure the following packages are installed:</li>
-</ol>
+<section id="install-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="install-quarto">1. Install Quarto</h2>
+<p>In this lesson we will use <strong>Quarto</strong> to create a report of our RNA-seq analysis from the previous module. Quarto is a publishing system that allows you to create dynamic documents, reports, presentations, and websites. Quarto documents include markdown text and code chunks that are executed when the document is rendered, allowing you to include your code, results, and details of your analysis all in the same report.</p>
+<p>Quarto must be installed on your computer to make it available in RStudio. Download and install Quarto from the <a href="https://quarto.org/docs/get-started/">Quarto website</a>.</p>
+<section id="check-quarto-installation" class="level3">
+<h3 class="anchored" data-anchor-id="check-quarto-installation">Check Quarto installation</h3>
+<p>Check that Quarto is installed correctly by running the following code in RStudio. You should see the version of Quarto that is installed on your computer.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"quarto"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Shiny"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Install packages below from differential expression analysis module (if not already installed)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Install CRAN packages</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"patchwork"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gprofiler2"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RColorBrewer"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pheatmap"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggrepel"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Install Bioconductor packages</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DESeq2"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"GenomicFeatures"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"tximport"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"apeglm"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"clusterProfiler"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"enrichplot"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"AnnotationHub"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"org.Hs.eg.db"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_version</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>Download the RNA-seq data:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a directory to store the data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mac or Linux</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon.tar.gz"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Unpack the data</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">untar</span>(<span class="st">"data/salmon.tar.gz"</span>, <span class="at">exdir =</span> <span class="st">"data"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon.tar.gz"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Unpack the data</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">untar</span>(<span class="st">"data/salmon.tar.gz"</span>, <span class="at">exdir =</span> <span class="st">"data"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-github-account" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-github-account">2. Create a GitHub account</h2>
+<p>If you would like to share your Quarto report to the web, you will need to create a GitHub account. GitHub is an online software repository that allows you to store and share your code and documents. You can create a free account on the <a href="https://github.com/">GitHub</a> website.</p>
+<section id="generate-a-personal-access-token" class="level3">
+<h3 class="anchored" data-anchor-id="generate-a-personal-access-token">Generate a personal access token</h3>
+<p>GitHub requires a personal access token to authenticate your account when accessing from external applications like RStudio. You can generate a personal access token by following the instructions on the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub website</a> or the instructions below:</p>
+<ol type="1">
+<li>Go to your GitHub account settings and click on “Developer settings” in the left sidebar.</li>
+<li>Click on “Personal access tokens” and then click on “Tokens (classic)”.</li>
+<li>Select “Generate new token” (classic).</li>
+<li>Give your token a name and select the scopes you want to grant access to. For this lesson, you can select the “repo” scope to allow access to your repositories. Set a date for the token to expire.</li>
+<li>Click on “Generate token” and copy the token to a safe place. You will need this token to authenticate your GitHub account in RStudio.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Warning:</strong> Make sure to copy your personal access token and store it in a safe place. You will not be able to see it again after you leave the page. If you lose your token, you will need to generate a new one.</p>
+<p>During the course we will show you how to store your personal access token in RStudio so that you do not have to enter it every time you want to access your GitHub account.</p>
+</div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -876,6 +878,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./06-reproducibility.html" class="pagination-link" aria-label="Reproducible data analysis in R">
+        <span class="nav-page-text">Reproducible data analysis in R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

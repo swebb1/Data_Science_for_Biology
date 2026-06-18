@@ -76,10 +76,12 @@ website:
             text: Differential expression analysis with DESeq2
           - href: 05-HW.qmd
             text: Homework exercise
-      - section: "<img src='images/shiny.jpeg' width='20px' style='margin-right: 5px;'> 6: Presenting and publishing"
+      - section: "<img src='images/shiny.png' width='20px' style='margin-right: 5px;'> 6: Presenting and publishing"
         contents:
           - href: 06-Setup.qmd
             text: Setup
+          - href: 06-reproducibility.qmd
+            text: Reproducible data analysis in R
 format:
   html:
     theme: 

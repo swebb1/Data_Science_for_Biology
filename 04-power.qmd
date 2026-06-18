@@ -14,15 +14,14 @@ title: "Statistical power"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Understand the concepts of Type I and Type II errors
 -   Understand statistical power and its importance in hypothesis testing
 -   Learn to perform power analysis to determine sample size requirements
 -   Understand the role of statistics in experimental design
 -   Learn how to expand your statistical toolkit for more complex analyses
-
 :::
 
 In this lesson we will discuss the concept of statistical power and its importance in hypothesis testing. We will also learn how to perform power analysis to determine the sample size requirements for experiments.
@@ -44,7 +43,7 @@ The power of a test (1 - β) controls the rate of Type II errors. A higher power
 
 Statistical power is the probability that a test will correctly reject a false null hypothesis. It is calculated as 1 minus the probability of a Type II error (β). A common threshold for acceptable power is 0.80, which means there is an 80% chance of correctly rejecting a false null hypothesis.
 
-![](images/power.png){fig-align="center" width=70%}
+![](images/power.png){fig-align="center" width="70%"}
 
 ### Power analysis
 
@@ -53,18 +52,17 @@ Power analysis is a technique used to determine the sample size required to achi
 To perform a power analysis, we need to specify three of the following parameters:
 
 -   **Effect size**: The magnitude of the effect we are trying to detect (e.g., difference between groups).
--   **Significance** level (𝝰): The threshold for rejecting the null hypothesis (comm
-only set at 0.05).
+-   **Significance** level (𝝰): The threshold for rejecting the null hypothesis (comm only set at 0.05).
 -   **Power** (1 - β): The desired probability of correctly rejecting a false null hypothesis (commonly set at 0.80).
 -   **Sample size**: The number of observations in the study.
 
-If we know three of these parameters, we can calculate the fourth using power analysis. 
+If we know three of these parameters, we can calculate the fourth using power analysis.
 
-![](images/power_analysis.jpg){fig-align="center" width=70%}
+![](images/power_analysis.jpg){fig-align="center" width="70%"}
 
 For example, if we want to determine the required sample size for a study with a specific effect size, significance level, and desired power, we can use power analysis to find the necessary sample size.
 
-**EXAMPLE: Power analysis** 
+**EXAMPLE: Power analysis**
 
 A researcher activates T cells with an antibody. The cells are then marked by a fluorescent antibody which recognises a T-cell receptor. They count the cells and categorise them as polarised or not polarised. They hypothesise that the polarisation varies between WT and KO cells. The scientist starts by running a pilot study.
 
@@ -98,17 +96,16 @@ plot.power.htest(power_2p) +
   theme_bw()
 ```
 
-::: discussion
-<h2><i class="fas fa-bell"></i> Discussion:</h2>
+::: {.box .discussion}
+<h3><i class="fas fa-bell"></i> Discussion:</h3>
 
 What statistical power do we have in the pilot study? Is it sufficient to detect the observed effect size?
-
 :::
 
-::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge</h3>
 
-A researcher wants to compare the weights of WT and KO mice. They do not have any data yet on the KO but they have values for the WT. 
+A researcher wants to compare the weights of WT and KO mice. They do not have any data yet on the KO but they have values for the WT.
 
 A difference of interest would be at least 10%. Given that you will be using a t-test, what sample size is needed to be able to spot a 10% difference with 80% power?
 
@@ -116,9 +113,9 @@ The effect size for a t-test, known as *Cohen's d*. It can be calculated using t
 
 $$\text{d} = \frac{\text{M1 - M2}}{\text{SD}}$$
 
-  - M1 is the mean of the first group (WT)
-  - M2 is the mean of the second group (KO)
-  - SD is the standard deviation of the groups (assumed to be the same for both groups)
+-   M1 is the mean of the first group (WT)
+-   M2 is the mean of the second group (KO)
+-   SD is the standard deviation of the groups (assumed to be the same for both groups)
 
 ```{r}
 WT <- c(27.2,25.5,26,29.1) # Sample weights for WT mice
@@ -130,8 +127,8 @@ WT <- c(27.2,25.5,26,29.1) # Sample weights for WT mice
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 ## Calculate Cohen's d for a 10% difference
@@ -150,13 +147,12 @@ The power analysis indicates that we would need approximately 7 samples per grou
 
 The sample size is relatively small for two reasons:
 
-- The effect size is quite large (a 10% difference in weights is substantial).
-- The variance in the WT group is relatively low, so a smaller sample size is required to detect that effect.
-
+-   The effect size is quite large (a 10% difference in weights is substantial).
+-   The variance in the WT group is relatively low, so a smaller sample size is required to detect that effect.
 :::
 
 </details>
-:::
+::::
 
 ### Effect size estimation
 
@@ -176,9 +172,9 @@ If we wanted to compare the weights of WT and KO mice, we would need to consider
 
 Other examples include:
 
-  - Comparing two sample groups where one group is all male and the other is female
-  - Comparing cell lines that have been cultured in different labs
-  - Comparing sequencing data that was sequenced on different machines or at different times
+-   Comparing two sample groups where one group is all male and the other is female
+-   Comparing cell lines that have been cultured in different labs
+-   Comparing sequencing data that was sequenced on different machines or at different times
 
 To ensure that our experimental design is robust and appropriate for statistical analysis we need to consider the following principles:
 
@@ -214,47 +210,45 @@ Batch effects can often be identified by visualising the data using techniques s
 
 It is important to record all relevant metadata about the samples and experimental conditions to help identify and account for batch effects in the analysis!
 
-![](images/pca.png){fig-align="center" width=85%}
+![](images/pca.png){fig-align="center" width="85%"}
 
 ## Expanding your statistical toolkit
 
 As you progress in your research, you may encounter more complex data and research questions that require advanced statistical methods. We will delve into some of these methods in our RNA-seq lesson, but here is a brief overview of some of the techniques you may want to explore:
 
-  - **Multi-factorial analysis**
-    - Comparing more than two groups (e.g. ANOVA)
-  - **Regression analysis**
-    - Modelling relationships between variables (e.g. linear regression, logistic regression)
-  - **Bayesian statistics**
-    - Incorporating prior knowledge and updating beliefs based on data
-  - **Mixed-effects models**
-    - Accounting for both fixed and random effects in the data
-  - **Multivariate analysis**
-    - Analysing multiple dependent variables simultaneously
-  - **Time series analysis**
-    - Analysing data collected over time to identify trends and patterns
-  - **Dimensionality reduction**
-    - Reducing the number of variables in the data while retaining important information (e.g. PCA, UMAP)
-  - **Clustering**
-    - Grouping similar observations together based on their characteristics (e.g. k-means, hierarchical clustering)
-  - **Machine learning**
-    - Using algorithms to make predictions or identify patterns in data (e.g. random forests, support vector machines)
+-   **Multi-factorial analysis**
+    -   Comparing more than two groups (e.g. ANOVA)
+-   **Regression analysis**
+    -   Modelling relationships between variables (e.g. linear regression, logistic regression)
+-   **Bayesian statistics**
+    -   Incorporating prior knowledge and updating beliefs based on data
+-   **Mixed-effects models**
+    -   Accounting for both fixed and random effects in the data
+-   **Multivariate analysis**
+    -   Analysing multiple dependent variables simultaneously
+-   **Time series analysis**
+    -   Analysing data collected over time to identify trends and patterns
+-   **Dimensionality reduction**
+    -   Reducing the number of variables in the data while retaining important information (e.g. PCA, UMAP)
+-   **Clustering**
+    -   Grouping similar observations together based on their characteristics (e.g. k-means, hierarchical clustering)
+-   **Machine learning**
+    -   Using algorithms to make predictions or identify patterns in data (e.g. random forests, support vector machines)
 
-::: resources
-<h2><i class="fas fa-book"></i> Resources</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
 
 Here are some resources to study more advanced statistical analyses:
 
-  - [High dimensional stats in R](https://carpentries-incubator.github.io/high-dimensional-stats-r/)
-  - [R for data science](https://r4ds.had.co.nz/)
-  - [Tidymodels: Tidyverse libraries for modelling and machine learning](https://www.tidymodels.org/)
-
+-   [High dimensional stats in R](https://carpentries-incubator.github.io/high-dimensional-stats-r/)
+-   [R for data science](https://r4ds.had.co.nz/)
+-   [Tidymodels: Tidyverse libraries for modelling and machine learning](https://www.tidymodels.org/)
 :::
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
-  -   It is important to ensure that your study has sufficient power to detect meaningful effects
-  -   Power analysis can be used to determine the sample size required for a study
-  -   A well-designed experiment is crucial for drawing valid conclusions from your data.
-
+-   It is important to ensure that your study has sufficient power to detect meaningful effects
+-   Power analysis can be used to determine the sample size required for a study
+-   A well-designed experiment is crucial for drawing valid conclusions from your data.
 :::

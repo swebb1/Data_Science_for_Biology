@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
-<meta name="dcterms.date" content="2026-06-17">
 
-<title>RNA-seq analysis – Data Science for Biology</title>
+<title>Reproducible data analysis in RStudio – Data Science for Biology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -117,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">RNA-seq analysis</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reproducible data analysis in RStudio</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -319,7 +352,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -329,6 +362,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
   </div>
 </li>
       </ul>
@@ -342,12 +381,31 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
+  <ul>
+  <li><a href="#create-a-quarto-document" id="toc-create-a-quarto-document" class="nav-link active" data-scroll-target="#create-a-quarto-document">Create a Quarto document</a>
   <ul class="collapse">
-  <li><a href="#create-a-reproducible-project-in-rstudio" id="toc-create-a-reproducible-project-in-rstudio" class="nav-link active" data-scroll-target="#create-a-reproducible-project-in-rstudio">Create a reproducible project in RStudio</a></li>
-  <li><a href="#manage-package-dependencies-with-renv" id="toc-manage-package-dependencies-with-renv" class="nav-link" data-scroll-target="#manage-package-dependencies-with-renv">Manage package dependencies with renv</a></li>
-  <li><a href="#create-a-quarto-document" id="toc-create-a-quarto-document" class="nav-link" data-scroll-target="#create-a-quarto-document">Create a Quarto document</a></li>
-  <li><a href="#differential-expression-analysis-with-deseq2" id="toc-differential-expression-analysis-with-deseq2" class="nav-link" data-scroll-target="#differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</a></li>
-  <li><a href="#version-control-with-git" id="toc-version-control-with-git" class="nav-link" data-scroll-target="#version-control-with-git">Version control with git</a></li>
+  <li><a href="#render-the-file" id="toc-render-the-file" class="nav-link" data-scroll-target="#render-the-file">Render the file</a></li>
+  <li><a href="#edit-the-file" id="toc-edit-the-file" class="nav-link" data-scroll-target="#edit-the-file">Edit the file</a></li>
+  <li><a href="#markdown-basics" id="toc-markdown-basics" class="nav-link" data-scroll-target="#markdown-basics">Markdown basics</a></li>
+  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
+  <li><a href="#execution-options" id="toc-execution-options" class="nav-link" data-scroll-target="#execution-options">Execution options</a></li>
+  <li><a href="#quarto-header" id="toc-quarto-header" class="nav-link" data-scroll-target="#quarto-header">Quarto header</a></li>
+  </ul></li>
+  <li><a href="#differential-expression-analysis-with-deseq2" id="toc-differential-expression-analysis-with-deseq2" class="nav-link" data-scroll-target="#differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</a>
+  <ul class="collapse">
+  <li><a href="#html-widgets" id="toc-html-widgets" class="nav-link" data-scroll-target="#html-widgets">HTML widgets</a></li>
+  </ul></li>
+  <li><a href="#version-control-with-git" id="toc-version-control-with-git" class="nav-link" data-scroll-target="#version-control-with-git">Version control with git</a>
+  <ul class="collapse">
+  <li><a href="#git-ignore" id="toc-git-ignore" class="nav-link" data-scroll-target="#git-ignore">Git ignore</a></li>
+  <li><a href="#commit-changes" id="toc-commit-changes" class="nav-link" data-scroll-target="#commit-changes">Commit changes</a></li>
+  <li><a href="#push-changes-to-github" id="toc-push-changes-to-github" class="nav-link" data-scroll-target="#push-changes-to-github">Push changes to GitHub</a></li>
+  </ul></li>
+  <li><a href="#quarto-publishing" id="toc-quarto-publishing" class="nav-link" data-scroll-target="#quarto-publishing">Quarto publishing</a>
+  <ul class="collapse">
+  <li><a href="#quarto-configuration-file" id="toc-quarto-configuration-file" class="nav-link" data-scroll-target="#quarto-configuration-file">Quarto configuration file</a></li>
+  </ul></li>
+  <li><a href="#parameterised-reports" id="toc-parameterised-reports" class="nav-link" data-scroll-target="#parameterised-reports">Parameterised reports</a></li>
   </ul>
 </nav>
     </div>
@@ -356,26 +414,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">RNA-seq analysis</h1>
+<h1 class="title">Reproducible data analysis in RStudio</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2026-06-17</p>
-    </div>
-  </div>
   
     
   </div>
@@ -390,65 +436,21 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="box objectives">
 <h3 class="anchored">
-<i class="far fa-check-square"></i> Learning Objectives
+<i class="fas fa-check-square"></i> Learning Objectives
 </h3>
 <ul>
-<li>Set up a project in RStudio for reproducible data analysis</li>
 <li>Use <strong>Quarto</strong> for reproducible reporting</li>
-<li>Use <strong>renv</strong> for managing package dependencies</li>
 <li>Use <strong>git</strong> for version control</li>
-<li>Use <strong>GitHub</strong> for publishing your work</li>
 </ul>
 </div>
-<p>In this lesson we will use <strong>Quarto</strong> to create a reproducible report of our RNA-seq analysis from the previous module. Quarto is a publishing system that allows you to create dynamic documents, reports, presentations, and websites. Quarto documents include markdown text and code chunks that are executed when the document is rendered, allowing you to include your code, results, and details of your analysis all in the same report.</p>
-<p>Reproducibility is a key aspect of data analysis. It allows others to verify your results and build upon your work. Reproducibility in RStudio can be achieved by:</p>
-<ul>
-<li>Managing package dependencies with <strong><code>renv</code></strong>.</li>
-<li>Track and install the exact versions of packages used in your analysis.</li>
-<li>Using a literate programming approach with <strong>Quarto</strong></li>
-<li>Combine code, documentation, results and figures in a single document</li>
-<li>Using version control with <strong>git</strong></li>
-<li>Track changes to your code and documents</li>
-<li>Publish your work to <strong>GitHub</strong> for sharing with others</li>
-</ul>
-<section id="create-a-reproducible-project-in-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-reproducible-project-in-rstudio">Create a reproducible project in RStudio</h2>
-<p>Create a new project in RStudio by going to <strong>File &gt; New Project</strong> and choose <strong>New Directory</strong>.</p>
-<p>You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is <strong>New Project</strong> which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.</p>
-<p>For this lesson, we will choose <strong>Quarto Project</strong> as we are going to build a quarto report.</p>
-<p>You will see 3 check boxes with project options. The first option is to create a <strong>git repository</strong>. This will allow you to use version control for your project. The second option is to <strong>use renv</strong> which will allow you to manage package dependencies for your project. The third option is to use the <strong>visual editor</strong> when editing quarto files.</p>
-<p>Make sure <strong>ALL</strong> of these boxes are checked, then click <strong>Create Project</strong>. You will see a new project created in RStudio with a default folder structure and some template files.</p>
-</section>
-<section id="manage-package-dependencies-with-renv" class="level2">
-<h2 class="anchored" data-anchor-id="manage-package-dependencies-with-renv">Manage package dependencies with renv</h2>
-<p>The <code>renv</code> package is a dependency management toolkit for R. It allows you to create a project-specific library of R packages that are isolated from your global R library. This means that you can have different versions of packages for different projects without conflicts.</p>
-<p>When you create a new project with <code>renv</code>, it automatically initializes a new environment and creates a <code>renv.lock</code> file that records the state of your project’s library. You can install packages into this environment using <code>renv::install()</code>.</p>
-<p>A cache of the packages is stored in a central location on your computer, so that if you create another project that uses the same package, it will be installed from the cache instead of downloading it again.</p>
-<p>Because <code>renv</code> is project-specific, you can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file. The <code>renv::restore()</code> function will read the <code>renv.lock</code> file and install the exact versions of packages that were used in your project. This ensures that your analysis is reproducible and that others can run your code using identical package versions.</p>
-<p>Because we instructed RStudio to use renv when creating the project, it has already created a <code>renv.lock</code> file for us. You can see this file in the <strong>Files</strong> pane in RStudio. You can also see that there is a new folder called <code>renv</code> which contains the project-specific library of packages. Take a look at the <code>renv.lock</code> file.</p>
-<p>If you would like to use renv in an existing project, you can do so by running the <code>renv::init()</code> function in the R console. This will create a new renv environment and a renv.lock file for your project.</p>
-<p>With renv initialised, we can now install packages into our project-specific library.</p>
-<p>If you look inside your <code>renv</code> folder you will see that these packages have been installed.</p>
-<p>To check the status of your renv environment, you can run the <code>renv::status()</code> function. This will show you which packages are installed in your project-specific library and which packages are out of sync with the <code>renv.lock</code> file.</p>
-<p>To update the <code>renv.lock</code> file with the new packages, you can run the <code>renv::snapshot()</code> function. This will update the <code>renv.lock</code> file with the current state of your project’s library.</p>
-<p>Run <code>renv::status()</code> again and check that the <code>renv.lock</code> file has been updated.</p>
-<p>You know have a reproducible environment for your project. You can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file.</p>
-<p>One thing to note is that true reproducibility is not guaranteed with renv. If a package is removed from CRAN or Bioconductor, it will not be possible to install that package in the future. Package management is also specific to version of R you are using, so restoring an environment on a different version of R may not work. For true reproducibility, you can use software containers like <a href="https://www.docker.com/">Docker</a> or <a href="https://docs.sylabs.io/guides/3.5/user-guide/introduction.html">Singularity</a>, but this is beyond the scope of this course.</p>
-<div class="box resources">
-<h3 class="anchored">
-<i class="far fa-book"></i> Further learning
-</h3>
-<p>The <code>renv</code> package has many more features that you can explore. You can find the documentation for <code>renv</code> at <a href="https://rstudio.github.io/renv/articles/renv.html" class="uri">https://rstudio.github.io/renv/articles/renv.html</a>.</p>
-</div>
-</section>
 <section id="create-a-quarto-document" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-quarto-document">Create a Quarto document</h2>
 <p><a href="https://quarto.org/">Quarto</a> documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the <code>#</code> symbol, create lists by using <code>-</code> or <code>*</code>, and create links by using <code>[text](url)</code>.</p>
 <p>RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.</p>
 <p>Quarto documents can be rendered to many different formats including HTML (default), PDF, and Word.</p>
-<p>Create a new Quarto document by going to <strong>File &gt; New File &gt; Quarto Document</strong>. Give the document a title, this will appear as the main heading of your document. You can also choose the output format, for this lesson we will use HTML to build a web page. Click <strong>Create</strong> to create the new document.</p>
-<p>The document will open in the editor pane in RStudio. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.</p>
-<p>Save the file as RNA-seq_analysis.qmd in your project directory.</p>
+<p>RStudio provides you with a quarto file with the same name as your project. You can open this or create a new Quarto document by going to <strong>File &gt; New File &gt; Quarto Document</strong>.</p>
+<p>Open the document. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.</p>
+<p>Save the file in your project directory.</p>
 <section id="render-the-file" class="level3">
 <h3 class="anchored" data-anchor-id="render-the-file">Render the file</h3>
 <p>You can render the document as is by clicking the <strong>Render</strong> button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.</p>
@@ -462,7 +464,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="markdown-basics">Markdown basics</h3>
 <div class="box resources">
 <h3 class="anchored">
-<i class="far fa-book"></i> Further learning
+<i class="fas fa-book"></i> Further learning
 </h3>
 <p>The <a href="https://quarto.org/docs/guide/">Quarto guide</a> is a comprehensive resource for formatting your Quarto documents.</p>
 <p>Use the <a href="https://quarto.org/docs/authoring/markdown-basics.html">Markdown basics</a> page as a reference to build content for your Quarto document.</p>
@@ -478,7 +480,7 @@ ul.task-list li input[type="checkbox"] {
 <li><code>code</code> for <code>code</code> style text</li>
 </ul>
 <div class="cell">
-<pre class="quarto cell-code"><code>In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">In</span> this study, we investigate the effects of <span class="pp">**</span>MOV10<span class="pp">**</span> overexpression in <span class="pp">*</span>HEK293F<span class="pp">*</span> cells using <span class="kw">`</span><span class="ex">DESeq2</span><span class="kw">`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="headings" class="level4">
@@ -486,58 +488,58 @@ ul.task-list li input[type="checkbox"] {
 <p>We can create headings by using the <code>#</code> symbol. The number of <code>#</code> symbols indicates the level of the heading. For example, <code>#</code> is a top-level heading, <code>##</code> is a second-level heading, and so on.</p>
 <p>Add a heading for the introduction section of your document.</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>## Introduction</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Introduction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="links" class="level4">
 <h4 class="anchored" data-anchor-id="links">Links</h4>
 <p>Web links can be added using the following syntax: <code>[text](url)</code>. For example, to add a link to the Quarto website, you can use the following code:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014]<span class="er">(</span><span class="ex">https://pubmed.ncbi.nlm.nih.gov/25464849/</span><span class="kw">)</span><span class="bu">.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="images" class="level4">
 <h4 class="anchored" data-anchor-id="images">Images</h4>
 <p>You can place images in your document using the following syntax: <code>![alt text](image_url)</code>. For example, to add an image from a URL, you can use the following code:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![]</span><span class="er">(</span><span class="ex">https://bioconductor.posit.co/images/logo/svg/Logo.svg</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file.</p>
 <p>Create a folder called <code>images</code> in your project directory and save an image in that folder. You can use the following code to add the image to your document:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>![]("images/my_image.png")</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![]</span><span class="er">(</span><span class="st">"images/my_image.png"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can add a caption to the image by adding a title in the square brackets. You can format the image by adding style attributes in the curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![bioconductor_logo]</span><span class="er">(</span><span class="ex">images/bioconductor.png</span><span class="kw">)</span><span class="ex">{width=</span><span class="st">"25%"</span> fig-align=<span class="st">"center"</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lists" class="level4">
 <h4 class="anchored" data-anchor-id="lists">Lists</h4>
 <p>Lists can be created using <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists. For example, to create a list, you can use the following code:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>The RNA-seq analysis was performed using the following steps:
-  
-  1.  Quality control with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-  2.  Adapter trimming with [cutadapt](https://cutadapt.readthedocs.io/en/stable/)
-  3.  Pseudo-alignment with [salmon](https://combine-lab.github.io/salmon/) to the human transcriptome (GRCh38 Ensembl release 106).</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> RNA-seq analysis was performed using the following steps:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">1.</span>  Quality control with <span class="pp">[</span><span class="ss">fastqc</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</span><span class="kw">)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">2.</span>  Adapter trimming with <span class="pp">[</span><span class="ss">cutadapt</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://cutadapt.readthedocs.io/en/stable/</span><span class="kw">)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">3.</span>  Pseudo-alignment with <span class="pp">[</span><span class="ss">salmon</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://combine-lab.github.io/salmon/</span><span class="kw">)</span> <span class="ex">to</span> the human transcriptome <span class="er">(</span><span class="ex">GRCh38</span> Ensembl release 106<span class="kw">)</span><span class="bu">.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tables" class="level4">
 <h4 class="anchored" data-anchor-id="tables">Tables</h4>
 <p>Tables can be created using the following syntax.</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>
-The DESeq2 dataset contains counts for the following samples:
-
-| Dataset    | Description           | Replicate   |
-|------------|-----------------------|-------------|
-| Control_1  | Control               | replicate 1 |
-| Control_2  | Control               | replicate 2 |
-| Control_3  | Control               | replicate 3 |
-| MOV10_OE_1 | MOV10 over-expression | replicate 1 |
-| MOV10_OE_2 | MOV10 over-expression | replicate 2 |
-| MOV10_OE_3 | MOV10 over-expression | replicate 3 |</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> DESeq2 dataset contains counts for the following samples:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Dataset</span>    <span class="kw">|</span> <span class="ex">Description</span>           <span class="kw">|</span> <span class="ex">Replicate</span>   <span class="kw">|</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span><span class="ex">------------</span><span class="kw">|</span><span class="ex">-----------------------</span><span class="kw">|</span><span class="ex">-------------</span><span class="kw">|</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_1</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 1 <span class="kw">|</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_2</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 2 <span class="kw">|</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_3</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 3 <span class="kw">|</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_1</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 1 <span class="kw">|</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_2</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 2 <span class="kw">|</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_3</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 3 <span class="kw">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>It is sometimes easier to use the visual editor to create tables. You can switch to the visual editor by clicking the <strong>Visual</strong> button in the toolbar. You can then click the <strong>Insert Table</strong> button in the toolbar to create a table.</p>
 <p>If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.</p>
@@ -547,15 +549,14 @@ The DESeq2 dataset contains counts for the following samples:
 <h4 class="anchored">Callout blocks</h4>
 <p>You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>
-:::{.callout-note}
-This data has already been loaded into a DESeq2 dataset using `tximport` and saved as an RDS file. You can load the dataset into R using the `readRDS()` function.
-:::
-</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">:::{.callout-note}</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">This</span> data has already been loaded into a DESeq2 dataset using <span class="kw">`</span><span class="ex">tximport</span><span class="kw">`</span> and saved as an RDS file. You can load the dataset into R using the <span class="kw">`</span><span class="fu">readRDS()</span><span class="kw">`</span> function.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">:::</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="box resources">
 <h3 class="anchored" data-anchor-id="callout-blocks">
-<i class="far fa-book"></i> Further learning
+<i class="fas fa-book"></i> Further learning
 </h3>
 <p>Quarto has several types of <a href="https://quarto.org/docs/authoring/callouts.html">preset callout blocks</a> or you can create your own.</p>
 </div>
@@ -566,23 +567,29 @@ This data has already been loaded into a DESeq2 dataset using `tximport` and sav
 <p>The real power of Quarto is the ability to include code blocks in your document. Code blocks are sections of code that can be executed when the document is rendered.</p>
 <p>First, add a new header to your quarto document for the data analysis section:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>## Data analysis</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Code blocks are created using three backticks followed by the language of the code block. It is also good practice to name the code block. For example, to create a code block for R, you can use the following syntax:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code>#```{r load_libraries}
-# Load the libraries we will use in this analysis
-library(tidyverse)
-library(DESeq2)
-library(plotly)
-library(clusterProfiler)
-
-# Load the DESeq2 dataset
-dds &lt;- readRDS("data/MOV10_dds.rds")
-# Display the column data of the DESeq dataset
-colData(dds)
-
-#```</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`{r</span> load_libraries}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the libraries we will use in this analysis</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">tidyverse</span><span class="kw">)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DESeq2</span><span class="kw">)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">pheatmap</span><span class="kw">)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">RColorBrewer</span><span class="kw">)</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">apeglm</span><span class="kw">)</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DT</span><span class="kw">)</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggrepel</span><span class="kw">)</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DESeq2 dataset</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ex">dds</span> <span class="op">&lt;</span>- readRDS<span class="er">(</span><span class="st">"data/MOV10_dds.rds"</span><span class="kw">)</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column data of the DESeq dataset</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="ex">colData</span><span class="er">(</span><span class="ex">dds</span><span class="kw">)</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Render the document again to see the code block and the output of the code. You will see a bunch of text output relating to the loading of our libraries. This is default R output but isn’t very informative for anyone reading the document.</p>
 </section>
@@ -603,28 +610,33 @@ colData(dds)
 </ul>
 <p>To turn off messages and warnings, we can add the following to our code block:</p>
 <div class="cell">
-<pre class="quarto cell-code"><code> 
-#```{r load_libraries}
-#| warning = FALSE
-#| message = FALSE
-# Load the libraries we will use in this analysis
-library(tidyverse)
-library(DESeq2)
-library(plotly)
-library(clusterProfiler)
-
-# Load the DESeq2 dataset
-dds &lt;- readRDS("data/MOV10_dds.rds")
-# Display the column data from our dataset
-colData(dds)
-
-
-#```</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`{r</span> load_libraries}</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning = FALSE</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| message = FALSE</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the libraries we will use in this analysis</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">tidyverse</span><span class="kw">)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DESeq2</span><span class="kw">)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">pheatmap</span><span class="kw">)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">RColorBrewer</span><span class="kw">)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">apeglm</span><span class="kw">)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DT</span><span class="kw">)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggrepel</span><span class="kw">)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DESeq2 dataset</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="ex">dds</span> <span class="op">&lt;</span>- readRDS<span class="er">(</span><span class="st">"data/MOV10_dds.rds"</span><span class="kw">)</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column data from our dataset</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="ex">colData</span><span class="er">(</span><span class="ex">dds</span><span class="kw">)</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Render the file again. Play around with some of the other code block options to see how they affect the output of your document.</p>
 <div class="box resources">
 <h3 class="anchored">
-<i class="far fa-book"></i> Further learning
+<i class="fas fa-book"></i> Further learning
 </h3>
 <p>Quarto has many options for <a href="https://quarto.org/docs/computations/execution-options.html">execution control</a>.</p>
 </div>
@@ -632,13 +644,29 @@ colData(dds)
 <section id="quarto-header" class="level3">
 <h3 class="anchored" data-anchor-id="quarto-header">Quarto header</h3>
 <p>Let’s add some more information to the header to control the output of our document. We can add a table of contents, set the theme, and add a date to the header. The header should look like this:</p>
-<p>We could have used plain text for our date, but by using 2026-06-17 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">title:</span> <span class="st">"RNA-seq analysis"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">author:</span> <span class="st">"Your Name"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">date:</span> <span class="st">"</span><span class="kw">`</span><span class="ex">r</span> Sys.Date<span class="er">(</span><span class="kw">)`</span><span class="st">"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">format:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">html:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">toc:</span> true</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">toc-depth:</span> 2</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme:</span> cosmo</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">code-fold:</span> false</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output-file:</span> index.html</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We could have used plain text for our date, but by using 2026-06-18 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
 <p>The table of contents and theme are added as html options. The table of contents will show all of the headings in the document. The <code>toc-depth</code> option controls how many levels of headings are shown in the table of contents. In this case, we have set it to 2, which means that only headings with 1 or 2 <code>#</code> symbols will be shown in the table of contents.</p>
 <p>The theme controls the appearance of the document. You can choose from several preset themes to change the look and feel of your document.</p>
-<p>Render your document again to see how your document has changed.</p>
+<p>We are also going to set the output file name to <code>index.html</code>. This is the default file name for the home page of a website. If we want to publish a single document as a website, we need to set the output file name to <code>index.html</code>.</p>
+<p>Render your document again, open <code>index.html</code> to see how your document has changed.</p>
+<p>Try changing <code>code-fold</code> to true and see how this affects the output of your document.</p>
 <div class="box resources">
 <h3 class="anchored">
-<i class="far fa-book"></i> Further learning
+<i class="fas fa-book"></i> Further learning
 </h3>
 <p>Quarto has many options for <a href="https://quarto.org/docs/output-formats/html-basics.html">HTML formatting</a> via the header.</p>
 <p>It is also possible to add <a href="https://quarto.org/docs/output-formats/html-basics.html#css-styles">custom CSS</a> to your document to change the appearance of your document. CSS styling is the standard way to format web pages.</p>
@@ -648,17 +676,127 @@ colData(dds)
 <section id="differential-expression-analysis-with-deseq2" class="level2">
 <h2 class="anchored" data-anchor-id="differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</h2>
 <p>We will now reuse our R code from the previous lesson to perform differential expression analysis with DESeq2. We will include the code in our Quarto document and render the results.</p>
-<section id="run-deseq2" class="level3">
-<h3 class="anchored" data-anchor-id="run-deseq2">Run DESeq2</h3>
+<p>A complete quarto document for the RNA-seq analysis is available <a href="">here</a>. Download the file and open it in RStudio. Render the document to see how the code is executed. Take note of the different execution options that are used to control the output of the code blocks, including the size and width of the figures.</p>
+<section id="html-widgets" class="level3">
+<h3 class="anchored" data-anchor-id="html-widgets">HTML widgets</h3>
+<p>Because Quarto documents are rendered as HTML, we can include interactive HTML widgets in our document. For example, we use the <code>plotly</code> package to create an interactive plot that can be zoomed and panned. We also use the <code>DT</code> package to create interactive tables.</p>
+<p>The DT package creates data tables that can be searched, sorted and filtered. The <code>datatable()</code> function takes a data frame as input and returns an HTML widget that can be rendered in the Quarto document. You can specify many options for the datatable, including the number of rows to display, the column names, and apply formatting to the table.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="fas fa-book"></i> Further learning
+</h3>
+<p>The DT package has many options for <a href="https://rstudio.github.io/DT/">creating interactive tables</a> with custom formatting and styling. The <a href="https://gt.rstudio.com/">gt</a> and <a href="https://glin.github.io/reactable/">reactable</a> packages are also great for creating html tables in Quarto documents.</p>
+<p>The <a href="https://plotly.com/r/">plotly package</a> has many options for <a href="https://plotly.com/r/">creating interactive plots</a> with custom formatting and styling.</p>
+</div>
 </section>
 </section>
 <section id="version-control-with-git" class="level2">
 <h2 class="anchored" data-anchor-id="version-control-with-git">Version control with git</h2>
+<p>When we set up our project, we instructed RStudio to create a git repository for our project. Git is a version control system that allows us to track changes to our code and documents. It is a powerful tool for software development, managing projects and collaborating with others.</p>
+<ul>
+<li>Keep track of changes to your code and documents</li>
+<li>Revert to previous versions of your code and documents</li>
+<li>Collaborate with others without overwriting each other’s work or working on different versions of the same file</li>
+<li>Publish your work to GitHub for sharing with others</li>
+</ul>
+<p>You can link a git repository to a remote online repository on websites like GitHub and GitLab. This allows you to share your work with others and collaborate on projects. You can also use GitHub to host your Quarto documents and make them available to the public.</p>
+<p>Git is a command line tool, but RStudio has built in support for git. You can use the git tab in RStudio (top right) to view the status of your project, commit changes you have made to documents and push changes to a remote repository.</p>
+<p>We could do a whole course on git and GitHub, but for this lesson we will just show you how to track changes in your project.</p>
 <section id="git-ignore" class="level3">
 <h3 class="anchored" data-anchor-id="git-ignore">Git ignore</h3>
-
-
+<p>When we created our project, RStudio automatically created a <code>.gitignore</code> file for us. This file tells git which files and folders to ignore when tracking changes to our project. The <code>.gitignore</code> file is important because it prevents us from adding unnecessary files or really large files to our git repository.</p>
 </section>
+<section id="commit-changes" class="level3">
+<h3 class="anchored" data-anchor-id="commit-changes">Commit changes</h3>
+<p>Go to the Git tab in RStudio. You will see a list of files in your project that have been modified (M). You can select the files you want to commit and click the <strong>Commit</strong> button. Committing a file means that you are saving a snapshot of the file at that point in time. You can commit as many times as you want, and each commit will create a new snapshot of the file.</p>
+<p>This will open a new window. Enter a commit message: “Initial Commit”. Click the <strong>Commit</strong> button to commit your changes.</p>
+<p>Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). Select the file and click the <strong>Commit</strong> button. Enter a commit message that describes the changes made and click <strong>Commit</strong>. Useful commit messages e.g.&nbsp;“Added introduction section”, “Updated figure 1”, “Fixed bug in volcano plot” will help you keep track of the version history of your project.</p>
+<p>You can view the commit history by clicking the <strong>History</strong> button in the git tab. If you need to revert a file to a previous version, you can do so by right clicking on the file in the history and selecting <strong>Revert</strong> from the <strong>More</strong> menu.</p>
+</section>
+<section id="push-changes-to-github" class="level3">
+<h3 class="anchored" data-anchor-id="push-changes-to-github">Push changes to GitHub</h3>
+<p>Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process, so we will not cover it here. The steps are outlined below.</p>
+<ol type="1">
+<li>Create a GitHub account</li>
+<li>Create a personal access token on GitHub to allow you to securely connect to your GitHub account from RStudio</li>
+<li>Create a new repository on GitHub with the same name</li>
+<li>Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio terminal</li>
+<li>Push your committed changes to GitHub from the Git pane</li>
+</ol>
+<div class="box resources">
+<h3 class="anchored">
+<i class="fas fa-book"></i> Further learning
+</h3>
+<p>These <a href="https://happygitwithr.com/">instructions</a> and the <a href="https://quarto.org/docs/publishing/github-pages.html">Quarto guide to GitHub pages</a> outline the process of connecting your RStudio git project to GitHub.</p>
+</div>
+</section>
+</section>
+<section id="quarto-publishing" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-publishing">Quarto publishing</h2>
+<p>Quarto documents need to be hosted on a web server to be accessible to others. There are many options for hosting Quarto documents, including GitHub pages, Netlify, and RStudio Connect. For this lesson, we will use GitHub pages to host our Quarto document.</p>
+<p><a href="https://docs.github.com/en/pages">GitHub pages</a> is a free service provided by GitHub that allows you to host static websites directly from your GitHub repository.</p>
+<ol type="1">
+<li>Go to your GitHub repository and click on the <strong>Settings</strong> tab.</li>
+<li>Scroll down to the <strong>GitHub Pages</strong> section and select the branch you want to use for GitHub pages. You can choose the <code>main</code> branch or a different branch.</li>
+<li>Select the folder you want to use for GitHub pages. You can choose the <code>root</code> directory or a folder called <code>docs</code>, <code>root</code> is fine for this project.</li>
+<li>Click <strong>Save</strong> to save your changes.</li>
+</ol>
+<p>Go to the actions tab in your GitHub repository. You will see that GitHub has automatically created a workflow to build your Quarto document. This workflow will run every time you push changes to your repository. You can view the status of the workflow and see the logs for each step. Once the build completes successfully, you can view your Quarto document on GitHub pages by going to: <code>https://&lt;your-github-username&gt;.github.io/&lt;your-repo-name&gt;</code></p>
+<p>The link is also available in the <strong>GitHub Pages</strong> section of the <strong>Settings</strong> tab in your GitHub repository.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="fas fa-book"></i> Further learning
+</h3>
+</div>
+<section id="quarto-configuration-file" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-configuration-file">Quarto configuration file</h3>
+<p>When we created our project, RStudio automatically created a <code>_quarto.yml</code> file for us. This file contains the configuration settings for our Quarto project. You can edit this file to change the settings for your project.</p>
+<p>For example, you can change the title of your project, the theme and many other settings. Settings here will be applied to all Quarto documents in your project. You can override these settings in the header of individual Quarto documents.</p>
+<p>Edit your <code>_quarto.yml</code> file to change the theme and remove the theme from the header of your <code>index.qmd</code> file. The <code>_quarto.yml</code> file should look like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">title:</span> <span class="st">"RNA_seq_analysis"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">format:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">html:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme:</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">-</span> minty</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">editor:</span> visual  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Render your quarto document again to see how the theme has changed. You can choose from many different themes to change the look and feel of your document. You can also create your own custom theme by creating a CSS file and adding it to your project.</p>
+<p>It is possible to build a Quarto website by creating multiple Quarto documents in your project, linking them together and adding a navigation bar to the <code>_quarto.yml</code> file. If you create a new project as a <em>Quarto website</em>, RStudio will create a <code>_quarto.yml</code> file with a navigation bar and a folder structure for your website.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="fas fa-book"></i> Further learning
+</h3>
+</div>
+</section>
+</section>
+<section id="parameterised-reports" class="level2">
+<h2 class="anchored" data-anchor-id="parameterised-reports">Parameterised reports</h2>
+<p>What if you wanted to run the same analysis on different datasets? You could create a new Quarto document for each dataset, but this would be time consuming and inefficient. Instead, we can use parameters in our Quarto document to make it more flexible.</p>
+<div class="box resources">
+<h3 class="anchored">
+<i class="fas fa-book"></i> Further learning
+</h3>
+</div>
+<div class="box challenge">
+<h3 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h3>
+<p>See if you can add a parameters to your Quarto document that specify the groups to compare in the analysis e.g.&nbsp;“MOV10_KD”, “MOV10_OE”, and “Control”.</p>
+</div>
+<div class="box challenge">
+<h3 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h3>
+<ul>
+<li>Spend some time making edits to the quarto document or creating your own</li>
+<li>Render the document to see how your changes are reflected in the output</li>
+<li>Commit your changes to git and push them to GitHub if you have set this up</li>
+</ul>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -14,8 +14,8 @@ title: "RNA-Seq Differential Expression"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Import gene expression data into R
 -   Understand the concept of differential expression and statistical testing
@@ -75,8 +75,8 @@ The standard practice now is to use **pseudocounts** from tools like [Salmon](ht
 
 The [NF-core RNA-seq pipeline](https://nf-co.re/rnaseq/3.14.0/) can perform alignment with STAR and quantification with Salmon and is recommended for processing raw RNA-seq data.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 If you are new to RNA-seq, this [overview](https://hbctraining.github.io/Intro-to-DGE/lessons/01a_RNAseq_processing_workflow.html) provides an explanation of how RNA-seq libraries are prepared, sequenced and quantified for short-read data.
 
@@ -108,8 +108,8 @@ DESeq2 performs statistical analysis of un-normalised raw/estimated read count d
 
 Count data is modeled using a generalised linear model based on the **negative binomial distribution**, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between **variance** in the count data and the observed **mean**.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 [More on count data and the negative binomial distribution](https://hbctraining.github.io/Intro-to-DGE/lessons/01c_RNAseq_count_distribution.html).
 :::
@@ -162,8 +162,8 @@ ss <- read_tsv("data/salmon/samples.tsv", col_names = T, col_types = "cff")
 ss
 ```
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   The sample file contains metadata on each sample
 -   The sample file should include a column for the variable of interest (e.g. condition, genotype, group)
@@ -237,8 +237,8 @@ The `txi` object is a list containing the following elements:
 
 The [tximeta](https://bioconductor.org/packages/release/bioc/html/tximeta.html) package extends tximport to automatically detect the genome, download the tx2gene map and import count data in one function.
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   Import pseudo-count data into R with **tximeta** or **tximport**
 -   DESeq2 expects gene-level counts
@@ -273,8 +273,8 @@ We can access the count data with the `assay()` function.
 assay(dds) |> head()
 ```
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 In this example, we created our DESeq dataset from a tximport object. But what if we already have a read count table or used a different workflow to generate counts?
 
@@ -291,8 +291,8 @@ In this case, DESeq2 will first test for differences between batches and then te
 
 It is possible to perform complex analyses with multiple variables of interest and interaction terms in DESeq2.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 Have a look at these resources for advice on complex experimental designs (e.g. multiple variables of interest, interaction terms, time-course analysis:
 
@@ -325,8 +325,8 @@ DESeq2 uses a **median of ratios** method to normalise gene counts per sample. T
 
 This normalisation method assumes that most of the genes are not differentially expressed between sample groups. If this assumption is violated (e.g. in cases of global changes in gene expression) then the size factor estimation may be inaccurate and alternative normalisation methods should be considered.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 [More on RNA-seq normalisation](https://hbctraining.github.io/Intro-to-DGE/lessons/02_DGE_count_normalization.html).
 :::
@@ -335,8 +335,8 @@ This normalisation method assumes that most of the genes are not differentially 
 
 It can be useful to plot the gene-level dispersion estimates to ensure the DESeq model is right for your data. You should find that dispersion is generally lower for genes with higher read counts. Final dispersion levels should shrink towards the fitted model and there should be a few outliers. If the red line is not a good generalisation for your data then DE analysis with DESeq2 may not be appropriate.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 [More on gene-level dispersions](https://hbctraining.github.io/Intro-to-DGE/lessons/04b_DGE_DESeq2_analysis.html).
 :::
@@ -346,8 +346,8 @@ It can be useful to plot the gene-level dispersion estimates to ensure the DESeq
 plotDispEsts(dds, main="Dispersion plot")
 ```
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   Create a DESeq dataset from count data
 -   Understand the DESeq **design** parameter
@@ -376,8 +376,8 @@ rld <- rlog(dds, blind=F) ## Blind=F means the transformation will take into acc
 saveRDS(rld, file = "MOV10.rld.RDS")
 ```
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 [More on DESeq2 data transformations](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization).
 :::
@@ -474,14 +474,14 @@ anno <- as.data.frame(colData(dds)[,c("Group","Replicate")])
 pheatmap(mat, cluster_rows = T, cluster_cols = T, show_rownames = T, scale = "row", annotation_col = anno)
 ```
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 Can you guess which gene has the Ensembl identifier ENSG00000155363? What are some of the other genes in the top 20 most variable genes? Do you think these are likely to be differentially expressed between sample groups?
 :::
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Replace the rownames of the `mat` matrix with gene symbols from the `tx2gene` map and re-plot the heatmap.
 
@@ -491,8 +491,8 @@ Replace the rownames of the `mat` matrix with gene symbols from the `tx2gene` ma
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 ## set rownames to symbol using the tx2gene map
@@ -525,8 +525,8 @@ ggplot(geneData, aes(x = Group, y= count, colour = Replicate)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   Transform count data for summary plots
 -   Create summary plots and assess for QC
@@ -706,8 +706,8 @@ We will now save the result table to file so we can use it outside of R if requi
 write_tsv(result_table, "MOV10_OE_vs_Control.deseq2.tsv", col_names = T)
 ```
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   Extract results for individual contrasts
 -   Create MA plots
@@ -799,8 +799,8 @@ pheatmap(mat, color = colors, scale = "row", cluster_rows = T, cluster_cols = T,
 
 ```
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   There are many ways to summarise and visualise DE results
 -   Get creative!
@@ -891,8 +891,8 @@ dotplot(ekegg, showCategory = 20) +
 
 ```
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 The analyses above are just a starting point for functional enrichment analysis. There are many other methods and databases that you can use to perform functional enrichment analysis.
 
@@ -900,8 +900,8 @@ The analyses above are just a starting point for functional enrichment analysis.
 -   [GSEA analysis](https://hbctraining.github.io/Intro-to-DGE/lessons/11_FA_functional_class_scoring.html)
 :::
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points:</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points:</h3>
 
 -   DEG lists can be used to perform functional enrichment analysis
     -   Test for enrichment of GO terms and KEGG pathways
@@ -910,8 +910,8 @@ The analyses above are just a starting point for functional enrichment analysis.
     -   DE above a log2FoldChange threshold
 :::
 
-::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Final Challenge:</h2>
+::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Final Challenge:</h3>
 
 See if you can produce similar visual outputs and summaries of results for the MOV10_KD_vs_Control comparison.
 :::

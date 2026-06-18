@@ -351,6 +351,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -394,16 +417,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Fetch genomic annotation and sequence data from annotation packages</li>
 <li>Connect to external databases to download data</li>
 </ul>
 </div>
-<p><br></p>
 <p>In this section, we will use some of the Bioconductor annotation packages to fetch genomic sequences and annotations. We will also connect to external databases such as Ensembl using the <em>biomaRt</em> package and the <em>AnnotationHub</em> to download datasets from multiple sources.</p>
 <section id="fetching-data-from-annotation-packages-and-external-databases" class="level2">
 <h2 class="anchored" data-anchor-id="fetching-data-from-annotation-packages-and-external-databases">Fetching data from annotation packages and external databases</h2>
@@ -451,11 +473,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 AGCAAGGCTGGGGAAGTTTTCCTTGATTATTCCC...ATCTTGGTTTGGATCCGTTGCTTGGTGAGGTAG
-[2]   500 CTATTGAGTTTACAGTTTTTCACCAGAATCTATG...TTGTCGACGTCATCAGGAACCTCAATTCTCCTG
-[3]   500 GTTTGAAACCAGCCTGGCCAACATGGTGAAACCC...GTGCGGTGGTGCGCGCCTGTAATCCCAGCTACT
-[4]   500 AGTGCTGGGATTACAGGCGTGAGCCACCGTGCCC...AAATGGCCTAAAATATTACAGTATTCATTTTTG
-[5]   500 GGCTTCCCCGCCTCCGGCCCTCGGCAGGTGGAAG...GACCTCCAGTGTTGACTCTGCTGGGGTCTTCTC</code></pre>
+[1]   500 CTCAGCCTGCCAGCCCAGAGCCTCCCCTGGCCTC...GATTGGAATCAGAAGATGTAGCCTCTGGCTCTG
+[2]   500 AGGGGGTTGTTCAAGGGATGGGGACGATCAGGGT...GCCCTCCAGCCTCTTCCTGAGAGGAGCTCGCCT
+[3]   500 TGGGATTTGTTTCTGTACGTACATTTTAATATGT...GCACAGGCTTAAGGAGCGCCAGCACGTGTGTAA
+[4]   500 TTGAAACCCTGTCTCTATTAAAAATAGAAAAAAA...CTGAAGGTCAGCCTGGGAAGAGTACCTTGAAGA
+[5]   500 GCTATGGACTCTGGGTGGTGGTGCTGTGTTGATG...CTTTGGGGGGCAGAGAGGAAGCGAGACTTGTAA</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -463,12 +485,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the dinucleotide frequencies for each sequence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG  TT
-[1,] 36 11 20 40 23 19  2 43 22 11 20 29 25 46 41 111
-[2,] 58 25 29 27 37 38  6 44 24 27 30 20 20 34 37  43
-[3,] 80 28 33 33 35 33 13 29 29 28 36 22 30 21 32  17
-[4,] 46 38 25 41 45 31  8 29 20 15 26 28 38 29 31  49
-[5,] 15 22 28 12 33 61 21 43 21 41 68 34  8 35 46  11</code></pre>
+<pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
+[1,] 37 28 35 18 39 34  3 52 25 33 28 29 17 32 50 39
+[2,] 13 15 34 14 18 24 37 30 37 39 68 50  7 31 55 27
+[3,] 47 28 42 21 46 43 19 33 33 36 29 20 13 34 28 27
+[4,] 48 26 42 21 32 21  4 48 36 30 32 25 22 28 45 39
+[5,] 38 24 35 30 32 23  9 36 33 27 46 34 25 26 49 32</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -545,10 +567,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   chr22_kb663609_alt      74013      FALSE   hg19</code></pre>
 </div>
 </div>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="genomic-sequences-bsgenome">
+<div class="box challenge">
+<h3 class="anchored" data-anchor-id="genomic-sequences-bsgenome">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <ol type="1">
 <li>Find the GC content for each sequence in <code>gr2.seq</code>.</li>
 </ol>
@@ -559,11 +581,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <ol type="1">
 <li>Find the GC content for each sequence in gr2.seq.</li>
 </ol>
@@ -571,11 +593,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.340
-[2,] 0.454
-[3,] 0.450
-[4,] 0.406
-[5,] 0.646</code></pre>
+[1,] 0.488
+[2,] 0.606
+[3,] 0.518
+[4,] 0.456
+[5,] 0.480</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -586,11 +608,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 SKAGEVFLDYSLKYVFQTFRFLFSLRNTNYS*VW...SGASLIGLIVDFLNSFFGDSEISSWFGSVAW*G
-[2]   166 LLSLQFFTRIYVPLSLLYPNYCPNIDPATSTRDA...LDSVA*FLHFLTAGIDDGEPSWLCRRHQEPQFS
-[3]   166 V*NQPGQHGETPSLIKIQKLSGCDGGHL*SQLLG...GIRDQSDEHSETPPLLKIQKLAGCGGARL*SQL
-[4]   166 SAGITGVSHRAQPGRALFLVAVK*ETFFSHLLRS...HNPPYQLDTSHYPFKAHMNTLVLNGLKYYSIHF
-[5]   166 GFPASGPRQVEGAAWQPLQTEGAHVPPGSASHSQ...LLRGREQGTALPVWPPQHHPPRRTSSVDSAGVF</code></pre>
+[1]   166 LSLPAQSLPWPLL*L*NQL*TPAFT*A*FHLQGT...QQRPVLNFTWE*LEKACAEKRVGIGIRRCSLWL
+[2]   166 RGLFKGWGRSGSLGSADVCACAVCCLWVRVWCVH...GERKAWGGWVRGVGEGHLFGLSGPSSLFLRGAR
+[3]   166 WDLFLYVHFNMCLKFCLKFHFSPNKEGSPGSRGR...NRGFIFPPPHPDRSIPAGRFSPPHRLKERQHVC
+[4]   166 MKPCLY*K*KKISWAWWRTPVVLATREAEARESL...VLC*QMYKVIRYRAAYWEG*VSH*RSAWEEYLE
+[5]   166 AMDSGWWCCVDAGLSFVQTCWSGGGGGMMEAVHV...PLQVQ*CSWSHPSEQQGWDHTSGFGGQRGSETC</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>
@@ -779,10 +801,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 35 ENSG00000000938 ENST00000468038    chr1  27949918  27952751</code></pre>
 </div>
 </div>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>There are several other methods to create and interact with txdb objects in the <strong>GenomicFeatures</strong> package including from GRanges objects or by connecting directly to the Ensembl, UCSC or BioMart databases.</p>
 <p>There is a good tutorial <a href="https://bioconductor.org/packages/release/bioc/vignettes/GenomicFeatures/inst/doc/GenomicFeatures.html">here</a>.</p>
 </div>
@@ -1092,10 +1114,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   seqinfo: 298 sequences (2 circular) from hg19 genome</code></pre>
 </div>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Can you get the sequences of the 10 longest exons in the Mouse Ensembl gene models?</p>
 <p><strong>Hints:</strong></p>
 <ul>
@@ -1111,11 +1133,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## create a txdb object from the gtf file downloaded from Ensembl</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>txdb.mm10 <span class="ot">&lt;-</span> <span class="fu">makeTxDbFromGFF</span>(<span class="at">file =</span> <span class="st">"data/Mus_musculus.GRCm38.78.edited.gtf"</span>)</span>
@@ -1162,11 +1184,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </details>
 </div>
-<p><br></p>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>Bioconductor has specialised packages for working with genomics data in R</li>
 <li>Genomic sequences, annotations and datasets can be imported by various means</li>

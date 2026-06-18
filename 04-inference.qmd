@@ -14,13 +14,12 @@ title: "Statistical inference"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
-- Understand population sampling
-- Learn to perform hypothesis tests
-- Learn to interpret test statistics and p-values
-
+-   Understand population sampling
+-   Learn to perform hypothesis tests
+-   Learn to interpret test statistics and p-values
 :::
 
 Inferential statistics allow us to make predictions. We can use data from a sample to make inferences about the population from which the sample was drawn. This is important as it is often impossible to measure an entire population due to factors such as large numbers, cost, ethics, and other practicalities.
@@ -75,10 +74,9 @@ hist(sample_means, breaks = 30, main = "Sampling Distribution of the Mean", xlab
 
 ```
 
-
 ### Standard error (SE)
 
-The **standard error** (SE) is the standard deviation of the sampling distribution and represents the dispersion of sample means around the population mean. It is a measure of how accurately a sample can estimate the population. 
+The **standard error** (SE) is the standard deviation of the sampling distribution and represents the dispersion of sample means around the population mean. It is a measure of how accurately a sample can estimate the population.
 
 The SE can be estimated from a single sample using its standard deviation (SD) and sample size (n).
 
@@ -107,7 +105,7 @@ standard_error <- sample_sd / sqrt(sample_size)
 standard_error
 ```
 
-A standard error of ~0.2 indicates that the sample mean is expected to vary by about 0.2 from the true population mean. The standard error quantifies the uncertainty associated with our sample statistic and is crucial for constructing confidence intervals and conducting hypothesis tests.
+A standard error of \~0.2 indicates that the sample mean is expected to vary by about 0.2 from the true population mean. The standard error quantifies the uncertainty associated with our sample statistic and is crucial for constructing confidence intervals and conducting hypothesis tests.
 
 ## Hypothesis testing
 
@@ -115,15 +113,14 @@ We can test a hypothesis about a parameter in a population (e.g. the mean) using
 
 ### Hypothesis testing in 6 steps:
 
-  1. Specify a null hypothesis H0
-  2. Specify the alternative hypothesis H1
-  3. Set the significance level 𝝰 (often 0.05)
-  4. Calculate the test statistic using an appropriate test
-  5. Compare the test statistic to the null distribution to acquire a p-value
-  6. Draw a conclusion: Accept or reject H0
+1.  Specify a null hypothesis H0
+2.  Specify the alternative hypothesis H1
+3.  Set the significance level 𝝰 (often 0.05)
+4.  Calculate the test statistic using an appropriate test
+5.  Compare the test statistic to the null distribution to acquire a p-value
+6.  Draw a conclusion: Accept or reject H0
 
-
-![](images/hypothesis_test.png){fig-align="center" width=50%}
+![](images/hypothesis_test.png){fig-align="center" width="50%"}
 
 ## Define a hypothesis
 
@@ -131,17 +128,17 @@ We are testing a hypothesis, not the data, so it is important to define this cor
 
 Hypothesis testing tells us if our results are surprising and how likely they are to be the product of chance. We need to define a **null hypothesis** and an **alternative hypothesis** to test our data against.
 
-![](images/hypothesis.png){fig-align="center" width=50%}
+![](images/hypothesis.png){fig-align="center" width="50%"}
 
 #### Null Hypothesis H0
 
-The null hypothesis corresponds to the absence of an effect. We start our hypothesis test by defining the null hypothesis and assuming that it is true. For example, there is no difference between the expression level of geneA in WT and KO cells. 
+The null hypothesis corresponds to the absence of an effect. We start our hypothesis test by defining the null hypothesis and assuming that it is true. For example, there is no difference between the expression level of geneA in WT and KO cells.
 
 #### Alternative Hypothesis H1
 
 The alternative hypothesis encompasses all of the possible outcomes that aren’t included in the null hypothesis. We cannot prove the alternative hypothesis. We can only choose to reject the null hypothesis based on the data we have! For example, there is a difference in the expression level of geneA between WT and KO cells.
 
-## Set a significance level 
+## Set a significance level
 
 The significance level (𝝰) is the threshold for rejecting the null hypothesis. It is often set at 0.05, which means that we are willing to accept a 5% chance of rejecting the null hypothesis when it is actually true (false positive).
 
@@ -151,22 +148,22 @@ You can make the significance level more or less stringent depending on the risk
 
 There are many different types of statistical tests available, and the choice of test depends on your data and the question you are trying to answer.
 
-  - **Type of data**
-    - Continuous
-    - Discrete
-    - Binary
-    - Categorical
-  - **Data structure**
-    - Comparing 1 sample group to a hypothetical value
-    - Comparing 2 sample groups (e.g. WT and mutant)
-    - Comparing 3 or more sample groups
-  - **Variables**
-    - One variable (e.g. gene expression)
-    - Two variables (e.g. gene expression and treatment)
-  - **Distribution of your the data** 
-    - Parametric or non-parametric
-    
-![](images/right_test.png){fig-align="center" width=75%}
+-   **Type of data**
+    -   Continuous
+    -   Discrete
+    -   Binary
+    -   Categorical
+-   **Data structure**
+    -   Comparing 1 sample group to a hypothetical value
+    -   Comparing 2 sample groups (e.g. WT and mutant)
+    -   Comparing 3 or more sample groups
+-   **Variables**
+    -   One variable (e.g. gene expression)
+    -   Two variables (e.g. gene expression and treatment)
+-   **Distribution of your the data**
+    -   Parametric or non-parametric
+
+![](images/right_test.png){fig-align="center" width="75%"}
 
 To make inferences or predictions from sampled data we first need to understand how the data in our samples are distributed. If the data fits a known probability distribution (parametric) then we can use those parameters in our statistical analysis.
 
@@ -180,8 +177,8 @@ A Shapiro Wilk test tests the null hypothesis that the data is normally distribu
 
 You can use the base R function `shapiro.test()` or the `shapiro_test()` function from the rstatix to perform a Shapiro Wilk test.
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 The data frame below contains the observed times taken for mice to complete a maze. The mice are divided into two sample groups (dietA and dietB). Check if the data is normally distributed in each group and decide if you can use a parametric test to compare times between the two groups of samples.
 
@@ -202,14 +199,13 @@ maze_data <- tibble(
 
 ```
 
-
 <details>
 
 <summary>
 
 </summary>
 
-::: solution
+::: {.box .solution}
 <h2><i class="far fa-eye"></i> Solution:</h2>
 
 Visualise and test for normality.
@@ -238,7 +234,7 @@ maze_data |>
 
 ```
 
-The data for dietA is normally distributed (p-value > 0.05) but the data for dietB is not normally distributed (p-value < 0.05). Therefore, we cannot use a parametric test to compare the two groups of samples.
+The data for dietA is normally distributed (p-value \> 0.05) but the data for dietB is not normally distributed (p-value \< 0.05). Therefore, we cannot use a parametric test to compare the two groups of samples.
 
 If we log transform the data, we can check if it becomes more normal.
 
@@ -260,8 +256,7 @@ maze_data |>
   shapiro_test(log_time)
 ```
 
-The log transformation has made the data for dietB more normal (p-value > 0.05), so we can now use a parametric test to compare the log(means) between the two groups.
-
+The log transformation has made the data for dietB more normal (p-value \> 0.05), so we can now use a parametric test to compare the log(means) between the two groups.
 :::
 
 </details>
@@ -271,25 +266,23 @@ The log transformation has made the data for dietB more normal (p-value > 0.05),
 
 **Non-parametric tests** are distribution free tests. They often work on the ranks of ordered data rather than the values themselves. A non-parametric test will give you less statistical power so it is always better to use a parametric test if your data meets the assumptions. For each parametric test, there is usually a non-parametric equivalent.
 
-![](images/nonparametric.png){fig-align="center" width=70%}
+![](images/nonparametric.png){fig-align="center" width="70%"}
 
 ### Choosing a statistical test
 
-Your choice of statistical test will depend on the data you have and the question you are trying to answer. 
-![](images/test_choice.jpg){fig-align="center" width=75%}
+Your choice of statistical test will depend on the data you have and the question you are trying to answer. ![](images/test_choice.jpg){fig-align="center" width="75%"}
 
 There are many online resources to choose the correct test for your data, or you can consult with a statistician or AI (with a clear description of your data and question) to help you choose the right test.
 
-::: resources
-<h2><i class="fas fa-book"></i> Resources</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
 
 The resources below are a good starting point for learning about different types of statistical tests and when to use them.
 
-  - [Statistics in research](https://irrespub.com/statistical-tests-in-biomedical-research/)
-  - [Selecting a statistical test](https://www.graphpad.com/support/faqid/1790/)
-  - [Comparing means in R](http://www.sthda.com/english/wiki/comparing-means-in-r)
-  - [Choosing a statistical test](https://www.biostathandbook.com/testchoice.html)
-
+-   [Statistics in research](https://irrespub.com/statistical-tests-in-biomedical-research/)
+-   [Selecting a statistical test](https://www.graphpad.com/support/faqid/1790/)
+-   [Comparing means in R](http://www.sthda.com/english/wiki/comparing-means-in-r)
+-   [Choosing a statistical test](https://www.biostathandbook.com/testchoice.html)
 :::
 
 ## Comparing the means of two groups
@@ -320,17 +313,17 @@ PlantGrowth |>
 
 ```
 
-The data for all groups is normally distributed (p-value > 0.05) so we can use parametric tests to compare the groups.
+The data for all groups is normally distributed (p-value \> 0.05) so we can use parametric tests to compare the groups.
 
 ### T-test
 
-Let's test for a difference between the control and treatment 1. The appropriate test to compare the means of two independent groups is the **t-test**: 
+Let's test for a difference between the control and treatment 1. The appropriate test to compare the means of two independent groups is the **t-test**:
 
-  - Parametric test
-  - Assumes data is normally distributed
-  - Compares the means and calculates a T-statistic
-  - A large T-statistic means a large difference between groups
-  - Under the null hypothesis, the T-statistic is expected to fall into a range of values distributed around zero. 
+-   Parametric test
+-   Assumes data is normally distributed
+-   Compares the means and calculates a T-statistic
+-   A large T-statistic means a large difference between groups
+-   Under the null hypothesis, the T-statistic is expected to fall into a range of values distributed around zero.
 
 The T-statistic is calculated as the difference in means between the two groups divided by the standard error of the difference, or in other words, the signal (difference in means) divided by the noise (standard error).
 
@@ -338,9 +331,9 @@ $$t = \frac{\text{Signal}}{\text{Noise}} = \frac{\bar{x}_1 - \bar{x}_2}{SE}$$
 
 We can use the `t_test()` function from the rstatix package to perform this test.
 
-  - Null hypothesis: There is no difference in mean weight between the control and treatment 1 groups.
-  - Alternative hypothesis: There is a difference in mean weight between the control and treatment 1
-  - Significance level: 0.05
+-   Null hypothesis: There is no difference in mean weight between the control and treatment 1 groups.
+-   Alternative hypothesis: There is a difference in mean weight between the control and treatment 1
+-   Significance level: 0.05
 
 ```{r}
 # Compare the mean weights between control and treatment
@@ -413,27 +406,27 @@ The p-value is 0.0479, which is less than our significance level of 0.05. Theref
 
 ### Multiple testing correction
 
-But wait! There is a problem with this analysis. Whenever we perform multiple tests on the same data, we increase the chances of finding a false positive. It's a bit like buying two lottery tickets instead of one - you have a better chance of winning. 
+But wait! There is a problem with this analysis. Whenever we perform multiple tests on the same data, we increase the chances of finding a false positive. It's a bit like buying two lottery tickets instead of one - you have a better chance of winning.
 
 In the context of hypothesis testing, this means that if we perform multiple tests on the same data, we are more likely to find a significant result by chance alone. We need to adjust our p-values for multiple testing when we perform multiple tests on the same data.
 
-![](images/multipletesting.png){fig-align="center" width=90%}
+![](images/multipletesting.png){fig-align="center" width="90%"}
 
-There are a few different methods to adjust for multiple testing: 
+There are a few different methods to adjust for multiple testing:
 
 #### Bonferroni
 
 Simple but stringent method that divides the significance level by the number of tests performed to control for the family-wise error rate (FWER). Good for a small number of tests but can be too conservative when many tests are performed, leading to a high rate of false negatives.
-  
+
 #### Benjamini-Hochberg
 
 Less conservative method that controls the false discovery rate (FDR). It ranks the p-values and compares each p-value to its rank divided by the total number of tests multiplied by the significance level. This method is more powerful than Bonferroni when many tests are performed (e.g. 22000 genes in RNA-seq experiments), but it allows for a higher rate of false positives.
 
 Let's say we want to do pairwise comparisons between all three groups in our plant data:
 
-  - Treatment 1 vs Control
-  - Treatment 2 vs Control
-  - Treatment 1 vs treatment 2
+-   Treatment 1 vs Control
+-   Treatment 2 vs Control
+-   Treatment 1 vs treatment 2
 
 With rstatix, we can run all three t-tests at once. However, since we are performing multiple tests on the same data, we need to use adjusted p-values. Rstatix adds adjusted p-values to the result by default. We can also use the `adjust_pvalue()` function to specify the method we want to use.
 
@@ -468,7 +461,7 @@ The correct way to analyse data with more than two groups is to use an ANOVA (an
 
 This framework controls for multiple testing and is more powerful than performing multiple pairwise t-tests. ANOVA is not covered in this course but should be your go-to for multi-factorial statistical analysis. You can use the `anova_test()` function from rstatix to perform an ANOVA test.
 
-![](images/anova.png){fig-align="center" width=70%}
+![](images/anova.png){fig-align="center" width="70%"}
 
 ### Two-sided vs one-sided tests
 
@@ -478,11 +471,11 @@ For example, we might want to test if the mean weight of plants in treatment 1 i
 
 Alternatively, we might have a specific hypothesis that treatment 1 will increase the mean weight of plants compared to the control group. In this case, we would perform a one-sided test, and our alternative hypothesis would be that the mean weight of plants in treatment 1 is **greater** than the mean weight of plants in the control group.
 
-A one sided test has more statistical power to detect an effect in the specified direction as your significance threshold increases on one side of the distribution. 
+A one sided test has more statistical power to detect an effect in the specified direction as your significance threshold increases on one side of the distribution.
 
-![](images/tails.jpg){fig-align="center" width=70%}
+![](images/tails.jpg){fig-align="center" width="70%"}
 
-You should only use a one-sided test if you have a strong biological rationale for expecting an effect in a specific direction and are not interested in detecting an effect in the opposite direction. 
+You should only use a one-sided test if you have a strong biological rationale for expecting an effect in a specific direction and are not interested in detecting an effect in the opposite direction.
 
 It is NOT OKAY to run a two-sided test, see that the p-value is not significant, and then switch to a one-sided test to try to get a significant result. This is a form of p-hacking that can lead to false positives.
 
@@ -507,11 +500,11 @@ chickwts |>
 
 ### Paired vs independent tests
 
-When comparing two groups, we need to consider whether the samples are independent or paired. Independent samples are those where the observations in one group are not related to the observations in the other group. 
+When comparing two groups, we need to consider whether the samples are independent or paired. Independent samples are those where the observations in one group are not related to the observations in the other group.
 
 Paired samples are most often repeated measurements on the same subjects (e.g. before and after treatment) or matched samples (e.g. twins, siblings, or matched cases and controls).
 
-![](images/paired_t.jpg){fig-align="center" width=70%}
+![](images/paired_t.jpg){fig-align="center" width="70%"}
 
 When the samples are paired, we need to use a paired test that takes into account the fact that the observations are related.
 
@@ -552,7 +545,7 @@ wm_data |>
   shapiro_test(diff)
 ```
 
-The differences are not normally distributed (p-value < 0.05), so we cannot use a parametric test to compare the two conditions. 
+The differences are not normally distributed (p-value \< 0.05), so we cannot use a parametric test to compare the two conditions.
 
 The non-parametric equivalent of the paired t-test is the **Wilcoxon signed-rank test**. This test does not assume normality and is used to compare two related samples.
 
@@ -562,9 +555,9 @@ Non parametric tests are less powerful than parametric tests, so we have a highe
 
 Because we do not have prior hypothesis about the effect of DA depletion on working memory performance, we will perform a two-sided test with the alternative hypothesis that there is a difference in performance between the two conditions.
 
-  - Null hypothesis: There is no difference in working memory performance between the placebo and DA depleted conditions.
-  - Alternative hypothesis: There is a difference in working memory performance between the placebo and DA depleted
-  - Significance level: 0.05
+-   Null hypothesis: There is no difference in working memory performance between the placebo and DA depleted conditions.
+-   Alternative hypothesis: There is a difference in working memory performance between the placebo and DA depleted
+-   Significance level: 0.05
 
 ```{r}
 wm_long_data |>
@@ -599,24 +592,23 @@ A researcher is studying a specific gene that determines whether a rare species 
 | Aa       | Spotted      | 1     |
 | Aa       | Plain        | 9     |
 
+To test if there is an association between genotype and wing pattern, we can use a **fisher's exact test**. This test compares the observed frequencies of each category to the expected frequencies under the null hypothesis of no association. The fisher's exact test is appropriate for small sample sizes and is a non-parametric test that does not assume any distribution for the data.
 
-To test if there is an association between genotype and wing pattern, we can use a **fisher's exact test**. This test compares the observed frequencies of each category to the expected frequencies under the null hypothesis of no association. The fisher's exact test is appropriate for small sample sizes and is a non-parametric test that does not assume any distribution for the data. 
+-   Null hypothesis: There is no association between genotype and wing pattern.
+-   Alternative hypothesis: There is an association between genotype and wing pattern.
+-   Significance level: 0.05
 
-  - Null hypothesis: There is no association between genotype and wing pattern.
-  - Alternative hypothesis: There is an association between genotype and wing pattern.
-  - Significance level: 0.05
-  
-Under the null hypothesis, we would expect the frequencies of each category to be proportional to the overall frequencies of the genotypes and wing patterns in the sample. 
+Under the null hypothesis, we would expect the frequencies of each category to be proportional to the overall frequencies of the genotypes and wing patterns in the sample.
 
 | Genotype | Wing Pattern | Observed | Expected |
-|----------|--------------|-------|----------|
-| AA       | Spotted      | 8     | 4.5      |
-| AA       | Plain        | 2     | 5.5      |
-| Aa       | Spotted      | 1     | 4.5      |
-| Aa       | Plain        | 9     | 5.5      |
+|----------|--------------|----------|----------|
+| AA       | Spotted      | 8        | 4.5      |
+| AA       | Plain        | 2        | 5.5      |
+| Aa       | Spotted      | 1        | 4.5      |
+| Aa       | Plain        | 9        | 5.5      |
 
 The fisher's exact test calculates the probability of observing the data we have collected (or more extreme) under the null hypothesis and gives us a p-value to help us decide whether to reject or fail to reject the null hypothesis.
-  
+
 ```{r}
 # Create a contingency table
 contingency_table <- matrix(c(8, 2, 1, 9), nrow = 2, byrow = TRUE)
@@ -633,7 +625,7 @@ We can also use a **chi-squared test** to test for association between categoric
 
 ## Reporting statistical results
 
-A significant p-value (e.g. p < 0.05) means that we reject the null hypothesis and conclude that there is a statistically significant difference in our data. However, it does not tell us about the size of the effect or its biological relevance.
+A significant p-value (e.g. p \< 0.05) means that we reject the null hypothesis and conclude that there is a statistically significant difference in our data. However, it does not tell us about the size of the effect or its biological relevance.
 
 When reporting statistical results, it is important to include the test statistic, degrees of freedom, p-value, and confidence intervals for the effect size. This provides a more complete picture of the results and allows readers to assess the biological relevance of the findings.
 
@@ -655,10 +647,10 @@ t_test_full_result
 
 The t-test results include:
 
-  - t-statistic (statistic)
-  - degrees of freedom (df)
-  - p-value (p)
-  - confidence intervals (conf.low, conf.high)
+-   t-statistic (statistic)
+-   degrees of freedom (df)
+-   p-value (p)
+-   confidence intervals (conf.low, conf.high)
 
 The **t-statistic** is 2.13, which indicates that the difference in mean weight between the control and treatment 2 group is 2.13 standard errors away from zero.
 
@@ -687,6 +679,7 @@ glue("The mean weight of plants in the control group is {round(ctrl_mean, 2)} \\
       {round(t_test_full_result$conf.high, 4)}).")
 
 ```
+
 ## Interpreting statistical results
 
 When interpreting statistical results, it is important to consider the biological relevance of the findings. A statistically significant result does not necessarily mean that the effect is biologically meaningful.
@@ -697,7 +690,7 @@ Statistical tests produce statistics which represent the size of the effect over
 
 #### Is it real?
 
-We use p-values to make decisions, not to tell us if something is real or not. Using a threshold we can claim “statistical significance” and quantify the confidence we have in this difference. However, we can never be 100% sure that the difference we are seeing is real. We can only say that it is unlikely to have occurred by chance alone (e.g. p < 0.05).
+We use p-values to make decisions, not to tell us if something is real or not. Using a threshold we can claim “statistical significance” and quantify the confidence we have in this difference. However, we can never be 100% sure that the difference we are seeing is real. We can only say that it is unlikely to have occurred by chance alone (e.g. p \< 0.05).
 
 #### Is it meaningful?
 
@@ -707,44 +700,41 @@ We must assess if the difference is meaningful within the biological context of 
 
 The p-value is the probability of finding a result, as or more extreme than our observed data, when we assume that the null hypothesis H0 is true.
 
-  - p = 0 : Zero chance of getting these results under  H0 
-  - p = 1 : 100% chance of getting these results under  H0 
-  - p = 0.05 : 5% chance of getting this or a more extreme result under  H0 
+-   p = 0 : Zero chance of getting these results under H0
+-   p = 1 : 100% chance of getting these results under H0
+-   p = 0.05 : 5% chance of getting this or a more extreme result under H0
 
 Setting alpha = 0.05 is a commonly used threshold to reject the null hypothesis and accept the alternative hypothesis. If there is no effect, we would only see a result like this or more extreme 5% of the time.
 
 P-values are commonly misconceived. The p-value is NOT:
 
-  - The probability of the null hypothesis being true
-  - The probability of the alternative hypothesis being true
-  - The probability of observing our precise result under the null hypothesis
+-   The probability of the null hypothesis being true
+-   The probability of the alternative hypothesis being true
+-   The probability of observing our precise result under the null hypothesis
 
-A non-significant p-value DOES NOT mean there is no difference observed between two groups. 
+A non-significant p-value DOES NOT mean there is no difference observed between two groups.
 
 A significant p-value DOES NOT represent a scientifically relevant result or the size of a detected effect.
 
-::: resources
-<h2><i class="fas fa-book"></i> Resources</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
 
 Here is some more reading on p-values and their misconceptions:
 
-  - [P-values and when not to use them](https://towardsdatascience.com/p-values-and-when-not-to-use-them-92cab8a86304)
-  - [P-values and misconceptions](https://sixsigmadsi.com/wp-content/uploads/2020/10/A-Dirty-Dozen-Twelve-P-Value-Misconceptions.pdf)
-  - [What the p-value really tells us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5665734)
-
+-   [P-values and when not to use them](https://towardsdatascience.com/p-values-and-when-not-to-use-them-92cab8a86304)
+-   [P-values and misconceptions](https://sixsigmadsi.com/wp-content/uploads/2020/10/A-Dirty-Dozen-Twelve-P-Value-Misconceptions.pdf)
+-   [What the p-value really tells us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5665734)
 :::
 
 ## Confidence intervals
 
-P-values assign probabilities to our findings but tell us nothing about the size of the effect we are seeing. Confidence intervals can provide a more informative interpretation as they give a range of probable scores based on our model. 
+P-values assign probabilities to our findings but tell us nothing about the size of the effect we are seeing. Confidence intervals can provide a more informative interpretation as they give a range of probable scores based on our model.
 
-![](images/conf_int.jpg){fig-align="center" width=80%}
+![](images/conf_int.jpg){fig-align="center" width="80%"}
 
 A 95% confidence interval is the range of values for which we are 95% certain contains the real statistic.
 
-Example: Two surveys measuring self reported quality of life on a 0-10 scale:
-Study A:  mean = 7 (95% CI 6,8) 
-Study B:  mean = 7 (95% CI 1,9)
+Example: Two surveys measuring self reported quality of life on a 0-10 scale: Study A: mean = 7 (95% CI 6,8) Study B: mean = 7 (95% CI 1,9)
 
 Are they saying the same thing? What is the practical impact of a larger confidence interval?
 
@@ -752,8 +742,8 @@ If your null hypothesis represents no change between 2 groups and your 95% confi
 
 ## Final challenge
 
-::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Final Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Final Challenge:</h3>
 
 In this challenge we are going to perform statistical analysis to see if the weights of 10 rabbits *increase* after a hypothetical experimental treatment. First prepare the data:
 
@@ -792,8 +782,8 @@ rabbits <- data.frame(
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 Visualise:
 
@@ -818,9 +808,9 @@ rabbits |>
 
 We fail to reject the Null hypothesis that the difference in weights is normally distributed. In this case, we can use a parametric t-test to compare the weights before and after treatment.
 
-- Null hypothesis: There is no increase in weight after treatment compared to before treatment.
-- Alternative hypothesis: There is an increase in weight after treatment compared to before treatment.
-- Significance level: 0.05
+-   Null hypothesis: There is no increase in weight after treatment compared to before treatment.
+-   Alternative hypothesis: There is an increase in weight after treatment compared to before treatment.
+-   Significance level: 0.05
 
 Because our alternative hypothesis is directional, we will use a one-sided test and use "greater" as our alternative hypothesis.
 
@@ -834,20 +824,18 @@ rabbits |>
 ```
 
 Because we are performing a one-sided test, we are only looking for an increase in weight after treatment. The p-value is 0.0002, which is less than our significance level of 0.05, so we reject the null hypothesis and conclude that there is a statistically significant increase in weight after treatment compared to before treatment. One-sided tests produce a single confidence interval that is either above or below zero, depending on the direction of the alternative hypothesis. In this case, the confidence interval is (101, Inf), which means that we are 95% confident that the true increase in weight after treatment compared to before treatment is greater than 101.
-
 :::
 
 </details>
-:::
+::::
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
-  - Inference is the process of drawing conclusions about a population based on a sample of data
-  - Hypothesis tests are used to determine if observed differences are statistically significant
-  - The choice of statistical test depends on the type of data, the structure of the data, the variables being compared, and the distribution of the data
-  - P-values are commonly used to determine statistical significance, but they do not provide information about the size of the effect or its biological relevance
-  - Confidence intervals can provide more information about the magnitude and biological relevance of the effect
-  - Always include the full statistical results when reporting your findings, including the test statistic, degrees of freedom, p-value, and confidence intervals
-  
+-   Inference is the process of drawing conclusions about a population based on a sample of data
+-   Hypothesis tests are used to determine if observed differences are statistically significant
+-   The choice of statistical test depends on the type of data, the structure of the data, the variables being compared, and the distribution of the data
+-   P-values are commonly used to determine statistical significance, but they do not provide information about the size of the effect or its biological relevance
+-   Confidence intervals can provide more information about the magnitude and biological relevance of the effect
+-   Always include the full statistical results when reporting your findings, including the test statistic, degrees of freedom, p-value, and confidence intervals
 :::

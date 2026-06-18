@@ -380,6 +380,29 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -448,10 +471,10 @@ window.Quarto = {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Understand population sampling</li>
 <li>Learn to perform hypothesis tests</li>
@@ -625,10 +648,10 @@ window.Quarto = {
 <p>Parametric tests usually require your data to be normally distributed! You can check for normality by plotting or using a <strong>Shapiro Wilk test</strong>.</p>
 <p>A Shapiro Wilk test tests the null hypothesis that the data is normally distributed. If the p-value is less than your significance level (e.g.&nbsp;0.05), you can reject the null hypothesis and conclude that the data is not normally distributed.</p>
 <p>You can use the base R function <code>shapiro.test()</code> or the <code>shapiro_test()</code> function from the rstatix to perform a Shapiro Wilk test.</p>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="parametric-or-non-parametric">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>The data frame below contains the observed times taken for mice to complete a maze. The mice are divided into two sample groups (dietA and dietB). Check if the data is normally distributed in each group and decide if you can use a parametric test to compare times between the two groups of samples.</p>
 <p>You can use visualisation and/or a <code>shapiro_test()</code> to check for normality.</p>
 <p>Does transforming the data to make it more normal?</p>
@@ -646,9 +669,9 @@ window.Quarto = {
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h2 class="anchored" data-anchor-id="parametric-or-non-parametric">
 <i class="far fa-eye"></i> Solution:
 </h2>
 <p>Visualise and test for normality.</p>
@@ -740,13 +763,13 @@ window.Quarto = {
 </section>
 </section>
 <section id="choosing-a-statistical-test" class="level3">
-<h3 class="anchored">Choosing a statistical test</h3>
+<h3 class="anchored" data-anchor-id="choosing-a-statistical-test">Choosing a statistical test</h3>
 <p>Your choice of statistical test will depend on the data you have and the question you are trying to answer. <img src="images/test_choice.jpg" class="img-fluid quarto-figure quarto-figure-center" style="width:75.0%"></p>
 <p>There are many online resources to choose the correct test for your data, or you can consult with a statistician or AI (with a clear description of your data and question) to help you choose the right test.</p>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="choosing-a-statistical-test">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Resources
-</h2>
+</h3>
 <p>The resources below are a good starting point for learning about different types of statistical tests and when to use them.</p>
 <ul>
 <li><a href="https://irrespub.com/statistical-tests-in-biomedical-research/">Statistics in research</a></li>
@@ -1309,10 +1332,10 @@ Aa       1     9</code></pre>
 </ul>
 <p>A non-significant p-value DOES NOT mean there is no difference observed between two groups.</p>
 <p>A significant p-value DOES NOT represent a scientifically relevant result or the size of a detected effect.</p>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Resources
-</h2>
+</h3>
 <p>Here is some more reading on p-values and their misconceptions:</p>
 <ul>
 <li><a href="https://towardsdatascience.com/p-values-and-when-not-to-use-them-92cab8a86304">P-values and when not to use them</a></li>
@@ -1336,10 +1359,10 @@ Aa       1     9</code></pre>
 </section>
 <section id="final-challenge" class="level2">
 <h2 class="anchored" data-anchor-id="final-challenge">Final challenge</h2>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Final Challenge:
-</h2>
+</h3>
 <p>In this challenge we are going to perform statistical analysis to see if the weights of 10 rabbits <em>increase</em> after a hypothetical experimental treatment. First prepare the data:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The data set </span></span>
@@ -1373,11 +1396,11 @@ Aa       1     9</code></pre>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <p>Visualise:</p>
 <div class="cell" data-answer="true">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rabbits <span class="sc">|&gt;</span></span>
@@ -1436,10 +1459,10 @@ Aa       1     9</code></pre>
 </details>
 </section>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>Inference is the process of drawing conclusions about a population based on a sample of data</li>
 <li>Hypothesis tests are used to determine if observed differences are statistically significant</li>

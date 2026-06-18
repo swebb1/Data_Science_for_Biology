@@ -14,59 +14,38 @@ title: "Setup"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-### Project Setup
+## 1. Install Quarto
 
-In this course we will present our RNA-seq analysis from the previous module by putting all of our code and figures into a `Quarto` html document.
+In this lesson we will use **Quarto** to create a report of our RNA-seq analysis from the previous module. Quarto is a publishing system that allows you to create dynamic documents, reports, presentations, and websites. Quarto documents include markdown text and code chunks that are executed when the document is rendered, allowing you to include your code, results, and details of your analysis all in the same report.
 
-1.  Create a new project in RStudio called **RNA-seq publication**.
-2.  Make sure the following packages are installed:
+Quarto must be installed on your computer to make it available in RStudio. Download and install Quarto from the [Quarto website](https://quarto.org/docs/get-started/).
 
-```{r,eval=FALSE}
+### Check Quarto installation
 
+Check that Quarto is installed correctly by running the following code in RStudio. You should see the version of Quarto that is installed on your computer.
+
+```{r check_quarto_installation,eval=FALSE}
 install.packages("quarto")
-install.packages("Shiny")
-
-## Install packages below from differential expression analysis module (if not already installed)
-
-## Install CRAN packages
-install.packages("tidyverse")
-install.packages("patchwork")
-install.packages("gprofiler2")
-install.packages("RColorBrewer")
-install.packages("pheatmap")
-install.packages("ggrepel")
-
-## Install Bioconductor packages
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("DESeq2")
-BiocManager::install("GenomicFeatures")
-BiocManager::install("tximport")
-BiocManager::install("apeglm")
-BiocManager::install("clusterProfiler")
-BiocManager::install("enrichplot")
-BiocManager::install("AnnotationHub")
-BiocManager::install("org.Hs.eg.db")
+quarto::quarto_version()
 ```
 
-### Data
+## 2. Create a GitHub account
 
-Download the RNA-seq data:
+If you would like to share your Quarto report to the web, you will need to create a GitHub account. GitHub is an online software repository that allows you to store and share your code and documents. You can create a free account on the [GitHub](https://github.com/) website.
 
-```{r, eval=FALSE}
+### Generate a personal access token
 
-## Create a directory to store the data
-dir.create("data")
+GitHub requires a personal access token to authenticate your account when accessing from external applications like RStudio. You can generate a personal access token by following the instructions on the [GitHub website](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) or the instructions below:
 
-## Mac or Linux
-download.file("https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz", destfile = "data/salmon.tar.gz")
-## Unpack the data
-utils::untar("data/salmon.tar.gz", exdir = "data")
+  1. Go to your GitHub account settings and click on "Developer settings" in the left sidebar.
+  2. Click on "Personal access tokens" and then click on "Tokens (classic)".
+  3. Select "Generate new token" (classic).
+  3. Give your token a name and select the scopes you want to grant access to. For this lesson, you can select the "repo" scope to allow access to your repositories. Set a date for the token to expire.
+  4. Click on "Generate token" and copy the token to a safe place. You will need this token to authenticate your GitHub account in RStudio.
 
-## Windows
-download.file("https://bifx-core3.bio.ed.ac.uk/training/RNA-seq_analysis/salmon.tar.gz", destfile = "data/salmon.tar.gz", mode = "wb")
-## Unpack the data
-utils::untar("data/salmon.tar.gz", exdir = "data")
+::: {.callout-warning}
+**Warning:** Make sure to copy your personal access token and store it in a safe place. You will not be able to see it again after you leave the page. If you lose your token, you will need to generate a new one.
 
-```
+During the course we will show you how to store your personal access token in RStudio so that you do not have to enter it every time you want to access your GitHub account.
+:::
+

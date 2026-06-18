@@ -14,8 +14,8 @@ title: "Statistical Thinking"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Understand the concept of probability and how it relates to statistics
 -   Understand the difference between categorical, discrete and continuous data
@@ -343,7 +343,7 @@ binom_plot(n, size, prob)
 -   What is the overall pattern of observations
 -   Does your sample look like a binomial distribution?
 
-:::: challenge
+:::: {.box .challenge}
 <h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 How would the following affect the results?
@@ -362,8 +362,8 @@ Use the `rbinom()` function to simulate these scenarios and visualise the result
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 ## 20 people flipping 100 coins
@@ -438,8 +438,8 @@ The `rnorm()` function takes three arguments:
 -   The mean of the distribution (mean)
 -   The standard deviation of the distribution (sd)
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 A: Use the `rnorm()` function to simulate 1000 observations from a normal distribution with a mean of 50 and a standard deviation of 10. Plot the distribution of the simulated data using a histogram.
 
@@ -453,8 +453,8 @@ C: What about a mean of -23.2 and a standard deviation of 0.75?
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 
@@ -819,16 +819,16 @@ ggplot(anscombe_tidy, aes(x, y, colour = dataset)) +
 
 The lesson here is to never rely solely on summary statistics. Always visualise your data!
 
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 1.  The shape of a normal distribution is defined by the \_\_\_\_\_\_ and the \_\_\_\_\_\_\_.
 2.  When a dataset has an even number of values, what is the median?
 3.  The 2nd quartile is also known as the \_\_\_\_\_\_\_\_\_.
 :::
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   Probability is the foundation of statistics and is used to model the likelihood of different outcomes in a dataset.
 -   There are many different types of probability distributions, each with its own set of parameters and assumptions.

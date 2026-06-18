@@ -351,6 +351,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -434,10 +457,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Understand the concept of probability and how it relates to statistics</li>
 <li>Understand the difference between categorical, discrete and continuous data</li>
@@ -822,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="do">## probability of getting heads</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> size, <span class="at">prob =</span> prob)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 5 5 6 4 6 6 5 4 8 6 7 5 5 5 6 5 7 5 4 5</code></pre>
+<pre><code> [1] 6 3 4 7 5 5 4 5 7 4 5 7 5 6 6 6 7 3 7 5</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## make a function to plot the results of a binomial experiment</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>binom_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(n, size, prob){</span>
@@ -850,10 +873,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>What is the overall pattern of observations</li>
 <li>Does your sample look like a binomial distribution?</li>
 </ul>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>How would the following affect the results?</p>
 <ul>
 <li>100 coin flips instead of 10</li>
@@ -866,11 +889,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 people flipping 100 coins</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_plot</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -953,7 +976,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The mean and standard deviation determine the shape of the curve in a normal distribution. The mean determines the location of the peak, while the standard deviation determines the width of the curve. A smaller standard deviation results in a narrower curve, while a larger standard deviation results in a wider curve.</p>
 </section>
 <section id="simulating-a-normal-distribution" class="level3">
-<h3 class="anchored">Simulating a normal distribution</h3>
+<h3 class="anchored" data-anchor-id="simulating-a-normal-distribution">Simulating a normal distribution</h3>
 <p>We can use the <code>rnorm()</code> to simulate data from a normal distribution.</p>
 <p>The <code>rnorm()</code> function takes three arguments:</p>
 <ul>
@@ -961,21 +984,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The mean of the distribution (mean)</li>
 <li>The standard deviation of the distribution (sd)</li>
 </ul>
-<div class="challenge">
-<h2 class="anchored" data-anchor-id="simulating-a-normal-distribution">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>A: Use the <code>rnorm()</code> function to simulate 1000 observations from a normal distribution with a mean of 50 and a standard deviation of 10. Plot the distribution of the simulated data using a histogram.</p>
 <p>B: What happens when we change the the standard deviation to 30?</p>
 <p>C: What about a mean of -23.2 and a standard deviation of 0.75?</p>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate 1000 observations from a normal distribution with mean = 50 and sd = 10</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>simA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>), <span class="at">distribution =</span> <span class="st">"A"</span>)</span>
@@ -1459,20 +1482,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The lesson here is to never rely solely on summary statistics. Always visualise your data!</p>
-<div class="discussion">
-<h2 class="anchored">
+<div class="box discussion">
+<h3 class="anchored">
 <i class="far fa-bell"></i> Discussion
-</h2>
+</h3>
 <ol type="1">
 <li>The shape of a normal distribution is defined by the ______ and the _______.</li>
 <li>When a dataset has an even number of values, what is the median?</li>
 <li>The 2nd quartile is also known as the _________.</li>
 </ol>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>Probability is the foundation of statistics and is used to model the likelihood of different outcomes in a dataset.</li>
 <li>There are many different types of probability distributions, each with its own set of parameters and assumptions.</li>

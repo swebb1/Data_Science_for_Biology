@@ -380,6 +380,29 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -432,10 +455,10 @@ window.Quarto = {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Download and tidy a qPCR dataset</li>
 <li>Plot the data with ggplot2</li>
@@ -480,10 +503,10 @@ window.Quarto = {
 <li>Plot the data</li>
 <li>Add the statistical results to the plot</li>
 </ol>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="far fa-bell"></i> Resources
-</h2>
+</h3>
 <section id="what-is-anova" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-anova">What is ANOVA?</h3>
 <p>We did not cover ANOVA in the lessons. ANOVA, or analysis of variance, is a statistical test used to compare the means of three or more groups. In this case, we want to compare the delta C(t) values across different days of differentiation for each differentiation lineage.</p>
@@ -511,14 +534,14 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now load the data and explore it.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qpcr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/APOE_qpcr.csv"</span>)</span>
@@ -540,14 +563,14 @@ window.Quarto = {
 <section id="tidy-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="tidy-the-data">Tidy the data</h2>
 <p>The data is not in a tidy format as the sample name contains information about the differentiation lineage, day of differentiation, biological replicate and technical replicate. We need to tidy the data by separating the sample name into these different variables and setting categorical variables as factors.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Separate sample column and set categorical variables as factors</span></span>
@@ -608,14 +631,14 @@ Fold~Change = 2^{-ΔΔCt}
 <p>Where ΔΔCt is the difference between the delta C(t) for APOE and the controls (GAPDH).</p>
 <p>This will give you the fold change for each biological replicate for each differentiation lineage and day.</p>
 <p>You can refer to the case study in lesson 1 for more information on qPCR analysis.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>qpcr_mean <span class="ot">&lt;-</span> qpcr_tidy <span class="sc">|&gt;</span></span>
@@ -697,14 +720,14 @@ Fold~Change = 2^{-ΔΔCt}
 <p>For each differentiation lineage, run a one-way ANOVA to test for differences in delta_CT across days.</p>
 <p>Use bonferroni correction to adjust the p-values for multiple comparisons.</p>
 <p><strong>HINT</strong> you can use the <code>anova_test()</code> function from the <code>rstatix</code> package to run the ANOVA and the <code>adjust_pvalue()</code> function to adjust the p-values for multiple comparisons.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>anova_results <span class="ot">&lt;-</span> qpcr_mean <span class="sc">|&gt;</span></span>
@@ -718,14 +741,14 @@ Fold~Change = 2^{-ΔΔCt}
 </div>
 <p>If the ANOVA is significant, we then want to run <em>post-hoc</em> tests to identify which days are significantly different from each other.</p>
 <p>The most common post-hoc test for ANOVA is the Tukey HSD test, which compares all pairs of groups and adjusts for multiple comparisons. There is an rstatix function that can be used to run the Tukey HSD test.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>posthoc_results <span class="ot">&lt;-</span> qpcr_mean <span class="sc">|&gt;</span></span>
@@ -743,14 +766,14 @@ Fold~Change = 2^{-ΔΔCt}
 <p>Calculate the fold change values relative to the mean of the D7 samples for each differentiation lineage. The mean of D7 samples should be calculated across biological replicates for each differentiation lineage.</p>
 <p><strong>HINT</strong> You can add a new column to your dataframe that contains the mean fold change for D7 samples for each differentiation lineage e.g.</p>
 <p><code>mutate(mean_D7_fc = mean(fold_change[Day == "D7"]))</code></p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>qpcr_relative <span class="ot">&lt;-</span> qpcr_mean <span class="sc">%&gt;%</span></span>
@@ -792,14 +815,14 @@ Fold~Change = 2^{-ΔΔCt}
 SEM = \frac{SD}{\sqrt{n}}
 \]</span> Where SD is the standard deviation of the relative fold change values for each differentiation lineage and day, and n is the number of biological replicates for each differentiation lineage and day.</p>
 <p><strong>HINT</strong> you can use <code>sd()</code> to calculate the standard deviation and <code>n()</code> to calculate the number of biological replicates for each differentiation lineage and day.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>qpcr_rel_means <span class="ot">&lt;-</span> qpcr_relative <span class="sc">|&gt;</span></span>
@@ -837,14 +860,14 @@ SEM = \frac{SD}{\sqrt{n}}
 <h2 class="anchored" data-anchor-id="plot-the-data">Plot the data</h2>
 <p>Make a bar plot of mean fold change per differentiation lineage and day. Split the plot by differentiation lineage. Colour the bars by day.</p>
 <p><strong>HINT</strong> look at <code>geom_col()</code> and <code>geom_errorbar()</code> for plotting the data.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>day_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"D7"</span> <span class="ot">=</span> <span class="st">"#7DA0D4"</span>, <span class="st">"D12"</span> <span class="ot">=</span> <span class="st">"#A48AD3"</span>, <span class="st">"D15/16"</span> <span class="ot">=</span> <span class="st">"#E996EF"</span>, <span class="st">"D18/19"</span> <span class="ot">=</span> <span class="st">"#83B355"</span>)</span>
@@ -880,14 +903,14 @@ SEM = \frac{SD}{\sqrt{n}}
 <h2 class="anchored" data-anchor-id="add-the-statistical-results-to-the-plot">Add the statistical results to the plot</h2>
 <p>Use the results from the post-hoc tests to add significance bars to the plot. You can use the <code>stat_pvalue_manual()</code> function from the <code>ggpubr</code> package to add the significance bars.</p>
 <p>This will be a bit tricky as we have faceting in our plot, so we need to manually set the y-positions for our brackets.</p>
-<div class="hints">
-<h2 class="anchored">
+<div class="box hints">
+<h3 class="anchored">
 <i class="fas fa-magnifying-glass"></i> Solution
-</h2>
+</h3>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We want to manually set the bracket positions to handle the faceting in our plot</span></span>

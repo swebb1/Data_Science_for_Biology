@@ -380,6 +380,29 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -426,10 +449,10 @@ window.Quarto = {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Understand the concepts of Type I and Type II errors</li>
 <li>Understand statistical power and its importance in hypothesis testing</li>
@@ -459,7 +482,7 @@ window.Quarto = {
 </figure>
 </div>
 <section id="power-analysis" class="level3">
-<h3 class="anchored">Power analysis</h3>
+<h3 class="anchored" data-anchor-id="power-analysis">Power analysis</h3>
 <p>Power analysis is a technique used to determine the sample size required to achieve a desired level of power for a given effect size and significance level. It can also be used to determine the power of a test given a specific sample size.</p>
 <p>To perform a power analysis, we need to specify three of the following parameters:</p>
 <ul>
@@ -536,16 +559,16 @@ NOTE: same sample sizes</code></pre>
 </div>
 </div>
 </div>
-<div class="discussion">
-<h2 class="anchored" data-anchor-id="power-analysis">
+<div class="box discussion">
+<h3 class="anchored">
 <i class="fas fa-bell"></i> Discussion:
-</h2>
+</h3>
 <p>What statistical power do we have in the pilot study? Is it sufficient to detect the observed effect size?</p>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge
-</h2>
+</h3>
 <p>A researcher wants to compare the weights of WT and KO mice. They do not have any data yet on the KO but they have values for the WT.</p>
 <p>A difference of interest would be at least 10%. Given that you will be using a t-test, what sample size is needed to be able to spot a 10% difference with 80% power?</p>
 <p>The effect size for a t-test, known as <em>Cohen’s d</em>. It can be calculated using the means and standard deviations of the two groups. Since we only have data for the WT group, we will assume that the standard deviation is the same for both groups and use the mean of the WT group to calculate the effect size for a 10% difference.</p>
@@ -561,11 +584,11 @@ NOTE: same sample sizes</code></pre>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate Cohen's d for a 10% difference</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>effect_size <span class="ot">&lt;-</span> (<span class="fu">mean</span>(WT) <span class="sc">-</span> (<span class="fu">mean</span>(WT) <span class="sc">*</span> <span class="fl">0.9</span>)) <span class="sc">/</span> <span class="fu">sd</span>(WT)</span>
@@ -696,10 +719,10 @@ NOTE: n is number in *each* group</code></pre>
 <li>Using algorithms to make predictions or identify patterns in data (e.g.&nbsp;random forests, support vector machines)</li>
 </ul></li>
 </ul>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Resources
-</h2>
+</h3>
 <p>Here are some resources to study more advanced statistical analyses:</p>
 <ul>
 <li><a href="https://carpentries-incubator.github.io/high-dimensional-stats-r/">High dimensional stats in R</a></li>
@@ -707,10 +730,10 @@ NOTE: n is number in *each* group</code></pre>
 <li><a href="https://www.tidymodels.org/">Tidymodels: Tidyverse libraries for modelling and machine learning</a></li>
 </ul>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points
-</h2>
+</h3>
 <ul>
 <li>It is important to ensure that your study has sufficient power to detect meaningful effects</li>
 <li>Power analysis can be used to determine the sample size required for a study</li>

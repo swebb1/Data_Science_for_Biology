@@ -14,17 +14,17 @@ title: "Genomic annotation and visualisation"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
-  - Annotate GRanges objects with gene features
-  - Compare and plot annotations of ChIP-seq peaks 
-  - Run functional enrichment analyses on sets of genes
-  - Combine genome annotations in *GRanges* objects with genomic data in bigWig files
-  - Plot and visualise sequencing reads around genomic annotations
+-   Annotate GRanges objects with gene features
+-   Compare and plot annotations of ChIP-seq peaks
+-   Run functional enrichment analyses on sets of genes
+-   Combine genome annotations in *GRanges* objects with genomic data in bigWig files
+-   Plot and visualise sequencing reads around genomic annotations
 :::
-<br>
-Bioconductor has many packages for annotating, analysing and visualising genomic data. In this section we will introduce some of these packages to give you a taste of the types of analysis you can perform. Here, we focus on ChIP-seq data but these methods can be applied to many types of genomic data.
+
+<br> Bioconductor has many packages for annotating, analysing and visualising genomic data. In this section we will introduce some of these packages to give you a taste of the types of analysis you can perform. Here, we focus on ChIP-seq data but these methods can be applied to many types of genomic data.
 
 ## Annotating GenomicRanges
 
@@ -34,7 +34,7 @@ There are several options for annotating GRanges objects with sets of features. 
 
 #### ChIP-seq data
 
-We are going to use data from the ChIPSeeker tutorial which includes ChIP-seq peaks for CBX6 and CBX7 in human fibroblasts, 2 components of the polycomb repressive complex ([GEO GSE40740](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE40740)). 
+We are going to use data from the ChIPSeeker tutorial which includes ChIP-seq peaks for CBX6 and CBX7 in human fibroblasts, 2 components of the polycomb repressive complex ([GEO GSE40740](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE40740)).
 
 In addition, there are also ChIP-seq peaks for human andronegen receptor (AR) in cells at 3 different concentrations of andronegen ARmo_0M, ARmo_1nM, ARmo_100nM ([GEO GSE48308](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48308)).
 
@@ -55,7 +55,7 @@ txdb.gff <- makeTxDbFromGFF(file = "data/Homo_sapiens.GRCh37.74.edited.gtf",form
 
 #### Annotate peaks
 
-Load the `ChIPseeker` library and the CBX6 peaks as a GRanges object. The `readPeakFile()` function is provided by ChIPseeker but you could also use `readBed()` from the genomation package. 
+Load the `ChIPseeker` library and the CBX6 peaks as a GRanges object. The `readPeakFile()` function is provided by ChIPseeker but you could also use `readBed()` from the genomation package.
 
 ```{r}
 library(ChIPseeker)
@@ -101,12 +101,13 @@ peakAnno <- annotatePeak(CBX6,
 peakAnno
 ```
 
-This output shows us the distribution of peaks with respect to gene features. The `peakAnno` object also contains a GRanges object where our peaks are annotated with overlapping features in the metadata. 
+This output shows us the distribution of peaks with respect to gene features. The `peakAnno` object also contains a GRanges object where our peaks are annotated with overlapping features in the metadata.
 
 ```{r}
 ## Let's look at our annotated GRanges object
 as.GRanges(peakAnno)
 ```
+
 We now have additional columns with annotations for each peak.
 
 #### Visualise annotations
@@ -118,9 +119,9 @@ We can visualise the distribution of peaks relative to gene features by plotting
 plotAnnoBar(peakAnno)
 ```
 
-Here we can see that ~60% of our peaks can be found in or around promoter regions.
+Here we can see that \~60% of our peaks can be found in or around promoter regions.
 
-We can also annotate and plot multiple peaks at once. Let's use all of the sample datasets within ChIPSeeker. To do this, we use the `map()` function from the tidyverse **purrr** package to loop through our peak files and run the `annotatePeak()` function. We will learn more about the `map()` function later. 
+We can also annotate and plot multiple peaks at once. Let's use all of the sample datasets within ChIPSeeker. To do this, we use the `map()` function from the tidyverse **purrr** package to loop through our peak files and run the `annotatePeak()` function. We will learn more about the `map()` function later.
 
 ```{r,message=F,warning=F}
 ## map all of the files to the annotatePeak function to create a list of annotated peaks
@@ -167,7 +168,7 @@ We can now plot out the matrix to see the average profile of peaks around promot
 plotAvgProf(tagMatrixList, xlim = c(-3000, 3000), facet="row",)
 ```
 
-It is possible to add errors to these plots by adding **conf** and **resample** arguments. This will add confidence intervals to the plot by re-sampling the data and calculating confidence intervals from the re-sampled data. This can take a while to run so we have not included this in the tutorial but you can try it out if you have time. 
+It is possible to add errors to these plots by adding **conf** and **resample** arguments. This will add confidence intervals to the plot by re-sampling the data and calculating confidence intervals from the re-sampled data. This can take a while to run so we have not included this in the tutorial but you can try it out if you have time.
 
 ```{r}
 ## Plot average profiles including confidence intervals
@@ -183,15 +184,14 @@ tagHeatmap(tagMatrixList)
 
 With both plots we can see a definite enrichment of ChIP-seq peaks around the TSS in both CBX6 and CBX7.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 If you are working with ChIP-seq data then it is worth going through the [ChIP-seeker tutorial](https://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) as there are many other useful functions:
 
-  - Plotting average peak profile across gene bodies and other features
-  - Functional enrichment analysis
-  - Venn diagrams of peak set overlaps
-
+-   Plotting average peak profile across gene bodies and other features
+-   Functional enrichment analysis
+-   Venn diagrams of peak set overlaps
 :::
 
 ## Overlapping features
@@ -229,7 +229,7 @@ CBX.overlap
 
 It is useful to know to what extent peaks from different samples overlap and whether this overlap is statistically significant, as it may imply co-operative binding. **ChIPseeker** has a function `enrichPeakOverlap()` to calculate and test overlaps between peak sets.
 
-The function generates a null distribution by randomly shuffling the positions of the query peaks throughout the genome and testing for overlaps with the other peaks, then repeating this many times. You should set the **nShuffle** argument to >=1000 for robust results.
+The function generates a null distribution by randomly shuffling the positions of the query peaks throughout the genome and testing for overlaps with the other peaks, then repeating this many times. You should set the **nShuffle** argument to \>=1000 for robust results.
 
 ```{r enrich}
 epo <- enrichPeakOverlap(queryPeak = CBX6,
@@ -242,13 +242,13 @@ epo <- enrichPeakOverlap(queryPeak = CBX6,
 epo
 ```
 
-Unfortunately, there seems to be a bug in some versions of ChIPseeker where it will return all p-values as 1. 
+Unfortunately, there seems to be a bug in some versions of ChIPseeker where it will return all p-values as 1.
 
 An alternative package, **regioneR** has a comprehensive set of functions for overlap analysis.
 
 The regioneR package performs association analysis of overlapping features based on permutation tests. The permutation test first calculates the number of overlaps between a genomic feature and a set of given regions. To test if this number is expected by chance it also calculates a distribution of feature overlaps from numerous sets of randomised regions.
 
-![](images/regioner.png){ width=50% }
+![](images/regioner.png){width="50%"}
 
 The regioneR `permTest()` function takes a while to run, so we have supplied the code below as an example but will not run this in the workshop. We can use regioneR to test the significance of overlaps between CBX6 peaks and promoter regions:
 
@@ -269,32 +269,29 @@ The regioneR `permTest()` function takes a while to run, so we have supplied the
 # plot(pt)
 ```
 
-When using regioneR you need to select **evaluation** and **randomisation** functions. 
+When using regioneR you need to select **evaluation** and **randomisation** functions.
 
-Here we have evaluated the number of overlaps between regions (`numOverlaps()`). You can also evaluate the distance between regions or the mean score if your GRanges are weighted (e.g. methylation scores). 
+Here we have evaluated the number of overlaps between regions (`numOverlaps()`). You can also evaluate the distance between regions or the mean score if your GRanges are weighted (e.g. methylation scores).
 
-For randomisation, we have used the `randomizeRegions()` function which selects random regions from the genome with the same length distribution as our CBX6 peaks to approximate the null distribution. We supply a repeat masked `BSgenome` so only mappable regions of the genome are selected. 
+For randomisation, we have used the `randomizeRegions()` function which selects random regions from the genome with the same length distribution as our CBX6 peaks to approximate the null distribution. We supply a repeat masked `BSgenome` so only mappable regions of the genome are selected.
 
 The alternative is to use `resampleRegions()`. This assumes that your regions are part of a larger set e.g. differential binding sites. You can then approximate the null distribution by randomly sampling the same number from the full set of binding sites.
 
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 All of this is described in depth in the [*regioneR* documentation](https://bioconductor.org/packages/release/bioc/vignettes/regioneR/inst/doc/regioneR.html).
 :::
 
-<br>
-
-::: discussion
-<h2><i class="far fa-bell"></i> Discussion</h2>
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
 
 Can you think of other situations where we might want to look at overlaps of genomic regions?
 
-  - Overlap of ChIP-seq peaks of replicates to test reproducibility
-  - Overlap of ChIP-seq peaks from different proteins to test for co-localisation
-  - Overlap of differentially expressed genes with specific genomic features
-    - Chromatin marks, classes of repeats, CpG islands etc.
+-   Overlap of ChIP-seq peaks of replicates to test reproducibility
+-   Overlap of ChIP-seq peaks from different proteins to test for co-localisation
+-   Overlap of differentially expressed genes with specific genomic features
+    -   Chromatin marks, classes of repeats, CpG islands etc.
 :::
 
 ## Functional gene enrichment
@@ -338,15 +335,11 @@ We can also plot a network of the top enriched terms and their associated genes.
 cnetplot(ego, showCategory = 5)
 ```
 
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 **clusterProfiler** also provides methods to query pathway databases such as KEGG. You can find out more in the [documentation](https://bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html).
-
 :::
-
-<br>
 
 The **gprofiler2** package is a wrapper for the online tool [g:Profiler](https://biit.cs.ut.ee/gprofiler/gost) which looks at many different databases at once including GO, KEGG and transcription factor motifs. g:Profiler performs functional enrichment analysis of gene lists and will understand and convert Ensembl identifiers directly.
 
@@ -366,7 +359,7 @@ gp <- gost(query = peakAnno@anno$geneId,
            custom_bg = NULL)
 ```
 
-Inspect the output. The "term_name" column is the enriched term and the "source" tells us which database it belongs to. 
+Inspect the output. The "term_name" column is the enriched term and the "source" tells us which database it belongs to.
 
 ```{r}
 ## Inspect the output
@@ -382,7 +375,7 @@ gostplot(gp, capped = TRUE, interactive = TRUE)
 
 ## Plot sequencing read profiles across genomic regions with soGGi
 
-A common task in sequencing analysis is to plot profiles of particular signals across regions of interest. For instance ChIP-seq reads across the TSS regions of genes. You've probably guessed by now but there are many different ways to do this in R! Here we will introduce **soGGi** which is one of the more intuitive packages. 
+A common task in sequencing analysis is to plot profiles of particular signals across regions of interest. For instance ChIP-seq reads across the TSS regions of genes. You've probably guessed by now but there are many different ways to do this in R! Here we will introduce **soGGi** which is one of the more intuitive packages.
 
 #### Data
 
@@ -405,11 +398,11 @@ Next, we need to select the data to plot, these are our tracks. We are going to 
 
 These data are stored in **bigWig** files and represent coverage profiles of aligned reads across a genome. They have four columns:
 
-  - Chromosome
-  - Start_position
-  - End_position
-  - Score
-  
+-   Chromosome
+-   Start_position
+-   End_position
+-   Score
+
 In this case, the score represents sequencing read coverage at each position. Enriched read coverage across a region of interest (e.g. TSS) indicates the presence of a particular chromatin mark.
 
 ```{r}
@@ -421,8 +414,7 @@ H3K4me3.chip <- "data/H3K4me3.bw"
 ## H3K27me3 ChIP-seq read profiles
 H3K27me3.chip <- "data/H3K27me3.bw"
 
-```  
-
+```
 
 #### Average profile plots
 
@@ -479,12 +471,10 @@ plotRegion(rpc,colourBy = "Sample") +
   scale_colour_manual(values = c("#3D405B", "#E07A5F"))
 ```
 
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 The [soGGi](https://www.bioconductor.org/packages/release/bioc/vignettes/soGGi/inst/doc/soggi.pdf) package has many more customisation options for plotting average profiles. Take a look through the tutorial to see how you can adjust the regions to plot, the flank sizes, number of windows and smoothing options.
-
 :::
 
 ## Heatmaps with profileplyr
@@ -501,17 +491,16 @@ pp <- as_profileplyr(rpc)
 ## pipe profileplyr object to enrichedHeatmap
 pp |> generateEnrichedHeatmap()
 ```
-  
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 The [*profileplyr*](https://www.bioconductor.org/packages/release/bioc/vignettes/profileplyr/inst/doc/profileplyr.html) package leverages many Bioconductor packages to make it easy to manipulate and visualise profile data. It also works with packages outside of R like *deepTools*.
-
 :::
 
 #### Grouping genes in heatmaps
 
-We can put genes into different groups to plot them separately. 
+We can put genes into different groups to plot them separately.
 
 Let's plot our histone modification data based on high and low expression of genes from RNA-seq data.
 
@@ -522,6 +511,7 @@ exp <- read.table("http://bifx-core3.bio.ed.ac.uk/Shaun/Shaun/training/ROI_works
 
 head(exp)
 ```
+
 This table contains gene IDs and their expression values in TPM (transcripts per million). We will use the expression values to group genes into high and low expression groups and then plot the ChIP-seq read profiles for these groups separately.
 
 ```{r}
@@ -562,32 +552,27 @@ pp |> groupBy(group = exp_list) |> generateProfilePlot() +
 
 In the remaining time, have a look at some of the other Bioconductor packages available and see if you can follow their tutorials. Here are a few ideas:
 
-  - Genome browser plotting and visualisation
-    - [Karyoploter](http://bioconductor.org/packages/release/bioc/html/karyoploteR.html)
-    - [ggbio](https://bioconductor.org/packages/release/bioc/html/ggbio.html)
-    - [trackViewer](https://bioconductor.org/packages/release/bioc/html/trackViewer.html)
-    - [GViz](https://bioconductor.org/packages/release/bioc/html/Gviz.html)
-  - Average profile and heatmap plots
-    - [EnrichedHeatmap](https://bioconductor.org/packages/release/bioc/html/EnrichedHeatmap.html)
-    - [soGGi](https://bioconductor.org/packages/release/bioc/html/soGGi.html)
-    - [profileplyr](https://www.bioconductor.org/packages/release/bioc/html/profileplyr.html)
-  - Sequence alignment logos
-    - [seqlogo](https://bioconductor.org/packages/release/bioc/vignettes/seqLogo/inst/doc/seqLogo.html)
-  - HiC data analysis
-    - [HiCbricks](https://www.bioconductor.org/packages/release/bioc/html/HiCBricks.html)
-    - [HiCcompare](https://bioconductor.org/packages/release/bioc/html/HiCcompare.html)
-  - RNA-seq differential expression 
-    - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
-  - Methylation analysis
-    - [methylKit](https://www.bioconductor.org/packages/release/bioc/vignettes/methylKit/inst/doc/methylKit.html)
+-   Genome browser plotting and visualisation
+    -   [Karyoploter](http://bioconductor.org/packages/release/bioc/html/karyoploteR.html)
+    -   [ggbio](https://bioconductor.org/packages/release/bioc/html/ggbio.html)
+    -   [trackViewer](https://bioconductor.org/packages/release/bioc/html/trackViewer.html)
+    -   [GViz](https://bioconductor.org/packages/release/bioc/html/Gviz.html)
+-   Average profile and heatmap plots
+    -   [EnrichedHeatmap](https://bioconductor.org/packages/release/bioc/html/EnrichedHeatmap.html)
+    -   [soGGi](https://bioconductor.org/packages/release/bioc/html/soGGi.html)
+    -   [profileplyr](https://www.bioconductor.org/packages/release/bioc/html/profileplyr.html)
+-   Sequence alignment logos
+    -   [seqlogo](https://bioconductor.org/packages/release/bioc/vignettes/seqLogo/inst/doc/seqLogo.html)
+-   HiC data analysis
+    -   [HiCbricks](https://www.bioconductor.org/packages/release/bioc/html/HiCBricks.html)
+    -   [HiCcompare](https://bioconductor.org/packages/release/bioc/html/HiCcompare.html)
+-   RNA-seq differential expression
+    -   [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+-   Methylation analysis
+    -   [methylKit](https://www.bioconductor.org/packages/release/bioc/vignettes/methylKit/inst/doc/methylKit.html)
 
-<br>
-
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 **Bioconductor** has a large library of packages for analysing and visualising genomic datasets.
-
 :::
-
-

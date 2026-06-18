@@ -14,15 +14,13 @@ title: "Genomic Ranges"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Learn to use the GenomicRanges package in R
 -   Import genomic data as GRanges objects
 -   Perform operations on GRanges objects
 :::
-
-<br>
 
 The **GenomicRanges** package defines general purpose containers, known as **GRanges** objects, for storing and manipulating genomic data. GRanges objects store genomic co-ordinates and associated metadata. They are used in many Bioconductor packages to analyse genomic data.
 
@@ -45,15 +43,13 @@ library(GenomicRanges)
 ?GRanges
 ```
 
-::: discussion
-<h2><i class="fas fa-comments"></i> Discussion:</h2>
+::: {.box .discussion}
+<h3><i class="fas fa-comments"></i> Discussion:</h3>
 
 1.  What are the minimal required inputs for `IRanges()`?
 2.  What are the minimal required inputs for `GRanges()`?
 3.  What other columns can be included in a GRanges object?
 :::
-
-<br>
 
 We can use the `GRanges()` function to generate a sample of genomic intervals. The `IRanges()` function creates numeric intervals which are passed to `GRanges()` and understood as genomic co-ordinates.
 
@@ -179,10 +175,8 @@ subset(gr2, strand(gr2) == "-")
 split(gr, seqnames(gr))
 ```
 
-<br>
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 You may be wondering why we have gone back to using a lot of **base R** functions when the Tidyverse style of coding is much more intuitive and easier to read. The GenomicRanges package was developed before the Tidyverse and uses base R functions at its core.
 
@@ -196,10 +190,8 @@ One of these packages is **plyranges**, a tidyverse style interface to GRanges o
 The TidyOmics packages are still developing and not yet widely used but they are worth keeping an eye on as they will make working with genomic data much easier in the future.
 :::
 
-<br>
-
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 1.  Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
 
@@ -211,8 +203,8 @@ The TidyOmics packages are still developing and not yet widely used but they are
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 1.  Extract the GRanges in gr with \>=0.5 GC content and split them into a list for each chromosome.
 
@@ -232,10 +224,8 @@ subset(grc, seqnames(grc) == "chr2")
 </details>
 ::::
 
-<br>
-
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 The **GenomicRanges** package has many more functions to manipulate and compare GRanges objects. Take a look at the [documentation](https://bioconductor.org/packages/release/bioc/vignettes/GenomicRanges/inst/doc/GenomicRangesIntroduction.html) for the package to learn more about these functions and how to use them.
 :::
@@ -605,8 +595,8 @@ GenomicRanges::intersect(peaks, genes)
 
 Now we only get a single intersecting region.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 There are many other functions to perform set operations and overlaps on GRanges objects such as
 
@@ -628,8 +618,8 @@ When we have multiple GRanges in a GRangesList, we can perform operations on all
 shift(gl, 100)
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Create new GRanges objects called **genes** and **peaks**.
 
@@ -655,8 +645,8 @@ The features in **peaks** are binding sites of our protein of interest. Which of
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 ## Get the gene promoters
@@ -749,8 +739,8 @@ hg19.pc.genes
 
 There are just over 20000 annotated protein coding genes in the human genome, so this seems about right.
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 The **genomation** package has several other import functions for different types of genomic data:
 
@@ -762,8 +752,8 @@ The **genomation** package has several other import functions for different type
 Take a look at the **genomation** [manual](https://www.bioconductor.org/packages/release/bioc/vignettes/genomation/inst/doc/GenomationManual.html) and [documentation](https://www.bioconductor.org/packages/release/bioc/manuals/genomation/man/genomation.pdf) to learn more.
 :::
 
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   Store genomic co-ordinates and metadata in **GRanges** objects
 -   Access information and perform operations on **GRanges** with functions from the **GenomicRanges** library.

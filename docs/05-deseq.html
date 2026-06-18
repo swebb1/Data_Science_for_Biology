@@ -383,7 +383,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text"><img src="images/shiny.jpeg" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
+ <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -393,6 +393,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducible data analysis in R</span></a>
   </div>
 </li>
       </ul>
@@ -485,10 +491,10 @@ window.Quarto = {
 
 <script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
 
-<div class="objectives">
-<h2 class="anchored">
+<div class="box objectives">
+<h3 class="anchored">
 <i class="far fa-check-square"></i> Learning Objectives
-</h2>
+</h3>
 <ul>
 <li>Import gene expression data into R</li>
 <li>Understand the concept of differential expression and statistical testing</li>
@@ -564,7 +570,7 @@ window.Quarto = {
 <p>Replicate 1 for MOV10 knockdown is missing as this was presumably a failed experiment.</p>
 </section>
 <section id="raw-data-to-read-counts" class="level3">
-<h3 class="anchored">Raw data to read counts</h3>
+<h3 class="anchored" data-anchor-id="raw-data-to-read-counts">Raw data to read counts</h3>
 <p>Differential expression analyses work with matrices of <strong>read counts per gene</strong> for multiple samples.</p>
 <p>These read counts are typically generated using command line tools to process and count reads.</p>
 <p><img src="images/rna_workflow.png" class="img-fluid" style="width:50.0%"></p>
@@ -577,10 +583,10 @@ window.Quarto = {
 <li>Producing much smaller output files than aligners</li>
 </ul>
 <p>The <a href="https://nf-co.re/rnaseq/3.14.0/">NF-core RNA-seq pipeline</a> can perform alignment with STAR and quantification with Salmon and is recommended for processing raw RNA-seq data.</p>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="raw-data-to-read-counts">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>If you are new to RNA-seq, this <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01a_RNAseq_processing_workflow.html">overview</a> provides an explanation of how RNA-seq libraries are prepared, sequenced and quantified for short-read data.</p>
 <p>If you are thinking about performing your own RNA-seq experiments then take a look at these <a href="https://hbctraining.github.io/Intro-to-DGE/lessons/experimental_planning_considerations.html">experimental design considerations</a>.</p>
 <ul>
@@ -609,10 +615,10 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="the-deseq2-method">2. The DESeq2 method</h2>
 <p>DESeq2 performs statistical analysis of un-normalised raw/estimated read count data per gene. It uses a <strong>median of ratios</strong> normalisation method to account for differences in sequencing depth and RNA composition between samples.</p>
 <p>Count data is modeled using a generalised linear model based on the <strong>negative binomial distribution</strong>, with a fitted mean and a gene-specific dispersion parameter which describes the relationship between <strong>variance</strong> in the count data and the observed <strong>mean</strong>.</p>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/01c_RNAseq_count_distribution.html">More on count data and the negative binomial distribution</a>.</p>
 </div>
 <p>The model coefficient represents the change in mean between sample groups giving us <strong>log2 fold change</strong> values per gene. By default, DESeq2 performs the <strong>Wald</strong> test to test for significant changes in gene expression between sample groups and generate <strong>p-values</strong> which are then adjusted for multiple testing.</p>
@@ -668,10 +674,10 @@ window.Quarto = {
 8 MOV10_OE_3 MOV10_OE 3        </code></pre>
 </div>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>The sample file contains metadata on each sample</li>
 <li>The sample file should include a column for the variable of interest (e.g.&nbsp;condition, genotype, group)</li>
@@ -726,7 +732,7 @@ window.Quarto = {
 <p>When we import our transcript counts with <code>tximport()</code>, we will use the transcript ID and gene ID columns to summarise transcript counts to gene counts. The gene symbol column is not used in this step but it can be used later to annotate our results.</p>
 </section>
 <section id="import-transcript-read-counts" class="level3">
-<h3 class="anchored">Import transcript read counts</h3>
+<h3 class="anchored" data-anchor-id="import-transcript-read-counts">Import transcript read counts</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tximport)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -762,10 +768,10 @@ window.Quarto = {
 <li><strong>length</strong>: A matrix of the average transcript length for each gene in each sample. This is calculated as the weighted average of the lengths of the transcripts that map to each gene, where the weights are based on the estimated abundance of each transcript</li>
 </ul>
 <p>The <a href="https://bioconductor.org/packages/release/bioc/html/tximeta.html">tximeta</a> package extends tximport to automatically detect the genome, download the tx2gene map and import count data in one function.</p>
-<div class="key-points">
-<h2 class="anchored" data-anchor-id="import-transcript-read-counts">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>Import pseudo-count data into R with <strong>tximeta</strong> or <strong>tximport</strong></li>
 <li>DESeq2 expects gene-level counts</li>
@@ -834,23 +840,23 @@ ENSG00000000460       1036        587
 ENSG00000000938          0          0</code></pre>
 </div>
 </div>
-<div class="resources">
-<h2 class="anchored">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>In this example, we created our DESeq dataset from a tximport object. But what if we already have a read count table or used a different workflow to generate counts?</p>
 <p>DESeq2 has the functions <code>DESeqDataSetFromMatrix()</code> and <code>DESeqDataFromHTSeqCount()</code> to create a DESeq dataset from a count matrix or HTSeq-count output files respectively. You can read more about these in the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-matrix-input">DESeq2 vignette</a>.</p>
 </div>
 <section id="deseq2-design-formula" class="level3">
-<h3 class="anchored">DESeq2 design formula</h3>
+<h3 class="anchored" data-anchor-id="deseq2-design-formula">DESeq2 design formula</h3>
 <p>The design formula is used to specify the variables that we want to use in our DE analysis. In this case, we have a single variable of interest, Group, which has three levels (Control, MOV10_OE, MOV10_KD). DESeq2 will perform pairwise comparisons between these levels by default.</p>
 <p>If we had other variables in our experimental design that we wanted to control for (e.g.&nbsp;sex, cell type, batch etc) we could include these in our design formula as well. For example, if we had a batch variable we could specify the design as <code>~ Batch + Group</code> to control for batch effects in our analysis.</p>
 <p>In this case, DESeq2 will first test for differences between batches and then test for differences between groups while controlling for batch effects. This is a powerful way to control for confounding factors in your analysis and ensure that any significant results you find are more likely to be biologically relevant.</p>
 <p>It is possible to perform complex analyses with multiple variables of interest and interaction terms in DESeq2.</p>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="deseq2-design-formula">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>Have a look at these resources for advice on complex experimental designs (e.g.&nbsp;multiple variables of interest, interaction terms, time-course analysis:</p>
 <ul>
 <li><a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#variations-to-the-standard-workflow">DESeq2 manual</a></li>
@@ -878,23 +884,23 @@ ENSG00000000938          0          0</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dds, <span class="at">file =</span> <span class="st">"dds.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="size-factor-estimation" class="level3">
-<h3 class="anchored">Size factor estimation</h3>
+<h3 class="anchored" data-anchor-id="size-factor-estimation">Size factor estimation</h3>
 <p>DESeq2 uses a <strong>median of ratios</strong> method to normalise gene counts per sample. This method calculates size factors for each sample which are used to normalise the counts. The size factor for each sample is calculated as the median of the ratios of the observed counts to the geometric mean of the counts across all samples for each gene. This method is robust to differences in sequencing depth and RNA composition between samples, making it a good choice for normalising RNA-seq data.</p>
 <p>This normalisation method assumes that most of the genes are not differentially expressed between sample groups. If this assumption is violated (e.g.&nbsp;in cases of global changes in gene expression) then the size factor estimation may be inaccurate and alternative normalisation methods should be considered.</p>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="size-factor-estimation">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/02_DGE_count_normalization.html">More on RNA-seq normalisation</a>.</p>
 </div>
 </section>
 <section id="plot-gene-level-dispersions" class="level3">
-<h3 class="anchored">Plot gene-level dispersions</h3>
+<h3 class="anchored" data-anchor-id="plot-gene-level-dispersions">Plot gene-level dispersions</h3>
 <p>It can be useful to plot the gene-level dispersion estimates to ensure the DESeq model is right for your data. You should find that dispersion is generally lower for genes with higher read counts. Final dispersion levels should shrink towards the fitted model and there should be a few outliers. If the red line is not a good generalisation for your data then DE analysis with DESeq2 may not be appropriate.</p>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="plot-gene-level-dispersions">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/04b_DGE_DESeq2_analysis.html">More on gene-level dispersions</a>.</p>
 </div>
 <div class="cell">
@@ -908,10 +914,10 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>Create a DESeq dataset from count data</li>
 <li>Understand the DESeq <strong>design</strong> parameter</li>
@@ -925,7 +931,7 @@ ENSG00000000938          0          0</code></pre>
 <h2 class="anchored" data-anchor-id="deseq-quality-control">7. DESeq quality control</h2>
 <p>Before we look at the results of differential expression tests we first want to perform some quality control by visualising and assessing the entire dataset.</p>
 <section id="transform-count-data-for-visualisation" class="level3">
-<h3 class="anchored">Transform count data for visualisation</h3>
+<h3 class="anchored" data-anchor-id="transform-count-data-for-visualisation">Transform count data for visualisation</h3>
 <p>Count data is not optimal for visualisation and clustering as there are likely to be a few genes with very high expression and variance.</p>
 <p>DEseq provides two functions to transform count data for visualisation and clustering:</p>
 <ul>
@@ -938,10 +944,10 @@ ENSG00000000938          0          0</code></pre>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlog</span>(dds, <span class="at">blind=</span>F) <span class="do">## Blind=F means the transformation will take into account the experimental design</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(rld, <span class="at">file =</span> <span class="st">"MOV10.rld.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="transform-count-data-for-visualisation">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p><a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#data-transformations-and-visualization">More on DESeq2 data transformations</a>.</p>
 </div>
 </section>
@@ -1034,7 +1040,7 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </section>
 <section id="heatmap-of-genes-with-the-largest-variance" class="level3">
-<h3 class="anchored">Heatmap of genes with the largest variance</h3>
+<h3 class="anchored" data-anchor-id="heatmap-of-genes-with-the-largest-variance">Heatmap of genes with the largest variance</h3>
 <p>It may also be useful to take an initial look at the genes with the highest amount of variation across the dataset. We should expect to see some genes which appear to be differentially expressed between sample groups.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get the top 20 genes after ordering the rld counts by variance</span></span>
@@ -1054,25 +1060,25 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 </div>
-<div class="discussion">
-<h2 class="anchored" data-anchor-id="heatmap-of-genes-with-the-largest-variance">
+<div class="box discussion">
+<h3 class="anchored">
 <i class="far fa-bell"></i> Discussion
-</h2>
+</h3>
 <p>Can you guess which gene has the Ensembl identifier ENSG00000155363? What are some of the other genes in the top 20 most variable genes? Do you think these are likely to be differentially expressed between sample groups?</p>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
-</h2>
+</h3>
 <p>Replace the rownames of the <code>mat</code> matrix with gene symbols from the <code>tx2gene</code> map and re-plot the heatmap.</p>
 <details>
 <summary>
 </summary>
-<div class="proof solution">
+<div class="box proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span></p>
-<h2 class="anchored">
+<h3 class="anchored">
 <i class="far fa-eye"></i> Solution:
-</h2>
+</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## set rownames to symbol using the tx2gene map</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> tx2gene<span class="sc">$</span>GeneSymbol[<span class="fu">match</span>(<span class="fu">rownames</span>(mat), tx2gene<span class="sc">$</span>GeneID)]</span>
@@ -1092,7 +1098,7 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </section>
 <section id="plot-individual-gene-counts" class="level3">
-<h3 class="anchored">Plot Individual Gene Counts</h3>
+<h3 class="anchored" data-anchor-id="plot-individual-gene-counts">Plot Individual Gene Counts</h3>
 <p>In certain cases like ours, where we know the expression levels of particular genes should change between sample groups, we may want to plot individual gene counts for quality control. Let’s plot normalised gene counts for the MOV10 gene (ENSG00000155363).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Get normalised counts for a single gene</span></span>
@@ -1115,10 +1121,10 @@ ENSG00000000938          0          0</code></pre>
 </div>
 </div>
 </div>
-<div class="key-points">
-<h2 class="anchored" data-anchor-id="plot-individual-gene-counts">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>Transform count data for summary plots</li>
 <li>Create summary plots and assess for QC
@@ -1302,7 +1308,7 @@ low counts [2]     : 16900, 49%
 <p>These shrunken fold changes are more useful for downstream analysis of the data where we want to rank or visualise genes by their fold change. We will use these shrunken fold changes for the rest of our analysis.</p>
 </section>
 <section id="formatting-and-annotating-results" class="level3">
-<h3 class="anchored">Formatting and annotating results</h3>
+<h3 class="anchored" data-anchor-id="formatting-and-annotating-results">Formatting and annotating results</h3>
 <p>We will apply a bit of formatting to our results table and also add some annotation.</p>
 <ul>
 <li>Convert to a <strong>tidyverse</strong> tibble</li>
@@ -1506,10 +1512,10 @@ low counts [2]     : 16900, 49%
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(result_table, <span class="st">"MOV10_OE_vs_Control.deseq2.tsv"</span>, <span class="at">col_names =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="key-points">
-<h2 class="anchored" data-anchor-id="formatting-and-annotating-results">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>Extract results for individual contrasts</li>
 <li>Create MA plots</li>
@@ -1589,7 +1595,7 @@ low counts [2]     : 16900, 49%
 <p>We can see that most of our DE genes are protein coding.</p>
 </section>
 <section id="heatmaps-of-genes-with-largest-changes" class="level3">
-<h3 class="anchored">Heatmaps of genes with largest changes</h3>
+<h3 class="anchored" data-anchor-id="heatmaps-of-genes-with-largest-changes">Heatmaps of genes with largest changes</h3>
 <p>We can use the log normalised counts we created earlier to plot heatmaps of genes with the largest changes.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Out of all significant genes, get the 20 with the largest fold change in either direction in MOV10_OE relative to the control</span></span>
@@ -1616,10 +1622,10 @@ low counts [2]     : 16900, 49%
 </div>
 </div>
 </div>
-<div class="key-points">
-<h2 class="anchored" data-anchor-id="heatmaps-of-genes-with-largest-changes">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>There are many ways to summarise and visualise DE results</li>
 <li>Get creative!</li>
@@ -1722,7 +1728,7 @@ GO:0043484    85</code></pre>
 </div>
 </section>
 <section id="kegg-pathway-enrichment-analysis" class="level3">
-<h3 class="anchored">KEGG pathway enrichment analysis</h3>
+<h3 class="anchored" data-anchor-id="kegg-pathway-enrichment-analysis">KEGG pathway enrichment analysis</h3>
 <p>The KEGG database is a collection of manually curated pathways that represent our current knowledge of molecular interactions and reactions in various biological processes. We can use the <code>enrichKEGG()</code> function to test for over-representation of KEGG pathways in our list of DE genes.</p>
 <p>The KEGG database uses Entrez gene identifiers, so we need to convert our Ensembl gene IDs to Entrez IDs before we can perform the enrichment analysis. We can use the <code>bitr()</code> function from the <strong>clusterProfiler</strong> package to perform this conversion.</p>
 <div class="cell">
@@ -1757,20 +1763,20 @@ GO:0043484    85</code></pre>
 </div>
 </div>
 </div>
-<div class="resources">
-<h2 class="anchored" data-anchor-id="kegg-pathway-enrichment-analysis">
+<div class="box resources">
+<h3 class="anchored">
 <i class="fas fa-book"></i> Further Learning
-</h2>
+</h3>
 <p>The analyses above are just a starting point for functional enrichment analysis. There are many other methods and databases that you can use to perform functional enrichment analysis.</p>
 <ul>
 <li><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/10_FA_over-representation_analysis.html">More on functional enrichment analysis</a>.</li>
 <li><a href="https://hbctraining.github.io/Intro-to-DGE/lessons/11_FA_functional_class_scoring.html">GSEA analysis</a></li>
 </ul>
 </div>
-<div class="key-points">
-<h2 class="anchored">
+<div class="box key-points">
+<h3 class="anchored">
 <i class="fas fa-thumbtack"></i> Key points:
-</h2>
+</h3>
 <ul>
 <li>DEG lists can be used to perform functional enrichment analysis
 <ul>
@@ -1783,10 +1789,10 @@ GO:0043484    85</code></pre>
 </ul></li>
 </ul>
 </div>
-<div class="challenge">
-<h2 class="anchored">
+<div class="box challenge">
+<h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Final Challenge:
-</h2>
+</h3>
 <p>See if you can produce similar visual outputs and summaries of results for the MOV10_KD_vs_Control comparison.</p>
 </div>
 

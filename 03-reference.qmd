@@ -14,14 +14,12 @@ title: "Genome references and annotations"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Fetch genomic annotation and sequence data from annotation packages
 -   Connect to external databases to download data
 :::
-
-<br>
 
 In this section, we will use some of the Bioconductor annotation packages to fetch genomic sequences and annotations. We will also connect to external databases such as Ensembl using the *biomaRt* package and the *AnnotationHub* to download datasets from multiple sources.
 
@@ -102,8 +100,8 @@ hg19.pc.genes
 seqinfo(hg19.pc.genes)
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 1.  Find the GC content for each sequence in `gr2.seq`.
 
@@ -117,8 +115,8 @@ seqinfo(hg19.pc.genes)
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 1.  Find the GC content for each sequence in gr2.seq.
 
@@ -241,8 +239,8 @@ select(txdb.gff,keys = head(keys(txdb.gff)),
        keytype="GENEID")
 ```
 
-::: resources
-<h2><i class="fas fa-book"></i> Further Learning</h2>
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Further Learning</h3>
 
 There are several other methods to create and interact with txdb objects in the **GenomicFeatures** package including from GRanges objects or by connecting directly to the Ensembl, UCSC or BioMart databases.
 
@@ -365,8 +363,8 @@ H3K4me3 <- epiFiles[["AH30032"]]
 H3K4me3
 ```
 
-:::: challenge
-<h2><i class="fas fa-pencil-alt"></i> Challenge:</h2>
+:::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
 Can you get the sequences of the 10 longest exons in the Mouse Ensembl gene models?
 
@@ -387,8 +385,8 @@ Can you get the sequences of the 10 longest exons in the Mouse Ensembl gene mode
 
 </summary>
 
-::: solution
-<h2><i class="far fa-eye"></i> Solution:</h2>
+::: {.box .solution}
+<h3><i class="far fa-eye"></i> Solution:</h3>
 
 ```{r}
 ## create a txdb object from the gtf file downloaded from Ensembl
@@ -425,10 +423,8 @@ writeXStringSet(top.exons.seq, 'long_exons.fa')
 </details>
 ::::
 
-<br>
-
-::: key-points
-<h2><i class="fas fa-thumbtack"></i> Key points</h2>
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
 
 -   Bioconductor has specialised packages for working with genomics data in R
 -   Genomic sequences, annotations and datasets can be imported by various means

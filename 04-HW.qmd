@@ -14,8 +14,8 @@ title: "Homework exercise"
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
 
-::: objectives
-<h2><i class="far fa-check-square"></i> Learning Objectives</h2>
+::: {.box .objectives}
+<h3><i class="far fa-check-square"></i> Learning Objectives</h3>
 
 -   Download and tidy a qPCR dataset
 -   Plot the data with ggplot2
@@ -64,8 +64,8 @@ The [published dataset](https://figshare.com/articles/dataset/raw_data_for_qPCR/
 7.  Plot the data
 8.  Add the statistical results to the plot
 
-::: resources
-<h2><i class="far fa-bell"></i> Resources</h2>
+::: {.box .resources}
+<h3><i class="far fa-bell"></i> Resources</h3>
 
 ### What is ANOVA?
 
@@ -97,8 +97,8 @@ library(ggpubr)
 
 Now load the data and explore it.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -106,7 +106,7 @@ Now load the data and explore it.
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 qpcr <- read_csv("https://bifx-core3.bio.ed.ac.uk/training/DSB/data/APOE_qpcr.csv")
 summary(qpcr)
@@ -120,8 +120,8 @@ summary(qpcr)
 
 The data is not in a tidy format as the sample name contains information about the differentiation lineage, day of differentiation, biological replicate and technical replicate. We need to tidy the data by separating the sample name into these different variables and setting categorical variables as factors.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -129,7 +129,7 @@ The data is not in a tidy format as the sample name contains information about t
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 ## Separate sample column and set categorical variables as factors
 qpcr_tidy <- qpcr |>
@@ -164,8 +164,8 @@ This will give you the fold change for each biological replicate for each differ
 
 You can refer to the case study in lesson 1 for more information on qPCR analysis.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -173,7 +173,7 @@ You can refer to the case study in lesson 1 for more information on qPCR analysi
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 qpcr_mean <- qpcr_tidy |>
   group_by(Diff, Day, Biological_rep) |>
@@ -224,8 +224,8 @@ Use bonferroni correction to adjust the p-values for multiple comparisons.
 
 **HINT** you can use the `anova_test()` function from the `rstatix` package to run the ANOVA and the `adjust_pvalue()` function to adjust the p-values for multiple comparisons.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -233,7 +233,7 @@ Use bonferroni correction to adjust the p-values for multiple comparisons.
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 anova_results <- qpcr_mean |>
   group_by(Diff) |>
@@ -250,8 +250,8 @@ If the ANOVA is significant, we then want to run *post-hoc* tests to identify wh
 
 The most common post-hoc test for ANOVA is the Tukey HSD test, which compares all pairs of groups and adjusts for multiple comparisons. There is an rstatix function that can be used to run the Tukey HSD test.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -259,7 +259,7 @@ The most common post-hoc test for ANOVA is the Tukey HSD test, which compares al
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 posthoc_results <- qpcr_mean |>
   group_by(Diff) |>
@@ -281,8 +281,8 @@ Calculate the fold change values relative to the mean of the D7 samples for each
 
 `mutate(mean_D7_fc = mean(fold_change[Day == "D7"]))`
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -290,7 +290,7 @@ Calculate the fold change values relative to the mean of the D7 samples for each
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 qpcr_relative <- qpcr_mean %>%
   group_by(Diff) %>%
@@ -319,8 +319,8 @@ $$ Where SD is the standard deviation of the relative fold change values for eac
 
 **HINT** you can use `sd()` to calculate the standard deviation and `n()` to calculate the number of biological replicates for each differentiation lineage and day.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -328,7 +328,7 @@ $$ Where SD is the standard deviation of the relative fold change values for eac
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 qpcr_rel_means <- qpcr_relative |>
   group_by(Diff, Day) |>
@@ -351,8 +351,8 @@ Make a bar plot of mean fold change per differentiation lineage and day. Split t
 
 **HINT** look at `geom_col()` and `geom_errorbar()` for plotting the data.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -360,7 +360,7 @@ Make a bar plot of mean fold change per differentiation lineage and day. Split t
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 
 day_cols <- c("D7" = "#7DA0D4", "D12" = "#A48AD3", "D15/16" = "#E996EF", "D18/19" = "#83B355")
@@ -392,8 +392,8 @@ Use the results from the post-hoc tests to add significance bars to the plot. Yo
 
 This will be a bit tricky as we have faceting in our plot, so we need to manually set the y-positions for our brackets.
 
-:::: hints
-<h2><i class="fas fa-magnifying-glass"></i> Solution</h2>
+:::: {.box .hints}
+<h3><i class="fas fa-magnifying-glass"></i> Solution</h3>
 
 <details>
 
@@ -401,7 +401,7 @@ This will be a bit tricky as we have faceting in our plot, so we need to manuall
 
 </summary>
 
-::: solution
+::: {.box .solution}
 ```{r}
 # We want to manually set the bracket positions to handle the faceting in our plot
 
