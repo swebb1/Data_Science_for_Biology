@@ -425,30 +425,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Reproducibility is a key aspect of data analysis. It allows others to verify your results and build upon your work. Reproducibility in RStudio can be achieved by:</p>
 <ul>
-<li>Managing package dependencies with <strong><code>renv</code></strong>.
+<li>Managing package dependencies with <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a>:
 <ul>
-<li>Track and install the exact versions of packages used in your analysis.</li>
+<li>Track and install the exact versions of packages used in your analysis</li>
 </ul></li>
-<li>Using a literate programming approach with <strong>Quarto</strong> - Combine code, documentation, results and figures in a single document</li>
-<li>Using version control with <strong>git</strong> - Track changes to your code and documents - Publish your work to <strong>GitHub</strong> to share with others</li>
+<li>Using a literate programming approach with <a href="https://quarto.org/">Quarto</a>:
+<ul>
+<li>Combine code, documentation, results and figures in a single document</li>
+</ul></li>
+<li>Using version control with <a href="https://git-scm.com/">git</a>
+<ul>
+<li>Track changes to your code and documents</li>
+<li>Publish your work to <a href="https://github.com">GitHub</a> to share or collaborate with others</li>
+</ul></li>
 </ul>
 <section id="create-a-reproducible-environment-in-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-reproducible-environment-in-rstudio">Create a reproducible environment in RStudio</h2>
 <p>Create a new project in RStudio by going to <strong>File &gt; New Project</strong> and choose <strong>New Directory</strong>.</p>
-<p>You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is <strong>New Project</strong> which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.</p>
-<p>For this lesson, we will choose <strong>Quarto Project</strong> as we are going to build a quarto report.</p>
-<p>You will see 3 check boxes with project options. The first option is to create a <strong>git repository</strong>. This will allow you to use version control for your project. The second option is to <strong>use renv</strong> which will allow you to manage package dependencies for your project. The third option is to use the <strong>visual editor</strong> when editing quarto files.</p>
+<p>You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is “New Project” which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.</p>
+<p>For this lesson, choose <strong>Quarto Project</strong> as we are going to build a quarto report. Name the project “RNA-seq_analysis” and choose a location on your computer to save the project.</p>
+<p>You will see 3 check boxes with project options:</p>
+<ul>
+<li>The first option is to create a <strong>git repository</strong>. This will allow you to use version control for your project.</li>
+<li>The second option is to <strong>use renv</strong> which will allow you to manage package dependencies for your project.</li>
+<li>The third option is to use the <strong>visual editor</strong> when editing quarto files.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/quarto_proj.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 <p>Make sure <strong>ALL</strong> of these boxes are checked, then click <strong>Create Project</strong>. You will see a new project created in RStudio with a default folder structure and some template files.</p>
 </section>
 <section id="manage-package-dependencies-with-renv" class="level2">
 <h2 class="anchored" data-anchor-id="manage-package-dependencies-with-renv">Manage package dependencies with renv</h2>
 <p>The <code>renv</code> package is a dependency management toolkit for R. It allows you to create a project-specific library of R packages that are isolated from your global R library. This means that you can have different versions of packages for different projects without conflicts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/renv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <p>When you create a new project with <code>renv</code>, it automatically initializes a new environment and creates a <code>renv.lock</code> file that records the state of your project’s library. You can install packages into this environment using <code>renv::install()</code>.</p>
 <p>A cache of the packages is stored in a central location on your computer, so that if you create another project that uses the same package, it will be installed from the cache instead of downloading it again.</p>
 <p>Because <code>renv</code> is project-specific, you can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file.</p>
 <p>Because we instructed RStudio to use renv when creating the project, it has already created a <code>renv.lock</code> file for us. You can see this file in the <strong>Files</strong> pane in RStudio. You can also see that there is a new folder called <code>renv</code> which contains the project-specific library of packages. Take a look at the <code>renv.lock</code> file.</p>
 <p>If you would like to use renv in an existing project, you can do so by running the <code>renv::init()</code> function in the R console. This will create a new renv environment and a renv.lock file for your project.</p>
 <p>With renv initialised, we can now install packages into our project-specific library.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"patchwork"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"plotly"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DT"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"ggrepel"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"RColorBrewer"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"pheatmap"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Install bioconductor packages</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DESeq2"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"apeglm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -462,25 +498,39 @@ Tip
 <p>Sometimes renv complains that a package requires a dependency that is not installed. In this case, you can install the dependency using <code>renv::install()</code> and then try installing the package again.</p>
 <p>If this doesn’t work. Try to install the package outside of RStudio using the command line. You can do this by opening a terminal, navigating to your project directory and running R e.g.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/your/project</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/your/project</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then install the package using <code>renv::install()</code> or <code>BiocManager::install()</code>. Once the package is installed, you can go back to RStudio.</p>
 </div>
 </div>
 <p>If you look inside your <code>renv</code> folder you will see that these packages have been installed.</p>
 <p>To check the status of your renv environment, you can run the <code>renv::status()</code> function. This will show you which packages are installed in your project-specific library and which packages are out of sync with the <code>renv.lock</code> file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>To update the <code>renv.lock</code> file with the new packages, you can run the <code>renv::snapshot()</code> function. This will update the <code>renv.lock</code> file with the current state of your project’s library.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>Run <code>renv::status()</code> again and check that the <code>renv.lock</code> file has been updated.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>You now have a reproducible environment for your project. You can share your project with others and they can recreate the same environment by using the <code>renv.lock</code> file.</p>
 <p>The <code>renv::restore()</code> function reads the <code>renv.lock</code> file and installs the exact versions of packages that were used in your project. This ensures that your analysis is reproducible and that others can run your code using identical package versions.</p>
+<div class="box discussion">
+<h3 class="anchored">
+<i class="far fa-bell"></i> Discussion
+</h3>
 <p>One thing to note is that true reproducibility is not guaranteed with renv. If a package is removed from CRAN or Bioconductor, it will not be possible to install that package in the future. Package management is also specific to the version of R you are using, so restoring an environment on a different version of R may not work.</p>
 <p>For true reproducibility, you can use software containers like <a href="https://www.docker.com/">Docker</a> or <a href="https://docs.sylabs.io/guides/3.5/user-guide/introduction.html">Singularity</a>, but this is beyond the scope of this course.</p>
+</div>
 <div class="box resources">
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
-<p>The <code>renv</code> package has many more features that you can explore. You can find the documentation for <code>renv</code> at <a href="https://rstudio.github.io/renv/articles/renv.html" class="uri">https://rstudio.github.io/renv/articles/renv.html</a>.</p>
+<p>The <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a> package has many more features that you can explore.</p>
 </div>
 </section>
 <section id="download-the-rna-seq-data" class="level2">
@@ -488,17 +538,17 @@ Tip
 <p>In this course, we will be using the DESeq2 dataset we created in the previous module.</p>
 <p>Download the DESeq2 R object and the gene annotation file into a <code>data</code> directory.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a directory to store the data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mac or Linux</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/MOV10_dds.rds"</span>, <span class="at">destfile =</span> <span class="st">"data/MOV10_dds.rds"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.tsv"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon_tx2gene.tsv"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/MOV10_dds.rds"</span>, <span class="at">destfile =</span> <span class="st">"data/MOV10_dds.rds"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.tsv"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon_tx2gene.tsv"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a directory to store the data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Mac or Linux</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/MOV10_dds.rds"</span>, <span class="at">destfile =</span> <span class="st">"data/MOV10_dds.rds"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.tsv"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon_tx2gene.tsv"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/MOV10_dds.rds"</span>, <span class="at">destfile =</span> <span class="st">"data/MOV10_dds.rds"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.tsv"</span>, <span class="at">destfile =</span> <span class="st">"data/salmon_tx2gene.tsv"</span>, <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="box keypoints">
 <h3 class="anchored">

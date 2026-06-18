@@ -23,26 +23,37 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 Reproducibility is a key aspect of data analysis. It allows others to verify your results and build upon your work. Reproducibility in RStudio can be achieved by:
 
--   Managing package dependencies with **`renv`**.
-    -   Track and install the exact versions of packages used in your analysis.
--   Using a literate programming approach with **Quarto** - Combine code, documentation, results and figures in a single document
--   Using version control with **git** - Track changes to your code and documents - Publish your work to **GitHub** to share with others
+-   Managing package dependencies with [renv](https://rstudio.github.io/renv/articles/renv.html):
+    - Track and install the exact versions of packages used in your analysis
+-   Using a literate programming approach with [Quarto](https://quarto.org/):
+    - Combine code, documentation, results and figures in a single document
+-   Using version control with [git](https://git-scm.com/)
+    - Track changes to your code and documents 
+    - Publish your work to [GitHub](https://github.com) to share or collaborate with others
 
 ## Create a reproducible environment in RStudio
 
 Create a new project in RStudio by going to **File \> New Project** and choose **New Directory**.
 
-You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is **New Project** which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.
+You will see many options for different types of projects including Quarto books, websites, Shiny apps, and R packages. The default is "New Project" which will create a blank project. If you choose a specific option, RStudio creates template files and folders for that type of project.
 
-For this lesson, we will choose **Quarto Project** as we are going to build a quarto report.
+For this lesson, choose **Quarto Project** as we are going to build a quarto report. Name the project "RNA-seq_analysis" and choose a location on your computer to save the project.
 
-You will see 3 check boxes with project options. The first option is to create a **git repository**. This will allow you to use version control for your project. The second option is to **use renv** which will allow you to manage package dependencies for your project. The third option is to use the **visual editor** when editing quarto files.
+You will see 3 check boxes with project options:
+
+  - The first option is to create a **git repository**. This will allow you to use version control for your project.
+  - The second option is to **use renv** which will allow you to manage package dependencies for your project.
+  - The third option is to use the **visual editor** when editing quarto files.
+  
+![](images/quarto_proj.png){fig-align="center" width="50%"}
 
 Make sure **ALL** of these boxes are checked, then click **Create Project**. You will see a new project created in RStudio with a default folder structure and some template files.
 
 ## Manage package dependencies with renv
 
 The `renv` package is a dependency management toolkit for R. It allows you to create a project-specific library of R packages that are isolated from your global R library. This means that you can have different versions of packages for different projects without conflicts.
+
+![](images/renv.png){fig-align="center" width="30%"}
 
 When you create a new project with `renv`, it automatically initializes a new environment and creates a `renv.lock` file that records the state of your project's library. You can install packages into this environment using `renv::install()`.
 
@@ -56,7 +67,7 @@ If you would like to use renv in an existing project, you can do so by running t
 
 With renv initialised, we can now install packages into our project-specific library.
 
-```{r,echo=FALSE,eval=FALSE,warning=FALSE,message=FALSE}
+```{r,eval=FALSE,warning=FALSE,message=FALSE}
 renv::install("tidyverse")
 renv::install("patchwork")
 renv::install("plotly")
@@ -88,30 +99,38 @@ If you look inside your `renv` folder you will see that these packages have been
 
 To check the status of your renv environment, you can run the `renv::status()` function. This will show you which packages are installed in your project-specific library and which packages are out of sync with the `renv.lock` file.
 
-```{r,echo=FALSE,eval=FALSE,warning=FALSE,message=FALSE}
+```{r,eval=FALSE,warning=FALSE,message=FALSE}
 renv::status()
 ```
 
 To update the `renv.lock` file with the new packages, you can run the `renv::snapshot()` function. This will update the `renv.lock` file with the current state of your project's library.
 
-```{r,echo=FALSE,eval=FALSE,warning=FALSE,message=FALSE}
+```{r,eval=FALSE,warning=FALSE,message=FALSE}
 renv::snapshot()
 ```
 
 Run `renv::status()` again and check that the `renv.lock` file has been updated.
 
+```{r,eval=FALSE,warning=FALSE,message=FALSE}
+renv::status()
+```
+
 You now have a reproducible environment for your project. You can share your project with others and they can recreate the same environment by using the `renv.lock` file.
 
 The `renv::restore()` function reads the `renv.lock` file and installs the exact versions of packages that were used in your project. This ensures that your analysis is reproducible and that others can run your code using identical package versions.
 
+::: {.box .discussion}
+<h3><i class="far fa-bell"></i> Discussion</h3>
+
 One thing to note is that true reproducibility is not guaranteed with renv. If a package is removed from CRAN or Bioconductor, it will not be possible to install that package in the future. Package management is also specific to the version of R you are using, so restoring an environment on a different version of R may not work.
 
 For true reproducibility, you can use software containers like [Docker](https://www.docker.com/) or [Singularity](https://docs.sylabs.io/guides/3.5/user-guide/introduction.html), but this is beyond the scope of this course.
+:::
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
 
-The `renv` package has many more features that you can explore. You can find the documentation for `renv` at <https://rstudio.github.io/renv/articles/renv.html>.
+The [renv](https://rstudio.github.io/renv/articles/renv.html) package has many more features that you can explore.
 :::
 
 ## Download the RNA-seq data
@@ -139,5 +158,4 @@ download.file("https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.
 
 -   RStudio projects allow you to create a reproducible environment for your data analysis.
 -   The `renv` package allows you to manage package dependencies for your project.
-
 :::
