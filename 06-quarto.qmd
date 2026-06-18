@@ -65,7 +65,7 @@ Begin by adding some text to the top of your document. You can format text using
 -   `~~strikethrough~~` for ~~strikethrough~~ text
 -   `code` for `code` style text
 
-```{quarto,eval=F}
+```{bash,eval=F}
 In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.
 ```
 
@@ -75,7 +75,7 @@ We can create headings by using the `#` symbol. The number of `#` symbols indica
 
 Add a heading for the introduction section of your document.
 
-```{quarto,eval=F}
+```{bash,eval=F}
 ## Introduction
 ```
 
@@ -83,7 +83,7 @@ Add a heading for the introduction section of your document.
 
 Web links can be added using the following syntax: `[text](url)`. For example, to add a link to the Quarto website, you can use the following code:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).
 ```
 
@@ -91,7 +91,7 @@ The data from this analysis is part of a larger study described in [Kenny PJ et 
 
 You can place images in your document using the following syntax: `![alt text](image_url)`. For example, to add an image from a URL, you can use the following code:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 ![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)
 ```
 
@@ -99,13 +99,13 @@ If the image is stored on your computer, you can save it in your project directo
 
 Create a folder called `images` in your project directory and save an image in that folder. You can use the following code to add the image to your document:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 ![]("images/my_image.png")
 ```
 
 You can add a caption to the image by adding a title in the square brackets. You can format the image by adding style attributes in the curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 ![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}
 ```
 
@@ -113,7 +113,7 @@ You can add a caption to the image by adding a title in the square brackets. You
 
 Lists can be created using `-` or `*` for unordered lists and numbers for ordered lists. For example, to create a list, you can use the following code:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 The RNA-seq analysis was performed using the following steps:
   
   1.  Quality control with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
@@ -125,7 +125,7 @@ The RNA-seq analysis was performed using the following steps:
 
 Tables can be created using the following syntax.
 
-```{quarto,eval=F}
+```{bash,eval=F}
 
 The DESeq2 dataset contains counts for the following samples:
 
@@ -149,7 +149,7 @@ Render your document again to see the formatted text in the introduction.
 
 You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:
 
-```{quarto}
+```{bash,eval=F}
 
 :::{.callout-note}
 This data has already been loaded into a DESeq2 dataset using `tximport` and saved as an RDS file. You can load the dataset into R using the `readRDS()` function.
@@ -159,6 +159,7 @@ This data has already been loaded into a DESeq2 dataset using `tximport` and sav
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
+
 Quarto has several types of [preset callout blocks](https://quarto.org/docs/authoring/callouts.html) or you can create your own.
 :::
 
@@ -168,14 +169,15 @@ The real power of Quarto is the ability to include code blocks in your document.
 
 First, add a new header to your quarto document for the data analysis section:
 
-```{quarto,eval=F}
+```{bash,eval=F}
 ## Data analysis
 ```
 
 Code blocks are created using three backticks followed by the language of the code block. It is also good practice to name the code block. For example, to create a code block for R, you can use the following syntax:
 
-```{quarto,eval=F}
-#```{r load_libraries}
+```{bash,eval=F}
+\`\`\`{r load_libraries}
+
 # Load the libraries we will use in this analysis
 library(tidyverse)
 library(DESeq2)
@@ -192,7 +194,7 @@ dds <- readRDS("data/MOV10_dds.rds")
 # Display the column data of the DESeq dataset
 colData(dds)
 
-#```
+\`\`\`
 ```
 
 Render the document again to see the code block and the output of the code. You will see a bunch of text output relating to the loading of our libraries. This is default R output but isn't very informative for anyone reading the document.
@@ -201,20 +203,20 @@ Render the document again to see the code block and the output of the code. You 
 
 The execution of code blocks in Quarto can be controlled using options that are specified at the top of each block. For example
 
-  - `echo: false` will hide the code in the output
-  - `output: false` will hide the output of the code block
-  - `message: false` will hide messages generated by the code block
-  - `warning: false` will hide warnings generated by the code block
-  - `error: false` will hide errors generated by the code block
-  - `include: false` will hide both the code and the output of the code block
-  - `eval: false` will prevent the code block from being executed
-    - This is good if you want to show the code but not run it in the rendering 
+-   `echo: false` will hide the code in the output
+-   `output: false` will hide the output of the code block
+-   `message: false` will hide messages generated by the code block
+-   `warning: false` will hide warnings generated by the code block
+-   `error: false` will hide errors generated by the code block
+-   `include: false` will hide both the code and the output of the code block
+-   `eval: false` will prevent the code block from being executed
+    -   This is good if you want to show the code but not run it in the rendering
 
 To turn off messages and warnings, we can add the following to our code block:
 
-```{quarto}
+```{bash,eval=F}
  
-#```{r load_libraries}
+\`\`\`{r load_libraries}
 #| warning = FALSE
 #| message = FALSE
 # Load the libraries we will use in this analysis
@@ -234,7 +236,7 @@ dds <- readRDS("data/MOV10_dds.rds")
 colData(dds)
 
 
-#```
+\`\`\`
 ```
 
 Render the file again. Play around with some of the other code block options to see how they affect the output of your document.
@@ -249,6 +251,7 @@ Quarto has many options for [execution control](https://quarto.org/docs/computat
 
 Let's add some more information to the header to control the output of our document. We can add a table of contents, set the theme, and add a date to the header. The header should look like this:
 
+```{bash,eval=F}
 ---
 title: "RNA-seq analysis"
 author: "Your Name"
@@ -261,6 +264,7 @@ format:
     code-fold: false
     output-file: index.html
 ---
+```
 
 We could have used plain text for our date, but by using `r Sys.Date()` we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the `r` prefix.
 
@@ -297,8 +301,7 @@ The DT package creates data tables that can be searched, sorted and filtered. Th
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
 
-The DT package has many options for [creating interactive tables](https://rstudio.github.io/DT/) with custom formatting and styling. 
-The [gt](https://gt.rstudio.com/) and [reactable](https://glin.github.io/reactable/) packages are also great for creating html tables in Quarto documents.
+The DT package has many options for [creating interactive tables](https://rstudio.github.io/DT/) with custom formatting and styling. The [gt](https://gt.rstudio.com/) and [reactable](https://glin.github.io/reactable/) packages are also great for creating html tables in Quarto documents.
 
 The [plotly package](https://plotly.com/r/) has many options for [creating interactive plots](https://plotly.com/r/) with custom formatting and styling.
 :::
@@ -307,10 +310,10 @@ The [plotly package](https://plotly.com/r/) has many options for [creating inter
 
 When we set up our project, we instructed RStudio to create a git repository for our project. Git is a version control system that allows us to track changes to our code and documents. It is a powerful tool for software development, managing projects and collaborating with others.
 
-  - Keep track of changes to your code and documents
-  - Revert to previous versions of your code and documents
-  - Collaborate with others without overwriting each other's work or working on different versions of the same file
-  - Publish your work to GitHub for sharing with others
+-   Keep track of changes to your code and documents
+-   Revert to previous versions of your code and documents
+-   Collaborate with others without overwriting each other's work or working on different versions of the same file
+-   Publish your work to GitHub for sharing with others
 
 You can link a git repository to a remote online repository on websites like GitHub and GitLab. This allows you to share your work with others and collaborate on projects. You can also use GitHub to host your Quarto documents and make them available to the public.
 
@@ -328,7 +331,7 @@ Go to the Git tab in RStudio. You will see a list of files in your project that 
 
 This will open a new window. Enter a commit message: "Initial Commit". Click the **Commit** button to commit your changes.
 
-Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). Select the file and click the **Commit** button. Enter a commit message that describes the changes made and click **Commit**. Useful commit messages e.g. "Added introduction section", "Updated figure 1", "Fixed bug in volcano plot" will help you keep track of the version history of your project. 
+Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). Select the file and click the **Commit** button. Enter a commit message that describes the changes made and click **Commit**. Useful commit messages e.g. "Added introduction section", "Updated figure 1", "Fixed bug in volcano plot" will help you keep track of the version history of your project.
 
 You can view the commit history by clicking the **History** button in the git tab. If you need to revert a file to a previous version, you can do so by right clicking on the file in the history and selecting **Revert** from the **More** menu.
 
@@ -336,14 +339,15 @@ You can view the commit history by clicking the **History** button in the git ta
 
 Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process, so we will not cover it here. The steps are outlined below.
 
-  1. Create a GitHub account
-  2. Create a personal access token on GitHub to allow you to securely connect to your GitHub account from RStudio
-  3. Create a new repository on GitHub with the same name
-  4. Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio terminal
-  5. Push your committed changes to GitHub from the Git pane
+1.  Create a GitHub account
+2.  Create a personal access token on GitHub to allow you to securely connect to your GitHub account from RStudio
+3.  Create a new repository on GitHub with the same name
+4.  Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio terminal
+5.  Push your committed changes to GitHub from the Git pane
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
+
 These [instructions](https://happygitwithr.com/) and the [Quarto guide to GitHub pages](https://quarto.org/docs/publishing/github-pages.html) outline the process of connecting your RStudio git project to GitHub.
 :::
 
@@ -353,19 +357,17 @@ Quarto documents need to be hosted on a web server to be accessible to others. T
 
 [GitHub pages](https://docs.github.com/en/pages) is a free service provided by GitHub that allows you to host static websites directly from your GitHub repository.
 
-  1. Go to your GitHub repository and click on the **Settings** tab.
-  2. Scroll down to the **GitHub Pages** section and select the branch you want to use for GitHub pages. You can choose the `main` branch or a different branch.
-  3. Select the folder you want to use for GitHub pages. You can choose the `root` directory or a folder called `docs`, `root` is fine for this project.
-  4. Click **Save** to save your changes.
-  
+1.  Go to your GitHub repository and click on the **Settings** tab.
+2.  Scroll down to the **GitHub Pages** section and select the branch you want to use for GitHub pages. You can choose the `main` branch or a different branch.
+3.  Select the folder you want to use for GitHub pages. You can choose the `root` directory or a folder called `docs`, `root` is fine for this project.
+4.  Click **Save** to save your changes.
+
 Go to the actions tab in your GitHub repository. You will see that GitHub has automatically created a workflow to build your Quarto document. This workflow will run every time you push changes to your repository. You can view the status of the workflow and see the logs for each step. Once the build completes successfully, you can view your Quarto document on GitHub pages by going to: `https://<your-github-username>.github.io/<your-repo-name>`
 
 The link is also available in the **GitHub Pages** section of the **Settings** tab in your GitHub repository.
 
-
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
-
 :::
 
 ### Quarto configuration file
@@ -376,7 +378,7 @@ For example, you can change the title of your project, the theme and many other 
 
 Edit your `_quarto.yml` file to change the theme and remove the theme from the header of your `index.qmd` file. The `_quarto.yml` file should look like this:
 
-```{quarto}
+```{bash,eval=F}
 project:
   title: "RNA_seq_analysis"
 format:
@@ -392,7 +394,6 @@ It is possible to build a Quarto website by creating multiple Quarto documents i
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
-
 :::
 
 ## Parameterised reports
@@ -401,19 +402,18 @@ What if you wanted to run the same analysis on different datasets? You could cre
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
-
 :::
 
 ::: {.box .challenge}
 <h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
+
 See if you can add a parameters to your Quarto document that specify the groups to compare in the analysis e.g. "MOV10_KD", "MOV10_OE", and "Control".
 :::
 
 ::: {.box .challenge}
 <h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
-  - Spend some time making edits to the quarto document or creating your own
-  - Render the document to see how your changes are reflected in the output
-  - Commit your changes to git and push them to GitHub if you have set this up
+-   Spend some time making edits to the quarto document or creating your own
+-   Render the document to see how your changes are reflected in the output
+-   Commit your changes to git and push them to GitHub if you have set this up
 :::
-
