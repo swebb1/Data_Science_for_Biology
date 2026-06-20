@@ -21,23 +21,21 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 -   Use **git** for version control
 :::
 
-## Create a Quarto document
-
 [Quarto](https://quarto.org/) documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the `#` symbol, create lists by using `-` or `*`, and create links by using `[text](url)`.
 
 RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.
 
 Quarto documents can be rendered to many different formats including HTML (default), PDF, and Word.
 
-RStudio provides you with a quarto file with the same name as your project. You can open this or create a new Quarto document by going to **File \> New File \> Quarto Document**.
+## Create a Quarto document
 
-Open the document. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.
+When you create a Quarto project, RStudio provides you with a quarto file with the same name. You can open this, or create a new Quarto document by going to **File \> New File \> Quarto Document**.
 
-Save the file in your project directory.
+Open the file. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.
 
 ### Render the file
 
-You can render the document as is by clicking the **Render** button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.
+You can render the document as is by clicking the <kbd>Render</kbd> button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.
 
 ### Edit the file
 
@@ -253,7 +251,7 @@ Let's add some more information to the header to control the output of our docum
 
 ```{bash,eval=F}
 ---
-title: "RNA-seq analysis"
+title: "Differential expression analysis of MOV10 over-expression in HEK293F cells"
 author: "Your Name"
 date: "`r Sys.Date()`"
 format:
@@ -290,7 +288,9 @@ It is also possible to add [custom CSS](https://quarto.org/docs/output-formats/h
 
 We will now reuse our R code from the previous lesson to perform differential expression analysis with DESeq2. We will include the code in our Quarto document and render the results.
 
-A complete quarto document for the RNA-seq analysis is available [here](). Download the file and open it in RStudio. Render the document to see how the code is executed. Take note of the different execution options that are used to control the output of the code blocks, including the size and width of the figures.
+A complete quarto document for the RNA-seq analysis is available [here](https://bifx-core3.bio.ed.ac.uk/training/DSB/data/index.qmd). 
+
+Copy the text and replace everything in your current document. Render the document to see how the code is executed. Take note of the different execution options that are used to control the output of the code blocks, including the size and width of the figures.
 
 ### HTML widgets
 
@@ -305,6 +305,17 @@ The DT package has many options for [creating interactive tables](https://rstudi
 
 The [plotly package](https://plotly.com/r/) has many options for [creating interactive plots](https://plotly.com/r/) with custom formatting and styling.
 :::
+
+::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
+
+1. Edit the quarto header to change the title, author, date and add some html formatting options.
+2. Add an image in the introduction section of your document. You can use an image from a URL or save an image in your project directory and use a relative path to the image file.
+3. Add a new section to the document that displays a table of just the significantly expressed genes. Decide on appropriate thresholds of padj and log2FoldChange to use for this table. Use the DT package to display the table in an interactive format.
+4. Add a new section to the document that draws an MA plot for the MOV10_OE vs Control comparison. Add a header, description, code and the plot. HINT: DESeq2 has a `plotMA()` function.
+
+:::
+
 
 ## Version control with git
 
@@ -376,7 +387,7 @@ When we created our project, RStudio automatically created a `_quarto.yml` file 
 
 For example, you can change the title of your project, the theme and many other settings. Settings here will be applied to all Quarto documents in your project. You can override these settings in the header of individual Quarto documents.
 
-Edit your `_quarto.yml` file to change the theme and remove the theme from the header of your `index.qmd` file. The `_quarto.yml` file should look like this:
+Edit your `_quarto.yml` file to change the theme and remove the theme from the header of your Quarto document if you have one. The `_quarto.yml` file should look like this:
 
 ```{bash,eval=F}
 project:
@@ -392,26 +403,55 @@ Render your quarto document again to see how the theme has changed. You can choo
 
 It is possible to build a Quarto website by creating multiple Quarto documents in your project, linking them together and adding a navigation bar to the `_quarto.yml` file. If you create a new project as a *Quarto website*, RStudio will create a `_quarto.yml` file with a navigation bar and a folder structure for your website.
 
+Actually, this website is a Quarto website. You can view all of the quarto files used to create it [here](https://github.com/swebb1/Data_Science_for_Biology).
+
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
+
+Check out the The Quarto guide to [creating websites](https://quarto.org/docs/websites/) for a comprehensive tutorial.
+
 :::
 
 ## Parameterised reports
 
 What if you wanted to run the same analysis on different datasets? You could create a new Quarto document for each dataset, but this would be time consuming and inefficient. Instead, we can use parameters in our Quarto document to make it more flexible.
 
+Parameters are specified in the header with default values. For instance, we could move the thresholds for significance in our differential expression analysis to the header of our Quarto document.
+
+```{bash,eval=F}
+---
+params:
+  alpha: 0.05
+  lthresh: 1
+---
+```
+
+The <kbd>Render</kbd> button in RStudio is a shortcut for the Quarto `render()` function. This function can be used to render a Quarto document with different parameter values. For example, we could render our Quarto document with a different alpha value by running the following code in the R console:
+
+```{r eval=F}
+quarto::quarto_render("RNA-seq_analysis.qmd", 
+                      execute_params = list(
+                        alpha = 0.01)
+                      )
+```
+
+This allows us to run the same analysis with different parameter values without having to edit or create a new Quarto document. It is also possible to render Quarto documents outside of RStudio using the command line quarto command.
+
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
+
+The Quarto guide to [parametesized reports](https://quarto.org/docs/authoring/parameters.html) gives more information on how to use parameters in your Quarto documents.
+
 :::
 
 ::: {.box .challenge}
 <h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
 
-See if you can add a parameters to your Quarto document that specify the groups to compare in the analysis e.g. "MOV10_KD", "MOV10_OE", and "Control".
+See if you can add parameters to your Quarto document that specify the groups to compare in the analysis e.g. "MOV10_KD", "MOV10_OE", and "Control".
 :::
 
 ::: {.box .challenge}
-<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
+<h3><i class="fas fa-pencil-alt"></i> Final Challenge:</h3>
 
 -   Spend some time making edits to the quarto document or creating your own
 -   Render the document to see how your changes are reflected in the output

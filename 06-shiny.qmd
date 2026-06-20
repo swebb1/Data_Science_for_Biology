@@ -1,0 +1,64 @@
+---
+title: "Interactive applications with Shiny"
+---
+
+<head>
+
+```{=html}
+<script src="https://kit.fontawesome.com/ece750edd7.js" crossorigin="anonymous"></script>
+```
+
+</head>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+::: {.box .objectives}
+<h3><i class="fas fa-check-square"></i> Learning Objectives</h3>
+
+-   Create an interactive web application with **Shiny**
+-   Understand how Shiny uses reactivity
+-   Use Shiny for exploratory data analysis
+:::
+
+[Shiny](https://shiny.rstudio.com/) is an R package that makes it easy to build interactive web applications straight from R. You can host standalone apps that run from your R console, host them on websites or embed them in Markdown documents. Shiny applications can be used for a variety of purposes, including data visualisation, data exploration, and interactive reporting.
+
+The Shiny package is built on the concept of **reactivity**, which allows you to create applications that respond to user input in real time. In this chapter, we will explore how to create a simple Shiny application and how to use it for exploratory data analysis.
+
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
+
+  - The [Shiny tutorial](https://shiny.rstudio.com/tutorial/) is the best place to start learning about Shiny.
+  - The[Shiny gallery](https://shiny.rstudio.com/gallery/) contains a collection of Shiny applications that you can explore and learn from.
+:::
+
+## Create a new Shiny project
+
+We will start by creating a new Shiny project in RStudio. To do this, go to **File > New Project > New Directory > Shiny Web Application**. You will be prompted to enter a name for your application and choose a directory to save it in. Check the **renv** and **git** checkboxes again, to ensure that your project is set up with a reproducible environment and version control.
+
+Once you have done this, RStudio will create a new project with a basic Shiny application template.
+
+## Building a simple Shiny application
+
+Open the `app.R` file in your new Shiny project. You will see that it contains two main components: the **UI** (user interface) and the **server** function. 
+
+The UI defines how the application will look, while the server function defines how the application will behave.
+
+Hit the <kbd>Run App</kbd> button in the toolbar to launch your Shiny application. You should see a web page with a title, a sidebar and some input controls.
+
+The template application is a simple example of a Shiny application that allows users to select a dataset and view its summary statistics. The application uses the `mtcars` dataset, which is included with R.
+
+### UI
+
+The UI is defined using the `fluidPage()` function, which creates a fluid layout that adjusts to the size of the browser window. Inside the `fluidPage()` function, you can add various UI elements such as text, images, input controls and outputs.
+
+::: {.box .resources}
+<h3><i class="fas fa-book"></i> Resources</h3>
+
+There are many different ways to create a UI in Shiny, including using the `fluidPage()` function, the `navbarPage()` function, and the `dashboardPage()` function. There are also many Shiny UI packages available that provide additional UI elements and layouts, such as `shiny.semantic`, `shiny.semantic.dashboard`, and `shinydashboard`.
+
+:::
+
+
+

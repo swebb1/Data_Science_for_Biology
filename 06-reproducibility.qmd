@@ -24,12 +24,12 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 Reproducibility is a key aspect of data analysis. It allows others to verify your results and build upon your work. Reproducibility in RStudio can be achieved by:
 
 -   Managing package dependencies with [renv](https://rstudio.github.io/renv/articles/renv.html):
-    - Track and install the exact versions of packages used in your analysis
+    -   Track and install the exact versions of packages used in your analysis
 -   Using a literate programming approach with [Quarto](https://quarto.org/):
-    - Combine code, documentation, results and figures in a single document
+    -   Combine code, documentation, results and figures in a single document
 -   Using version control with [git](https://git-scm.com/)
-    - Track changes to your code and documents 
-    - Publish your work to [GitHub](https://github.com) to share or collaborate with others
+    -   Track changes to your code and documents
+    -   Publish your work to [GitHub](https://github.com) to share or collaborate with others
 
 ## Create a reproducible environment in RStudio
 
@@ -41,10 +41,10 @@ For this lesson, choose **Quarto Project** as we are going to build a quarto rep
 
 You will see 3 check boxes with project options:
 
-  - The first option is to create a **git repository**. This will allow you to use version control for your project.
-  - The second option is to **use renv** which will allow you to manage package dependencies for your project.
-  - The third option is to use the **visual editor** when editing quarto files.
-  
+-   The first option is to create a **git repository**. This will allow you to use version control for your project.
+-   The second option is to **use renv** which will allow you to manage package dependencies for your project.
+-   The third option is to use the **visual editor** when editing quarto files.
+
 ![](images/quarto_proj.png){fig-align="center" width="50%"}
 
 Make sure **ALL** of these boxes are checked, then click **Create Project**. You will see a new project created in RStudio with a default folder structure and some template files.
