@@ -1,5 +1,5 @@
 ---
-title: "Reproducible data analysis in RStudio"
+title: "Creating reports with Quarto"
 ---
 
 <head>
@@ -16,12 +16,15 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ::: {.box .objectives}
 <h3><i class="fas fa-check-square"></i> Learning Objectives</h3>
+------------------------------------
 
 -   Use **Quarto** for reproducible reporting
 -   Use **git** for version control
 :::
 
 [Quarto](https://quarto.org/) documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the `#` symbol, create lists by using `-` or `*`, and create links by using `[text](url)`.
+
+![](images/quarto.png){fig-align="center" width="30%"}
 
 RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.
 
@@ -55,7 +58,7 @@ Use the [Markdown basics](https://quarto.org/docs/authoring/markdown-basics.html
 
 #### Text formatting
 
-Begin by adding some text to the top of your document. You can format text using the following symbols:
+You can format text using the following markdown symbols:
 
 -   `*italic*` for *italic* text
 -   `**bold**` for **bold** text
@@ -63,7 +66,9 @@ Begin by adding some text to the top of your document. You can format text using
 -   `~~strikethrough~~` for ~~strikethrough~~ text
 -   `code` for `code` style text
 
-```{bash,eval=F}
+Begin by adding some text to the top of your document:
+
+```{markdown,eval=F}
 In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.
 ```
 
@@ -73,7 +78,7 @@ We can create headings by using the `#` symbol. The number of `#` symbols indica
 
 Add a heading for the introduction section of your document.
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ## Introduction
 ```
 
@@ -81,7 +86,7 @@ Add a heading for the introduction section of your document.
 
 Web links can be added using the following syntax: `[text](url)`. For example, to add a link to the Quarto website, you can use the following code:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).
 ```
 
@@ -89,29 +94,27 @@ The data from this analysis is part of a larger study described in [Kenny PJ et 
 
 You can place images in your document using the following syntax: `![alt text](image_url)`. For example, to add an image from a URL, you can use the following code:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)
 ```
 
-If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file.
+If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file. Create a folder called `images` in your project directory and save an image in that folder. You can use the following code to add the image to your document:
 
-Create a folder called `images` in your project directory and save an image in that folder. You can use the following code to add the image to your document:
-
-```{bash,eval=F}
+```{markdown,eval=F}
 ![]("images/my_image.png")
 ```
 
-You can add a caption to the image by adding a title in the square brackets. You can format the image by adding style attributes in the curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:
+You can add a caption to the image by adding a title in the square brackets. Format the image by adding style attributes in curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}
 ```
 
 #### Lists
 
-Lists can be created using `-` or `*` for unordered lists and numbers for ordered lists. For example, to create a list, you can use the following code:
+Lists can be created using `-` or `*` for unordered lists and numbers for ordered lists. For example, to create an ordered list, you can use the following:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 The RNA-seq analysis was performed using the following steps:
   
   1.  Quality control with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
@@ -123,7 +126,7 @@ The RNA-seq analysis was performed using the following steps:
 
 Tables can be created using the following syntax.
 
-```{bash,eval=F}
+```{markdown,eval=F}
 
 The DESeq2 dataset contains counts for the following samples:
 
@@ -141,13 +144,11 @@ It is sometimes easier to use the visual editor to create tables. You can switch
 
 If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.
 
-Render your document again to see the formatted text in the introduction.
-
 #### Callout blocks
 
 You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 
 :::{.callout-note}
 This data has already been loaded into a DESeq2 dataset using `tximport` and saved as an RDS file. You can load the dataset into R using the `readRDS()` function.
@@ -161,20 +162,22 @@ This data has already been loaded into a DESeq2 dataset using `tximport` and sav
 Quarto has several types of [preset callout blocks](https://quarto.org/docs/authoring/callouts.html) or you can create your own.
 :::
 
+Render your document again to see the formatted text in the introduction.
+
 ### Code blocks
 
 The real power of Quarto is the ability to include code blocks in your document. Code blocks are sections of code that can be executed when the document is rendered.
 
 First, add a new header to your quarto document for the data analysis section:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ## Data analysis
 ```
 
 Code blocks are created using three backticks followed by the language of the code block. It is also good practice to name the code block. For example, to create a code block for R, you can use the following syntax:
 
-```{bash,eval=F}
-\`\`\`{r load_libraries}
+````{markdown,eval=F}
+```{r load_libraries}
 
 # Load the libraries we will use in this analysis
 library(tidyverse)
@@ -191,9 +194,8 @@ library(ggrepel)
 dds <- readRDS("data/MOV10_dds.rds")
 # Display the column data of the DESeq dataset
 colData(dds)
-
-\`\`\`
 ```
+````
 
 Render the document again to see the code block and the output of the code. You will see a bunch of text output relating to the loading of our libraries. This is default R output but isn't very informative for anyone reading the document.
 
@@ -212,9 +214,8 @@ The execution of code blocks in Quarto can be controlled using options that are 
 
 To turn off messages and warnings, we can add the following to our code block:
 
-```{bash,eval=F}
- 
-\`\`\`{r load_libraries}
+````{markdown,eval=F}
+```{r load_libraries}
 #| warning = FALSE
 #| message = FALSE
 # Load the libraries we will use in this analysis
@@ -232,10 +233,8 @@ library(ggrepel)
 dds <- readRDS("data/MOV10_dds.rds")
 # Display the column data from our dataset
 colData(dds)
-
-
-\`\`\`
 ```
+````
 
 Render the file again. Play around with some of the other code block options to see how they affect the output of your document.
 
@@ -249,7 +248,7 @@ Quarto has many options for [execution control](https://quarto.org/docs/computat
 
 Let's add some more information to the header to control the output of our document. We can add a table of contents, set the theme, and add a date to the header. The header should look like this:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ---
 title: "Differential expression analysis of MOV10 over-expression in HEK293F cells"
 author: "Your Name"
@@ -316,7 +315,6 @@ The [plotly package](https://plotly.com/r/) has many options for [creating inter
 
 :::
 
-
 ## Version control with git
 
 When we set up our project, we instructed RStudio to create a git repository for our project. Git is a version control system that allows us to track changes to our code and documents. It is a powerful tool for software development, managing projects and collaborating with others.
@@ -330,11 +328,29 @@ You can link a git repository to a remote online repository on websites like Git
 
 Git is a command line tool, but RStudio has built in support for git. You can use the git tab in RStudio (top right) to view the status of your project, commit changes you have made to documents and push changes to a remote repository.
 
-We could do a whole course on git and GitHub, but for this lesson we will just show you how to track changes in your project.
-
 ### Git ignore
 
 When we created our project, RStudio automatically created a `.gitignore` file for us. This file tells git which files and folders to ignore when tracking changes to our project. The `.gitignore` file is important because it prevents us from adding unnecessary files or really large files to our git repository.
+
+### Add your GitHub credentials to your project
+
+The `gitcreds` package allows you to securely store your GitHub credentials in your project. This allows you to push changes to GitHub without having to enter your username and password every time.
+
+```{r, eval=F}
+# Install the gitcreds package if you haven't already
+install.packages("gitcreds")
+
+# Load the gitcreds package
+library(gitcreds)
+# Add your GitHub credentials to your project
+gitcreds::gitcreds_set()
+``` 
+
+Paste the personal access token you created on GitHub into the prompt and click OK. You can check that your credentials have been added by running the following command:
+
+```{r, eval=F}
+gitcreds::gitcreds_get()
+```
 
 ### Commit changes
 
@@ -359,7 +375,8 @@ Once you have committed your changes, you can push them to a remote repository o
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
 
-These [instructions](https://happygitwithr.com/) and the [Quarto guide to GitHub pages](https://quarto.org/docs/publishing/github-pages.html) outline the process of connecting your RStudio git project to GitHub.
+  - [Using Git with R](https://happygitwithr.com/) 
+  - [Quarto guide to GitHub pages](https://quarto.org/docs/publishing/github-pages.html)
 :::
 
 ## Quarto publishing
@@ -379,6 +396,9 @@ The link is also available in the **GitHub Pages** section of the **Settings** t
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
+
+Guide to [publishing Quarto documents](https://quarto.org/docs/publishing/)
+
 :::
 
 ### Quarto configuration file
@@ -389,7 +409,7 @@ For example, you can change the title of your project, the theme and many other 
 
 Edit your `_quarto.yml` file to change the theme and remove the theme from the header of your Quarto document if you have one. The `_quarto.yml` file should look like this:
 
-```{bash,eval=F}
+```{markdown,eval=F}
 project:
   title: "RNA_seq_analysis"
 format:
@@ -418,7 +438,7 @@ What if you wanted to run the same analysis on different datasets? You could cre
 
 Parameters are specified in the header with default values. For instance, we could move the thresholds for significance in our differential expression analysis to the header of our Quarto document.
 
-```{bash,eval=F}
+```{markdown,eval=F}
 ---
 params:
   alpha: 0.05
@@ -428,7 +448,7 @@ params:
 
 The <kbd>Render</kbd> button in RStudio is a shortcut for the Quarto `render()` function. This function can be used to render a Quarto document with different parameter values. For example, we could render our Quarto document with a different alpha value by running the following code in the R console:
 
-```{r eval=F}
+```{r, eval=F}
 quarto::quarto_render("RNA-seq_analysis.qmd", 
                       execute_params = list(
                         alpha = 0.01)
@@ -440,7 +460,7 @@ This allows us to run the same analysis with different parameter values without 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
 
-The Quarto guide to [parametesized reports](https://quarto.org/docs/authoring/parameters.html) gives more information on how to use parameters in your Quarto documents.
+The Quarto guide to [parameterised reports](https://quarto.org/docs/computations/parameters.html) gives more information on how to use parameters in your Quarto documents.
 
 :::
 
@@ -450,10 +470,14 @@ The Quarto guide to [parametesized reports](https://quarto.org/docs/authoring/pa
 See if you can add parameters to your Quarto document that specify the groups to compare in the analysis e.g. "MOV10_KD", "MOV10_OE", and "Control".
 :::
 
-::: {.box .challenge}
-<h3><i class="fas fa-pencil-alt"></i> Final Challenge:</h3>
+## Have fun with Quarto
 
--   Spend some time making edits to the quarto document or creating your own
--   Render the document to see how your changes are reflected in the output
--   Commit your changes to git and push them to GitHub if you have set this up
+Spend some time making edits to the quarto document or start from scratch and create your own. Render the document to see how your changes are reflected in the output. Commit your changes to git and push them to GitHub if you have set this up.
+
+::: {.box .key-points}
+<h3><i class="fas fa-thumbtack"></i> Key points</h3>
+
+-   Quarto is a markdown based document format that allows you to create reproducible reports with embedded code and output
+-   Git is a version control system that allows you to track changes to your code and documents
+-   GitHub can be used to host your Quarto documents and make them available to the public
 :::

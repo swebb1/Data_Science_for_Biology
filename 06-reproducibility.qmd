@@ -16,6 +16,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 
 ::: {.box .objectives}
 <h3><i class="fas fa-check-square"></i> Learning Objectives</h3>
+------------------------------------
 
 -   Set up a project in RStudio for reproducible data analysis
 -   Use **renv** for managing package dependencies

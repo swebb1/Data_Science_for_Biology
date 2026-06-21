@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reproducible data analysis in RStudio – Data Science for Biology</title>
+<title>Creating reports with Quarto – Data Science for Biology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reproducible data analysis in RStudio</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Creating reports with Quarto</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -398,6 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#version-control-with-git" id="toc-version-control-with-git" class="nav-link" data-scroll-target="#version-control-with-git">Version control with git</a>
   <ul class="collapse">
   <li><a href="#git-ignore" id="toc-git-ignore" class="nav-link" data-scroll-target="#git-ignore">Git ignore</a></li>
+  <li><a href="#add-your-github-credentials-to-your-project" id="toc-add-your-github-credentials-to-your-project" class="nav-link" data-scroll-target="#add-your-github-credentials-to-your-project">Add your GitHub credentials to your project</a></li>
   <li><a href="#commit-changes" id="toc-commit-changes" class="nav-link" data-scroll-target="#commit-changes">Commit changes</a></li>
   <li><a href="#push-changes-to-github" id="toc-push-changes-to-github" class="nav-link" data-scroll-target="#push-changes-to-github">Push changes to GitHub</a></li>
   </ul></li>
@@ -406,6 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#quarto-configuration-file" id="toc-quarto-configuration-file" class="nav-link" data-scroll-target="#quarto-configuration-file">Quarto configuration file</a></li>
   </ul></li>
   <li><a href="#parameterised-reports" id="toc-parameterised-reports" class="nav-link" data-scroll-target="#parameterised-reports">Parameterised reports</a></li>
+  <li><a href="#have-fun-with-quarto" id="toc-have-fun-with-quarto" class="nav-link" data-scroll-target="#have-fun-with-quarto">Have fun with Quarto</a></li>
   </ul>
 </nav>
     </div>
@@ -414,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reproducible data analysis in RStudio</h1>
+<h1 class="title">Creating reports with Quarto</h1>
 </div>
 
 
@@ -438,22 +440,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored">
 <i class="fas fa-check-square"></i> Learning Objectives
 </h3>
+<hr>
 <ul>
 <li>Use <strong>Quarto</strong> for reproducible reporting</li>
 <li>Use <strong>git</strong> for version control</li>
 </ul>
 </div>
-<section id="create-a-quarto-document" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-quarto-document">Create a Quarto document</h2>
 <p><a href="https://quarto.org/">Quarto</a> documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the <code>#</code> symbol, create lists by using <code>-</code> or <code>*</code>, and create links by using <code>[text](url)</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/quarto.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <p>RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.</p>
 <p>Quarto documents can be rendered to many different formats including HTML (default), PDF, and Word.</p>
-<p>RStudio provides you with a quarto file with the same name as your project. You can open this or create a new Quarto document by going to <strong>File &gt; New File &gt; Quarto Document</strong>.</p>
-<p>Open the document. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.</p>
-<p>Save the file in your project directory.</p>
+<section id="create-a-quarto-document" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-quarto-document">Create a Quarto document</h2>
+<p>When you create a Quarto project, RStudio provides you with a quarto file with the same name. You can open this, or create a new Quarto document by going to <strong>File &gt; New File &gt; Quarto Document</strong>.</p>
+<p>Open the file. You will see that the document has a header at the top that includes the title. The header can also be used to specify an author, subtitle, date, and an output format of your document. You can also add other options to the header such as a table of contents, theme, and more.</p>
 <section id="render-the-file" class="level3">
 <h3 class="anchored" data-anchor-id="render-the-file">Render the file</h3>
-<p>You can render the document as is by clicking the <strong>Render</strong> button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.</p>
+<p>You can render the document as is by clicking the <kbd>Render</kbd> button in the toolbar. This will create an HTML file in your project directory with the same name as your Quarto document. Open the HTML file in your web browser to view the rendered document.</p>
 </section>
 <section id="edit-the-file" class="level3">
 <h3 class="anchored" data-anchor-id="edit-the-file">Edit the file</h3>
@@ -471,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="text-formatting" class="level4">
 <h4 class="anchored" data-anchor-id="text-formatting">Text formatting</h4>
-<p>Begin by adding some text to the top of your document. You can format text using the following symbols:</p>
+<p>You can format text using the following markdown symbols:</p>
 <ul>
 <li><code>*italic*</code> for <em>italic</em> text</li>
 <li><code>**bold**</code> for <strong>bold</strong> text</li>
@@ -479,8 +486,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>~~strikethrough~~</code> for <del>strikethrough</del> text</li>
 <li><code>code</code> for <code>code</code> style text</li>
 </ul>
+<p>Begin by adding some text to the top of your document:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">In</span> this study, we investigate the effects of <span class="pp">**</span>MOV10<span class="pp">**</span> overexpression in <span class="pp">*</span>HEK293F<span class="pp">*</span> cells using <span class="kw">`</span><span class="ex">DESeq2</span><span class="kw">`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using <span class="in">`DESeq2`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="headings" class="level4">
@@ -488,71 +496,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We can create headings by using the <code>#</code> symbol. The number of <code>#</code> symbols indicates the level of the heading. For example, <code>#</code> is a top-level heading, <code>##</code> is a second-level heading, and so on.</p>
 <p>Add a heading for the introduction section of your document.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Introduction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="links" class="level4">
 <h4 class="anchored" data-anchor-id="links">Links</h4>
 <p>Web links can be added using the following syntax: <code>[text](url)</code>. For example, to add a link to the Quarto website, you can use the following code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014]<span class="er">(</span><span class="ex">https://pubmed.ncbi.nlm.nih.gov/25464849/</span><span class="kw">)</span><span class="bu">.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>The data from this analysis is part of a larger study described in <span class="co">[</span><span class="ot">Kenny PJ et al., Cell Rep 2014</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/25464849/)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="images" class="level4">
 <h4 class="anchored" data-anchor-id="images">Images</h4>
 <p>You can place images in your document using the following syntax: <code>![alt text](image_url)</code>. For example, to add an image from a URL, you can use the following code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![]</span><span class="er">(</span><span class="ex">https://bioconductor.posit.co/images/logo/svg/Logo.svg</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file.</p>
-<p>Create a folder called <code>images</code> in your project directory and save an image in that folder. You can use the following code to add the image to your document:</p>
+<p>If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file. Create a folder called <code>images</code> in your project directory and save an image in that folder. You can use the following code to add the image to your document:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![]</span><span class="er">(</span><span class="st">"images/my_image.png"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="al">![]("images/my_image.png")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>You can add a caption to the image by adding a title in the square brackets. You can format the image by adding style attributes in the curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:</p>
+<p>You can add a caption to the image by adding a title in the square brackets. Format the image by adding style attributes in curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">![bioconductor_logo]</span><span class="er">(</span><span class="ex">images/bioconductor.png</span><span class="kw">)</span><span class="ex">{width=</span><span class="st">"25%"</span> fig-align=<span class="st">"center"</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="al">![bioconductor_logo](images/bioconductor.png)</span>{width="25%" fig-align="center"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lists" class="level4">
 <h4 class="anchored" data-anchor-id="lists">Lists</h4>
-<p>Lists can be created using <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists. For example, to create a list, you can use the following code:</p>
+<p>Lists can be created using <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists. For example, to create an ordered list, you can use the following:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> RNA-seq analysis was performed using the following steps:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="an">The RNA-seq analysis was performed using the following steps:</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">1.</span>  Quality control with <span class="pp">[</span><span class="ss">fastqc</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</span><span class="kw">)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">2.</span>  Adapter trimming with <span class="pp">[</span><span class="ss">cutadapt</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://cutadapt.readthedocs.io/en/stable/</span><span class="kw">)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">3.</span>  Pseudo-alignment with <span class="pp">[</span><span class="ss">salmon</span><span class="pp">]</span><span class="er">(</span><span class="ex">https://combine-lab.github.io/salmon/</span><span class="kw">)</span> <span class="ex">to</span> the human transcriptome <span class="er">(</span><span class="ex">GRCh38</span> Ensembl release 106<span class="kw">)</span><span class="bu">.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  1.  </span>Quality control with <span class="co">[</span><span class="ot">fastqc</span><span class="co">](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  2.  </span>Adapter trimming with <span class="co">[</span><span class="ot">cutadapt</span><span class="co">](https://cutadapt.readthedocs.io/en/stable/)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">  3.  </span>Pseudo-alignment with <span class="co">[</span><span class="ot">salmon</span><span class="co">](https://combine-lab.github.io/salmon/)</span> to the human transcriptome (GRCh38 Ensembl release 106).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tables" class="level4">
 <h4 class="anchored" data-anchor-id="tables">Tables</h4>
 <p>Tables can be created using the following syntax.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> DESeq2 dataset contains counts for the following samples:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>The DESeq2 dataset contains counts for the following samples:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Dataset</span>    <span class="kw">|</span> <span class="ex">Description</span>           <span class="kw">|</span> <span class="ex">Replicate</span>   <span class="kw">|</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span><span class="ex">------------</span><span class="kw">|</span><span class="ex">-----------------------</span><span class="kw">|</span><span class="ex">-------------</span><span class="kw">|</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_1</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 1 <span class="kw">|</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_2</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 2 <span class="kw">|</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">Control_3</span>  <span class="kw">|</span> <span class="ex">Control</span>               <span class="kw">|</span> <span class="ex">replicate</span> 3 <span class="kw">|</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_1</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 1 <span class="kw">|</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_2</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 2 <span class="kw">|</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">MOV10_OE_3</span> <span class="kw">|</span> <span class="ex">MOV10</span> over-expression <span class="kw">|</span> <span class="ex">replicate</span> 3 <span class="kw">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Dataset    <span class="pp">|</span> Description           <span class="pp">|</span> Replicate   <span class="pp">|</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|------------|-----------------------|-------------|</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Control_1  <span class="pp">|</span> Control               <span class="pp">|</span> replicate 1 <span class="pp">|</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Control_2  <span class="pp">|</span> Control               <span class="pp">|</span> replicate 2 <span class="pp">|</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Control_3  <span class="pp">|</span> Control               <span class="pp">|</span> replicate 3 <span class="pp">|</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MOV10_OE_1 <span class="pp">|</span> MOV10 over-expression <span class="pp">|</span> replicate 1 <span class="pp">|</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MOV10_OE_2 <span class="pp">|</span> MOV10 over-expression <span class="pp">|</span> replicate 2 <span class="pp">|</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MOV10_OE_3 <span class="pp">|</span> MOV10 over-expression <span class="pp">|</span> replicate 3 <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>It is sometimes easier to use the visual editor to create tables. You can switch to the visual editor by clicking the <strong>Visual</strong> button in the toolbar. You can then click the <strong>Insert Table</strong> button in the toolbar to create a table.</p>
 <p>If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.</p>
-<p>Render your document again to see the formatted text in the introduction.</p>
 </section>
 <section id="callout-blocks" class="level4">
 <h4 class="anchored">Callout blocks</h4>
 <p>You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">:::{.callout-note}</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">This</span> data has already been loaded into a DESeq2 dataset using <span class="kw">`</span><span class="ex">tximport</span><span class="kw">`</span> and saved as an RDS file. You can load the dataset into R using the <span class="kw">`</span><span class="fu">readRDS()</span><span class="kw">`</span> function.</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">:::</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>This data has already been loaded into a DESeq2 dataset using <span class="in">`tximport`</span> and saved as an RDS file. You can load the dataset into R using the <span class="in">`readRDS()`</span> function.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="box resources">
 <h3 class="anchored" data-anchor-id="callout-blocks">
@@ -560,6 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </h3>
 <p>Quarto has several types of <a href="https://quarto.org/docs/authoring/callouts.html">preset callout blocks</a> or you can create your own.</p>
 </div>
+<p>Render your document again to see the formatted text in the introduction.</p>
 </section>
 </section>
 <section id="code-blocks" class="level3">
@@ -567,29 +574,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The real power of Quarto is the ability to include code blocks in your document. Code blocks are sections of code that can be executed when the document is rendered.</p>
 <p>First, add a new header to your quarto document for the data analysis section:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Code blocks are created using three backticks followed by the language of the code block. It is also good practice to name the code block. For example, to create a code block for R, you can use the following syntax:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`{r</span> load_libraries}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r load_libraries}</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the libraries we will use in this analysis</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">tidyverse</span><span class="kw">)</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DESeq2</span><span class="kw">)</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">pheatmap</span><span class="kw">)</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">RColorBrewer</span><span class="kw">)</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">apeglm</span><span class="kw">)</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DT</span><span class="kw">)</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggrepel</span><span class="kw">)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apeglm)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DESeq2 dataset</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ex">dds</span> <span class="op">&lt;</span>- readRDS<span class="er">(</span><span class="st">"data/MOV10_dds.rds"</span><span class="kw">)</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/MOV10_dds.rds"</span>)</span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column data of the DESeq dataset</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="ex">colData</span><span class="er">(</span><span class="ex">dds</span><span class="kw">)</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(dds)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Render the document again to see the code block and the output of the code. You will see a bunch of text output relating to the loading of our libraries. This is default R output but isn’t very informative for anyone reading the document.</p>
 </section>
@@ -610,28 +616,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>To turn off messages and warnings, we can add the following to our code block:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`{r</span> load_libraries}</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning = FALSE</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| message = FALSE</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the libraries we will use in this analysis</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">tidyverse</span><span class="kw">)</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DESeq2</span><span class="kw">)</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">pheatmap</span><span class="kw">)</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">RColorBrewer</span><span class="kw">)</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">plotly</span><span class="kw">)</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">apeglm</span><span class="kw">)</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">DT</span><span class="kw">)</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggrepel</span><span class="kw">)</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DESeq2 dataset</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="ex">dds</span> <span class="op">&lt;</span>- readRDS<span class="er">(</span><span class="st">"data/MOV10_dds.rds"</span><span class="kw">)</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column data from our dataset</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="ex">colData</span><span class="er">(</span><span class="ex">dds</span><span class="kw">)</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="ex">\`\`\`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r load_libraries}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning = FALSE</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| message = FALSE</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the libraries we will use in this analysis</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apeglm)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the DESeq2 dataset</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/MOV10_dds.rds"</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column data from our dataset</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(dds)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Render the file again. Play around with some of the other code block options to see how they affect the output of your document.</p>
 <div class="box resources">
@@ -645,20 +648,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="quarto-header">Quarto header</h3>
 <p>Let’s add some more information to the header to control the output of our document. We can add a table of contents, set the theme, and add a date to the header. The header should look like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">title:</span> <span class="st">"RNA-seq analysis"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">author:</span> <span class="st">"Your Name"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">date:</span> <span class="st">"</span><span class="kw">`</span><span class="ex">r</span> Sys.Date<span class="er">(</span><span class="kw">)`</span><span class="st">"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">format:</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">html:</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">toc:</span> true</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">toc-depth:</span> 2</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme:</span> cosmo</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">code-fold:</span> false</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output-file:</span> index.html</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Differential expression analysis of MOV10 over-expression in HEK293F cells"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "`r Sys.Date()`"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 2</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">    output-file: index.html</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We could have used plain text for our date, but by using 2026-06-18 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
+<p>We could have used plain text for our date, but by using 2026-06-21 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
 <p>The table of contents and theme are added as html options. The table of contents will show all of the headings in the document. The <code>toc-depth</code> option controls how many levels of headings are shown in the table of contents. In this case, we have set it to 2, which means that only headings with 1 or 2 <code>#</code> symbols will be shown in the table of contents.</p>
 <p>The theme controls the appearance of the document. You can choose from several preset themes to change the look and feel of your document.</p>
 <p>We are also going to set the output file name to <code>index.html</code>. This is the default file name for the home page of a website. If we want to publish a single document as a website, we need to set the output file name to <code>index.html</code>.</p>
@@ -676,7 +679,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="differential-expression-analysis-with-deseq2" class="level2">
 <h2 class="anchored" data-anchor-id="differential-expression-analysis-with-deseq2">Differential expression analysis with DESeq2</h2>
 <p>We will now reuse our R code from the previous lesson to perform differential expression analysis with DESeq2. We will include the code in our Quarto document and render the results.</p>
-<p>A complete quarto document for the RNA-seq analysis is available <a href="">here</a>. Download the file and open it in RStudio. Render the document to see how the code is executed. Take note of the different execution options that are used to control the output of the code blocks, including the size and width of the figures.</p>
+<p>A complete quarto document for the RNA-seq analysis is available <a href="https://bifx-core3.bio.ed.ac.uk/training/DSB/data/index.qmd">here</a>.</p>
+<p>Copy the text and replace everything in your current document. Render the document to see how the code is executed. Take note of the different execution options that are used to control the output of the code blocks, including the size and width of the figures.</p>
 <section id="html-widgets" class="level3">
 <h3 class="anchored" data-anchor-id="html-widgets">HTML widgets</h3>
 <p>Because Quarto documents are rendered as HTML, we can include interactive HTML widgets in our document. For example, we use the <code>plotly</code> package to create an interactive plot that can be zoomed and panned. We also use the <code>DT</code> package to create interactive tables.</p>
@@ -687,6 +691,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </h3>
 <p>The DT package has many options for <a href="https://rstudio.github.io/DT/">creating interactive tables</a> with custom formatting and styling. The <a href="https://gt.rstudio.com/">gt</a> and <a href="https://glin.github.io/reactable/">reactable</a> packages are also great for creating html tables in Quarto documents.</p>
 <p>The <a href="https://plotly.com/r/">plotly package</a> has many options for <a href="https://plotly.com/r/">creating interactive plots</a> with custom formatting and styling.</p>
+</div>
+<div class="box challenge">
+<h3 class="anchored">
+<i class="fas fa-pencil-alt"></i> Challenge:
+</h3>
+<ol type="1">
+<li>Edit the quarto header to change the title, author, date and add some html formatting options.</li>
+<li>Add an image in the introduction section of your document. You can use an image from a URL or save an image in your project directory and use a relative path to the image file.</li>
+<li>Add a new section to the document that displays a table of just the significantly expressed genes. Decide on appropriate thresholds of padj and log2FoldChange to use for this table. Use the DT package to display the table in an interactive format.</li>
+<li>Add a new section to the document that draws an MA plot for the MOV10_OE vs Control comparison. Add a header, description, code and the plot. HINT: DESeq2 has a <code>plotMA()</code> function.</li>
+</ol>
 </div>
 </section>
 </section>
@@ -701,10 +716,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>You can link a git repository to a remote online repository on websites like GitHub and GitLab. This allows you to share your work with others and collaborate on projects. You can also use GitHub to host your Quarto documents and make them available to the public.</p>
 <p>Git is a command line tool, but RStudio has built in support for git. You can use the git tab in RStudio (top right) to view the status of your project, commit changes you have made to documents and push changes to a remote repository.</p>
-<p>We could do a whole course on git and GitHub, but for this lesson we will just show you how to track changes in your project.</p>
 <section id="git-ignore" class="level3">
 <h3 class="anchored" data-anchor-id="git-ignore">Git ignore</h3>
 <p>When we created our project, RStudio automatically created a <code>.gitignore</code> file for us. This file tells git which files and folders to ignore when tracking changes to our project. The <code>.gitignore</code> file is important because it prevents us from adding unnecessary files or really large files to our git repository.</p>
+</section>
+<section id="add-your-github-credentials-to-your-project" class="level3">
+<h3 class="anchored" data-anchor-id="add-your-github-credentials-to-your-project">Add your GitHub credentials to your project</h3>
+<p>The <code>gitcreds</code> package allows you to securely store your GitHub credentials in your project. This allows you to push changes to GitHub without having to enter your username and password every time.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the gitcreds package if you haven't already</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gitcreds"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the gitcreds package</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gitcreds)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your GitHub credentials to your project</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Paste the personal access token you created on GitHub into the prompt and click OK. You can check that your credentials have been added by running the following command:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_get</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="commit-changes" class="level3">
 <h3 class="anchored" data-anchor-id="commit-changes">Commit changes</h3>
@@ -727,7 +758,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
-<p>These <a href="https://happygitwithr.com/">instructions</a> and the <a href="https://quarto.org/docs/publishing/github-pages.html">Quarto guide to GitHub pages</a> outline the process of connecting your RStudio git project to GitHub.</p>
+<ul>
+<li><a href="https://happygitwithr.com/">Using Git with R</a></li>
+<li><a href="https://quarto.org/docs/publishing/github-pages.html">Quarto guide to GitHub pages</a></li>
+</ul>
 </div>
 </section>
 </section>
@@ -747,52 +781,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
+<p>Guide to <a href="https://quarto.org/docs/publishing/">publishing Quarto documents</a></p>
 </div>
 <section id="quarto-configuration-file" class="level3">
 <h3 class="anchored" data-anchor-id="quarto-configuration-file">Quarto configuration file</h3>
 <p>When we created our project, RStudio automatically created a <code>_quarto.yml</code> file for us. This file contains the configuration settings for our Quarto project. You can edit this file to change the settings for your project.</p>
 <p>For example, you can change the title of your project, the theme and many other settings. Settings here will be applied to all Quarto documents in your project. You can override these settings in the header of individual Quarto documents.</p>
-<p>Edit your <code>_quarto.yml</code> file to change the theme and remove the theme from the header of your <code>index.qmd</code> file. The <code>_quarto.yml</code> file should look like this:</p>
+<p>Edit your <code>_quarto.yml</code> file to change the theme and remove the theme from the header of your Quarto document if you have one. The <code>_quarto.yml</code> file should look like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project:</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">title:</span> <span class="st">"RNA_seq_analysis"</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">format:</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">html:</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme:</span> </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">-</span> minty</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">editor:</span> visual  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="an">project:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  title: "RNA_seq_analysis"</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>format:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  html:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    theme: </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ss">      - </span>minty</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>editor: visual  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Render your quarto document again to see how the theme has changed. You can choose from many different themes to change the look and feel of your document. You can also create your own custom theme by creating a CSS file and adding it to your project.</p>
 <p>It is possible to build a Quarto website by creating multiple Quarto documents in your project, linking them together and adding a navigation bar to the <code>_quarto.yml</code> file. If you create a new project as a <em>Quarto website</em>, RStudio will create a <code>_quarto.yml</code> file with a navigation bar and a folder structure for your website.</p>
+<p>Actually, this website is a Quarto website. You can view all of the quarto files used to create it <a href="https://github.com/swebb1/Data_Science_for_Biology">here</a>.</p>
 <div class="box resources">
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
+<p>Check out the The Quarto guide to <a href="https://quarto.org/docs/websites/">creating websites</a> for a comprehensive tutorial.</p>
 </div>
 </section>
 </section>
 <section id="parameterised-reports" class="level2">
 <h2 class="anchored" data-anchor-id="parameterised-reports">Parameterised reports</h2>
 <p>What if you wanted to run the same analysis on different datasets? You could create a new Quarto document for each dataset, but this would be time consuming and inefficient. Instead, we can use parameters in our Quarto document to make it more flexible.</p>
+<p>Parameters are specified in the header with default values. For instance, we could move the thresholds for significance in our differential expression analysis to the header of our Quarto document.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">params:</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">  alpha: 0.05</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">  lthresh: 1</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <kbd>Render</kbd> button in RStudio is a shortcut for the Quarto <code>render()</code> function. This function can be used to render a Quarto document with different parameter values. For example, we could render our Quarto document with a different alpha value by running the following code in the R console:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">quarto_render</span>(<span class="st">"RNA-seq_analysis.qmd"</span>, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">execute_params =</span> <span class="fu">list</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.01</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                      )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This allows us to run the same analysis with different parameter values without having to edit or create a new Quarto document. It is also possible to render Quarto documents outside of RStudio using the command line quarto command.</p>
 <div class="box resources">
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
+<p>The Quarto guide to <a href="https://quarto.org/docs/computations/parameters.html">parameterised reports</a> gives more information on how to use parameters in your Quarto documents.</p>
 </div>
 <div class="box challenge">
 <h3 class="anchored">
 <i class="fas fa-pencil-alt"></i> Challenge:
 </h3>
-<p>See if you can add a parameters to your Quarto document that specify the groups to compare in the analysis e.g.&nbsp;“MOV10_KD”, “MOV10_OE”, and “Control”.</p>
+<p>See if you can add parameters to your Quarto document that specify the groups to compare in the analysis e.g.&nbsp;“MOV10_KD”, “MOV10_OE”, and “Control”.</p>
 </div>
-<div class="box challenge">
+</section>
+<section id="have-fun-with-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="have-fun-with-quarto">Have fun with Quarto</h2>
+<p>Spend some time making edits to the quarto document or start from scratch and create your own. Render the document to see how your changes are reflected in the output. Commit your changes to git and push them to GitHub if you have set this up.</p>
+<div class="box key-points">
 <h3 class="anchored">
-<i class="fas fa-pencil-alt"></i> Challenge:
+<i class="fas fa-thumbtack"></i> Key points
 </h3>
 <ul>
-<li>Spend some time making edits to the quarto document or creating your own</li>
-<li>Render the document to see how your changes are reflected in the output</li>
-<li>Commit your changes to git and push them to GitHub if you have set this up</li>
+<li>Quarto is a markdown based document format that allows you to create reproducible reports with embedded code and output</li>
+<li>Git is a version control system that allows you to track changes to your code and documents</li>
+<li>GitHub can be used to host your Quarto documents and make them available to the public</li>
 </ul>
 </div>
 
