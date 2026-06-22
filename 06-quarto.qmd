@@ -466,7 +466,7 @@ Guide to [publishing Quarto documents](https://quarto.org/docs/publishing/)
 
 :::
 
-### Quarto configuration file
+## Quarto configuration file
 
 When we created our project, RStudio automatically created a `_quarto.yml` file for us. This file contains the configuration settings for our Quarto project. You can edit this file to change the settings for your project.
 

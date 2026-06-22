@@ -548,6 +548,23 @@ If you have time you could also explore the following:
 
 :::
 
+## Publishing your Shiny app
+
+There are several ways to share your Shiny application with others. 
+
+  - Publish to [Shinyapps.io](https://www.shinyapps.io/)
+  - Host your own [Shiny Server](https://docs.posit.co/shiny-server/)
+  - Use cloud services like [Hugging Face Spaces](https://huggingface.co/spaces) or [Posit Connect](https://posit.co/products/connect/)
+  - Use [Shiny Live](https://posit-dev.github.io/r-shinylive/) to run your app in a web page without needing to install Shiny
+
+Shinyapps.io is a cloud service provided by RStudio that allows you to easily deploy and share Shiny applications. You can create a free account and deploy your app with just a few clicks. There are also paid plans available that provide additional features and resources for hosting larger applications.
+
+::: {.box .challenge}
+<h3><i class="fas fa-pencil-alt"></i> Challenge:</h3>
+
+Deploy your Shiny application to [Shinyapps.io](https://www.shinyapps.io/). You will need to create an account and install the `rsconnect` package. Once you have done this, click the <kbd>Publish</kbd> button in the editor toolbar.
+:::
+
 ::: {.box .key-points}
 <h3><i class="fas fa-lightbulb"></i> Key Points</h3>
 
