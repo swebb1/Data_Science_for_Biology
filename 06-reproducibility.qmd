@@ -154,7 +154,7 @@ download.file("https://bifx-core3.bio.ed.ac.uk/training/DSB/data/MOV10_dds.rds",
 download.file("https://bifx-core3.bio.ed.ac.uk/training/DSB/data/salmon_tx2gene.tsv", destfile = "data/salmon_tx2gene.tsv", mode = "wb")
 ```
 
-::: {.box .keypoints}
+::: {.box .key-points}
 <h3><i class="fas fa-lightbulb"></i> Key Points</h3>
 
 -   RStudio projects allow you to create a reproducible environment for your data analysis.

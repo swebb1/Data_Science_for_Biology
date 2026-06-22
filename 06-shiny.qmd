@@ -547,3 +547,12 @@ If you have time you could also explore the following:
 -   [Shiny extensions](https://github.com/nanxstats/awesome-shiny-extensions?tab=readme-ov-file#feedback--alert--notification) for adding additional functionality to your app
 
 :::
+
+::: {.box .key-points}
+<h3><i class="fas fa-lightbulb"></i> Key Points</h3>
+
+-   Shiny is an R package that allows you to build interactive web applications straight from R.
+-   Shiny applications consist of a UI (user interface) and a server
+-   Shiny uses a reactive programming model
+-   Shiny is an excellent tool for exploratory data analysis and interactive visualisations
+:::
