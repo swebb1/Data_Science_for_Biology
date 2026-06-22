@@ -372,6 +372,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Reproducible data analysis in R</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating reports with Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interactive applications with Shiny</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -473,11 +485,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>DNAStringSet object of length 5:
     width seq
-[1]   500 CTCAGCCTGCCAGCCCAGAGCCTCCCCTGGCCTC...GATTGGAATCAGAAGATGTAGCCTCTGGCTCTG
-[2]   500 AGGGGGTTGTTCAAGGGATGGGGACGATCAGGGT...GCCCTCCAGCCTCTTCCTGAGAGGAGCTCGCCT
-[3]   500 TGGGATTTGTTTCTGTACGTACATTTTAATATGT...GCACAGGCTTAAGGAGCGCCAGCACGTGTGTAA
-[4]   500 TTGAAACCCTGTCTCTATTAAAAATAGAAAAAAA...CTGAAGGTCAGCCTGGGAAGAGTACCTTGAAGA
-[5]   500 GCTATGGACTCTGGGTGGTGGTGCTGTGTTGATG...CTTTGGGGGGCAGAGAGGAAGCGAGACTTGTAA</code></pre>
+[1]   500 ACTTGCTTGCCATTGTGCTGGGTGCTAGATGTGA...AAATAATGCTCAGAGCATTACTACAATCAAATT
+[2]   500 ACCAGGAGTCCACGGAGTGGAGGAGGAGGAAAGG...GGCCAGGACAGGGGCCCTAAGGACACCTCCCTG
+[3]   500 TATGCTTATCGTATACGTCACAAATTTTTATTTT...GCACGCTCACACCCACACCCACAATCACCCAGA
+[4]   500 AGGGAGACTTGATCTGTACTGCCTAACAATGTGG...GTCCACAAGCATCTGCCTGTGGCTTCTACTGCA
+[5]   500 ATCCACATGGTGGGGGACTTTTGTGGGTTTATTC...TGGATTTTCTTTCAAGGTGATACTGAAGCTCTA</code></pre>
 </div>
 </div>
 <p>The output is a DNAStringSet object which contains the sequences for each of the GRanges in gr2. We can use the functions in Biostrings to work with these sequences. For example, we can calculate the dinucleotide frequencies for each sequence.</p>
@@ -486,11 +498,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dinucleotideFrequency</span>(gr2.seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     AA AC AG AT CA CC CG CT GA GC GG GT TA TC TG TT
-[1,] 37 28 35 18 39 34  3 52 25 33 28 29 17 32 50 39
-[2,] 13 15 34 14 18 24 37 30 37 39 68 50  7 31 55 27
-[3,] 47 28 42 21 46 43 19 33 33 36 29 20 13 34 28 27
-[4,] 48 26 42 21 32 21  4 48 36 30 32 25 22 28 45 39
-[5,] 38 24 35 30 32 23  9 36 33 27 46 34 25 26 49 32</code></pre>
+[1,] 38 25 26 29 27 31 10 53 27 22 29 21 25 43 34 59
+[2,] 25 37 39 11 46 85 14 33 29 20 48 30 11 36 27  8
+[3,] 17 28 26 29 44 42 16 39 20 33 28 26 20 38 37 56
+[4,] 52 32 40 28 36 22  2 46 30 17 25 30 34 35 35 35
+[5,] 17 22 47 20 41 29  9 32 39 34 47 40  9 26 57 30</code></pre>
 </div>
 </div>
 <p>All BSgenome databases contain a <strong>seqinfo</strong> object that describes the genome. We can add this information to any of our GRanges objects.</p>
@@ -593,11 +605,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">letterFrequency</span>(gr2.seq, <span class="at">letters =</span> <span class="st">"GC"</span>, <span class="at">as.prob =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       G|C
-[1,] 0.488
-[2,] 0.606
-[3,] 0.518
-[4,] 0.456
-[5,] 0.480</code></pre>
+[1,] 0.440
+[2,] 0.612
+[3,] 0.496
+[4,] 0.416
+[5,] 0.542</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -608,11 +620,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>AAStringSet object of length 5:
     width seq
-[1]   166 LSLPAQSLPWPLL*L*NQL*TPAFT*A*FHLQGT...QQRPVLNFTWE*LEKACAEKRVGIGIRRCSLWL
-[2]   166 RGLFKGWGRSGSLGSADVCACAVCCLWVRVWCVH...GERKAWGGWVRGVGEGHLFGLSGPSSLFLRGAR
-[3]   166 WDLFLYVHFNMCLKFCLKFHFSPNKEGSPGSRGR...NRGFIFPPPHPDRSIPAGRFSPPHRLKERQHVC
-[4]   166 MKPCLY*K*KKISWAWWRTPVVLATREAEARESL...VLC*QMYKVIRYRAAYWEG*VSH*RSAWEEYLE
-[5]   166 AMDSGWWCCVDAGLSFVQTCWSGGGGGMMEAVHV...PLQVQ*CSWSHPSEQQGWDHTSGFGGQRGSETC</code></pre>
+[1]   166 TCLPLCWVLDVRPGAPDRWNLSGGGCADRLFCEP...EPTSSIKYLWKPLLRRILIRNH*NNAQSITTIK
+[2]   166 TRSPRSGGGGKGSGPAQLSPPPVVSPPGGRPQQ*...PQQPLLPYMLRHLLQGTMRRATGARTGALRTPP
+[3]   166 YAYRIRHKFLFYNKLYSFLFLFFCFFGDEVLLCY...VGVPAARGTRQEPTLVRMPCHHRHAHTHTHNHP
+[4]   166 RET*SVLPNNVEAKDCVFLC*LLSRQGELQY**I...SLQGQVSKLAGNLDFTQSAPFLLSTSICLWLLL
+[5]   166 IHMVGDFCGFIRCVRKDHQSPVSGQDVLDRRTGR...GLSPSDLRVRCPEHWTSSFMVTCGFSFKVILKL</code></pre>
 </div>
 </div>
 <p>Because the gr2 regions are randomly selected they don’t really represent transcripts. You may end up with an error if there are Ns in your sequences. You can use the <em>if.fuzzy.codon</em> argument to solve this.</p>
