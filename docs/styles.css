@@ -12,6 +12,10 @@
   border-radius:4px
 }
 
+.white {
+  background: white;
+}
+
 .key-points {
   background:#f3f7f6;
   border-left-color:#587e76; 

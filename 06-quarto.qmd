@@ -22,9 +22,11 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 -   Use **git** for version control
 :::
 
-[Quarto](https://quarto.org/) documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the `#` symbol, create lists by using `-` or `*`, and create links by using `[text](url)`.
+[Quarto](https://quarto.org/) uses **markdown** syntax to create formatted documents and websites that are great for presenting and publishing data analysis.
 
-![](images/quarto.png){fig-align="center" width="30%"}
+Markdown is a language that allows you to format text using simple plain text symbols. Quarto documents can also include code chunks that can be executed when the document is rendered. The output of the code chunks can be included in the document along with the code.
+
+![](images/quarto.png){fig-align="center" width="20%"}
 
 RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.
 
@@ -68,9 +70,13 @@ You can format text using the following markdown symbols:
 
 Begin by adding some text to the top of your document:
 
+::: {.box .white}
 ```{markdown,eval=F}
 In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.
 ```
+
+In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using `DESeq2`.
+:::
 
 #### Headings
 
@@ -78,25 +84,37 @@ We can create headings by using the `#` symbol. The number of `#` symbols indica
 
 Add a heading for the introduction section of your document.
 
+::: {.box .white}
 ```{markdown,eval=F}
 ## Introduction
 ```
+
+## Introduction
+:::
 
 #### Links
 
 Web links can be added using the following syntax: `[text](url)`. For example, to add a link to the Quarto website, you can use the following code:
 
+::: {.box .white}
 ```{markdown,eval=F}
 The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).
 ```
+
+The data from this analysis is part of a larger study described in [Kenny PJ et al., Cell Rep 2014](https://pubmed.ncbi.nlm.nih.gov/25464849/).
+:::
 
 #### Images
 
 You can place images in your document using the following syntax: `![alt text](image_url)`. For example, to add an image from a URL, you can use the following code:
 
+::: {.box .white}
 ```{markdown,eval=F}
 ![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)
 ```
+
+![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)
+:::
 
 If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file. Create a folder called `images` in your project directory and save an image in that folder. You can use the following code to add the image to your document:
 
@@ -106,14 +124,19 @@ If the image is stored on your computer, you can save it in your project directo
 
 You can add a caption to the image by adding a title in the square brackets. Format the image by adding style attributes in curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:
 
+::: {.box .white}
 ```{markdown,eval=F}
 ![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}
 ```
+
+![bioconductor_logo](images/bioconductor.png){width="25%" fig-align="center"}
+:::
 
 #### Lists
 
 Lists can be created using `-` or `*` for unordered lists and numbers for ordered lists. For example, to create an ordered list, you can use the following:
 
+::: {.box .white}
 ```{markdown,eval=F}
 The RNA-seq analysis was performed using the following steps:
   
@@ -122,10 +145,18 @@ The RNA-seq analysis was performed using the following steps:
   3.  Pseudo-alignment with [salmon](https://combine-lab.github.io/salmon/) to the human transcriptome (GRCh38 Ensembl release 106).
 ```
 
+The RNA-seq analysis was performed using the following steps:
+  
+  1.  Quality control with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+  2.  Adapter trimming with [cutadapt](https://cutadapt.readthedocs.io/en/stable/)
+  3.  Pseudo-alignment with [salmon](https://combine-lab.github.io/salmon/) to the human transcriptome (GRCh38 Ensembl release 106).
+:::
+
 #### Tables
 
 Tables can be created using the following syntax.
 
+::: {.box .white}
 ```{markdown,eval=F}
 
 The DESeq2 dataset contains counts for the following samples:
@@ -140,6 +171,18 @@ The DESeq2 dataset contains counts for the following samples:
 | MOV10_OE_3 | MOV10 over-expression | replicate 3 |
 ```
 
+The DESeq2 dataset contains counts for the following samples:
+
+| Dataset    | Description           | Replicate   |
+|------------|-----------------------|-------------|
+| Control_1  | Control               | replicate 1 |
+| Control_2  | Control               | replicate 2 |
+| Control_3  | Control               | replicate 3 |
+| MOV10_OE_1 | MOV10 over-expression | replicate 1 |
+| MOV10_OE_2 | MOV10 over-expression | replicate 2 |
+| MOV10_OE_3 | MOV10 over-expression | replicate 3 |
+:::
+
 It is sometimes easier to use the visual editor to create tables. You can switch to the visual editor by clicking the **Visual** button in the toolbar. You can then click the **Insert Table** button in the toolbar to create a table.
 
 If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.
@@ -148,6 +191,7 @@ If you want to display a large table, it will be better to use a code block, rea
 
 You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:
 
+:::: {.box .white}
 ```{markdown,eval=F}
 
 :::{.callout-note}
@@ -155,6 +199,11 @@ This data has already been loaded into a DESeq2 dataset using `tximport` and sav
 :::
 
 ```
+
+:::{.callout-note}
+This data has already been loaded into a DESeq2 dataset using `tximport` and saved as an RDS file. You can load the dataset into R using the `readRDS()` function.
+:::
+::::
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
@@ -300,9 +349,9 @@ The DT package creates data tables that can be searched, sorted and filtered. Th
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>
 
-The DT package has many options for [creating interactive tables](https://rstudio.github.io/DT/) with custom formatting and styling. The [gt](https://gt.rstudio.com/) and [reactable](https://glin.github.io/reactable/) packages are also great for creating html tables in Quarto documents.
-
-The [plotly package](https://plotly.com/r/) has many options for [creating interactive plots](https://plotly.com/r/) with custom formatting and styling.
+  - The [DT](https://rstudio.github.io/DT/) package creates interactive tables with custom formatting and styling
+  - The [gt](https://gt.rstudio.com/) and [reactable](https://glin.github.io/reactable/) packages are also great for creating html tables in Quarto documents
+  - The [plotly](https://plotly.com/r/) and [ggiraph](https://davidgohel.github.io/ggiraph/) packages create interactive plots
 :::
 
 ::: {.box .challenge}
@@ -317,12 +366,14 @@ The [plotly package](https://plotly.com/r/) has many options for [creating inter
 
 ## Version control with git
 
-When we set up our project, we instructed RStudio to create a git repository for our project. Git is a version control system that allows us to track changes to our code and documents. It is a powerful tool for software development, managing projects and collaborating with others.
+When we set up our project, we instructed RStudio to create a git repository for our project. [Git](https://git-scm.com/) is a version control system that track changes to code and documents. It is a powerful tool for software development, managing projects and collaborating with others.
 
 -   Keep track of changes to your code and documents
 -   Revert to previous versions of your code and documents
 -   Collaborate with others without overwriting each other's work or working on different versions of the same file
 -   Publish your work to GitHub for sharing with others
+
+![](images/git_logo.png){fig-align="center" width="30%"}
 
 You can link a git repository to a remote online repository on websites like GitHub and GitLab. This allows you to share your work with others and collaborate on projects. You can also use GitHub to host your Quarto documents and make them available to the public.
 
@@ -356,21 +407,35 @@ gitcreds::gitcreds_get()
 
 Go to the Git tab in RStudio. You will see a list of files in your project that have been modified (M). You can select the files you want to commit and click the **Commit** button. Committing a file means that you are saving a snapshot of the file at that point in time. You can commit as many times as you want, and each commit will create a new snapshot of the file.
 
-This will open a new window. Enter a commit message: "Initial Commit". Click the **Commit** button to commit your changes.
+![](images/git_pane.png){fig-align="center" width="50%"}
 
-Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). Select the file and click the **Commit** button. Enter a commit message that describes the changes made and click **Commit**. Useful commit messages e.g. "Added introduction section", "Updated figure 1", "Fixed bug in volcano plot" will help you keep track of the version history of your project.
+This will open a new window:
+
+  1.  Enter a commit message: "Initial Commit"
+  2.  Click the **Commit** button to commit your changes
+
+Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). 
+
+  1.  Select the file and click the **Commit** button. 
+  2.  Enter a commit message that describes the changes made and click **Commit**. 
+  
+Useful commit messages e.g. "Added introduction section", "Updated figure 1", "Fixed bug in volcano plot" will help you keep track of the version history of your project.
+
+![](images/commit.png){fig-align="center" width="50%"}
 
 You can view the commit history by clicking the **History** button in the git tab. If you need to revert a file to a previous version, you can do so by right clicking on the file in the history and selecting **Revert** from the **More** menu.
 
 ### Push changes to GitHub
 
-Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process, so we will not cover it here. The steps are outlined below.
+Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process but only needs to be performed once. We won't cover it in depth here, but the general steps are as follows:
 
 1.  Create a GitHub account
 2.  Create a personal access token on GitHub to allow you to securely connect to your GitHub account from RStudio
 3.  Create a new repository on GitHub with the same name
-4.  Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio terminal
-5.  Push your committed changes to GitHub from the Git pane
+4.  Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio **terminal**
+5.  Push your committed changes to GitHub from the Git pane in RStudio
+
+![](images/GitHub-Logo.png){fig-align="center" width="30%"}
 
 ::: {.box .resources}
 <h3><i class="fas fa-book"></i> Further learning</h3>

@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./06-shiny.html" rel="next">
+<link href="./06-reproducibility.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -150,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Creating reports with Quarto</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-quarto.html">Creating reports with Quarto</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -351,13 +353,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
  <span class="menu-text"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-Setup.html" class="sidebar-item-text sidebar-link">
@@ -368,6 +370,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./06-reproducibility.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reproducible data analysis in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-quarto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Creating reports with Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interactive applications with Shiny</span></a>
   </div>
 </li>
       </ul>
@@ -414,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Setup.html"><img src="images/shiny.png" width="20px" style="margin-right: 5px;"> 6: Presenting and publishing</a></li><li class="breadcrumb-item"><a href="./06-quarto.html">Creating reports with Quarto</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Creating reports with Quarto</h1>
 </div>
@@ -446,10 +460,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use <strong>git</strong> for version control</li>
 </ul>
 </div>
-<p><a href="https://quarto.org/">Quarto</a> documents use markdown syntax to format text using simple symbols. For example, you can create headings by using the <code>#</code> symbol, create lists by using <code>-</code> or <code>*</code>, and create links by using <code>[text](url)</code>.</p>
+<p><a href="https://quarto.org/">Quarto</a> uses <strong>markdown</strong> syntax to create formatted documents and websites that are great for presenting and publishing data analysis.</p>
+<p>Markdown is a language that allows you to format text using simple plain text symbols. Quarto documents can also include code chunks that can be executed when the document is rendered. The output of the code chunks can be included in the document along with the code.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/quarto.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+<p><img src="images/quarto.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:20.0%"></p>
 </figure>
 </div>
 <p>RStudio has built in support for two types of markdown documents, RMarkdown and Quarto. Quarto is a next-generation version of RMarkdown that is designed to be more flexible and powerful. Quarto documents can include code chunks from many different programming languages including R, Python, Julia, and JavaScript.</p>
@@ -468,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We are going to edit in the Source editor, so click the <strong>Source</strong> button. This will allow us to get to grips with the basics of markdown syntax. The <strong>Visual</strong> editor is great for quickly editing documents and has some powerful shortcuts to build html content, but it is not as flexible as the Source editor. You can switch between the two editors at any time.</p>
 </section>
 <section id="markdown-basics" class="level3">
-<h3 class="anchored" data-anchor-id="markdown-basics">Markdown basics</h3>
+<h3 class="anchored">Markdown basics</h3>
 <div class="box resources">
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
@@ -487,43 +502,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>code</code> for <code>code</code> style text</li>
 </ul>
 <p>Begin by adding some text to the top of your document:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>In this study, we investigate the effects of **MOV10** overexpression in *HEK293F* cells using <span class="in">`DESeq2`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>In this study, we investigate the effects of <strong>MOV10</strong> overexpression in <em>HEK293F</em> cells using <code>DESeq2</code>.</p>
+</div>
 </section>
 <section id="headings" class="level4">
-<h4 class="anchored" data-anchor-id="headings">Headings</h4>
+<h4 class="anchored">Headings</h4>
 <p>We can create headings by using the <code>#</code> symbol. The number of <code>#</code> symbols indicates the level of the heading. For example, <code>#</code> is a top-level heading, <code>##</code> is a second-level heading, and so on.</p>
 <p>Add a heading for the introduction section of your document.</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+</section>
 </div>
 </section>
 <section id="links" class="level4">
 <h4 class="anchored" data-anchor-id="links">Links</h4>
 <p>Web links can be added using the following syntax: <code>[text](url)</code>. For example, to add a link to the Quarto website, you can use the following code:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>The data from this analysis is part of a larger study described in <span class="co">[</span><span class="ot">Kenny PJ et al., Cell Rep 2014</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/25464849/)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The data from this analysis is part of a larger study described in <a href="https://pubmed.ncbi.nlm.nih.gov/25464849/">Kenny PJ et al., Cell Rep 2014</a>.</p>
 </div>
 </section>
 <section id="images" class="level4">
 <h4 class="anchored" data-anchor-id="images">Images</h4>
 <p>You can place images in your document using the following syntax: <code>![alt text](image_url)</code>. For example, to add an image from a URL, you can use the following code:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://bioconductor.posit.co/images/logo/svg/Logo.svg)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="https://bioconductor.posit.co/images/logo/svg/Logo.svg" class="img-fluid"></p>
 </div>
 <p>If the image is stored on your computer, you can save it in your project directory and use a relative path to the image file. Create a folder called <code>images</code> in your project directory and save an image in that folder. You can use the following code to add the image to your document:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="al">![]("images/my_image.png")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can add a caption to the image by adding a title in the square brackets. Format the image by adding style attributes in curly braces. For example, to add a caption and set the width of the image to 50%, you can use the following code:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="al">![bioconductor_logo](images/bioconductor.png)</span>{width="25%" fig-align="center"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bioconductor.png" class="img-fluid figure-img" style="width:25.0%"></p>
+<figcaption>bioconductor_logo</figcaption>
+</figure>
+</div>
 </div>
 </section>
 <section id="lists" class="level4">
 <h4 class="anchored" data-anchor-id="lists">Lists</h4>
 <p>Lists can be created using <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists. For example, to create an ordered list, you can use the following:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="an">The RNA-seq analysis was performed using the following steps:</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -531,10 +569,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  2.  </span>Adapter trimming with <span class="co">[</span><span class="ot">cutadapt</span><span class="co">](https://cutadapt.readthedocs.io/en/stable/)</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">  3.  </span>Pseudo-alignment with <span class="co">[</span><span class="ot">salmon</span><span class="co">](https://combine-lab.github.io/salmon/)</span> to the human transcriptome (GRCh38 Ensembl release 106).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The RNA-seq analysis was performed using the following steps:</p>
+<ol type="1">
+<li>Quality control with <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">fastqc</a></li>
+<li>Adapter trimming with <a href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a></li>
+<li>Pseudo-alignment with <a href="https://combine-lab.github.io/salmon/">salmon</a> to the human transcriptome (GRCh38 Ensembl release 106).</li>
+</ol>
+</div>
 </section>
 <section id="tables" class="level4">
 <h4 class="anchored" data-anchor-id="tables">Tables</h4>
 <p>Tables can be created using the following syntax.</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>The DESeq2 dataset contains counts for the following samples:</span>
@@ -548,17 +594,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MOV10_OE_2 <span class="pp">|</span> MOV10 over-expression <span class="pp">|</span> replicate 2 <span class="pp">|</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MOV10_OE_3 <span class="pp">|</span> MOV10 over-expression <span class="pp">|</span> replicate 3 <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The DESeq2 dataset contains counts for the following samples:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Description</th>
+<th>Replicate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control_1</td>
+<td>Control</td>
+<td>replicate 1</td>
+</tr>
+<tr class="even">
+<td>Control_2</td>
+<td>Control</td>
+<td>replicate 2</td>
+</tr>
+<tr class="odd">
+<td>Control_3</td>
+<td>Control</td>
+<td>replicate 3</td>
+</tr>
+<tr class="even">
+<td>MOV10_OE_1</td>
+<td>MOV10 over-expression</td>
+<td>replicate 1</td>
+</tr>
+<tr class="odd">
+<td>MOV10_OE_2</td>
+<td>MOV10 over-expression</td>
+<td>replicate 2</td>
+</tr>
+<tr class="even">
+<td>MOV10_OE_3</td>
+<td>MOV10 over-expression</td>
+<td>replicate 3</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>It is sometimes easier to use the visual editor to create tables. You can switch to the visual editor by clicking the <strong>Visual</strong> button in the toolbar. You can then click the <strong>Insert Table</strong> button in the toolbar to create a table.</p>
 <p>If you want to display a large table, it will be better to use a code block, read the data into R and display it in the document. We will see examples of this below.</p>
 </section>
 <section id="callout-blocks" class="level4">
 <h4 class="anchored">Callout blocks</h4>
 <p>You can add callout blocks to your document to highlight important information. Callouts are boxed sections of text that can be used to draw attention to important information. You can create a callout block using the following syntax:</p>
+<div class="box white">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>This data has already been loaded into a DESeq2 dataset using <span class="in">`tximport`</span> and saved as an RDS file. You can load the dataset into R using the <span class="in">`readRDS()`</span> function.</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This data has already been loaded into a DESeq2 dataset using <code>tximport</code> and saved as an RDS file. You can load the dataset into R using the <code>readRDS()</code> function.</p>
+</div>
+</div>
 </div>
 <div class="box resources">
 <h3 class="anchored" data-anchor-id="callout-blocks">
@@ -661,7 +765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">    output-file: index.html</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We could have used plain text for our date, but by using 2026-06-21 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
+<p>We could have used plain text for our date, but by using 2026-06-22 we can automatically update the date to the current date when the document is rendered. This is the R function for the current date. You can use any R function in the header by using the <code>r</code> prefix.</p>
 <p>The table of contents and theme are added as html options. The table of contents will show all of the headings in the document. The <code>toc-depth</code> option controls how many levels of headings are shown in the table of contents. In this case, we have set it to 2, which means that only headings with 1 or 2 <code>#</code> symbols will be shown in the table of contents.</p>
 <p>The theme controls the appearance of the document. You can choose from several preset themes to change the look and feel of your document.</p>
 <p>We are also going to set the output file name to <code>index.html</code>. This is the default file name for the home page of a website. If we want to publish a single document as a website, we need to set the output file name to <code>index.html</code>.</p>
@@ -689,8 +793,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
 </h3>
-<p>The DT package has many options for <a href="https://rstudio.github.io/DT/">creating interactive tables</a> with custom formatting and styling. The <a href="https://gt.rstudio.com/">gt</a> and <a href="https://glin.github.io/reactable/">reactable</a> packages are also great for creating html tables in Quarto documents.</p>
-<p>The <a href="https://plotly.com/r/">plotly package</a> has many options for <a href="https://plotly.com/r/">creating interactive plots</a> with custom formatting and styling.</p>
+<ul>
+<li>The <a href="https://rstudio.github.io/DT/">DT</a> package creates interactive tables with custom formatting and styling</li>
+<li>The <a href="https://gt.rstudio.com/">gt</a> and <a href="https://glin.github.io/reactable/">reactable</a> packages are also great for creating html tables in Quarto documents</li>
+<li>The <a href="https://plotly.com/r/">plotly</a> and <a href="https://davidgohel.github.io/ggiraph/">ggiraph</a> packages create interactive plots</li>
+</ul>
 </div>
 <div class="box challenge">
 <h3 class="anchored">
@@ -707,13 +814,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="version-control-with-git" class="level2">
 <h2 class="anchored" data-anchor-id="version-control-with-git">Version control with git</h2>
-<p>When we set up our project, we instructed RStudio to create a git repository for our project. Git is a version control system that allows us to track changes to our code and documents. It is a powerful tool for software development, managing projects and collaborating with others.</p>
+<p>When we set up our project, we instructed RStudio to create a git repository for our project. <a href="https://git-scm.com/">Git</a> is a version control system that track changes to code and documents. It is a powerful tool for software development, managing projects and collaborating with others.</p>
 <ul>
 <li>Keep track of changes to your code and documents</li>
 <li>Revert to previous versions of your code and documents</li>
 <li>Collaborate with others without overwriting each other’s work or working on different versions of the same file</li>
 <li>Publish your work to GitHub for sharing with others</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/git_logo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <p>You can link a git repository to a remote online repository on websites like GitHub and GitLab. This allows you to share your work with others and collaborate on projects. You can also use GitHub to host your Quarto documents and make them available to the public.</p>
 <p>Git is a command line tool, but RStudio has built in support for git. You can use the git tab in RStudio (top right) to view the status of your project, commit changes you have made to documents and push changes to a remote repository.</p>
 <section id="git-ignore" class="level3">
@@ -740,20 +852,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="commit-changes" class="level3">
 <h3 class="anchored" data-anchor-id="commit-changes">Commit changes</h3>
 <p>Go to the Git tab in RStudio. You will see a list of files in your project that have been modified (M). You can select the files you want to commit and click the <strong>Commit</strong> button. Committing a file means that you are saving a snapshot of the file at that point in time. You can commit as many times as you want, and each commit will create a new snapshot of the file.</p>
-<p>This will open a new window. Enter a commit message: “Initial Commit”. Click the <strong>Commit</strong> button to commit your changes.</p>
-<p>Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M). Select the file and click the <strong>Commit</strong> button. Enter a commit message that describes the changes made and click <strong>Commit</strong>. Useful commit messages e.g.&nbsp;“Added introduction section”, “Updated figure 1”, “Fixed bug in volcano plot” will help you keep track of the version history of your project.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/git_pane.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p>This will open a new window:</p>
+<ol type="1">
+<li>Enter a commit message: “Initial Commit”</li>
+<li>Click the <strong>Commit</strong> button to commit your changes</li>
+</ol>
+<p>Open your quarto document, make some changes to the text and save the file . You will see that the quarto document is now listed as modified (M).</p>
+<ol type="1">
+<li>Select the file and click the <strong>Commit</strong> button.</li>
+<li>Enter a commit message that describes the changes made and click <strong>Commit</strong>.</li>
+</ol>
+<p>Useful commit messages e.g.&nbsp;“Added introduction section”, “Updated figure 1”, “Fixed bug in volcano plot” will help you keep track of the version history of your project.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/commit.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
 <p>You can view the commit history by clicking the <strong>History</strong> button in the git tab. If you need to revert a file to a previous version, you can do so by right clicking on the file in the history and selecting <strong>Revert</strong> from the <strong>More</strong> menu.</p>
 </section>
 <section id="push-changes-to-github" class="level3">
 <h3 class="anchored" data-anchor-id="push-changes-to-github">Push changes to GitHub</h3>
-<p>Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process, so we will not cover it here. The steps are outlined below.</p>
+<p>Once you have committed your changes, you can push them to a remote repository on GitHub. Linking a project to a remote repository can be a bit of an arduous process but only needs to be performed once. We won’t cover it in depth here, but the general steps are as follows:</p>
 <ol type="1">
 <li>Create a GitHub account</li>
 <li>Create a personal access token on GitHub to allow you to securely connect to your GitHub account from RStudio</li>
 <li>Create a new repository on GitHub with the same name</li>
-<li>Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio terminal</li>
-<li>Push your committed changes to GitHub from the Git pane</li>
+<li>Copy the code to link your local repository to the remote repository on GitHub and run this in the RStudio <strong>terminal</strong></li>
+<li>Push your committed changes to GitHub from the Git pane in RStudio</li>
 </ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/GitHub-Logo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
 <div class="box resources">
 <h3 class="anchored">
 <i class="fas fa-book"></i> Further learning
@@ -1263,6 +1399,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-reproducibility.html" class="pagination-link" aria-label="Reproducible data analysis in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Reproducible data analysis in R</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./06-shiny.html" class="pagination-link" aria-label="Interactive applications with Shiny">
+        <span class="nav-page-text">Interactive applications with Shiny</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

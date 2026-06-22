@@ -82,6 +82,10 @@ website:
             text: Setup
           - href: 06-reproducibility.qmd
             text: Reproducible data analysis in R
+          - href: 06-quarto.qmd
+            text: Creating reports with Quarto
+          - href: 06-shiny.qmd
+            text: Interactive applications with Shiny
 format:
   html:
     theme: 
