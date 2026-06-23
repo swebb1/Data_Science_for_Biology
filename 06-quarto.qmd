@@ -265,8 +265,8 @@ To turn off messages and warnings, we can add the following to our code block:
 
 ````{markdown,eval=F}
 ```{r load_libraries}
-#| warning = FALSE
-#| message = FALSE
+#| warning: FALSE
+#| message: FALSE
 # Load the libraries we will use in this analysis
 library(tidyverse)
 library(DESeq2)
